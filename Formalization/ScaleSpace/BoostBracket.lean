@@ -26,8 +26,10 @@ finite basis and forces an integer temporal order (`drift_forced`, `thm:galilean
 Here `[γ, L^{(v)}]` lands on `−∂_v L^{(v)}`, along the *continuous* `v` direction. That term is a
 genuine Mathlib `deriv` (`hasDerivAt_Lop`: affine in `v`), so the bracket is a proved identity.
 
-The structure constants are posited (as in `drift_forced`); grounding them in concrete differential
-operators would strengthen this to a fully closed derivation, parallel to the `[A]` interfaces.
+The structure constants are posited here (as in `drift_forced`); they are **proved** for genuine
+differential operators (the Weyl algebra) in `ScaleSpace.BoostBracket.Concrete`, which instantiates
+this file's `boost_comm_Lop` to give `boost_bracket_concrete` — the boost bracket with no posited
+relation, `#print axioms` Lean-core only.
 -/
 
 namespace ScaleSpace.BoostBracket
@@ -47,8 +49,10 @@ theorem hasDerivAt_Lop [NormedRing L] [NormedAlgebra ℝ L] (dt dj B : L) (v : �
   unfold Lop
   exact (hs.const_add dt).sub_const B
 
-/-- The commutator `[γ, L_t^{(v)}] = −∂_y`, from the Galilean structure constants. -/
-theorem boost_comm_Lop [NormedRing L] [NormedAlgebra ℝ L]
+/-- The commutator `[γ, L_t^{(v)}] = −∂_y`, from the Galilean structure constants. Stated over a
+general `ℝ`-algebra so a concrete operator algebra (e.g. `Module.End ℝ (MvPolynomial …)`) can
+instantiate it — see `ScaleSpace.BoostBracket.Concrete`. -/
+theorem boost_comm_Lop [Ring L] [Algebra ℝ L]
     (dt dj B boost : L)
     (h_dt : boost * dt - dt * boost = -dj)
     (h_dj : boost * dj - dj * boost = 0)
