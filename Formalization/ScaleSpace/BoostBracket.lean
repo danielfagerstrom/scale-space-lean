@@ -10,16 +10,16 @@ note in the finite-domain section of the blueprint. This is the **resolution-sid
 `ScaleSpace.drift_forced` (the *obstruction* side).
 
 In the velocity-adapted memory formulation the temporal evolution operator is
-`L_t^{(v)} = ∂_t + v · ∇_y − 𝓑` (`Lop`), with `𝓑` the memory generator and `v` the velocity, along
+`L_t^{(v)} = ∂_t + v · ∇_x − 𝓑` (`Lop`), with `𝓑` the memory generator and `v` the velocity, along
 one spatial direction. Writing the Galilean generators as elements of the operator algebra `L` —
-`dt = ∂_t`, `dj = ∂_y` (spatial translation), `boost = γ = t∂_y`, `B = 𝓑` — their commutators are
+`dt = ∂_t`, `dj = ∂_x` (spatial translation), `boost = γ = t∂_x`, `B = 𝓑` — their commutators are
 the Galilean structure constants (the same ones `drift_forced` posits):
 
-* `[γ, ∂_t] = −∂_y`   (`boost * dt − dt * boost = −dj`),
-* `[γ, ∂_y] = 0`,
-* `[γ, 𝓑] = 0`        (the boost touches only `t, y`, not the memory).
+* `[γ, ∂_t] = −∂_x`   (`boost * dt − dt * boost = −dj`),
+* `[γ, ∂_x] = 0`,
+* `[γ, 𝓑] = 0`        (the boost touches only `t, x`, not the memory).
 
-From these the **boost bracket** is `[γ, L_t^{(v)}] = −∂_y = −∂_v L_t^{(v)}` (`boost_bracket`): the
+From these the **boost bracket** is `[γ, L_t^{(v)}] = −∂_x = −∂_v L_t^{(v)}` (`boost_bracket`): the
 boost acts on the velocity-indexed family as a *translation in `v`*. This is why space-and-memory
 carries no obstruction — unlike a single space-time generator, whose `ad(γ)` cascade must close in a
 finite basis and forces an integer temporal order (`drift_forced`, `thm:galilean-nonexistence`).
@@ -36,11 +36,11 @@ namespace ScaleSpace.BoostBracket
 
 variable {L : Type*}
 
-/-- The velocity-adapted temporal evolution operator `L_t^{(v)} = ∂_t + v · ∂_y − 𝓑`, as an element
+/-- The velocity-adapted temporal evolution operator `L_t^{(v)} = ∂_t + v · ∂_x − 𝓑`, as an element
 of the operator algebra, for scalar velocity `v` along one spatial direction. -/
 def Lop [Ring L] [Module ℝ L] (dt dj B : L) (v : ℝ) : L := dt + v • dj - B
 
-/-- `∂_v L_t^{(v)} = ∂_y`: the evolution is affine in the velocity, with slope the spatial
+/-- `∂_v L_t^{(v)} = ∂_x`: the evolution is affine in the velocity, with slope the spatial
 translation `dj`. -/
 theorem hasDerivAt_Lop [NormedRing L] [NormedAlgebra ℝ L] (dt dj B : L) (v : ℝ) :
     HasDerivAt (Lop dt dj B) dj v := by
@@ -49,7 +49,7 @@ theorem hasDerivAt_Lop [NormedRing L] [NormedAlgebra ℝ L] (dt dj B : L) (v : �
   unfold Lop
   exact (hs.const_add dt).sub_const B
 
-/-- The commutator `[γ, L_t^{(v)}] = −∂_y`, from the Galilean structure constants. Stated over a
+/-- The commutator `[γ, L_t^{(v)}] = −∂_x`, from the Galilean structure constants. Stated over a
 general `ℝ`-algebra so a concrete operator algebra (e.g. `Module.End ℝ (MvPolynomial …)`) can
 instantiate it — see `ScaleSpace.BoostBracket.Concrete`. -/
 theorem boost_comm_Lop [Ring L] [Algebra ℝ L]
@@ -67,7 +67,7 @@ theorem boost_comm_Lop [Ring L] [Algebra ℝ L]
   rw [expand, hdj, h_dt, h_B]
   simp
 
-/-- **The boost bracket.** The Galilean boost `γ = t∂_y` acts on the velocity-adapted temporal
+/-- **The boost bracket.** The Galilean boost `γ = t∂_x` acts on the velocity-adapted temporal
 evolution `L_t^{(v)}` as a translation in the velocity parameter: `[γ, L_t^{(v)}] = −∂_v L_t^{(v)}`.
 The space-and-memory resolution of the non-existence theorem as one operator identity. -/
 theorem boost_bracket [NormedRing L] [NormedAlgebra ℝ L]
