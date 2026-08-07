@@ -1,0 +1,5 @@
+# Lean / lake
+.lake/
+build/
+lake-packages/
+*.olean

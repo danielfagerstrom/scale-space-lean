@@ -1,4 +1,4 @@
-import ScaleSpace.BoostBracket
+import ScaleSpaceCore.BoostBracket
 import Mathlib.Algebra.MvPolynomial.PDeriv
 import Mathlib.RingTheory.Derivation.Lie
 import Mathlib.Algebra.Algebra.Bilinear

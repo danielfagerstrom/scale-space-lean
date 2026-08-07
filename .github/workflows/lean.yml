@@ -1,0 +1,23 @@
+name: Lean CI
+
+# Thin caller on the shared framework. No axiom guard here: this library has no axiom ledger
+# because it is not allowed to carry an interface — everything is proved from Mathlib alone,
+# so a consuming article's trust base gains nothing by depending on it. AxiomCheck.lean is the
+# local check of that property.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    uses: danielfagerstrom/article-kit/.github/workflows/lean.yml@main
+    with:
+      lean_dir: "."
+      build_args: ScaleSpaceCore
+      sorry_guard_dir: ScaleSpaceCore
+      axiom_guard_file: ""       # no ledger to guard against

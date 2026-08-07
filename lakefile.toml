@@ -1,0 +1,21 @@
+name = "ScaleSpaceCore"
+version = "0.1.0"
+keywords = ["math", "scale-space"]
+defaultTargets = ["ScaleSpaceCore"]
+
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.31.0"
+
+[[lean_lib]]
+name = "ScaleSpaceCore"
+# Build every submodule, not just the root's import closure — same reason as the article
+# repos: a module reachable only from a downstream consumer must still be compiled here.
+globs = ["ScaleSpaceCore.*"]
