@@ -116,3 +116,52 @@ jobs:
             exit 1
           fi
           echo "OK: no 'sorry' in ScaleSpaceCore."
+
+      # The claim the README makes, machine-checked. This library is not allowed to carry a
+      # cited interface, so unlike an article there is no ledger to consult and no allowlist to
+      # maintain: the permitted trust base is exactly Lean core, hardcoded below. Anything else
+      # in the output means an analytic interface has leaked in and every downstream article's
+      # trust base just widened.
+      #
+      # AxiomCheck.lean is not part of the `ScaleSpaceCore` library target (the lakefile's glob
+      # covers `ScaleSpaceCore.*` only), so it is elaborated directly here rather than built.
+      - name: Guard — trust base is Lean core only (`#print axioms`)
+        run: |
+          set -o pipefail
+          out="$(lake env lean AxiomCheck.lean 2>&1)" || {
+            echo "$out"
+            echo "::error::AxiomCheck.lean failed to elaborate."
+            exit 1
+          }
+          echo "$out"
+
+          if grep -q 'sorryAx' <<<"$out"; then
+            echo "::error::sorryAx reached a result — a sorry is in the trust base."
+            exit 1
+          fi
+
+          # Collect every axiom named in the `#print axioms` output, joining wrapped lines
+          # first. `|| true` on the grep: a fully axiom-free run yields no match, which must
+          # not fail the step.
+          joined="$(printf '%s' "$out" | tr '\n' ' ')"
+          lists="$(grep -oE 'depends on axioms: \[[^]]*\]' <<<"$joined" || true)"
+          found="$(printf '%s' "$lists" \
+            | sed -E 's/depends on axioms: \[//; s/\]//' \
+            | tr ',' '\n' \
+            | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' \
+            | sort -u)"
+
+          bad=""
+          while IFS= read -r a; do
+            [ -z "$a" ] && continue
+            case "$a" in
+              propext|Classical.choice|Quot.sound) ;;
+              *) bad="$bad $a" ;;
+            esac
+          done <<<"$found"
+
+          if [ -n "$bad" ]; then
+            echo "::error::a result depends on an axiom outside Lean core:$bad — this library must rest on Mathlib alone, or every downstream article's trust base widens."
+            exit 1
+          fi
+          echo "OK: trust base reduces to Lean core only."
