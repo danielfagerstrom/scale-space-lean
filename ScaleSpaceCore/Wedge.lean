@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Daniel Fagerström. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Daniel Fagerström
+-/
 import Mathlib.Algebra.Module.Defs
 -- ℝ's own algebraic instances. Module.Defs supplies `Module`, not `Semiring ℝ`; before the
 -- split those arrived transitively through the article's Interfaces module

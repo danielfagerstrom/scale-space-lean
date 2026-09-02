@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Daniel Fagerström. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Daniel Fagerström
+-/
 import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
 import Mathlib.Analysis.Calculus.FDeriv.Comp
 import Mathlib.Analysis.Calculus.FDeriv.Linear
@@ -32,13 +37,13 @@ namespace ScaleSpace.ReceptiveField
 
 variable {M : Type*} [NormedAddCommGroup M] [NormedSpace ℝ M]
 
-/-- `[T]` A continuous linear map commutes with differentiation of a curve:
+/-- A continuous linear map commutes with differentiation of a curve:
 `d/ds (L (u s)) = L (u' )`. -/
 theorem hasDerivAt_clm_comp (L : M →L[ℝ] M) {u : ℝ → M} {u' : M} {t : ℝ}
     (h : HasDerivAt u u' t) : HasDerivAt (fun s => L (u s)) (L u') t := by
   simpa [Function.comp_def] using (L.hasFDerivAt.comp t h.hasFDerivAt).hasDerivAt
 
-/-- `[T]` `deriv`-form of `hasDerivAt_clm_comp`. -/
+/-- `deriv`-form of `hasDerivAt_clm_comp`. -/
 theorem deriv_clm_comp (L : M →L[ℝ] M) {g : ℝ → M} {t : ℝ} (hg : DifferentiableAt ℝ g t) :
     deriv (fun s => L (g s)) t = L (deriv g t) :=
   (hasDerivAt_clm_comp L hg.hasDerivAt).deriv
@@ -46,7 +51,7 @@ theorem deriv_clm_comp (L : M →L[ℝ] M) {g : ℝ → M} {t : ℝ} (hg : Diffe
 /-- A curve `u` solves the abstract scale-space evolution `∂_s u = A u`. -/
 def Solves (A : M →L[ℝ] M) (u : ℝ → M) : Prop := ∀ s, HasDerivAt u (A (u s)) s
 
-/-- `[T]` **Receptive fields are scale-spaces.** If a derivative operator `D` commutes with the
+/-- **Receptive fields are scale-spaces.** If a derivative operator `D` commutes with the
 generator `A`, then `D` carries a solution to a solution: `∂_x` of a scale-space solves the same
 evolution, so a Gaussian-derivative receptive field is a legitimate scale-space measurement. -/
 theorem Solves.clm_comp {A D : M →L[ℝ] M} (hAD : D.comp A = A.comp D)
@@ -57,7 +62,7 @@ theorem Solves.clm_comp {A D : M →L[ℝ] M} (hAD : D.comp A = A.comp D)
   rw [h2] at h1
   exact h1
 
-/-- `[T]` **The temporal jet is memory-axis powers of the generator.** For a solution of
+/-- **The temporal jet is memory-axis powers of the generator.** For a solution of
 `∂_t u = A u`, the `k`-th time derivative is `∂_t^k u = A^k u` — a memory-axis operation (a power of
 the generator), not a derivative of the signal in time. This is the framework-consistency
 constraint: the temporal part of the N-jet stays inside the causal, memory-based account of time. -/
