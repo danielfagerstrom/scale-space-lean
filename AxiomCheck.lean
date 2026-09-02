@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Daniel Fagerström. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Daniel Fagerström
+-/
 import ScaleSpaceCore
 
 /-! The discipline this library claims: everything is proved from Mathlib alone, so a

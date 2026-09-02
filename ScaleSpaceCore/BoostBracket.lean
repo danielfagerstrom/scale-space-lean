@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Daniel Fagerström. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Daniel Fagerström
+-/
 import Mathlib.Analysis.Calculus.Deriv.Add
 import Mathlib.Analysis.Calculus.Deriv.Mul
 import Mathlib.Tactic.NoncommRing
@@ -5,9 +10,9 @@ import Mathlib.Tactic.NoncommRing
 /-!
 # The Galilean boost bracket — the space-and-memory resolution as an operator identity
 
-Wiki `covariant-memory-evolution` (the joint space × memory × boost system); the research-direction
-note in the finite-domain section of the blueprint. This is the **resolution-side** companion to
-`ScaleSpace.drift_forced` (the *obstruction* side).
+The joint space × memory × boost system. This is the **resolution-side** companion to the
+*obstruction* side, `ScaleSpace.drift_forced` (`thm:galilean-nonexistence`), which is
+article-specific and so lives in the consuming article's own formalisation, not here.
 
 In the velocity-adapted memory formulation the temporal evolution operator is
 `L_t^{(v)} = ∂_t + v · ∇_x − 𝓑` (`Lop`), with `𝓑` the memory generator and `v` the velocity, along
