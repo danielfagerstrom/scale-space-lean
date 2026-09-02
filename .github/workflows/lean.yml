@@ -1,9 +1,32 @@
 name: Lean CI
 
-# Thin caller on the shared framework. No axiom guard here: this library has no axiom ledger
-# because it is not allowed to carry an interface — everything is proved from Mathlib alone,
-# so a consuming article's trust base gains nothing by depending on it. AxiomCheck.lean is the
-# local check of that property.
+# Self-contained on purpose. This library is published, and a public repository cannot call a
+# reusable workflow that lives in a private one — so the thin caller on article-kit's shared
+# `lean.yml` was inlined here. Nothing was lost in the move: of that workflow's ten steps, the
+# only two this repo ever reached past were the two gated on `axiom_guard_file`, and this repo
+# passed `axiom_guard_file: ""`. Those two are the ones that clone article-kit and install
+# `linkage`; everything else is generic Lean CI. There is no article-kit dependency left, and
+# no ARTICLE_KIT_TOKEN secret is needed.
+#
+# There is deliberately no trust-boundary guard against a ledger, because this library has no
+# ledger: it is not allowed to carry a cited interface at all. The stronger check is possible
+# here precisely because of that — see the axiom guard at the end, which demands Lean core and
+# nothing else.
+#
+# ── Why this workflow drives the Lake cache itself ────────────────────────────────────────
+# Inherited, with its reasons, from the shared workflow. `lean-action` has its own
+# `use-github-cache`, which caches the WHOLE `.lake` — Mathlib's compiled oleans included.
+# That duplicates what `lake exe cache get` pulls from Mathlib's own cloud cache on the very
+# next step, and it is most of the payload (the shared entry grew to 2.3 GB compressed / ~8 GB
+# unpacked). Restoring it, re-downloading Mathlib's `.ltar` bundles on top, then building,
+# filled the runner's disk; the post-build cache save then had no room and reported
+#
+#     zstd: error 70 : Write error : cannot write block : No space left on device
+#
+# A cache-save failure is only a WARNING, so runs stayed green while silently never refreshing
+# the cache. So: `use-github-cache: false`, and the restore/save below cache `.lake` MINUS
+# Mathlib's build tree. Excluding it costs nothing — `lake exe cache get` downloads those
+# oleans every run regardless, because its `.ltar` bundles live in `~/.cache/mathlib`.
 
 on:
   push:
@@ -14,10 +37,131 @@ permissions:
   contents: read
 
 jobs:
-  lean:
-    uses: danielfagerstrom/article-kit/.github/workflows/lean.yml@main
-    with:
-      lean_dir: "."
-      build_args: ScaleSpaceCore
-      sorry_guard_dir: ScaleSpaceCore
-      axiom_guard_file: ""       # no ledger to guard against
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # Not a micro-optimisation: without this the job runs out of disk, and running out of
+      # disk is how the cache save silently fails and how the runner dies mid-build with no
+      # logs uploaded. `|| true` throughout — a path missing from a future runner image must
+      # never turn CI red.
+      - name: Reclaim runner disk space
+        run: |
+          echo "before:"; df -h /
+          for d in /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL /usr/local/share/powershell /usr/share/swift; do
+            sudo rm -rf "$d" || true
+          done
+          sudo docker image prune --all --force > /dev/null 2>&1 || true
+          echo "after:"; df -h /
+
+      # Toolchain + manifest + commit, with a prefix restore-key so a run inherits the nearest
+      # previous build. Restore and save are separate actions deliberately: a prefix match is
+      # NOT an exact-key hit, so the combined action would still save — the split makes the
+      # save unconditional and visible here rather than buried in a composite action.
+      - name: Restore the Lake build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake
+            !.lake/packages/mathlib/.lake/build
+          key: lake-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}-${{ hashFiles('lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: lake-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}-${{ hashFiles('lake-manifest.json') }}-
+
+      # elan/lean/lake setup + `lake exe cache get` (auto, Mathlib detected) + `lake build`.
+      # The lakefile's `globs = ["ScaleSpaceCore.*"]` compiles *every* module under the
+      # library, so a broken proof in a module reachable only from a downstream consumer still
+      # turns CI red — without the glob, only the root import closure would be built.
+      - name: Build the Lean library
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: "."
+          build-args: ScaleSpaceCore
+          use-github-cache: "false"
+
+      # The `.ltar` bundles are scratch once unpacked and are several GB, so they go; and if
+      # the disk is still too tight to write the archive we fail loudly here instead of letting
+      # `actions/cache/save` downgrade it to a warning nobody reads. A green build that cannot
+      # record its result is not a green run — the next one pays for it.
+      - name: Trim scratch and check there is room to save the cache
+        run: |
+          rm -rf ~/.cache/mathlib
+          echo "whole .lake / of which Mathlib's build tree (the part NOT cached):"
+          du -sh .lake 2>/dev/null || true
+          du -sh .lake/packages/mathlib/.lake/build 2>/dev/null || true
+          df -h /
+          free_mb=$(( $(df --output=avail -k / | tail -1) / 1024 ))
+          if [ "$free_mb" -lt 3072 ]; then
+            echo "::error::only ${free_mb} MB of disk left — the Lake cache save would fail with 'No space left on device' and be reported as a mere warning."
+            exit 1
+          fi
+          echo "OK: ${free_mb} MB free, enough to write the cache archive."
+
+      - name: Save the Lake build cache
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake
+            !.lake/packages/mathlib/.lake/build
+          key: lake-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}-${{ hashFiles('lake-manifest.json') }}-${{ github.sha }}
+
+      # The pattern excludes the backtick-wrapped prose `sorry`(-free) that legitimately
+      # appears in docstrings, while still catching a real `sorry` term/tactic (always adjacent
+      # to whitespace/parens, never a backtick).
+      - name: Guard — no `sorry` in the Lean sources
+        run: |
+          if grep -rnE '(^|[^`[:alnum:]_])sorry([^`[:alnum:]_-]|$)' --include='*.lean' ScaleSpaceCore; then
+            echo "::error::A 'sorry' appears in ScaleSpaceCore — the development must stay sorry-free."
+            exit 1
+          fi
+          echo "OK: no 'sorry' in ScaleSpaceCore."
+
+      # The claim the README makes, machine-checked. This library is not allowed to carry a
+      # cited interface, so unlike an article there is no ledger to consult and no allowlist to
+      # maintain: the permitted trust base is exactly Lean core, hardcoded below. Anything else
+      # in the output means an analytic interface has leaked in and every downstream article's
+      # trust base just widened.
+      #
+      # AxiomCheck.lean is not part of the `ScaleSpaceCore` library target (the lakefile's glob
+      # covers `ScaleSpaceCore.*` only), so it is elaborated directly here rather than built.
+      - name: Guard — trust base is Lean core only (`#print axioms`)
+        run: |
+          set -o pipefail
+          out="$(lake env lean AxiomCheck.lean 2>&1)" || {
+            echo "$out"
+            echo "::error::AxiomCheck.lean failed to elaborate."
+            exit 1
+          }
+          echo "$out"
+
+          if grep -q 'sorryAx' <<<"$out"; then
+            echo "::error::sorryAx reached a result — a sorry is in the trust base."
+            exit 1
+          fi
+
+          # Collect every axiom named in the `#print axioms` output, joining wrapped lines
+          # first. `|| true` on the grep: a fully axiom-free run yields no match, which must
+          # not fail the step.
+          joined="$(printf '%s' "$out" | tr '\n' ' ')"
+          lists="$(grep -oE 'depends on axioms: \[[^]]*\]' <<<"$joined" || true)"
+          found="$(printf '%s' "$lists" \
+            | sed -E 's/depends on axioms: \[//; s/\]//' \
+            | tr ',' '\n' \
+            | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' \
+            | sort -u)"
+
+          bad=""
+          while IFS= read -r a; do
+            [ -z "$a" ] && continue
+            case "$a" in
+              propext|Classical.choice|Quot.sound) ;;
+              *) bad="$bad $a" ;;
+            esac
+          done <<<"$found"
+
+          if [ -n "$bad" ]; then
+            echo "::error::a result depends on an axiom outside Lean core:$bad — this library must rest on Mathlib alone, or every downstream article's trust base widens."
+            exit 1
+          fi
+          echo "OK: trust base reduces to Lean core only."
