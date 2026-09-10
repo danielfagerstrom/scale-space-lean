@@ -74,6 +74,17 @@ actually needs it, not when it looks general. Candidates being watched: the Cauc
 equation forcing `sᵅ`, and a Bernstein-function interface (a second article works with Bernstein
 functions of nonincreasing Lévy density, so overlap is likely but unproven).
 
+Queued from the spatial article's proving campaign (2026-09-10), in the order the two articles
+would spend them: **the two-sided Laplace transform as an entire function on a strip with an
+identity theorem** — both articles admit Karlin-type interfaces whose matching to their own
+exponent is an analytic continuation neither can state today (the spatial article's ledger
+A21/A22 carries it as a recorded debt); **locally finite Laplace uniqueness on a half-line**
+(proved identically in both articles, differing in one predicate); **the convolution transport
+block and the transform bridge** (the spatial article's `ConvolutionOperator`, `TransformBridge`);
+**the a.e.-tail / antitone-density toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`,
+`eqOn_of_ae_eq_of_antitoneOn`); **variation diminution under convolution** and the test-function
+uniqueness of finite measures. Each is article-independent and each has two consumers.
+
 ## License
 
 Copyright (c) 2026 Daniel Fagerström.
