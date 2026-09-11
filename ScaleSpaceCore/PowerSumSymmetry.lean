@@ -133,14 +133,14 @@ theorem summable_comp_max_of_abs_le_sq {a : ℕ → ℝ} (ha : Summable fun j =>
   · simp [max_eq_right h, sq_nonneg]
   · simp [max_eq_left h]
 
--- `hgm` is kept so that the statement reads as the consumer expects; the proof does not need
--- it, since the integral against a countable sum of Dirac masses is a weighted sum for every `g`.
-set_option linter.unusedVariables false in
 /-- **The halving identity.** If the odd power sums `∑ a_j^{2k+3}` of a square-summable real
 sequence all vanish, then every even, quadratically bounded `g` with `g 0 = 0` satisfies
-`∑ g (a_j) = 2 ∑ g (a_j⁺)`: the negative terms contribute exactly what the positive ones do. -/
+`∑ g (a_j) = 2 ∑ g (a_j⁺)`: the negative terms contribute exactly what the positive ones do.
+
+No measurability of `g` is asked: the integral against a countable sum of Dirac masses is a
+weighted sum for every `g`. -/
 theorem tsum_eq_two_mul_tsum_posPart {a : ℕ → ℝ} (ha : Summable fun j => a j ^ 2)
-    (hodd : ∀ k : ℕ, ∑' j, a j ^ (2 * k + 3) = 0) {g : ℝ → ℝ} (hgm : Measurable g)
+    (hodd : ∀ k : ℕ, ∑' j, a j ^ (2 * k + 3) = 0) {g : ℝ → ℝ}
     (hge : ∀ y, g (-y) = g y) (hg0 : g 0 = 0) {C : ℝ} (hgC : ∀ y, |g y| ≤ C * y ^ 2) :
     ∑' j, g (a j) = 2 * ∑' j, g (max (a j) 0) := by
   -- `h y = g y / y²` on the positive axis, `0` elsewhere, so `y² h y = g (max y 0)`.

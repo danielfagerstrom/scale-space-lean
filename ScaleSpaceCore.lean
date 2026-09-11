@@ -8,6 +8,8 @@ import ScaleSpaceCore.ReceptiveField
 import ScaleSpaceCore.BoostBracket
 import ScaleSpaceCore.BoostBracketConcrete
 import ScaleSpaceCore.PowerSumSymmetry
+import ScaleSpaceCore.CausalCone
+import ScaleSpaceCore.CausalData
 
 /-! # The shared scale-space core
 

@@ -44,6 +44,7 @@ deliberately, as one step.
 | `BoostBracket` | operator-algebra bracket identities over an arbitrary ℝ-algebra |
 | `BoostBracketConcrete` | a Weyl-algebra (`MvPolynomial (Fin 3) ℝ`) faithful realisation grounding the structure constants |
 | `PowerSumSymmetry` | vanishing odd power sums make `∑ a_j² δ_{a_j}` reflection-invariant; the halving identity `∑ g (a_j) = 2 ∑ g (a_j⁺)` for even, quadratically bounded `g` |
+| `CausalCone`, `CausalData` | `CausalAdmissible` (drift `b₀ ≥ 0`, nonincreasing delay profile `k ≥ 0`) with its exponent, the equivalence of the two finiteness forms (`ne_top_iff_windows`, `ofNeTop`), sums, multiples and dilations; the drift, Gamma and stable generators, with `F(σ) = σᵅ` for the last |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -85,6 +86,12 @@ block and the transform bridge** (the spatial article's `ConvolutionOperator`, `
 **the a.e.-tail / antitone-density toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`,
 `eqOn_of_ae_eq_of_antitoneOn`); **variation diminution under convolution** and the test-function
 uniqueness of finite measures. Each is article-independent and each has two consumers.
+
+**Moved (2026-09-11): the causal admissible cone as a shared type** (`CausalCone`, `CausalData`).
+Its two consumers are the spatial article's `SpatialLine.CausalAdmissible`, whose field layout
+and names it keeps, and the causal article's `Hemigroup.SelfDecomposableExponent`, which carries
+the single finiteness field that `ofNeTop` accepts. Neither article has re-pointed yet; the
+causal article's migration onto the shared type is still to do.
 
 ## License
 
