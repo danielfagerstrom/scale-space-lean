@@ -7,6 +7,8 @@ import ScaleSpaceCore.Wedge
 import ScaleSpaceCore.ReceptiveField
 import ScaleSpaceCore.BoostBracket
 import ScaleSpaceCore.BoostBracketConcrete
+import ScaleSpaceCore.CausalCone
+import ScaleSpaceCore.CausalData
 
 /-! # The shared scale-space core
 
