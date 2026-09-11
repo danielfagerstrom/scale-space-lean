@@ -24,3 +24,8 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.summable_pairSeq_sq
 #print axioms ScaleSpace.tsum_pairSeq_sq
 #print axioms ScaleSpace.polyaE2_pairSeq_mul_I
+#print axioms ScaleSpace.polyaE2_ofReal
+#print axioms ScaleSpace.norm_polyaE2_mul_I
+#print axioms ScaleSpace.eq_zero_of_hasSum_mul_pow_eq_zero
+#print axioms ScaleSpace.oddPowerSums_eq_zero
+#print axioms ScaleSpace.polyaE2_even_imp_oddPowerSums
