@@ -15,3 +15,12 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.ReceptiveField.iteratedDeriv_solves
 #print axioms ScaleSpace.BoostBracket.boost_bracket
 #print axioms ScaleSpace.BoostBracket.Concrete.boost_bracket_concrete
+#print axioms ScaleSpace.bilateralLaplace_eq_complexMGF
+#print axioms ScaleSpace.bilateralLaplace_ofReal_mul_I
+#print axioms ScaleSpace.bilateralLaplace_ofReal
+#print axioms ScaleSpace.bilateralLaplace_neg_of_map_neg
+#print axioms ScaleSpace.multipliable_polyaE2_factor
+#print axioms ScaleSpace.ofReal_tprod_of_multipliable
+#print axioms ScaleSpace.summable_pairSeq_sq
+#print axioms ScaleSpace.tsum_pairSeq_sq
+#print axioms ScaleSpace.polyaE2_pairSeq_mul_I
