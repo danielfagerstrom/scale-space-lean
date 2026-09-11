@@ -43,6 +43,7 @@ deliberately, as one step.
 | `ReceptiveField` | `Solves A u` for a bounded generator `A : M →L[ℝ] M`; derivative-commutes-with-generator |
 | `BoostBracket` | operator-algebra bracket identities over an arbitrary ℝ-algebra |
 | `BoostBracketConcrete` | a Weyl-algebra (`MvPolynomial (Fin 3) ℝ`) faithful realisation grounding the structure constants |
+| `PowerSumSymmetry` | vanishing odd power sums make `∑ a_j² δ_{a_j}` reflection-invariant; the halving identity `∑ g (a_j) = 2 ∑ g (a_j⁺)` for even, quadratically bounded `g` |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into

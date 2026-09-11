@@ -7,6 +7,7 @@ import ScaleSpaceCore.Wedge
 import ScaleSpaceCore.ReceptiveField
 import ScaleSpaceCore.BoostBracket
 import ScaleSpaceCore.BoostBracketConcrete
+import ScaleSpaceCore.PowerSumSymmetry
 
 /-! # The shared scale-space core
 
