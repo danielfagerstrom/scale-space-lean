@@ -45,6 +45,7 @@ deliberately, as one step.
 | `BoostBracketConcrete` | a Weyl-algebra (`MvPolynomial (Fin 3) ℝ`) faithful realisation grounding the structure constants |
 | `PowerSumSymmetry` | vanishing odd power sums make `∑ a_j² δ_{a_j}` reflection-invariant; the halving identity `∑ g (a_j) = 2 ∑ g (a_j⁺)` for even, quadratically bounded `g` |
 | `CausalCone`, `CausalData` | `CausalAdmissible` (drift `b₀ ≥ 0`, nonincreasing delay profile `k ≥ 0`) with its exponent, the equivalence of the two finiteness forms (`ne_top_iff_windows`, `ofNeTop`), sums, multiples and dilations; the drift, Gamma and stable generators, with `F(σ) = σᵅ` for the last |
+| `PolyaFrequencyClass` | the bilateral Laplace transform in Karlin sign and the class `E₂*` (`polyaE2`): multipliability, the `±` paired parameters on the imaginary axis, the real-axis log form, the modulus on the imaginary axis, and the symmetry reduction (evenness near `0` forces `δ = 0` and vanishing odd power sums) |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -77,10 +78,17 @@ equation forcing `sᵅ`, and a Bernstein-function interface (a second article wo
 functions of nonincreasing Lévy density, so overlap is likely but unproven).
 
 Queued from the spatial article's proving campaign (2026-09-10), in the order the two articles
-would spend them: **the two-sided Laplace transform as an entire function on a strip with an
-identity theorem** — both articles admit Karlin-type interfaces whose matching to their own
-exponent is an analytic continuation neither can state today (the spatial article's ledger
-A21/A22 carries it as a recorded debt); **locally finite Laplace uniqueness on a half-line**
+would spend them: ~~the two-sided Laplace transform as an entire function on a strip with an
+identity theorem~~ — **settled by a different route (2026-09-11, `PolyaFrequencyClass`,
+`PowerSumSymmetry`).** The debt it was queued for is the matching between Karlin's class `E₂*`
+(Total Positivity I, Ch. 7 (2.2) p. 336, Thm. 3.2(a) p. 345) and the spatial article's exponent.
+Read at the letter, Karlin's identity already holds on an open strip containing the imaginary
+axis (Prop. 1.4, p. 333), so no continuation off that axis is needed: what the matching consumes
+is the modulus of `ψ` on the imaginary axis, the `±` pairing, and a symmetry reduction run on the
+real axis (odd power sums, then a reflection-invariant atomic measure through Mathlib's
+characteristic-function uniqueness). Mathlib's `complexMGF` already carries holomorphy on the
+strip and the identity theorem, so no wrapper module was built; one can be added on second demand
+(the causal article's one-sided `E₁` interface is the likely consumer). **Locally finite Laplace uniqueness on a half-line**
 (proved identically in both articles, differing in one predicate); **the convolution transport
 block and the transform bridge** (the spatial article's `ConvolutionOperator`, `TransformBridge`);
 **the a.e.-tail / antitone-density toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`,

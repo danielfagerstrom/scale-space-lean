@@ -10,6 +10,7 @@ import ScaleSpaceCore.BoostBracketConcrete
 import ScaleSpaceCore.PowerSumSymmetry
 import ScaleSpaceCore.CausalCone
 import ScaleSpaceCore.CausalData
+import ScaleSpaceCore.PolyaFrequencyClass
 
 /-! # The shared scale-space core
 
