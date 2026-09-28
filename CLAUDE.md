@@ -22,9 +22,10 @@ them restated here.
 - **`AxiomCheck.lean` covers every public declaration.** A move or a new declaration that doesn't
   add its `#print axioms` line there is an incomplete move.
 - **No import of an article package.** Dependencies run one way: this library may `require`
-  `harmonic-semigroups` (once it exists); it never imports a paper's own package, and nothing here
-  is stated in terms of a paper-specific symbol type or predicate.
-- **Tags are the author's.** A session does not cut a release or move `RELEASES.md`'s pin.
+  `harmonic-semigroups` (once it exists); it never imports a paper's own package. A structure only
+  one article uses stays there; one a second article needs moves here with the declarations stated
+  in it (the hub's `RELEASES.md`, "The test").
+- **Tags are the author's.** A session does not cut a release or move a pin (the hub's `constellation.json`).
 - **A move is a move, then a build** — copy the declaration, delete it from its old home, adjust
   the namespace and imports, `lake build`; not an occasion to restate, generalize, or otherwise
   rewrite it. Generalizing is the promotion cycle's job, not an extraction's.
