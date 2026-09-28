@@ -46,6 +46,10 @@ deliberately, as one step.
 | `PowerSumSymmetry` | vanishing odd power sums make `∑ a_j² δ_{a_j}` reflection-invariant; the halving identity `∑ g (a_j) = 2 ∑ g (a_j⁺)` for even, quadratically bounded `g` |
 | `CausalCone`, `CausalData` | `CausalAdmissible` (drift `b₀ ≥ 0`, nonincreasing delay profile `k ≥ 0`) with its exponent, the equivalence of the two finiteness forms (`ne_top_iff_windows`, `ofNeTop`), sums, multiples and dilations; the drift, Gamma and stable generators, with `F(σ) = σᵅ` for the last |
 | `PolyaFrequencyClass` | the bilateral Laplace transform in Karlin sign and the class `E₂*` (`polyaE2`): multipliability, the `±` paired parameters on the imaginary axis, the real-axis log form, the modulus on the imaginary axis, and the symmetry reduction (evenness near `0` forces `δ = 0` and vanishing odd power sums) |
+| `L1Operators` | `X = L¹(ℝ)`, translation (`transL1`) and convolution by a measure (`mconv`, `mconvL1`) with what the operator does — translation covariance, positivity, mass, composition — and the pairing lemma `integral_mul_mconv` |
+| `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
+| `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
+| `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -88,12 +92,22 @@ is the modulus of `ψ` on the imaginary axis, the `±` pairing, and a symmetry r
 real axis (odd power sums, then a reflection-invariant atomic measure through Mathlib's
 characteristic-function uniqueness). Mathlib's `complexMGF` already carries holomorphy on the
 strip and the identity theorem, so no wrapper module was built; one can be added on second demand
-(the causal article's one-sided `E₁` interface is the likely consumer). **Locally finite Laplace uniqueness on a half-line**
-(proved identically in both articles, differing in one predicate); **the convolution transport
-block and the transform bridge** (the spatial article's `ConvolutionOperator`, `TransformBridge`);
-**the a.e.-tail / antitone-density toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`,
-`eqOn_of_ae_eq_of_antitoneOn`); **variation diminution under convolution** and the test-function
-uniqueness of finite measures. Each is article-independent and each has two consumers.
+(the causal article's one-sided `E₁` interface is the likely consumer). ~~Locally finite Laplace
+uniqueness on a half-line~~ — **moved (2026-09-28, `LaplaceUniqueness`).** ~~The convolution
+transport block~~ — **moved (2026-09-28, `L1Operators`, `BochnerConvolution`).** **The transform
+bridge** (the spatial article's `TransformBridge`) and **the a.e.-tail / antitone-density
+toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
+queued; **variation diminution under convolution** and the test-function uniqueness of finite
+measures too. Each is article-independent and each has two consumers.
+
+**Moved (2026-09-28): E-0009 slices 1–4** (`L1Operators`, `BochnerConvolution`,
+`LaplaceUniqueness`, `TailInverse`) — the L¹ translation/convolution operators, convolution as a
+Bochner integral, Laplace-transform uniqueness on `[0,1]`, and the generalised inverse of a
+nonincreasing tail function, all byte-identical between Paper I and Paper V up to the causal/spatial
+variable rename (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md`). Reflection,
+dilation, and anything quantifying over `IsSymmetric` or `IsFolded` stayed behind — spatial-only or
+causal-only, per the test above. Paper V's own copies are unchanged here; re-pointing Paper V onto
+these modules is a separate item.
 
 **Moved (2026-09-11): the causal admissible cone as a shared type** (`CausalCone`, `CausalData`).
 Its extraction is right and Paper V (the spatial article) uses it heavily, keeping the field layout
