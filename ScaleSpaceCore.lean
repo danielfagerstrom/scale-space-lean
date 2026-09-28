@@ -11,6 +11,10 @@ import ScaleSpaceCore.PowerSumSymmetry
 import ScaleSpaceCore.CausalCone
 import ScaleSpaceCore.CausalData
 import ScaleSpaceCore.PolyaFrequencyClass
+import ScaleSpaceCore.L1Operators
+import ScaleSpaceCore.BochnerConvolution
+import ScaleSpaceCore.LaplaceUniqueness
+import ScaleSpaceCore.TailInverse
 
 /-! # The shared scale-space core
 

@@ -121,3 +121,86 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.eq_zero_of_hasSum_mul_pow_eq_zero
 #print axioms ScaleSpace.oddPowerSums_eq_zero
 #print axioms ScaleSpace.polyaE2_even_imp_oddPowerSums
+
+-- L1Operators: `X`, translation, and convolution by a measure
+#print axioms ScaleSpace.X
+#print axioms ScaleSpace.IsNonneg
+#print axioms ScaleSpace.measurePreserving_sub_const
+#print axioms ScaleSpace.translate_congr_ae
+#print axioms ScaleSpace.integrable_translate
+#print axioms ScaleSpace.transₗ
+#print axioms ScaleSpace.transL1
+#print axioms ScaleSpace.coeFn_transL1
+#print axioms ScaleSpace.mconv
+#print axioms ScaleSpace.mconv_apply
+#print axioms ScaleSpace.lintegral_lintegral_sub_eq
+#print axioms ScaleSpace.lintegral_enorm_mconv_le
+#print axioms ScaleSpace.integrable_uncurry_sub
+#print axioms ScaleSpace.integrable_mconv
+#print axioms ScaleSpace.ae_ae_sub_of_ae
+#print axioms ScaleSpace.mconv_congr_ae
+#print axioms ScaleSpace.mconv_add_ae
+#print axioms ScaleSpace.mconv_smul
+#print axioms ScaleSpace.mconvₗ
+#print axioms ScaleSpace.mconvL1
+#print axioms ScaleSpace.coeFn_mconvL1
+-- L1Operators: what `mconvL1` does
+#print axioms ScaleSpace.mconv_comp_sub
+#print axioms ScaleSpace.mconv_nonneg
+#print axioms ScaleSpace.integral_mconv
+#print axioms ScaleSpace.mconv_conv
+#print axioms ScaleSpace.mconv_dirac_zero
+#print axioms ScaleSpace.mconvL1_congr
+#print axioms ScaleSpace.norm_mconvL1_le
+#print axioms ScaleSpace.mconvL1_transL1
+#print axioms ScaleSpace.isNonneg_mconvL1
+#print axioms ScaleSpace.integral_mconvL1
+#print axioms ScaleSpace.mconvL1_comp
+#print axioms ScaleSpace.mconvL1_dirac_zero
+#print axioms ScaleSpace.integral_mul_mconv
+
+-- BochnerConvolution: translation acts continuously on `L¹`
+#print axioms ScaleSpace.subCM
+#print axioms ScaleSpace.subCM_apply
+#print axioms ScaleSpace.measurePreserving_subCM
+#print axioms ScaleSpace.transL1_eq
+#print axioms ScaleSpace.continuous_transL1
+#print axioms ScaleSpace.norm_transL1_le
+-- BochnerConvolution: convolution as a Bochner integral, and `bconv = ` the classical convolution
+#print axioms ScaleSpace.bconv
+#print axioms ScaleSpace.integrable_smul_transL1
+#print axioms ScaleSpace.map_bconv
+#print axioms ScaleSpace.setIntegralCLM
+#print axioms ScaleSpace.setIntegralCLM_apply
+#print axioms ScaleSpace.integrable_uncurry_pconv
+#print axioms ScaleSpace.integrable_pconv
+#print axioms ScaleSpace.coeFn_bconv
+#print axioms ScaleSpace.measurePreserving_const_sub
+#print axioms ScaleSpace.bconv_comm
+-- BochnerConvolution: `μ * f` as a Bochner integral, and pairing with a bounded functional
+#print axioms ScaleSpace.integrable_transL1
+#print axioms ScaleSpace.bconvM
+#print axioms ScaleSpace.bconvM_eq_mconvL1
+#print axioms ScaleSpace.apply_mconvL1_general
+#print axioms ScaleSpace.pairTrans
+#print axioms ScaleSpace.pairTrans_apply
+#print axioms ScaleSpace.apply_mconvL1
+#print axioms ScaleSpace.apply_bconv
+
+-- LaplaceUniqueness: the substitution `x = e^{-t}`, and Weierstrass on `[0,1]`
+#print axioms ScaleSpace.expNeg
+#print axioms ScaleSpace.continuous_expNeg
+#print axioms ScaleSpace.injective_expNeg
+#print axioms ScaleSpace.measurableEmbedding_expNeg
+#print axioms ScaleSpace.integrable_of_carried
+#print axioms ScaleSpace.abs_integral_sub_le_of_carried
+#print axioms ScaleSpace.integral_polynomial_eq_of_moments
+#print axioms ScaleSpace.ext_of_moments
+
+-- TailInverse: the generalised inverse of a nonincreasing tail function
+#print axioms ScaleSpace.tailInv
+#print axioms ScaleSpace.tailInv_nonneg
+#print axioms ScaleSpace.bddAbove_tailSet
+#print axioms ScaleSpace.lt_of_lt_tailInv
+#print axioms ScaleSpace.lt_tailInv_of_lt
+#print axioms ScaleSpace.antitoneOn_tailInv
