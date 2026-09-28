@@ -1,14 +1,23 @@
 # ScaleSpaceCore
 
-A small Lean 4 library holding the article-independent part of a machine-checked development of
-spatio-temporal scale-space theory: Lie wedges and infinitesimal covariance, the receptive-field
-commutation lemmas, and the Galilean boost bracket, all proved from
-[Mathlib](https://github.com/leanprover-community/mathlib4) alone.
+The hemigroup / causal scale-space kernels programme's **shared library** (ADR-0026): it holds what
+more than one article needs, moved in on **second demand** — when a second article actually needs
+a result, not when it merely looks general — with programme vocabulary allowed (cascades,
+admissible cones, eventually the classification). It **carries no axiom**: where shared material
+would otherwise rest on a cited analytic interface, it takes what that interface provides as a
+**hypothesis** of its statement instead, and the article that draws the conclusion discharges the
+hypothesis from its own ledger.
 
-It is the **shared core underneath the formalisation of the hemigroup / causal scale-space kernels
-monograph**, and is factored out as its own Lake package because each article in this line
-publishes its own DOI from its own repository. What more than one of them needs lives here, so a
-result is proved once rather than copied.
+It may `require` `harmonic-semigroups`, the programme's separate Mathlib-quality library grown by a
+tutored promotion cycle (not yet created); the dependency runs one way, and nothing here depends on
+an article.
+
+Everything currently here is proved from
+[Mathlib](https://github.com/leanprover-community/mathlib4) alone: Lie wedges and infinitesimal
+covariance, the receptive-field commutation lemmas, the Galilean boost bracket, the causal
+admissible cone, and the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal
+and spatial articles share. It is its own Lake package because each article in this line publishes
+its own DOI from its own repository.
 
 ## Using it
 
@@ -18,7 +27,7 @@ Add it to a downstream `lakefile.toml`:
 [[require]]
 name = "ScaleSpaceCore"
 git = "https://github.com/danielfagerstrom/scale-space-lean"
-rev = "v0.1.0"
+rev = "v0.2.0"
 ```
 
 Declarations live in `namespace ScaleSpace` — the field's namespace, not one article's. The module
@@ -77,9 +86,31 @@ article's trust base.
 ## Growing it
 
 Seeded minimally, and extended **on second demand** — a result moves here when a second article
-actually needs it, not when it looks general. Candidates being watched: the Cauchy functional
-equation forcing `sᵅ`, and a Bernstein-function interface (a second article works with Bernstein
-functions of nonincreasing Lévy density, so overlap is likely but unproven).
+actually needs it, not when it looks general. The test (`RELEASES.md`, hub, § "Dependencies between
+modules") reads statements only: a declaration whose *statement* mentions only Mathlib types is
+material for this library; one whose statement mentions a paper-specific structure stays in that
+paper, reached by `require`ing its package at a release tag.
+
+**No axiom moves in.** Where a statement would otherwise need to cite an article's analytic
+interface, it takes what that interface provides as a **hypothesis** instead, and the article that
+draws the conclusion discharges the hypothesis from its own axiom ledger (ADR-0026, Decision 5) — so
+this library stays axiom-free while the shared statement is only the conditional one.
+
+**Dependencies run one way.** This library may `require` `harmonic-semigroups`, the programme's
+separate Mathlib-quality library grown only by a tutored promotion cycle (ADR-0026); never the
+reverse, and nothing here depends on an article.
+
+**Promotion empties this library, not the other way round.** When a promotion cycle lands a
+declaration in `harmonic-semigroups` at its natural generality, the rebase step that follows moves
+the shared library and the articles onto the promoted version and deletes the local copy here
+(ADR-0026, Decision 3) — a module named below is not necessarily permanent.
+`ScaleSpaceCore/LaplaceUniqueness.lean` is **candidate A**'s material (the Laplace transform of
+measures on `[0,∞)` and its uniqueness; ADR-0026, Decision 6): it stays here until A's cycle
+promotes it.
+
+Candidates being watched: the Cauchy functional equation forcing `sᵅ`, and a Bernstein-function
+interface (a second article works with Bernstein functions of nonincreasing Lévy density, so
+overlap is likely but unproven).
 
 Queued from the spatial article's proving campaign (2026-09-10), in the order the two articles
 would spend them: ~~the two-sided Laplace transform as an entire function on a strip with an
