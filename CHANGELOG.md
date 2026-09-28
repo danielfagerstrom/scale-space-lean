@@ -5,6 +5,15 @@ All notable changes to this repository are recorded here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- `README.md` and a new `CLAUDE.md` describe this repository as the programme's **shared library**
+  under ADR-0026 (hub, supersedes ADR-0021): admission by second demand, programme vocabulary
+  allowed, no axioms (a cited interface becomes a hypothesis, discharged by the consuming article),
+  and a one-way dependency onto the new (not yet created) Mathlib-quality library,
+  `harmonic-semigroups`. No Lean change; the stale `rev = "v0.1.0"` in the README's `lakefile.toml`
+  example is corrected to `v0.2.0`.
+
 ### Added
 
 - `ScaleSpaceCore.L1Operators`: `X = L¹(ℝ)`, translation (`transL1`), convolution by a measure
