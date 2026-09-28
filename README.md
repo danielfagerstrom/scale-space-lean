@@ -96,10 +96,11 @@ block and the transform bridge** (the spatial article's `ConvolutionOperator`, `
 uniqueness of finite measures. Each is article-independent and each has two consumers.
 
 **Moved (2026-09-11): the causal admissible cone as a shared type** (`CausalCone`, `CausalData`).
-Its two consumers are the spatial article's `SpatialLine.CausalAdmissible`, whose field layout
-and names it keeps, and the causal article's `Hemigroup.SelfDecomposableExponent`, which carries
-the single finiteness field that `ofNeTop` accepts. Neither article has re-pointed yet; the
-causal article's migration onto the shared type is still to do.
+Its extraction is right and Paper V (the spatial article) uses it heavily, keeping the field layout
+and names in `SpatialLine.CausalAdmissible`; the second consumer is still to come. Paper I's Lean
+is a released artefact behind a DOI and stays frozen at its release — its `SelfDecomposableExponent`
+and the trunk's `CausalAdmissible` are provenance, not dependency (Paper I requires `ScaleSpaceCore v0.1.1`
+but imports none of its declarations).
 
 ## License
 
