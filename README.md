@@ -59,6 +59,7 @@ deliberately, as one step.
 | `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
 | `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
 | `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
+| `DilationInvariance` | a function continuous at the origin, where it vanishes, and fixed by one dilation vanishes identically (`dilation_invariance`) |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -130,6 +131,17 @@ bridge** (the spatial article's `TransformBridge`) and **the a.e.-tail / antiton
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
+
+**Moved (2026-10-05): `dilation_invariance`** (`DilationInvariance`) — a function continuous at the
+origin, where it vanishes, and fixed by one dilation vanishes identically, from Paper V's
+`SpatialLine/Dilation.lean` (the public cone export, tag `v0.1`). Second demand: Paper V's
+classification's uniqueness clause, and Paper VII's `thm:isotropic-classification`,
+`prop:isotropic-corner`, `prop:similarity-ray-families`(3) and `prop:diagonal-ray-families`(5)
+(`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md` § 3 row V8; § 6, SSL-4). The
+statement mentions only Mathlib types; `dilation_atom`, the file's other lemma (about the dilation
+of measures along a sequence), stayed behind — its proof is not needed here and it is not itself
+second demand. Paper V's own copy is unchanged; re-pointing Paper V and Paper VII onto this module
+is a separate item.
 
 **Moved (2026-09-28): E-0009 slices 1–4** (`L1Operators`, `BochnerConvolution`,
 `LaplaceUniqueness`, `TailInverse`) — the L¹ translation/convolution operators, convolution as a

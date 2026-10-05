@@ -204,3 +204,6 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.lt_of_lt_tailInv
 #print axioms ScaleSpace.lt_tailInv_of_lt
 #print axioms ScaleSpace.antitoneOn_tailInv
+
+-- DilationInvariance: a function fixed by one dilation is constant
+#print axioms ScaleSpace.dilation_invariance
