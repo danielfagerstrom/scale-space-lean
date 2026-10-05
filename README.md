@@ -71,6 +71,7 @@ deliberately, as one step.
 | `BridgeExponents` | `bridge_exponents`: every `CausalAdmissible` maps to an `SDProfile` with coefficient `b₀/2`, folded profile `2x∫g_u(x)k(u)du/u` and exponent `F(ω²/2)` (`CausalAdmissible.bridgeDatum`) |
 | `Cin`, `CinRays` | `Cin(z) = ∫₀^z (1 - cos v)dv/v` with `cin_elementary` (even, nondecreasing on `[0,∞)`, `≤ z²/4`) and the expansions `cin_expansion_zero`, `cin_expansion_top`; the unit-step profile `cinProfile τ` and the ray `cin_ray` (exponent `Cin(τ·)`) |
 | `SelfDecomposable` | self-decomposability `μ = (c •)_* μ ∗ ρ_c` (`IsSelfDecomposable`) and operator self-decomposability `μ = (e^{-tB})_* μ ∗ ρ_t` (`IsBSelfDecomposable`, the scalar case at `B = 1`) on a real vector space; the transform form on a finite-dimensional inner product space (`isSelfDecomposable_iff_charFun`), the line's `b > 1` form (`isSelfDecomposable_real_iff`), images under linear maps, and a transform without zeros (`IsSelfDecomposable.charFun_ne_zero`). A candidate for promotion to `harmonic-semigroups` |
+| `DilationInvariance` | a function continuous at the origin, where it vanishes, and fixed by one dilation vanishes identically (`dilation_invariance`) |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -144,6 +145,17 @@ the rest stay queued) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
+
+**Moved (2026-10-05): `dilation_invariance`** (`DilationInvariance`) — a function continuous at the
+origin, where it vanishes, and fixed by one dilation vanishes identically, from Paper V's
+`SpatialLine/Dilation.lean` (the public cone export, tag `v0.1`). Second demand: Paper V's
+classification's uniqueness clause, and Paper VII's `thm:isotropic-classification`,
+`prop:isotropic-corner`, `prop:similarity-ray-families`(3) and `prop:diagonal-ray-families`(5)
+(`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md` § 3 row V8; § 6, SSL-4). The
+statement mentions only Mathlib types; `dilation_atom`, the file's other lemma (about the dilation
+of measures along a sequence), stayed behind — its proof is not needed here and it is not itself
+second demand. Paper V's own copy is unchanged; re-pointing Paper V and Paper VII onto this module
+is a separate item.
 
 **Moved (2026-09-28): E-0009 slices 1–4** (`L1Operators`, `BochnerConvolution`,
 `LaplaceUniqueness`, `TailInverse`) — the L¹ translation/convolution operators, convolution as a

@@ -63,6 +63,17 @@ re-pointing Paper V and Paper VII onto these modules is later work. No tag is cu
   Paper VII on `ℝ^d`; neither article is edited here, and their re-pointing is a later item. A
   candidate for the promotion cycle into `harmonic-semigroups` (ADR-0026, Decision 3); the
   generality chosen is recorded in the module docstring as provisional.
+
+- `ScaleSpaceCore.DilationInvariance`: `dilation_invariance` — a function continuous at the
+  origin, where it vanishes, and fixed by one dilation vanishes identically. Moved from Paper V's
+  `SpatialLine/Dilation.lean` (`lem:dilation-invariance`, [V, Lem. 6.3]), second demand now: Paper
+  V's classification uniqueness clause, and Paper VII's `thm:isotropic-classification`,
+  `prop:isotropic-corner`, `prop:similarity-ray-families`(3) and `prop:diagonal-ray-families`(5)
+  (`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md` § 3 row V8; § 6, SSL-4). The
+  statement is Lean-core only; `AxiomCheck.lean` prints only `propext`, `Classical.choice`,
+  `Quot.sound`. `dilation_atom`, the other lemma in the source file, is not moved: it is not
+  second demand and the moved proof does not use it. No article repository is edited by this
+  change.
 - `ScaleSpaceCore.L1Operators`: `X = L¹(ℝ)`, translation (`transL1`), convolution by a measure
   (`mconv`, `mconvL1`) and what the operator does — translation covariance, positivity, mass,
   composition — plus the bounded-test-function pairing lemma `integral_mul_mconv`.

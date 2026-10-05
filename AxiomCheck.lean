@@ -444,3 +444,6 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.one_sub_re_charFun_two_smul_le
 #print axioms ScaleSpace.one_sub_norm_sq_charFun_two_smul_le
 #print axioms ScaleSpace.IsSelfDecomposable.charFun_ne_zero
+
+-- DilationInvariance: a function fixed by one dilation is constant
+#print axioms ScaleSpace.dilation_invariance

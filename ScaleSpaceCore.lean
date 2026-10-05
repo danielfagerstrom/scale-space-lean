@@ -27,6 +27,7 @@ import ScaleSpaceCore.BridgeExponents
 import ScaleSpaceCore.Cin
 import ScaleSpaceCore.CinRays
 import ScaleSpaceCore.SelfDecomposable
+import ScaleSpaceCore.DilationInvariance
 
 /-! # The shared scale-space core
 
