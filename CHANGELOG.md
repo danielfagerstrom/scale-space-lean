@@ -16,6 +16,32 @@ All notable changes to this repository are recorded here. The format follows
 
 ### Added
 
+- `ScaleSpaceCore.SDProfile`, `ScaleSpaceCore.SDProfileCone`: **the line's admissible cone as a
+  shared type** — the line analogue of `CausalAdmissible`'s move in `v0.2.0`. `SDProfile`
+  (Gaussian coefficient `a`, folded profile `k`, `k_antitone`, `k_zero`, two finiteness fields)
+  with `exponentL`, `exponent`, `profileMeasure`, `levyMeasure`, `IsAdmissibleExponent`;
+  `admissible_cone` (sums and nonnegative multiples), `exponent_neg`, `exponent_zero`,
+  `continuous_exponent`; and what these rest on: `IsFolded`, `SymLevyPair` with
+  `quadratic_growth`, `profile_integrability` and `profile_integrability_pair`.
+- `ScaleSpaceCore.BrownianDensity`: `brownianLaw`, `brownianDensity` and the facts the bridge
+  reads; `fourierCos` with `fourierCos_eq_charFun_re` and `fourierCos_gaussianReal`.
+- `ScaleSpaceCore.BridgeExponents`: `bridge_exponents (F : CausalAdmissible) : ∃ Q : SDProfile,
+  Q.a = F.b₀ / 2 ∧ … ∧ ∀ ω, Q.exponent ω = F.exponent (ω ^ 2 / 2)`, the map from the causal cone
+  into the line's, now a theorem between two trunk structures.
+- `ScaleSpaceCore.Cin`, `ScaleSpaceCore.CinRays`: `cin`, `cinProfile`, `cin_elementary`,
+  `cin_expansion_zero`, `cin_expansion_top`, and the ray `cin_ray`.
+
+These six modules are SSL-2 of the spatial-affine article's second-demand report (hub
+`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md`, rows V3, B2, B4): that article
+states its class `𝒜_d` in `SDProfile`, which is case (c), so the structure moved with the
+declarations stated in it. They are moved from Paper V's cone export (`cone-v0.1`, commit
+`f28c066e`, namespace `SpatialLine`) with statements unchanged up to the namespace, and brought
+only Lean-core dependencies; `AxiomCheck.lean` prints only `propext`, `Classical.choice`,
+`Quot.sound` for every one of them. `IsSelfDecomposable` (SSL-3), `profile_integrability_mem`
+(spends Paper V's ledger A3), `bridge_exponents_mixture` and the Brownian mixture facts (SSL-8),
+and `cin_superposition` with `HasProfileTail` stayed behind. No article repository is edited;
+re-pointing Paper V and Paper VII onto these modules is later work. No tag is cut here.
+
 - `ScaleSpaceCore.L1Operators`: `X = L¹(ℝ)`, translation (`transL1`), convolution by a measure
   (`mconv`, `mconvL1`) and what the operator does — translation covariance, positivity, mass,
   composition — plus the bounded-test-function pairing lemma `integral_mul_mconv`.

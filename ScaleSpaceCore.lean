@@ -15,6 +15,12 @@ import ScaleSpaceCore.L1Operators
 import ScaleSpaceCore.BochnerConvolution
 import ScaleSpaceCore.LaplaceUniqueness
 import ScaleSpaceCore.TailInverse
+import ScaleSpaceCore.SDProfile
+import ScaleSpaceCore.SDProfileCone
+import ScaleSpaceCore.BrownianDensity
+import ScaleSpaceCore.BridgeExponents
+import ScaleSpaceCore.Cin
+import ScaleSpaceCore.CinRays
 
 /-! # The shared scale-space core
 

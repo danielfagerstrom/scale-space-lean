@@ -15,8 +15,9 @@ an article.
 Everything currently here is proved from
 [Mathlib](https://github.com/leanprover-community/mathlib4) alone: Lie wedges and infinitesimal
 covariance, the receptive-field commutation lemmas, the Galilean boost bracket, the causal
-admissible cone, and the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal
-and spatial articles share. It is its own Lake package because each article in this line publishes
+admissible cone and the line's admissible cone with the bridge between them, the `Cin` rays, and
+the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal and spatial articles
+share. It is its own Lake package because each article in this line publishes
 its own DOI from its own repository.
 
 ## Using it
@@ -59,6 +60,10 @@ deliberately, as one step.
 | `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
 | `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
 | `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
+| `SDProfile`, `SDProfileCone` | the line's admissible cone: `SDProfile` (Gaussian coefficient `a ≥ 0`, nonincreasing folded profile `k ≥ 0`) with `exponentL`, `exponent`, `profileMeasure`, `levyMeasure` and `IsAdmissibleExponent`; the folding predicate `IsFolded` and the symmetric Lévy pair `SymLevyPair` with its quadratic growth bound; `profile_integrability` and `profile_integrability_pair`; sums and multiples (`admissible_cone`), evenness, `exponent_zero` and `continuous_exponent` |
+| `BrownianDensity` | the Brownian laws `brownianLaw`, `brownianDensity` and the elementary bounds and Gaussian jump integral the bridge reads; the cosine transform `fourierCos` with its value at a centred Gaussian (`fourierCos_gaussianReal`) |
+| `BridgeExponents` | `bridge_exponents`: every `CausalAdmissible` maps to an `SDProfile` with coefficient `b₀/2`, folded profile `2x∫g_u(x)k(u)du/u` and exponent `F(ω²/2)` (`CausalAdmissible.bridgeDatum`) |
+| `Cin`, `CinRays` | `Cin(z) = ∫₀^z (1 - cos v)dv/v` with `cin_elementary` (even, nondecreasing on `[0,∞)`, `≤ z²/4`) and the expansions `cin_expansion_zero`, `cin_expansion_top`; the unit-step profile `cinProfile τ` and the ray `cin_ray` (exponent `Cin(τ·)`) |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -126,7 +131,9 @@ strip and the identity theorem, so no wrapper module was built; one can be added
 (the causal article's one-sided `E₁` interface is the likely consumer). ~~Locally finite Laplace
 uniqueness on a half-line~~ — **moved (2026-09-28, `LaplaceUniqueness`).** ~~The convolution
 transport block~~ — **moved (2026-09-28, `L1Operators`, `BochnerConvolution`).** **The transform
-bridge** (the spatial article's `TransformBridge`) and **the a.e.-tail / antitone-density
+bridge** (the spatial article's `TransformBridge`; `fourierCos_eq_charFun_re` and
+`fourierCos_gaussianReal` moved on 2026-10-05 with `BrownianDensity`, the symmetric-measure half
+has not) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
@@ -139,6 +146,18 @@ variable rename (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md`)
 dilation, and anything quantifying over `IsSymmetric` or `IsFolded` stayed behind — spatial-only or
 causal-only, per the test above. Paper V's own copies are unchanged here; re-pointing Paper V onto
 these modules is a separate item.
+
+**Moved (2026-10-05): the line's admissible cone as a shared type** (`SDProfile`, `SDProfileCone`,
+`BrownianDensity`, `BridgeExponents`, `Cin`, `CinRays`), the line analogue of the causal cone's
+move below. The spatial-affine article states its class `𝒜_d` in `SDProfile` (its second demand,
+hub `spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md`, SSL-2), so the structure
+moved from Paper V's cone export (`cone-v0.1`) with the declarations stated in it:
+`bridge_exponents`, now a theorem between two trunk structures, and the `Cin` rays. It brought
+the Lean-core dependencies its proofs read — `IsFolded`, `SymLevyPair` and its growth bound, the
+Lean-core half of `lem:profile-integrability`, the Brownian density, and `fourierCos` with the
+part of the transform bridge that computes it at a Gaussian. `IsSelfDecomposable` (SSL-3),
+`bridge_exponents_mixture` and the Gaussian mixtures (SSL-8), and the Choquet superposition of
+`lem:cin-rays`(2) stayed behind. Paper V's own copies are unchanged here.
 
 **Moved (2026-09-11): the causal admissible cone as a shared type** (`CausalCone`, `CausalData`).
 Its extraction is right and Paper V (the spatial article) uses it heavily, keeping the field layout
