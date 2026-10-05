@@ -15,8 +15,9 @@ an article.
 Everything currently here is proved from
 [Mathlib](https://github.com/leanprover-community/mathlib4) alone: Lie wedges and infinitesimal
 covariance, the receptive-field commutation lemmas, the Galilean boost bracket, the causal
-admissible cone, and the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal
-and spatial articles share. It is its own Lake package because each article in this line publishes
+admissible cone, the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal
+and spatial articles share, and the line's reflection-symmetric cascade-family vocabulary with
+its kernel constructor, which the spatial articles share. It is its own Lake package because each article in this line publishes
 its own DOI from its own repository.
 
 ## Using it
@@ -55,10 +56,15 @@ deliberately, as one step.
 | `PowerSumSymmetry` | vanishing odd power sums make `∑ a_j² δ_{a_j}` reflection-invariant; the halving identity `∑ g (a_j) = 2 ∑ g (a_j⁺)` for even, quadratically bounded `g` |
 | `CausalCone`, `CausalData` | `CausalAdmissible` (drift `b₀ ≥ 0`, nonincreasing delay profile `k ≥ 0`) with its exponent, the equivalence of the two finiteness forms (`ne_top_iff_windows`, `ofNeTop`), sums, multiples and dilations; the drift, Gamma and stable generators, with `F(σ) = σᵅ` for the last |
 | `PolyaFrequencyClass` | the bilateral Laplace transform in Karlin sign and the class `E₂*` (`polyaE2`): multipliability, the `±` paired parameters on the imaginary axis, the real-axis log form, the modulus on the imaginary axis, and the symmetry reduction (evenness near `0` forces `δ = 0` and vanishing odd power sums) |
-| `L1Operators` | `X = L¹(ℝ)`, translation (`transL1`) and convolution by a measure (`mconv`, `mconvL1`) with what the operator does — translation covariance, positivity, mass, composition — and the pairing lemma `integral_mul_mconv` |
+| `L1Operators` | `X = L¹(ℝ)`, translation (`transL1`), reflection (`reflL1`), mass-preserving dilation (`dilate`, `dilL1`) and convolution by a measure (`mconv`, `mconvL1`) with what the operator does — translation covariance, positivity, mass, composition — and the pairing lemma `integral_mul_mconv` |
 | `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
 | `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
 | `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
+| `Transform` | symmetric measures on the line (`IsSymmetric`), the cosine transform (`fourierCos`) and the exponent `-log ∘ fourierCos` (`exponent`); the bridge to Mathlib's `charFun` (`fourierCos_eq_charFun_re`, `charFun_eq_fourierCos_of_symmetric`) |
+| `Transport` | convolution against reflection and dilation — a symmetric kernel commutes with `reflL1` (`mconvL1_reflL1`), dilation intertwines with the dilated kernel (`dilL1_comp_mconvL1`) — and the kernel of the identity is `δ₀` (`eq_dirac_of_mconvL1_eq_id`) |
+| `Family` | the reflection-symmetric cascade family on `L¹(ℝ)`: `PreCascadeCore` ((A1)–(A3), (A5)–(A7)), `CascadeCore` (+ (A4) `IsPositive`, (ND) `IsNondegenerate`), `IsScaleCovariant` ((A8) relative to a set of ratios), `CascadeFamily`, and the kernel-family hypotheses `IsKernelFamily`, `IsSymmetricKernelFamily` |
+| `L1Continuity` | the modulus of continuity of translation (`transDiff`), the estimate `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ dμ` (`norm_mconvL1_sub_le`), and Lévy's continuity theorem in the form (A7) consumes |
+| `Construction` | `CascadeData`, the kernel-level constructor: symmetric probability kernels with the cascade law and a transform continuous in the scales give a `PreCascadeCore` (`preCore`, with (A7) as `continuousOn_mconvL1`), positivity, a kernel family, and — under one hypothesis each — `cascadeCore` and `isScaleCovariant` |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -126,7 +132,8 @@ strip and the identity theorem, so no wrapper module was built; one can be added
 (the causal article's one-sided `E₁` interface is the likely consumer). ~~Locally finite Laplace
 uniqueness on a half-line~~ — **moved (2026-09-28, `LaplaceUniqueness`).** ~~The convolution
 transport block~~ — **moved (2026-09-28, `L1Operators`, `BochnerConvolution`).** **The transform
-bridge** (the spatial article's `TransformBridge`) and **the a.e.-tail / antitone-density
+bridge** (the spatial article's `TransformBridge`; its `charFun` identities moved 2026-10-05 into
+`Transform`, the rest stays queued) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
@@ -139,6 +146,16 @@ variable rename (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md`)
 dilation, and anything quantifying over `IsSymmetric` or `IsFolded` stayed behind — spatial-only or
 causal-only, per the test above. Paper V's own copies are unchanged here; re-pointing Paper V onto
 these modules is a separate item.
+
+**Moved (2026-10-05): the line's cascade-family vocabulary and its kernel constructor**
+(`Transform`, `Transport`, `Family`, `L1Continuity`, `Construction`, and reflection and dilation in
+`L1Operators`), from Paper V at `v0.1`, statements verbatim up to the namespace. This overrides the
+2026-09-28 judgement that reflection and dilation are spatial-specific: a second spatial module
+(Paper VII, `spatial-hemigroup-affine`) constructs a `CascadeCore` from the marginals of an
+isotropic family and states its hypotheses in the vocabulary, so the structures themselves are
+second demand and move with the declarations stated in them — the case `CausalAdmissible` moved
+under. The representation lemma that produces a kernel family (`exists_kernelFamily`) and the
+admissible cone on the line (`SDProfile`) have not moved.
 
 **Moved (2026-09-11): the causal admissible cone as a shared type** (`CausalCone`, `CausalData`).
 Its extraction is right and Paper V (the spatial article) uses it heavily, keeping the field layout
