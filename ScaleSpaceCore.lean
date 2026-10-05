@@ -15,6 +15,7 @@ import ScaleSpaceCore.L1Operators
 import ScaleSpaceCore.BochnerConvolution
 import ScaleSpaceCore.LaplaceUniqueness
 import ScaleSpaceCore.TailInverse
+import ScaleSpaceCore.SelfDecomposable
 
 /-! # The shared scale-space core
 

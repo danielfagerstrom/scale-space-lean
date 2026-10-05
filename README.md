@@ -59,6 +59,7 @@ deliberately, as one step.
 | `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
 | `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
 | `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
+| `SelfDecomposable` | self-decomposability `μ = (c •)_* μ ∗ ρ_c` (`IsSelfDecomposable`) and operator self-decomposability `μ = (e^{-tB})_* μ ∗ ρ_t` (`IsBSelfDecomposable`, the scalar case at `B = 1`) on a real vector space; the transform form on a finite-dimensional inner product space (`isSelfDecomposable_iff_charFun`), the line's `b > 1` form (`isSelfDecomposable_real_iff`), images under linear maps, and a transform without zeros (`IsSelfDecomposable.charFun_ne_zero`). A candidate for promotion to `harmonic-semigroups` |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into

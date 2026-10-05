@@ -16,6 +16,20 @@ All notable changes to this repository are recorded here. The format follows
 
 ### Added
 
+- `ScaleSpaceCore.SelfDecomposable` (Q-0303; SSL-3 of `spatial-hemigroup-affine`'s
+  `records/formalization/SECOND-DEMAND.md`): self-decomposability (`IsSelfDecomposable`, the
+  measure form `μ = (c •)_* μ ∗ ρ_c`, `c ∈ (0,1)`, residual existential) and operator
+  self-decomposability (`IsBSelfDecomposable`, `μ = (e^{-tB})_* μ ∗ ρ_t`, `t > 0`) on a real normed
+  space; the scalar notion as the case `B = 1` (`isBSelfDecomposable_one_iff`) and the `t ≥ 0` form
+  (`isBSelfDecomposable_iff_nonneg`); images under continuous linear maps
+  (`IsSelfDecomposable.map`); on a finite-dimensional real inner product space the transform form
+  (`isSelfDecomposable_iff_charFun`, Paper VII's form), the line's `b > 1` form
+  (`isSelfDecomposable_real_iff`, Paper V's `SpatialLine.IsSelfDecomposable` verbatim), the
+  doubling inequality, and a transform without zeros (`IsSelfDecomposable.charFun_ne_zero`, the
+  argument of Paper VII's `prop:gw-ray-families`(1)). The second demand is Paper V on `ℝ` and
+  Paper VII on `ℝ^d`; neither article is edited here, and their re-pointing is a later item. A
+  candidate for the promotion cycle into `harmonic-semigroups` (ADR-0026, Decision 3); the
+  generality chosen is recorded in the module docstring as provisional.
 - `ScaleSpaceCore.L1Operators`: `X = L¹(ℝ)`, translation (`transL1`), convolution by a measure
   (`mconv`, `mconvL1`) and what the operator does — translation covariance, positivity, mass,
   composition — plus the bounded-test-function pairing lemma `integral_mul_mconv`.
