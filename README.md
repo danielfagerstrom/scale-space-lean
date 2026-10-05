@@ -15,9 +15,10 @@ an article.
 Everything currently here is proved from
 [Mathlib](https://github.com/leanprover-community/mathlib4) alone: Lie wedges and infinitesimal
 covariance, the receptive-field commutation lemmas, the Galilean boost bracket, the causal
-admissible cone and the line's admissible cone with the bridge between them, the `Cin` rays, and
+admissible cone and the line's admissible cone with the bridge between them, the `Cin` rays,
 the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal and spatial articles
-share. It is its own Lake package because each article in this line publishes
+share, and the line's reflection-symmetric cascade-family vocabulary with its kernel constructor,
+which the spatial articles share. It is its own Lake package because each article in this line publishes
 its own DOI from its own repository.
 
 ## Using it
@@ -56,12 +57,17 @@ deliberately, as one step.
 | `PowerSumSymmetry` | vanishing odd power sums make `∑ a_j² δ_{a_j}` reflection-invariant; the halving identity `∑ g (a_j) = 2 ∑ g (a_j⁺)` for even, quadratically bounded `g` |
 | `CausalCone`, `CausalData` | `CausalAdmissible` (drift `b₀ ≥ 0`, nonincreasing delay profile `k ≥ 0`) with its exponent, the equivalence of the two finiteness forms (`ne_top_iff_windows`, `ofNeTop`), sums, multiples and dilations; the drift, Gamma and stable generators, with `F(σ) = σᵅ` for the last |
 | `PolyaFrequencyClass` | the bilateral Laplace transform in Karlin sign and the class `E₂*` (`polyaE2`): multipliability, the `±` paired parameters on the imaginary axis, the real-axis log form, the modulus on the imaginary axis, and the symmetry reduction (evenness near `0` forces `δ = 0` and vanishing odd power sums) |
-| `L1Operators` | `X = L¹(ℝ)`, translation (`transL1`) and convolution by a measure (`mconv`, `mconvL1`) with what the operator does — translation covariance, positivity, mass, composition — and the pairing lemma `integral_mul_mconv` |
+| `L1Operators` | `X = L¹(ℝ)`, translation (`transL1`), reflection (`reflL1`), mass-preserving dilation (`dilate`, `dilL1`) and convolution by a measure (`mconv`, `mconvL1`) with what the operator does — translation covariance, positivity, mass, composition — and the pairing lemma `integral_mul_mconv` |
 | `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
 | `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
 | `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
+| `Transform` | symmetric measures on the line (`IsSymmetric`), the cosine transform (`fourierCos`) and the exponent `-log ∘ fourierCos` (`exponent`); the bridge to Mathlib's `charFun` (`fourierCos_eq_charFun_re`, `charFun_eq_fourierCos_of_symmetric`) |
+| `Transport` | convolution against reflection and dilation — a symmetric kernel commutes with `reflL1` (`mconvL1_reflL1`), dilation intertwines with the dilated kernel (`dilL1_comp_mconvL1`) — and the kernel of the identity is `δ₀` (`eq_dirac_of_mconvL1_eq_id`) |
+| `Family` | the reflection-symmetric cascade family on `L¹(ℝ)`: `PreCascadeCore` ((A1)–(A3), (A5)–(A7)), `CascadeCore` (+ (A4) `IsPositive`, (ND) `IsNondegenerate`), `IsScaleCovariant` ((A8) relative to a set of ratios), `CascadeFamily`, and the kernel-family hypotheses `IsKernelFamily`, `IsSymmetricKernelFamily` |
+| `L1Continuity` | the modulus of continuity of translation (`transDiff`), the estimate `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ dμ` (`norm_mconvL1_sub_le`), and Lévy's continuity theorem in the form (A7) consumes |
+| `Construction` | `CascadeData`, the kernel-level constructor: symmetric probability kernels with the cascade law and a transform continuous in the scales give a `PreCascadeCore` (`preCore`, with (A7) as `continuousOn_mconvL1`), positivity, a kernel family, and — under one hypothesis each — `cascadeCore` and `isScaleCovariant` |
 | `SDProfile`, `SDProfileCone` | the line's admissible cone: `SDProfile` (Gaussian coefficient `a ≥ 0`, nonincreasing folded profile `k ≥ 0`) with `exponentL`, `exponent`, `profileMeasure`, `levyMeasure` and `IsAdmissibleExponent`; the folding predicate `IsFolded` and the symmetric Lévy pair `SymLevyPair` with its quadratic growth bound; `profile_integrability` and `profile_integrability_pair`; sums and multiples (`admissible_cone`), evenness, `exponent_zero` and `continuous_exponent` |
-| `BrownianDensity` | the Brownian laws `brownianLaw`, `brownianDensity` and the elementary bounds and Gaussian jump integral the bridge reads; the cosine transform `fourierCos` with its value at a centred Gaussian (`fourierCos_gaussianReal`) |
+| `BrownianDensity` | the Brownian laws `brownianLaw`, `brownianDensity` and the elementary bounds and Gaussian jump integral the bridge reads; the cosine transform's value at a centred Gaussian (`fourierCos_gaussianReal`; `fourierCos` itself is `Transform`'s) |
 | `BridgeExponents` | `bridge_exponents`: every `CausalAdmissible` maps to an `SDProfile` with coefficient `b₀/2`, folded profile `2x∫g_u(x)k(u)du/u` and exponent `F(ω²/2)` (`CausalAdmissible.bridgeDatum`) |
 | `Cin`, `CinRays` | `Cin(z) = ∫₀^z (1 - cos v)dv/v` with `cin_elementary` (even, nondecreasing on `[0,∞)`, `≤ z²/4`) and the expansions `cin_expansion_zero`, `cin_expansion_top`; the unit-step profile `cinProfile τ` and the ray `cin_ray` (exponent `Cin(τ·)`) |
 
@@ -131,9 +137,9 @@ strip and the identity theorem, so no wrapper module was built; one can be added
 (the causal article's one-sided `E₁` interface is the likely consumer). ~~Locally finite Laplace
 uniqueness on a half-line~~ — **moved (2026-09-28, `LaplaceUniqueness`).** ~~The convolution
 transport block~~ — **moved (2026-09-28, `L1Operators`, `BochnerConvolution`).** **The transform
-bridge** (the spatial article's `TransformBridge`; `fourierCos_eq_charFun_re` and
-`fourierCos_gaussianReal` moved on 2026-10-05 with `BrownianDensity`, the symmetric-measure half
-has not) and **the a.e.-tail / antitone-density
+bridge** (the spatial article's `TransformBridge`; its `charFun` identities moved 2026-10-05 into
+`Transform`, and `fourierCos_gaussianReal` with `BrownianDensity`; the symmetric-measure half and
+the rest stay queued) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
@@ -147,6 +153,16 @@ dilation, and anything quantifying over `IsSymmetric` or `IsFolded` stayed behin
 causal-only, per the test above. Paper V's own copies are unchanged here; re-pointing Paper V onto
 these modules is a separate item.
 
+**Moved (2026-10-05): the line's cascade-family vocabulary and its kernel constructor**
+(`Transform`, `Transport`, `Family`, `L1Continuity`, `Construction`, and reflection and dilation in
+`L1Operators`), from Paper V at `v0.1`, statements verbatim up to the namespace. This overrides the
+2026-09-28 judgement that reflection and dilation are spatial-specific: a second spatial module
+(Paper VII, `spatial-hemigroup-affine`) constructs a `CascadeCore` from the marginals of an
+isotropic family and states its hypotheses in the vocabulary, so the structures themselves are
+second demand and move with the declarations stated in them — the case `CausalAdmissible` moved
+under. The representation lemma that produces a kernel family (`exists_kernelFamily`) has not
+moved; the admissible cone on the line moved the same day (below).
+
 **Moved (2026-10-05): the line's admissible cone as a shared type** (`SDProfile`, `SDProfileCone`,
 `BrownianDensity`, `BridgeExponents`, `Cin`, `CinRays`), the line analogue of the causal cone's
 move below. The spatial-affine article states its class `𝒜_d` in `SDProfile` (its second demand,
@@ -154,8 +170,9 @@ hub `spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md`, SSL-2), s
 moved from Paper V's cone export (`cone-v0.1`) with the declarations stated in it:
 `bridge_exponents`, now a theorem between two trunk structures, and the `Cin` rays. It brought
 the Lean-core dependencies its proofs read — `IsFolded`, `SymLevyPair` and its growth bound, the
-Lean-core half of `lem:profile-integrability`, the Brownian density, and `fourierCos` with the
-part of the transform bridge that computes it at a Gaussian. `IsSelfDecomposable` (SSL-3),
+Lean-core half of `lem:profile-integrability`, the Brownian density, and the part of the transform
+bridge that computes `fourierCos` at a Gaussian (`fourierCos` itself came with the cascade
+vocabulary, above: the two moves carried identical copies, and this one now imports it). `IsSelfDecomposable` (SSL-3),
 `bridge_exponents_mixture` and the Gaussian mixtures (SSL-8), and the Choquet superposition of
 `lem:cin-rays`(2) stayed behind. Paper V's own copies are unchanged here.
 
@@ -165,6 +182,83 @@ and names in `SpatialLine.CausalAdmissible`; the second consumer is still to com
 is a released artefact behind a DOI and stays frozen at its release — its `SelfDecomposableExponent`
 and the trunk's `CausalAdmissible` are provenance, not dependency (Paper I requires `ScaleSpaceCore v0.1.1`
 but imports none of its declarations).
+
+## Bumping Mathlib
+
+Nobody has done this yet. Every Lean member of the constellation sits on
+`leanprover/lean4:v4.31.0` with `mathlib fabf563a7c95a166b8d7b6efca11c8b4dc9d911f`
+(`inputRev v4.31.0`), and this is the runbook for the first time that stops being true (E-0013,
+proposed 2026-09-19, accepted 2026-09-30). It is a plan, not an attempt: nothing below has been
+run, and the dry run of step one — bumping the trunk alone, without merging — is a separate,
+later item, since it pulls a second ~7 GB Mathlib into the shared store.
+
+**The twelve files.** Three per repository, across four repositories:
+
+| Repository | Files |
+|---|---|
+| `scale-space-lean` (this repository) | `lakefile.toml`, `lean-toolchain`, `lake-manifest.json` |
+| `hemigroup-causal-scale-space-kernels` | `Formalization/lakefile.toml`, `Formalization/lean-toolchain`, `Formalization/lake-manifest.json` |
+| `spatial-hemigroup-scale-space` | `Formalization/lakefile.toml`, `Formalization/lean-toolchain`, `Formalization/lake-manifest.json` |
+| `scale-space-foundations` | `Formalization/lakefile.toml`, `Formalization/lean-toolchain`, `Formalization/lake-manifest.json` |
+
+**The order.** Trunk first: bump `lean-toolchain` and the `mathlib` `rev` in `lakefile.toml` here,
+build, then tag the new trunk release. Only then each article, in one commit per article that
+bumps both its own `mathlib` rev and its `ScaleSpaceCore` rev together — an article pinned to the
+old trunk tag with the new Mathlib (or vice versa) is exactly the half-bumped state the order
+exists to avoid. `lake-manifest.json` is regenerated by the build in each case, not hand-edited;
+it is the lockfile (seven of the ten packages it lists — `plausible`, `LeanSearchClient`,
+`importGraph`, `proofwidgets`, `aesop`, `Qq`, `batteries` — carry `inputRev` `main`/`master` and
+are held only by the SHA this file records, inherited from Mathlib's own lakefile; a `lake update`
+outside a planned bump is what moves them and breaks reproducibility).
+
+**Each consumer's current trunk tag, and what a bump does to it.**
+
+- **`hemigroup-causal-scale-space-kernels` (Paper I) — `v0.1.1`, frozen.** Q-0182 (E-0011) answered
+  (a): *"Paper I's Lean stays frozen at its release, the require is provenance, not dependency."*
+  Its Lean is a released artefact behind a DOI; a trunk Mathlib bump does not touch it, and its
+  `ScaleSpaceCore` requirement stays at `v0.1.1` whether or not the trunk ever reaches that tag
+  again. It is named here for completeness, not as a step the bump performs.
+- **`spatial-hemigroup-scale-space` (Paper V) — `v0.2.0`.** A bump moves its `mathlib` rev and
+  re-points its `ScaleSpaceCore` requirement to whatever the trunk's post-bump tag is, in one
+  commit, through the store sequence below. (Its `ScaleSpaceCore` pin is independently scheduled
+  to move to `v0.3.0` first, for the unrelated E-0009 extraction — Q-0188, blocked on that tag —
+  so a Mathlib bump run after that lands re-points from `v0.3.0`, not `v0.2.0`.)
+- **`scale-space-foundations` (SSF) — `v0.1.0`.** Parked since 2026-08; the same move applies when
+  it is next built, with one difference: `Formalization/.lake/packages` is currently evicted while
+  the repository is parked, so the sequence below starts from `lake-store.py restore`, not
+  `unlink` — there is no junction yet to unlink.
+
+**The store.** `lake-store.py`'s module docstring: Mathlib's prebuilt oleans are *"about 7 GB per
+project, identical across every project that pins the same revisions"*, shared by Windows
+directory junctions into `dev/.lake-store/<pkg>-<rev>` rather than duplicated per project. It
+keys entries by package **and** revision, so bumping Mathlib does not replace the old store entry
+— it adds a **second** one, and the two coexist (roughly 14 GB) until every project has moved off
+the old revision. Per project, the sequence is `unlink`, bump the pin, build, `link` — never
+`lake update` in a linked project, which the hub's `CLAUDE.md` states as a standing rule:
+
+> Never `lake update` or `lake clean` in a linked project; `unlink` (or `wt-remove`) before
+> deleting a checkout or removing a worktree, since a recursive delete follows the junctions and
+> empties the store.
+
+The same rule, from `lake-store.py`'s own docstring:
+
+> Rules the store relies on (also in the hub's CLAUDE.md):
+>   * never `lake update` in a linked project — a pin bump is a new store entry, then `link` again;
+>   * never `lake clean` in a linked project — it cleans through the junctions;
+>   * `unlink` before removing a checkout or worktree; `git worktree remove --force` follows junctions.
+
+Only after the last of the four Lean roots has relinked onto the new Mathlib revision does
+`lake-store.py gc` run, to delete the now-unreferenced old entry. Running it earlier would evict a
+project — Paper I, frozen, or SSF, parked and possibly not rebuilt for a while — still linked to
+the old revision.
+
+**A fifth thing this surfaces, not a step it performs.** `scale-space-foundations`'s three
+GitHub Actions workflows (`docs.yml`, `lean.yml`, `manifest.yml`) still call
+`danielfagerstrom/article-kit/.github/workflows/<name>.yml@main`, unlike Paper I and Paper V,
+which pin the same workflows at `@v0.1.0` (E-0003, delivered). A Mathlib bump run while SSF still
+tracks `article-kit` at `main` risks its Lean CI changing underneath the bump, from an unrelated
+`article-kit` change landing on `main` the same week — the risk E-0013 named, not yet closed by
+anything in this runbook.
 
 ## License
 

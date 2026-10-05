@@ -205,6 +205,88 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.lt_tailInv_of_lt
 #print axioms ScaleSpace.antitoneOn_tailInv
 
+-- L1Operators: reflection and dilation (Q-0301)
+#print axioms ScaleSpace.measurePreserving_neg'
+#print axioms ScaleSpace.reflect_congr_ae
+#print axioms ScaleSpace.integrable_reflect
+#print axioms ScaleSpace.reflₗ
+#print axioms ScaleSpace.reflL1
+#print axioms ScaleSpace.coeFn_reflL1
+#print axioms ScaleSpace.quasiMeasurePreserving_const_mul
+#print axioms ScaleSpace.dilate
+#print axioms ScaleSpace.dilate_congr_ae
+#print axioms ScaleSpace.integrable_dilate
+#print axioms ScaleSpace.lintegral_comp_const_mul
+#print axioms ScaleSpace.dilₗ
+#print axioms ScaleSpace.dilL1
+#print axioms ScaleSpace.coeFn_dilL1
+
+-- Transform: symmetry, the cosine transform, the exponent, the bridge to `charFun`
+#print axioms ScaleSpace.IsSymmetric
+#print axioms ScaleSpace.fourierCos
+#print axioms ScaleSpace.fourierCos_apply
+#print axioms ScaleSpace.exponent
+#print axioms ScaleSpace.exponent_apply
+#print axioms ScaleSpace.fourierCos_dirac_zero
+#print axioms ScaleSpace.integrable_charFun_integrand
+#print axioms ScaleSpace.fourierCos_eq_charFun_re
+#print axioms ScaleSpace.charFun_eq_fourierCos_of_symmetric
+
+-- Transport: convolution against reflection and dilation, the kernel of the identity
+#print axioms ScaleSpace.mconv_reflect
+#print axioms ScaleSpace.mconvL1_reflL1
+#print axioms ScaleSpace.dilate_mconv
+#print axioms ScaleSpace.dilL1_comp_mconvL1
+#print axioms ScaleSpace.eq_dirac_of_mconvL1_eq_id
+#print axioms ScaleSpace.norm_sub_eq_lintegral
+
+-- Family: the cascade-family vocabulary
+#print axioms ScaleSpace.PreCascadeCore
+#print axioms ScaleSpace.IsPositive
+#print axioms ScaleSpace.IsNondegenerate
+#print axioms ScaleSpace.CascadeCore
+#print axioms ScaleSpace.IsScaleCovariant
+#print axioms ScaleSpace.CascadeFamily
+#print axioms ScaleSpace.IsKernelFamily
+#print axioms ScaleSpace.IsSymmetricKernelFamily
+#print axioms ScaleSpace.IsScaleCovariant.S_zero
+#print axioms ScaleSpace.IsScaleCovariant.S_pos
+
+-- L1Continuity: the modulus of continuity of translation, and Lévy's continuity theorem
+#print axioms ScaleSpace.levy_continuity
+#print axioms ScaleSpace.transDiff
+#print axioms ScaleSpace.continuous_transDiff
+#print axioms ScaleSpace.transDiff_nonneg
+#print axioms ScaleSpace.transDiff_zero
+#print axioms ScaleSpace.transDiff_le
+#print axioms ScaleSpace.integrable_transDiff
+#print axioms ScaleSpace.lintegral_enorm_sub_eq
+#print axioms ScaleSpace.lintegral_enorm_mconv_sub_le
+#print axioms ScaleSpace.norm_mconvL1_sub_le
+#print axioms ScaleSpace.transDiff_mconvL1_le
+#print axioms ScaleSpace.norm_mconvL1_comp_sub_le
+#print axioms ScaleSpace.transDiffBCF
+#print axioms ScaleSpace.transDiffBCF_apply
+#print axioms ScaleSpace.tendsto_integral_transDiff_of_tendsto_charFun
+#print axioms ScaleSpace.tendsto_norm_mconvL1_sub_of_tendsto_charFun
+
+-- Construction: the kernel constructor
+#print axioms ScaleSpace.CascadeData
+#print axioms ScaleSpace.CascadeData.instIsProbabilityMeasure
+#print axioms ScaleSpace.CascadeData.charFun_kernel
+#print axioms ScaleSpace.CascadeData.tendsto_integral_transDiff
+#print axioms ScaleSpace.CascadeData.norm_sub_left
+#print axioms ScaleSpace.CascadeData.norm_sub_right
+#print axioms ScaleSpace.CascadeData.continuousOn_mconvL1
+#print axioms ScaleSpace.CascadeData.preCore
+#print axioms ScaleSpace.CascadeData.preCore_Φ
+#print axioms ScaleSpace.CascadeData.isPositive
+#print axioms ScaleSpace.CascadeData.isKernelFamily
+#print axioms ScaleSpace.CascadeData.isNondegenerate
+#print axioms ScaleSpace.CascadeData.cascadeCore
+#print axioms ScaleSpace.CascadeData.cascadeCore_Φ
+#print axioms ScaleSpace.CascadeData.isScaleCovariant
+
 -- SDProfile: the line's admissible cone, the symmetric Lévy pair, and `lem:profile-integrability`
 #print axioms ScaleSpace.IsFolded
 #print axioms ScaleSpace.SymLevyPair
@@ -250,10 +332,6 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.SDProfile.continuous_exponent
 
 -- BrownianDensity: the cosine transform at a Gaussian, and the Brownian density
-#print axioms ScaleSpace.fourierCos
-#print axioms ScaleSpace.fourierCos_apply
-#print axioms ScaleSpace.integrable_charFun_integrand
-#print axioms ScaleSpace.fourierCos_eq_charFun_re
 #print axioms ScaleSpace.fourierCos_gaussianReal
 #print axioms ScaleSpace.brownianLaw
 #print axioms ScaleSpace.brownianDensity

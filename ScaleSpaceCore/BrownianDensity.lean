@@ -5,6 +5,7 @@ Authors: Daniel Fagerström
 -/
 import Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic
 import Mathlib.Probability.Distributions.Gaussian.Real
+import ScaleSpaceCore.Transform
 
 /-!
 # The Brownian laws and their density
@@ -16,8 +17,10 @@ written with `u` a real time rather than an `ℝ≥0` variance. At `u = 0` the w
 for `u < 0` it is junk — every statement quantifies over `u > 0` or integrates over `(0,∞)`.
 
 Moved from the spatial article's export (`SpatialLine.BrownianDensity`, and from
-`SpatialLine.Transform`/`TransformBridge` the cosine transform `fourierCos` with the two facts
-that compute it at a Gaussian, at `cone-v0.1`), statements unchanged up to the namespace. Only
+`SpatialLine.TransformBridge` the fact that computes the cosine transform at a Gaussian, at
+`cone-v0.1`), statements unchanged up to the namespace. The cosine transform `fourierCos` itself,
+with `integrable_charFun_integrand` and `fourierCos_eq_charFun_re`, is `ScaleSpaceCore.Transform`'s
+(Q-0301, merged first; the two moves had carried identical copies). Only
 what `bridge_exponents` needs moved: the mixture facts about `Measure.bind brownianLaw`, which
 serve `bridge_exponents_mixture` and the Gaussian variance mixtures, stayed behind.
 
@@ -33,42 +36,7 @@ namespace ScaleSpace
 open MeasureTheory Set ProbabilityTheory
 open scoped ENNReal NNReal
 
-/-! ## The cosine transform -/
-
-/-- **(2.1) for a symmetric measure**: `μ̂(ω) = ∫ cos(ωx) μ(dx)`.
-
-A Bochner integral of a bounded continuous function; for a finite `μ` it always converges, and
-for a symmetric `μ` it is the Fourier transform of (2.1). -/
-noncomputable def fourierCos (μ : Measure ℝ) (ω : ℝ) : ℝ := ∫ x, Real.cos (ω * x) ∂μ
-
-lemma fourierCos_apply (μ : Measure ℝ) (ω : ℝ) : fourierCos μ ω = ∫ x, Real.cos (ω * x) ∂μ := rfl
-
-/-- The integrand of `charFun` is integrable against a finite measure: it is continuous of
-constant modulus `1`. -/
-theorem integrable_charFun_integrand (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) :
-    Integrable (fun x : ℝ => Complex.exp ((ω : ℂ) * (x : ℂ) * Complex.I)) μ := by
-  have hmeas : AEStronglyMeasurable
-      (fun x : ℝ => Complex.exp ((ω : ℂ) * (x : ℂ) * Complex.I)) μ := by
-    fun_prop
-  refine ⟨hmeas, ?_⟩
-  have hbound : ∀ x : ℝ, ‖Complex.exp ((ω : ℂ) * (x : ℂ) * Complex.I)‖ ≤ ‖(1 : ℝ)‖ := by
-    intro x
-    have : ((ω : ℂ) * (x : ℂ)) = ((ω * x : ℝ) : ℂ) := by push_cast; ring
-    rw [this, Complex.norm_exp_ofReal_mul_I]
-    simp
-  exact (hasFiniteIntegral_const (1 : ℝ)).mono (Filter.Eventually.of_forall hbound)
-
-/-- **The cosine transform is the real part of the characteristic function.**
-
-`fourierCos μ ω = ∫ cos(ωx) ∂μ` and `charFun μ ω = ∫ exp(ωx i) ∂μ`, and `re` commutes with the
-Bochner integral of an integrable function. -/
-theorem fourierCos_eq_charFun_re (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) :
-    fourierCos μ ω = (charFun μ ω).re := by
-  rw [charFun_apply_real, ← RCLike.re_to_complex,
-    ← integral_re (integrable_charFun_integrand μ ω), fourierCos_apply]
-  refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
-  have hx : ((ω : ℂ) * (x : ℂ)) = ((ω * x : ℝ) : ℂ) := by push_cast; ring
-  simp only [RCLike.re_to_complex, hx, Complex.exp_ofReal_mul_I_re]
+/-! ## The cosine transform at a Gaussian -/
 
 /-- **The cosine transform of a centred Gaussian law of variance `v`**, `e^{-vω²/2}`. -/
 theorem fourierCos_gaussianReal (v : NNReal) (ω : ℝ) :
