@@ -20,6 +20,12 @@ import ScaleSpaceCore.Transport
 import ScaleSpaceCore.Family
 import ScaleSpaceCore.L1Continuity
 import ScaleSpaceCore.Construction
+import ScaleSpaceCore.SDProfile
+import ScaleSpaceCore.SDProfileCone
+import ScaleSpaceCore.BrownianDensity
+import ScaleSpaceCore.BridgeExponents
+import ScaleSpaceCore.Cin
+import ScaleSpaceCore.CinRays
 
 /-! # The shared scale-space core
 

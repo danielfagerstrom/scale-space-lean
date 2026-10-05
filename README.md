@@ -15,9 +15,10 @@ an article.
 Everything currently here is proved from
 [Mathlib](https://github.com/leanprover-community/mathlib4) alone: Lie wedges and infinitesimal
 covariance, the receptive-field commutation lemmas, the Galilean boost bracket, the causal
-admissible cone, the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal
-and spatial articles share, and the line's reflection-symmetric cascade-family vocabulary with
-its kernel constructor, which the spatial articles share. It is its own Lake package because each article in this line publishes
+admissible cone and the line's admissible cone with the bridge between them, the `Cin` rays,
+the L¹ / Bochner-convolution / Laplace-uniqueness infrastructure the causal and spatial articles
+share, and the line's reflection-symmetric cascade-family vocabulary with its kernel constructor,
+which the spatial articles share. It is its own Lake package because each article in this line publishes
 its own DOI from its own repository.
 
 ## Using it
@@ -65,6 +66,10 @@ deliberately, as one step.
 | `Family` | the reflection-symmetric cascade family on `L¹(ℝ)`: `PreCascadeCore` ((A1)–(A3), (A5)–(A7)), `CascadeCore` (+ (A4) `IsPositive`, (ND) `IsNondegenerate`), `IsScaleCovariant` ((A8) relative to a set of ratios), `CascadeFamily`, and the kernel-family hypotheses `IsKernelFamily`, `IsSymmetricKernelFamily` |
 | `L1Continuity` | the modulus of continuity of translation (`transDiff`), the estimate `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ dμ` (`norm_mconvL1_sub_le`), and Lévy's continuity theorem in the form (A7) consumes |
 | `Construction` | `CascadeData`, the kernel-level constructor: symmetric probability kernels with the cascade law and a transform continuous in the scales give a `PreCascadeCore` (`preCore`, with (A7) as `continuousOn_mconvL1`), positivity, a kernel family, and — under one hypothesis each — `cascadeCore` and `isScaleCovariant` |
+| `SDProfile`, `SDProfileCone` | the line's admissible cone: `SDProfile` (Gaussian coefficient `a ≥ 0`, nonincreasing folded profile `k ≥ 0`) with `exponentL`, `exponent`, `profileMeasure`, `levyMeasure` and `IsAdmissibleExponent`; the folding predicate `IsFolded` and the symmetric Lévy pair `SymLevyPair` with its quadratic growth bound; `profile_integrability` and `profile_integrability_pair`; sums and multiples (`admissible_cone`), evenness, `exponent_zero` and `continuous_exponent` |
+| `BrownianDensity` | the Brownian laws `brownianLaw`, `brownianDensity` and the elementary bounds and Gaussian jump integral the bridge reads; the cosine transform's value at a centred Gaussian (`fourierCos_gaussianReal`; `fourierCos` itself is `Transform`'s) |
+| `BridgeExponents` | `bridge_exponents`: every `CausalAdmissible` maps to an `SDProfile` with coefficient `b₀/2`, folded profile `2x∫g_u(x)k(u)du/u` and exponent `F(ω²/2)` (`CausalAdmissible.bridgeDatum`) |
+| `Cin`, `CinRays` | `Cin(z) = ∫₀^z (1 - cos v)dv/v` with `cin_elementary` (even, nondecreasing on `[0,∞)`, `≤ z²/4`) and the expansions `cin_expansion_zero`, `cin_expansion_top`; the unit-step profile `cinProfile τ` and the ray `cin_ray` (exponent `Cin(τ·)`) |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -133,7 +138,8 @@ strip and the identity theorem, so no wrapper module was built; one can be added
 uniqueness on a half-line~~ — **moved (2026-09-28, `LaplaceUniqueness`).** ~~The convolution
 transport block~~ — **moved (2026-09-28, `L1Operators`, `BochnerConvolution`).** **The transform
 bridge** (the spatial article's `TransformBridge`; its `charFun` identities moved 2026-10-05 into
-`Transform`, the rest stays queued) and **the a.e.-tail / antitone-density
+`Transform`, and `fourierCos_gaussianReal` with `BrownianDensity`; the symmetric-measure half and
+the rest stay queued) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
@@ -154,8 +160,21 @@ these modules is a separate item.
 (Paper VII, `spatial-hemigroup-affine`) constructs a `CascadeCore` from the marginals of an
 isotropic family and states its hypotheses in the vocabulary, so the structures themselves are
 second demand and move with the declarations stated in them — the case `CausalAdmissible` moved
-under. The representation lemma that produces a kernel family (`exists_kernelFamily`) and the
-admissible cone on the line (`SDProfile`) have not moved.
+under. The representation lemma that produces a kernel family (`exists_kernelFamily`) has not
+moved; the admissible cone on the line moved the same day (below).
+
+**Moved (2026-10-05): the line's admissible cone as a shared type** (`SDProfile`, `SDProfileCone`,
+`BrownianDensity`, `BridgeExponents`, `Cin`, `CinRays`), the line analogue of the causal cone's
+move below. The spatial-affine article states its class `𝒜_d` in `SDProfile` (its second demand,
+hub `spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md`, SSL-2), so the structure
+moved from Paper V's cone export (`cone-v0.1`) with the declarations stated in it:
+`bridge_exponents`, now a theorem between two trunk structures, and the `Cin` rays. It brought
+the Lean-core dependencies its proofs read — `IsFolded`, `SymLevyPair` and its growth bound, the
+Lean-core half of `lem:profile-integrability`, the Brownian density, and the part of the transform
+bridge that computes `fourierCos` at a Gaussian (`fourierCos` itself came with the cascade
+vocabulary, above: the two moves carried identical copies, and this one now imports it). `IsSelfDecomposable` (SSL-3),
+`bridge_exponents_mixture` and the Gaussian mixtures (SSL-8), and the Choquet superposition of
+`lem:cin-rays`(2) stayed behind. Paper V's own copies are unchanged here.
 
 **Moved (2026-09-11): the causal admissible cone as a shared type** (`CausalCone`, `CausalData`).
 Its extraction is right and Paper V (the spatial article) uses it heavily, keeping the field layout
