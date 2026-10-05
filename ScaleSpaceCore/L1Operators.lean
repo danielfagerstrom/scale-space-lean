@@ -13,7 +13,7 @@ import Mathlib.MeasureTheory.Measure.Haar.Unique
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 
 /-!
-# `L¹(ℝ)`, translation, and convolution by a measure
+# `L¹(ℝ)`, translation, reflection, dilation, and convolution by a measure
 
 Slice 1 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Operator.lean` /
 `OperatorL1.lean` / `Family.lean` and Paper V's `SpatialLine/Basic.lean` /
@@ -21,18 +21,22 @@ Slice 1 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Operator.le
 byte-identical copies (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6).
 Neither article is `require`d here; the two copies are collapsed into one, under `ScaleSpace`.
 
-## What moved, and what stayed behind
+## Reflection and dilation (Q-0301)
 
-Paper V's ambient space also carries reflection `reflL1` and dilation `dilL1`/`dilₗ` — the
-spatial group actions with no causal counterpart — and `mconv_reflect` / `mconvL1_reflL1` /
-`representation_converse`, which quantify over `IsSymmetric`, a predicate specific to that
-article's axioms. None of that is here: the test that decides trunk membership reads statements,
-and a statement mentioning a paper-specific predicate is that paper's
-(hub `RELEASES.md` § "Dependencies between modules").
+Q-0187 left Paper V's reflection `reflL1`/`reflₗ` and dilation `dilate`/`dilₗ`/`dilL1` behind as
+spatial-specific. Q-0301 moved them in from `SpatialLine/Basic.lean` at Paper V's `v0.1`: a second
+spatial module (Paper VII) needs them, with the cascade-family vocabulary stated over them
+(`ScaleSpaceCore.Family`), which is case (c) of the second-demand test (hub `RELEASES.md`
+§ "Dependencies between modules"). What the convolution operator does against them
+(`mconvL1_reflL1`, `dilL1_comp_mconvL1`) is in `ScaleSpaceCore.Transport`, because the reflection
+clause is stated with `IsSymmetric` (`ScaleSpaceCore.Transform`).
 
 ## Design
 
 * `X = ℝ →₁[volume] ℝ`, real, and the operators are `X →L[ℝ] X`.
+* `dilate lam f = lam⁻¹ f (lam⁻¹ ·)` — the mass-preserving normalisation, which is what makes
+  `dilL1` an isometry of `L¹` and matches the measure-side dilation, pushforward along
+  `x ↦ lam * x`.
 * `mconv μ f x = ∫ y, f (x - y) ∂μ`, packaged as the bounded operator `mconvL1`; the six
   properties below are what a translation- and reflection-covariant, positivity- and
   mass-preserving convolution family needs of it, short of the reflection clause.
@@ -86,6 +90,121 @@ noncomputable def transL1 (a : ℝ) : (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ �
 lemma coeFn_transL1 (a : ℝ) (f : ℝ →₁[volume] ℝ) :
     transL1 a f =ᵐ[volume] fun x => (f : ℝ → ℝ) (x - a) :=
   Integrable.coeFn_toL1 (integrable_translate (L1.integrable_coeFn f) a)
+
+/-! ## Reflection
+
+`(R f)(x) = f(-x)`, an isometric involution of `L¹`, because Lebesgue measure on the line is
+invariant under `x ↦ -x`.
+-/
+
+/-- `x ↦ -x` preserves Lebesgue measure. -/
+theorem measurePreserving_neg' : MeasurePreserving (fun x : ℝ => -x) volume volume :=
+  Measure.measurePreserving_neg (volume : Measure ℝ)
+
+theorem reflect_congr_ae {f g : ℝ → ℝ} (h : f =ᵐ[volume] g) :
+    (fun x => f (-x)) =ᵐ[volume] fun x => g (-x) :=
+  measurePreserving_neg'.quasiMeasurePreserving.ae h
+
+theorem integrable_reflect {f : ℝ → ℝ} (hf : Integrable f) :
+    Integrable (fun x => f (-x)) :=
+  (measurePreserving_neg'.integrable_comp hf.aestronglyMeasurable).mpr hf
+
+/-- `R f = f(-·)` as a linear map on `L¹`. -/
+noncomputable def reflₗ : (ℝ →₁[volume] ℝ) →ₗ[ℝ] (ℝ →₁[volume] ℝ) where
+  toFun f := (integrable_reflect (L1.integrable_coeFn f)).toL1 _
+  map_add' f g := by
+    rw [← Integrable.toL1_add]
+    exact (Integrable.toL1_eq_toL1_iff _ _ _ _).mpr (reflect_congr_ae (Lp.coeFn_add f g))
+  map_smul' c f := by
+    simp only [RingHom.id_apply]
+    rw [← Integrable.toL1_smul']
+    exact (Integrable.toL1_eq_toL1_iff _ _ _ _).mpr (reflect_congr_ae (Lp.coeFn_smul c f))
+
+/-- **Reflection is an isometry of `L¹`.** The change of variables is `x ↦ -x`, a measurable
+equivalence preserving Lebesgue measure, so the constant is `1`. -/
+noncomputable def reflL1 : (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ →₁[volume] ℝ) :=
+  reflₗ.mkContinuous 1 fun f => by
+    rw [reflₗ, LinearMap.coe_mk, AddHom.coe_mk, Integrable.norm_toL1_eq_lintegral_enorm,
+      one_mul, Lp.norm_def, eLpNorm_one_eq_lintegral_enorm]
+    refine le_of_eq (congrArg ENNReal.toReal ?_)
+    exact measurePreserving_neg'.lintegral_comp_emb
+      (Homeomorph.neg ℝ).toMeasurableEquiv.measurableEmbedding fun x => ‖(f : ℝ → ℝ) x‖ₑ
+
+lemma coeFn_reflL1 (f : ℝ →₁[volume] ℝ) :
+    reflL1 f =ᵐ[volume] fun x => (f : ℝ → ℝ) (-x) :=
+  Integrable.coeFn_toL1 (integrable_reflect (L1.integrable_coeFn f))
+
+/-! ## Dilation -/
+
+/-- Multiplication by a nonzero constant is quasi-measure-preserving. -/
+theorem quasiMeasurePreserving_const_mul {c : ℝ} (hc : c ≠ 0) :
+    Measure.QuasiMeasurePreserving (fun x : ℝ => c * x) volume volume := by
+  refine ⟨measurable_const_mul c, ?_⟩
+  rw [Real.map_volume_mul_left hc]
+  exact Measure.smul_absolutelyContinuous
+
+/-- `D_lam f = lam⁻¹ f(lam⁻¹ ·)`, the mass-preserving normalisation. -/
+noncomputable def dilate (lam : ℝ) (f : ℝ → ℝ) : ℝ → ℝ := fun x => lam⁻¹ * f (lam⁻¹ * x)
+
+theorem dilate_congr_ae {lam : ℝ} (hlam : lam ≠ 0) {f g : ℝ → ℝ} (h : f =ᵐ[volume] g) :
+    dilate lam f =ᵐ[volume] dilate lam g := by
+  filter_upwards [(quasiMeasurePreserving_const_mul (inv_ne_zero hlam)).ae h] with x hx
+  simp only [dilate, hx]
+
+theorem integrable_dilate {f : ℝ → ℝ} (hf : Integrable f) {lam : ℝ} (hlam : lam ≠ 0) :
+    Integrable (dilate lam f) :=
+  (Integrable.comp_mul_left' hf (inv_ne_zero hlam)).const_mul lam⁻¹
+
+/-- The change of variables the isometry rests on: `∫⁻ g(c x) dx = |c⁻¹| ∫⁻ g`. -/
+theorem lintegral_comp_const_mul {c : ℝ} (hc : c ≠ 0) {g : ℝ → ℝ≥0∞} (hg : AEMeasurable g) :
+    ∫⁻ x, g (c * x) = ENNReal.ofReal |c⁻¹| * ∫⁻ x, g x := by
+  have hmap := Real.map_volume_mul_left hc
+  calc ∫⁻ x, g (c * x)
+      = ∫⁻ y, g y ∂(Measure.map (fun x : ℝ => c * x) volume) := by
+        rw [lintegral_map' (hg.mono_ac (by rw [hmap]; exact Measure.smul_absolutelyContinuous))
+          (measurable_const_mul c).aemeasurable]
+    _ = ENNReal.ofReal |c⁻¹| * ∫⁻ x, g x := by
+        rw [hmap, lintegral_smul_measure, smul_eq_mul]
+
+/-- `D_lam` as a linear map on `L¹`. -/
+noncomputable def dilₗ {lam : ℝ} (hlam : lam ≠ 0) :
+    (ℝ →₁[volume] ℝ) →ₗ[ℝ] (ℝ →₁[volume] ℝ) where
+  toFun f := (integrable_dilate (L1.integrable_coeFn f) hlam).toL1 _
+  map_add' f g := by
+    rw [← Integrable.toL1_add]
+    refine (Integrable.toL1_eq_toL1_iff _ _ _ _).mpr ?_
+    refine (dilate_congr_ae hlam (Lp.coeFn_add f g)).trans ?_
+    filter_upwards with x
+    simp only [dilate, Pi.add_apply, mul_add]
+  map_smul' c f := by
+    simp only [RingHom.id_apply]
+    rw [← Integrable.toL1_smul']
+    refine (Integrable.toL1_eq_toL1_iff _ _ _ _).mpr ?_
+    refine (dilate_congr_ae hlam (Lp.coeFn_smul c f)).trans ?_
+    filter_upwards with x
+    simp only [dilate, Pi.smul_apply, smul_eq_mul]
+    ring
+
+/-- **Dilation is an isometry of `L¹`** for `lam > 0`. -/
+noncomputable def dilL1 {lam : ℝ} (hlam : 0 < lam) :
+    (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ →₁[volume] ℝ) :=
+  (dilₗ hlam.ne').mkContinuous 1 fun f => by
+    rw [dilₗ, LinearMap.coe_mk, AddHom.coe_mk, Integrable.norm_toL1_eq_lintegral_enorm,
+      one_mul, Lp.norm_def, eLpNorm_one_eq_lintegral_enorm]
+    refine le_of_eq (congrArg ENNReal.toReal ?_)
+    have henorm : ∀ x : ℝ, ‖dilate lam (f : ℝ → ℝ) x‖ₑ
+        = ENNReal.ofReal lam⁻¹ * ‖(f : ℝ → ℝ) (lam⁻¹ * x)‖ₑ := by
+      intro x
+      simp only [dilate, enorm_mul, Real.enorm_eq_ofReal (inv_nonneg.mpr hlam.le)]
+    simp only [henorm]
+    rw [lintegral_const_mul' _ _ ENNReal.ofReal_ne_top,
+      lintegral_comp_const_mul (inv_ne_zero hlam.ne') (Lp.aestronglyMeasurable f).enorm,
+      ← mul_assoc, inv_inv, abs_of_pos hlam, ← ENNReal.ofReal_mul (le_of_lt (inv_pos.mpr hlam)),
+      inv_mul_cancel₀ hlam.ne', ENNReal.ofReal_one, one_mul]
+
+lemma coeFn_dilL1 {lam : ℝ} (hlam : 0 < lam) (f : ℝ →₁[volume] ℝ) :
+    dilL1 hlam f =ᵐ[volume] dilate lam (f : ℝ → ℝ) :=
+  Integrable.coeFn_toL1 (integrable_dilate (L1.integrable_coeFn f) hlam.ne')
 
 /-! ## Convolution by a measure -/
 
