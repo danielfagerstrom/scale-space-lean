@@ -13,6 +13,10 @@ All notable changes to this repository are recorded here. The format follows
   and a one-way dependency onto the new (not yet created) Mathlib-quality library,
   `harmonic-semigroups`. No Lean change; the stale `rev = "v0.1.0"` in the README's `lakefile.toml`
   example is corrected to `v0.2.0`.
+- `README.md` gains a "Bumping Mathlib" section (E-0013): the twelve files across the four Lean
+  repositories, the trunk-first order, each consumer's current trunk tag and what a bump does to
+  it, Paper I's frozen position (Q-0182), and the `lake-store.py` sequence. Documentation only; no
+  Mathlib bump is performed.
 
 ### Added
 
