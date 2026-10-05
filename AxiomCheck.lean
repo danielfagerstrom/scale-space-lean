@@ -205,6 +205,232 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.lt_tailInv_of_lt
 #print axioms ScaleSpace.antitoneOn_tailInv
 
+-- L1Operators: reflection and dilation (Q-0301)
+#print axioms ScaleSpace.measurePreserving_neg'
+#print axioms ScaleSpace.reflect_congr_ae
+#print axioms ScaleSpace.integrable_reflect
+#print axioms ScaleSpace.reflₗ
+#print axioms ScaleSpace.reflL1
+#print axioms ScaleSpace.coeFn_reflL1
+#print axioms ScaleSpace.quasiMeasurePreserving_const_mul
+#print axioms ScaleSpace.dilate
+#print axioms ScaleSpace.dilate_congr_ae
+#print axioms ScaleSpace.integrable_dilate
+#print axioms ScaleSpace.lintegral_comp_const_mul
+#print axioms ScaleSpace.dilₗ
+#print axioms ScaleSpace.dilL1
+#print axioms ScaleSpace.coeFn_dilL1
+
+-- Transform: symmetry, the cosine transform, the exponent, the bridge to `charFun`
+#print axioms ScaleSpace.IsSymmetric
+#print axioms ScaleSpace.fourierCos
+#print axioms ScaleSpace.fourierCos_apply
+#print axioms ScaleSpace.exponent
+#print axioms ScaleSpace.exponent_apply
+#print axioms ScaleSpace.fourierCos_dirac_zero
+#print axioms ScaleSpace.integrable_charFun_integrand
+#print axioms ScaleSpace.fourierCos_eq_charFun_re
+#print axioms ScaleSpace.charFun_eq_fourierCos_of_symmetric
+
+-- Transport: convolution against reflection and dilation, the kernel of the identity
+#print axioms ScaleSpace.mconv_reflect
+#print axioms ScaleSpace.mconvL1_reflL1
+#print axioms ScaleSpace.dilate_mconv
+#print axioms ScaleSpace.dilL1_comp_mconvL1
+#print axioms ScaleSpace.eq_dirac_of_mconvL1_eq_id
+#print axioms ScaleSpace.norm_sub_eq_lintegral
+
+-- Family: the cascade-family vocabulary
+#print axioms ScaleSpace.PreCascadeCore
+#print axioms ScaleSpace.IsPositive
+#print axioms ScaleSpace.IsNondegenerate
+#print axioms ScaleSpace.CascadeCore
+#print axioms ScaleSpace.IsScaleCovariant
+#print axioms ScaleSpace.CascadeFamily
+#print axioms ScaleSpace.IsKernelFamily
+#print axioms ScaleSpace.IsSymmetricKernelFamily
+#print axioms ScaleSpace.IsScaleCovariant.S_zero
+#print axioms ScaleSpace.IsScaleCovariant.S_pos
+
+-- L1Continuity: the modulus of continuity of translation, and Lévy's continuity theorem
+#print axioms ScaleSpace.levy_continuity
+#print axioms ScaleSpace.transDiff
+#print axioms ScaleSpace.continuous_transDiff
+#print axioms ScaleSpace.transDiff_nonneg
+#print axioms ScaleSpace.transDiff_zero
+#print axioms ScaleSpace.transDiff_le
+#print axioms ScaleSpace.integrable_transDiff
+#print axioms ScaleSpace.lintegral_enorm_sub_eq
+#print axioms ScaleSpace.lintegral_enorm_mconv_sub_le
+#print axioms ScaleSpace.norm_mconvL1_sub_le
+#print axioms ScaleSpace.transDiff_mconvL1_le
+#print axioms ScaleSpace.norm_mconvL1_comp_sub_le
+#print axioms ScaleSpace.transDiffBCF
+#print axioms ScaleSpace.transDiffBCF_apply
+#print axioms ScaleSpace.tendsto_integral_transDiff_of_tendsto_charFun
+#print axioms ScaleSpace.tendsto_norm_mconvL1_sub_of_tendsto_charFun
+
+-- Construction: the kernel constructor
+#print axioms ScaleSpace.CascadeData
+#print axioms ScaleSpace.CascadeData.instIsProbabilityMeasure
+#print axioms ScaleSpace.CascadeData.charFun_kernel
+#print axioms ScaleSpace.CascadeData.tendsto_integral_transDiff
+#print axioms ScaleSpace.CascadeData.norm_sub_left
+#print axioms ScaleSpace.CascadeData.norm_sub_right
+#print axioms ScaleSpace.CascadeData.continuousOn_mconvL1
+#print axioms ScaleSpace.CascadeData.preCore
+#print axioms ScaleSpace.CascadeData.preCore_Φ
+#print axioms ScaleSpace.CascadeData.isPositive
+#print axioms ScaleSpace.CascadeData.isKernelFamily
+#print axioms ScaleSpace.CascadeData.isNondegenerate
+#print axioms ScaleSpace.CascadeData.cascadeCore
+#print axioms ScaleSpace.CascadeData.cascadeCore_Φ
+#print axioms ScaleSpace.CascadeData.isScaleCovariant
+
+-- SDProfile: the line's admissible cone, the symmetric Lévy pair, and `lem:profile-integrability`
+#print axioms ScaleSpace.IsFolded
+#print axioms ScaleSpace.SymLevyPair
+#print axioms ScaleSpace.SymLevyPair.exponentL
+#print axioms ScaleSpace.SymLevyPair.exponent
+#print axioms ScaleSpace.profileMeasure
+#print axioms ScaleSpace.SDProfile
+#print axioms ScaleSpace.SDProfile.exponentL
+#print axioms ScaleSpace.SDProfile.exponent
+#print axioms ScaleSpace.SDProfile.levyMeasure
+#print axioms ScaleSpace.IsAdmissibleExponent
+#print axioms ScaleSpace.SymLevyPair.lintegral_sq_div_two_ne_top
+#print axioms ScaleSpace.SymLevyPair.measure_Ioi_one_ne_top
+#print axioms ScaleSpace.SymLevyPair.quadratic_growth
+#print axioms ScaleSpace.SymLevyPair.exponentL_ne_top
+#print axioms ScaleSpace.profile_integrability
+#print axioms ScaleSpace.isFolded_profileMeasure
+#print axioms ScaleSpace.exponentL_eq_of_profileMeasure
+#print axioms ScaleSpace.profile_integrability_pair
+#print axioms ScaleSpace.SDProfile.exponent_zero
+-- SDProfileCone: `lem:admissible-cone` and continuity
+#print axioms ScaleSpace.SDProfile.aemeasurable_k
+#print axioms ScaleSpace.SDProfile.aemeasurable_k_mono
+#print axioms ScaleSpace.SDProfile.add
+#print axioms ScaleSpace.SDProfile.smul
+#print axioms ScaleSpace.SDProfile.add_a
+#print axioms ScaleSpace.SDProfile.add_k
+#print axioms ScaleSpace.SDProfile.smul_a
+#print axioms ScaleSpace.SDProfile.smul_k
+#print axioms ScaleSpace.SDProfile.exponentL_ne_top
+#print axioms ScaleSpace.SDProfile.exponentL_neg
+#print axioms ScaleSpace.SDProfile.exponent_neg
+#print axioms ScaleSpace.SDProfile.exponentL_add
+#print axioms ScaleSpace.SDProfile.exponentL_smul
+#print axioms ScaleSpace.SDProfile.exponent_add
+#print axioms ScaleSpace.SDProfile.exponent_smul
+#print axioms ScaleSpace.admissible_cone
+#print axioms ScaleSpace.SymLevyPair.one_sub_cos_mul_le
+#print axioms ScaleSpace.SymLevyPair.measurable_one_sub_cos
+#print axioms ScaleSpace.SymLevyPair.continuous_jump
+#print axioms ScaleSpace.SymLevyPair.continuous_exponentL
+#print axioms ScaleSpace.SymLevyPair.continuous_exponent
+#print axioms ScaleSpace.SDProfile.continuous_exponent
+
+-- BrownianDensity: the cosine transform at a Gaussian, and the Brownian density
+#print axioms ScaleSpace.fourierCos_gaussianReal
+#print axioms ScaleSpace.brownianLaw
+#print axioms ScaleSpace.brownianDensity
+#print axioms ScaleSpace.brownianDensity_eq
+#print axioms ScaleSpace.brownianDensity_nonneg
+#print axioms ScaleSpace.measurable_brownianDensity
+#print axioms ScaleSpace.measurable_brownianDensity_time
+#print axioms ScaleSpace.measurable_brownianDensity_uncurry
+#print axioms ScaleSpace.brownianDensity_neg
+#print axioms ScaleSpace.brownianLaw_eq_withDensity
+#print axioms ScaleSpace.sq_le_four_mul_exp
+#print axioms ScaleSpace.brownianDensity_div_le
+#print axioms ScaleSpace.brownianDensity_le_one
+#print axioms ScaleSpace.lintegral_brownianLaw_one_sub_cos
+#print axioms ScaleSpace.lintegral_brownianDensity
+#print axioms ScaleSpace.lintegral_even_eq_two_mul
+#print axioms ScaleSpace.lintegral_Ioi_brownianDensity_one_sub_cos
+
+-- BridgeExponents: `lem:bridge-exponents`, from `CausalAdmissible` into `SDProfile`
+#print axioms ScaleSpace.mixWeight
+#print axioms ScaleSpace.mixWeight_nonneg
+#print axioms ScaleSpace.CausalAdmissible.mixDensityL
+#print axioms ScaleSpace.CausalAdmissible.mixDensityL_ne_top
+#print axioms ScaleSpace.CausalAdmissible.ofReal_mul_mixDensityL
+#print axioms ScaleSpace.CausalAdmissible.mixDensityL_antitone
+#print axioms ScaleSpace.CausalAdmissible.bridgeProfile
+#print axioms ScaleSpace.CausalAdmissible.integral_eq_mixDensityL
+#print axioms ScaleSpace.CausalAdmissible.bridgeProfile_eq
+#print axioms ScaleSpace.CausalAdmissible.bridgeProfile_nonneg
+#print axioms ScaleSpace.CausalAdmissible.bridgeProfile_zero
+#print axioms ScaleSpace.CausalAdmissible.bridgeProfile_antitoneOn
+#print axioms ScaleSpace.CausalAdmissible.ofReal_bridgeProfile_div
+#print axioms ScaleSpace.integral_sq_gaussianReal
+#print axioms ScaleSpace.integrable_sq_brownianLaw
+#print axioms ScaleSpace.lintegral_sq_brownianDensity
+#print axioms ScaleSpace.lintegral_brownianDensity_eq_one
+#print axioms ScaleSpace.lintegral_min_brownianDensity_le
+#print axioms ScaleSpace.CausalAdmissible.lintegral_Ioi_mul_mixDensityL
+#print axioms ScaleSpace.CausalAdmissible.aemeasurable_bridgeProfile
+#print axioms ScaleSpace.CausalAdmissible.lintegral_min_profileMeasure_ne_top
+#print axioms ScaleSpace.CausalAdmissible.profileJump_bridgeProfile
+#print axioms ScaleSpace.CausalAdmissible.bridgeDatum
+#print axioms ScaleSpace.CausalAdmissible.bridgeDatum_a
+#print axioms ScaleSpace.CausalAdmissible.bridgeDatum_k
+#print axioms ScaleSpace.CausalAdmissible.bridgeDatum_exponentL
+#print axioms ScaleSpace.CausalAdmissible.bridgeDatum_exponent
+#print axioms ScaleSpace.bridge_exponents
+
+-- Cin: `Cin` and the function clauses of `lem:cin-rays`(1)
+#print axioms ScaleSpace.cinIntegrand
+#print axioms ScaleSpace.cin
+#print axioms ScaleSpace.cin_apply
+#print axioms ScaleSpace.cinProfile
+#print axioms ScaleSpace.cinIntegrand_nonneg
+#print axioms ScaleSpace.cinIntegrand_neg
+#print axioms ScaleSpace.cinIntegrand_le_half
+#print axioms ScaleSpace.measurable_cinIntegrand
+#print axioms ScaleSpace.intervalIntegrable_cinIntegrand
+#print axioms ScaleSpace.abs_cinIntegrand_le
+#print axioms ScaleSpace.continuous_cinIntegrand
+#print axioms ScaleSpace.hasDerivAt_cin
+#print axioms ScaleSpace.continuous_cin
+#print axioms ScaleSpace.cin_zero
+#print axioms ScaleSpace.cin_neg
+#print axioms ScaleSpace.cin_nonneg
+#print axioms ScaleSpace.cin_le_sq_of_nonneg
+#print axioms ScaleSpace.cin_le_sq
+#print axioms ScaleSpace.monotoneOn_cin
+#print axioms ScaleSpace.cin_elementary
+#print axioms ScaleSpace.cin_sub_sq_bound
+#print axioms ScaleSpace.cin_expansion_zero_bound
+#print axioms ScaleSpace.cin_expansion_zero
+#print axioms ScaleSpace.rpow_neg_two
+#print axioms ScaleSpace.integrableOn_sin_div_sq
+#print axioms ScaleSpace.norm_integral_Ioi_sin_div_sq
+#print axioms ScaleSpace.hasDerivAt_sin_div
+#print axioms ScaleSpace.integral_cos_div
+#print axioms ScaleSpace.cin_eq_log_sub
+#print axioms ScaleSpace.cinConst
+#print axioms ScaleSpace.cin_sub_log_eq
+#print axioms ScaleSpace.cin_expansion_top_bound
+#print axioms ScaleSpace.cin_expansion_top
+#print axioms ScaleSpace.cin_nonneg'
+#print axioms ScaleSpace.dilate_cinIntegrand
+#print axioms ScaleSpace.intervalIntegral_dilate_cinIntegrand
+#print axioms ScaleSpace.dilate_cinIntegrand_nonneg
+#print axioms ScaleSpace.dilate_cinIntegrand_le
+#print axioms ScaleSpace.intervalIntegrable_dilate_cinIntegrand
+-- CinRays: the ray
+#print axioms ScaleSpace.cinProfile_nonneg
+#print axioms ScaleSpace.cinProfile_le_one
+#print axioms ScaleSpace.cinProfile_eq_zero
+#print axioms ScaleSpace.cinProfile_eq_one
+#print axioms ScaleSpace.antitoneOn_cinProfile
+#print axioms ScaleSpace.measurable_cinProfile
+#print axioms ScaleSpace.cinSDProfile
+#print axioms ScaleSpace.cinSDProfile_exponentL
+#print axioms ScaleSpace.cin_ray
+
 -- SelfDecomposable: self-decomposability on a real vector space, the line as an instance
 #print axioms ScaleSpace.IsSelfDecomposable
 #print axioms ScaleSpace.IsBSelfDecomposable
