@@ -26,6 +26,7 @@ import ScaleSpaceCore.BrownianDensity
 import ScaleSpaceCore.BridgeExponents
 import ScaleSpaceCore.Cin
 import ScaleSpaceCore.CinRays
+import ScaleSpaceCore.SelfDecomposable
 
 /-! # The shared scale-space core
 

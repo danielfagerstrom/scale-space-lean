@@ -430,3 +430,17 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.cinSDProfile
 #print axioms ScaleSpace.cinSDProfile_exponentL
 #print axioms ScaleSpace.cin_ray
+
+-- SelfDecomposable: self-decomposability on a real vector space, the line as an instance
+#print axioms ScaleSpace.IsSelfDecomposable
+#print axioms ScaleSpace.IsBSelfDecomposable
+#print axioms ScaleSpace.coe_exp_neg_smul_one
+#print axioms ScaleSpace.isBSelfDecomposable_one_iff
+#print axioms ScaleSpace.isBSelfDecomposable_iff_nonneg
+#print axioms ScaleSpace.IsSelfDecomposable.map
+#print axioms ScaleSpace.isSelfDecomposable_iff_charFun
+#print axioms ScaleSpace.isSelfDecomposable_real_iff
+#print axioms ScaleSpace.re_charFun_eq_integral_cos
+#print axioms ScaleSpace.one_sub_re_charFun_two_smul_le
+#print axioms ScaleSpace.one_sub_norm_sq_charFun_two_smul_le
+#print axioms ScaleSpace.IsSelfDecomposable.charFun_ne_zero

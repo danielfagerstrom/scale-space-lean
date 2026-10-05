@@ -70,6 +70,7 @@ deliberately, as one step.
 | `BrownianDensity` | the Brownian laws `brownianLaw`, `brownianDensity` and the elementary bounds and Gaussian jump integral the bridge reads; the cosine transform's value at a centred Gaussian (`fourierCos_gaussianReal`; `fourierCos` itself is `Transform`'s) |
 | `BridgeExponents` | `bridge_exponents`: every `CausalAdmissible` maps to an `SDProfile` with coefficient `b₀/2`, folded profile `2x∫g_u(x)k(u)du/u` and exponent `F(ω²/2)` (`CausalAdmissible.bridgeDatum`) |
 | `Cin`, `CinRays` | `Cin(z) = ∫₀^z (1 - cos v)dv/v` with `cin_elementary` (even, nondecreasing on `[0,∞)`, `≤ z²/4`) and the expansions `cin_expansion_zero`, `cin_expansion_top`; the unit-step profile `cinProfile τ` and the ray `cin_ray` (exponent `Cin(τ·)`) |
+| `SelfDecomposable` | self-decomposability `μ = (c •)_* μ ∗ ρ_c` (`IsSelfDecomposable`) and operator self-decomposability `μ = (e^{-tB})_* μ ∗ ρ_t` (`IsBSelfDecomposable`, the scalar case at `B = 1`) on a real vector space; the transform form on a finite-dimensional inner product space (`isSelfDecomposable_iff_charFun`), the line's `b > 1` form (`isSelfDecomposable_real_iff`), images under linear maps, and a transform without zeros (`IsSelfDecomposable.charFun_ne_zero`). A candidate for promotion to `harmonic-semigroups` |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
