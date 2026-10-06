@@ -20,6 +20,12 @@ All notable changes to this repository are recorded here. The format follows
 
 ### Added
 
+- `ScaleSpaceCore.GaussianKernel` (Q-0306): `measurable_multivariateGaussian_zero_smul_one`,
+  `Measurable fun u : ℝ => multivariateGaussian (0 : EuclideanSpace ℝ (Fin d)) (u • 1)`, Paper
+  VII's `measurable_gaussVar` in Mathlib's types (the line is the case `d = 1`); with
+  `sqrt_smul_one_eq` (`CFC.sqrt (u • 1) = √u • 1`, every real `u`) and
+  `multivariateGaussian_zero_smul_one` (`N(0, uI_d)` is the image of `stdGaussian` under
+  `x ↦ √u • x`). No hypotheses; Lean-core axioms only.
 - `ScaleSpaceCore.SDProfile`, `ScaleSpaceCore.SDProfileCone`: **the line's admissible cone as a
   shared type** — the line analogue of `CausalAdmissible`'s move in `v0.2.0`. `SDProfile`
   (Gaussian coefficient `a`, folded profile `k`, `k_antitone`, `k_zero`, two finiteness fields)
