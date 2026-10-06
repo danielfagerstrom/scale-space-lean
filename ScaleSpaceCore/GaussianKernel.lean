@@ -37,6 +37,7 @@ cousin `Measurable fun u : ℝ => brownianLaw u` is immediate from `measurable_g
 namespace ScaleSpace
 
 open MeasureTheory ProbabilityTheory
+open scoped MatrixOrder
 
 variable {d : ℕ}
 
@@ -45,12 +46,13 @@ variable {d : ℕ}
 `Real.sqrt`'s junk value off the nonnegative reals (`0`) agree, so no side condition on `u` is
 needed. -/
 theorem sqrt_smul_one_eq (d : ℕ) (u : ℝ) :
-    CFC.sqrt (u • (1 : Matrix (Fin d) (Fin d) ℝ)) = Real.sqrt u • 1 := by
+    CFC.sqrt (u • (1 : Matrix (Fin d) (Fin d) ℝ)) =
+      Real.sqrt u • (1 : Matrix (Fin d) (Fin d) ℝ) := by
   by_cases hd : IsEmpty (Fin d)
   · ext i j
     exact hd.elim i
   rw [not_isEmpty_iff] at hd
-  rcases le_or_lt 0 u with hu | hu
+  rcases le_or_gt 0 u with hu | hu
   · have hS : (0 : Matrix (Fin d) (Fin d) ℝ) ≤ u • 1 :=
       Matrix.nonneg_iff_posSemidef.mpr (Matrix.PosSemidef.one.smul hu)
     have hT : (0 : Matrix (Fin d) (Fin d) ℝ) ≤ Real.sqrt u • 1 :=
@@ -74,7 +76,7 @@ theorem multivariateGaussian_zero_smul_one (d : ℕ) (u : ℝ) :
   rw [multivariateGaussian, sqrt_smul_one_eq]
   congr 1
   ext x
-  rw [zero_add, map_smul, ContinuousLinearMap.smul_apply, map_one, ContinuousLinearMap.one_apply]
+  rw [zero_add, map_smul, smul_apply, map_one, one_apply_eq_self]
 
 /-- **`u ↦ N(0, uI_d)` is measurable**, Paper VII's `measurable_gaussVar` in Mathlib's types
 (`gaussVar d u = multivariateGaussian 0 (u • 1)`), `d` arbitrary. -/
@@ -89,7 +91,9 @@ theorem measurable_multivariateGaussian_zero_smul_one (d : ℕ) :
   have hprod : Measurable fun u : ℝ =>
       (stdGaussian (EuclideanSpace ℝ (Fin d))).map (Prod.mk u) :=
     Measurable.map_prodMk_left
-  have := hmap.comp hprod
-  simpa [Measure.map_map hcont.measurable measurable_prodMk_left] using this
+  convert hmap.comp hprod using 1
+  funext u
+  rw [Function.comp_apply, Measure.map_map hcont.measurable measurable_prodMk_left]
+  rfl
 
 end ScaleSpace

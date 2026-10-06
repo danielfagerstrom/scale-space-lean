@@ -445,6 +445,11 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.one_sub_norm_sq_charFun_two_smul_le
 #print axioms ScaleSpace.IsSelfDecomposable.charFun_ne_zero
 
+-- GaussianKernel: the kernel `u ↦ N(0, uI_d)` is measurable
+#print axioms ScaleSpace.sqrt_smul_one_eq
+#print axioms ScaleSpace.multivariateGaussian_zero_smul_one
+#print axioms ScaleSpace.measurable_multivariateGaussian_zero_smul_one
+
 -- DilationInvariance: a function fixed by one dilation is constant
 #print axioms ScaleSpace.dilation_invariance
 
