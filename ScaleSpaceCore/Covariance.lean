@@ -26,6 +26,13 @@ statement takes `PreCascadeCore` — which carries (A6)–(A7) — plus a kernel
 (finding **F5**). And the equivalence is stated on the `scale` field of `IsScaleCovariant` with
 the three `S`-shape fields as hypotheses, since those are conditions on `S` alone and are shared
 by all three clauses.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Covariance.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

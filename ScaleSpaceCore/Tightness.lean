@@ -34,10 +34,17 @@ for `Π_n` with a right-hand side independent of `n`:
   `∫ (1 - sinc(r x)) dΠ_n(x) ≤ meanExponent r`, where
   `meanExponent r = (2r)⁻¹ ∫_{-r}^{r} g_{s,t}(ω) dω`.
 
-Combined with `one_sub_sinc_ge` (`SpatialLine/Truncation.lean`) this bounds `∫ (1 ∧ x²) dΠ_n`
+Combined with `one_sub_sinc_ge` (`Truncation`) this bounds `∫ (1 ∧ x²) dΠ_n`
 at `r = 1` and `Π_n{|x| > R}` at `r = 1/R`; and `meanExponent r → 0` as `r ↓ 0` because
 `g_{s,t}` is continuous at the origin and vanishes there, which is where the continuity of the
 transform does quantitative work.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Tightness.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

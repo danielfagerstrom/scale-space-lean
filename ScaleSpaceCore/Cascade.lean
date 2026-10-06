@@ -23,7 +23,7 @@ What Chapters 5 and 6 actually consume from Chapter 4 is not the *existence* hal
 
 ## What the wave-1 merge did with this file
 
-All five were proved twice: here for chapters 5 and 6, and in `SpatialLine/Nonvanishing.lean`
+All five were proved twice: here for chapters 5 and 6, and in `Nonvanishing`
 for `lem:nonvanishing`, whose own proof needs the same consequences of uniqueness. The merge of
 2026-09-09 kept the copies in `Nonvanishing.lean` — the file that proves the node the facts
 belong to — and left three one-line adapters here, because two of the surviving statements are
@@ -44,6 +44,13 @@ in a different but equivalent form and one node's statement fixes the form it ne
 The sixty-line proof this file carried for `kernel_transform_pos` — the least-zero argument on
 `[s,t]` with joint continuity of `(s,t) ↦ μ̂_{s,t}(ω)` at the end — is therefore gone; the
 surviving proof of the same statement is in `Nonvanishing.lean`, and it is the blueprint's.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Cascade.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace
@@ -133,7 +140,7 @@ lemma continuousOn_fourierCos_kernel_zero (hker : IsKernelFamily Fam.Φ μ) (ω 
 
 /-- **The transform of a kernel is strictly positive at every frequency** — `lem:nonvanishing`,
 applied at the hypotheses chapters 5 and 6 carry. The node's own declaration is
-`ScaleSpace.nonvanishing` in `SpatialLine/Nonvanishing.lean`; this is the name the later
+`ScaleSpace.nonvanishing` in `Nonvanishing`; this is the name the later
 chapters cite it by. -/
 theorem kernel_transform_pos (hker : IsKernelFamily Fam.Φ μ) {s t : ℝ} (hs : 0 ≤ s) (hst : s ≤ t)
     (ω : ℝ) : 0 < fourierCos (μ s t) ω :=

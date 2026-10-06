@@ -13,7 +13,7 @@ Blueprint: `blueprint/src/parts/05-cascade.tex`, `lem:additivity`.
 
 Chapter 5 opens by transporting (A6) down two levels. `lem:convolution-representation` turned
 the operators into measures — supplied here as the hypothesis `IsKernelFamily` — and
-`SpatialLine/Cascade.lean` reads the cascade law off it as an identity of measures; the
+`Cascade` reads the cascade law off it as an identity of measures; the
 transform turns convolution into multiplication, and `-log` turns multiplication into addition.
 What comes out is a two-parameter family of exponents additive along the cascade, hence the
 difference of the single one-parameter function `G(t, ω) = g_{0,t}(ω)`.
@@ -21,11 +21,18 @@ difference of the single one-parameter function `G(t, ω) = g_{0,t}(ω)`.
 twin: `Hemigroup.CascadeCore.additivity`, bundled the same way so the blueprint node has one
 Lean name for its ten clauses. The one place the two developments part company is the
 positivity of the transform: on the half-line it is free (`laplace_pos_of_prob`), here it is
-`lem:nonvanishing` and costs the whole of `SpatialLine/Cascade.lean`.
+`lem:nonvanishing` and costs the whole of `Cascade`.
 
 `G` is not given a name. The blueprint's `G(t,ω) := g_{0,t}(ω)` is written inline as
 `exponent (μ 0 t) ω` throughout: it is an abbreviation in the text, and naming a function of a
 hypothesised object in the `sorry`-free library would be vocabulary without a consumer.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Additivity.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace
@@ -36,7 +43,7 @@ open scoped ENNReal Topology
 /-! ## Elementary properties of the cosine transform
 
 Four of the five this file proved — continuity, evenness, the value at `0` and the bound `≤ 1` —
-were proved again in `SpatialLine/Nonvanishing.lean` for `lem:nonvanishing`, and the wave-1 merge
+were proved again in `Nonvanishing` for `lem:nonvanishing`, and the wave-1 merge
 (2026-09-09) kept that copy and deleted these. Only the absolute-value form below is this file's
 own.
 -/

@@ -22,6 +22,13 @@ lemma below records.
 Proving campaign, chapter 2 (2026-09-09): moved here from `Skeleton/Chapter2.lean`, where the
 two were stated as `Skeleton.fourierCos_eq_charFun_re` and
 `Skeleton.charFun_eq_fourierCos_of_symmetric`.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/TransformBridge.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace
@@ -32,8 +39,8 @@ open MeasureTheory Set
 and bounded by `1`.
 
 Wave 1 of the proving campaign (2026-09-09) moved this here. It was proved three times
-independently — as `integrable_cos` in `SpatialLine/LatticeZero.lean`, and as
-`integrable_cos_mul` in `SpatialLine/Nonvanishing.lean` and `SpatialLine/Pairing.lean`. This
+independently — as `integrable_cos` in Paper V's `SpatialLine/LatticeZero.lean`, and as
+`integrable_cos_mul` in `Nonvanishing` and `Pairing`. This
 file is the chapter-2 home of the elementary facts about (2.1), and it sits low enough in the
 import graph for every chapter to reach it. -/
 theorem integrable_cos_mul (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) :
@@ -45,9 +52,9 @@ theorem integrable_cos_mul (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) :
 /-- The sine transform's integrand is integrable against a finite measure: it is continuous and
 bounded by `1`, the twin of `integrable_cos_mul` above.
 
-Lifted here by the wave-6 merge (2026-09-10) from `SpatialLine/Pairing.lean` (chapter 4), which
+Lifted here by the wave-6 merge (2026-09-10) from `Pairing` (chapter 4), which
 had carried it since the sine half of the characteristic function was written, and from
-`SpatialLine/GeneratorSignal.lean` (chapter 11), which wrote it again. This is the wave-1 remedy
+Paper V's `SpatialLine/GeneratorSignal.lean` (chapter 11), which wrote it again. This is the wave-1 remedy
 applied to the other half of the pair: `integrable_cos_mul` was moved out of `Pairing.lean` for
 the same reason and by the same argument. -/
 theorem integrable_sin_mul (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) :
@@ -58,9 +65,9 @@ theorem integrable_sin_mul (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) :
 
 /-! ## Elementary facts about the cosine transform
 
-Moved here by wave 2's merge (2026-09-09) from `SpatialLine/Nonvanishing.lean`, on wave 1's
+Moved here by wave 2's merge (2026-09-09) from `Nonvanishing`, on wave 1's
 rule: these are elementary facts about (2.1), not about `lem:nonvanishing`, so they belong in
-the chapter-2 file every chapter can reach. `SpatialLine/Interfaces.lean` needs two of them for
+the chapter-2 file every chapter can reach. Paper V's `SpatialLine/Interfaces.lean` needs two of them for
 the reverse direction of ledger A1 and must not import chapter 4. -/
 
 @[simp] theorem fourierCos_zero (μ : Measure ℝ) [IsProbabilityMeasure μ] :
@@ -87,7 +94,7 @@ theorem continuous_fourierCos (μ : Measure ℝ) [IsFiniteMeasure μ] :
 
 Moved here by wave 2's merge (2026-09-09) from `MaternData.charFun_map_const_mul`, where it
 was stranded in a concrete namespace: it mentions no Matérn datum, and
-`SpatialLine/MainConstruction.lean` already called it across the namespace boundary. -/
+`MainConstruction` already called it across the namespace boundary. -/
 theorem charFun_map_const_mul (μ : Measure ℝ) [IsFiniteMeasure μ] (c ω : ℝ) :
     charFun (μ.map (fun x => c * x)) ω = charFun μ (c * ω) := by
   have hmeas : ∀ ν : Measure ℝ, AEStronglyMeasurable

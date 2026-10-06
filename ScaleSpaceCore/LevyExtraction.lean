@@ -12,8 +12,8 @@ import Mathlib.MeasureTheory.Measure.Prokhorov
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`, third step of the proof
 ("the limit").
 
-`SpatialLine/NullArray.lean` produced `∫ (1 - cos ωx) dΠ_n → g_{s,t}(ω)` with each `Π_n` finite,
-and `SpatialLine/Tightness.lean` produced the two bounds that hold uniformly in `n`. What
+`NullArray` produced `∫ (1 - cos ωx) dΠ_n → g_{s,t}(ω)` with each `Π_n` finite,
+and `Tightness` produced the two bounds that hold uniformly in `n`. What
 remains is to extract a limiting pair `(a, ν)` from `(Π_n)`, and the obstruction is that the
 masses `Π_n(ℝ) = n` diverge: mass piles up at the origin, and that pile is exactly the Gaussian
 coefficient `a` the pair is allowed to have.
@@ -58,6 +58,13 @@ twin: `Hemigroup.CascadeCore.exists_limit_measure` (`Hemigroup/LevyLimit.lean`) 
 development compactifies `[0,∞]` by `1 - e^{-x}` and needs no tightness at all; here the test
 function oscillates at infinity and does not extend to a compactification, so tightness replaces
 the change of variable. That is the one new idea of the node.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/LevyExtraction.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

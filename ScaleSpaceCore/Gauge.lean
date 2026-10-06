@@ -39,6 +39,13 @@ and the infimum of `c((0,∞))` are fixed by every `S_κ`: `M ≤ S_κ M` for ev
 `c(λ) = S_κ(c(λ/κ)) ≤ S_κ M`, and applying that at `κ` and at `κ⁻¹` gives `S_κ M = M`. The same
 two lines run for the infimum. That removes an appeal to a fact about `S` that this chapter has
 not proved.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Gauge.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

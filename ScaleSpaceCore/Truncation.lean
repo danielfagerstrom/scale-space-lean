@@ -33,6 +33,13 @@ and because both differ from the constants the blueprint writes.
   `[0,u]` — the identity `u - sin u = ∫₀^u (1 - cos v) dv` — gives `1 - sinc u ≥ (2/(3π²))u²`
   for `0 < u ≤ π`, and beyond `π` the crude bound `sin u / u ≤ 1/u < 1/π` finishes, because
   `2/(3π²) < 2/27 < 2/3 < 1 - 1/π`. The blueprint's proof of record is amended to this route.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Truncation.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

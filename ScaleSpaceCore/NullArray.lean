@@ -18,7 +18,7 @@ limit: for the uniform partition `s = s_0 < ... < s_n = t` and `Π_n := Σ_i μ_
   `∫ (1 - cos ω x) dΠ_n(x) → g_{s,t}(ω)` for every `ω`.
 
 Each `Π_n` is a *finite* measure, of mass `n`; the divergence of the masses is what the
-weighting of `SpatialLine/LevyExtraction.lean` cures.
+weighting of `LevyExtraction` cures.
 
 ## Why this step is elementary
 
@@ -28,13 +28,20 @@ Three ingredients, and no limit theorem for triangular arrays:
 * uniform continuity of `G(·,ω)` on the compact `[s,t]`, which makes the increments uniformly
   small;
 * the inequality `0 ≤ u - (1 - e^{-u}) ≤ u²` (`sub_one_sub_exp_neg_le`, in
-  `SpatialLine/Truncation.lean`), which converts a sum of exponents into a sum of
+  `Truncation`), which converts a sum of exponents into a sum of
   `1 - μ̂_i(ω)`, that is into an integral against `Π_n`.
 
 twin: `Hemigroup.CascadeCore.tendsto_integral_partitionMeasure` (`Hemigroup/NullArray.lean`),
 which this file follows step for step with `1 - e^{-sx}` replaced by `1 - cos ωx`. The
 partition points and their six elementary lemmas are Paper I's verbatim; they are a candidate
 for `ScaleSpaceCore`, being about `ℝ` alone.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/NullArray.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

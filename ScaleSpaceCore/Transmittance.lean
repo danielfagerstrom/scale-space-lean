@@ -21,7 +21,7 @@ a single number attached to each scale, continuous, in `(0,1]`, and — under (N
 decreasing.
 
 The Gaussian density `ρ` of the statement is `ScaleSpace.gaussTest`, the same test function
-`SpatialLine/Pairing.lean` uses for the uniqueness clause, and the Fubini identity of the first
+`Pairing` uses for the uniqueness clause, and the Fubini identity of the first
 clause is `integral_cos_mul_gaussTest` read in the other variable: the cosine moment of the
 standard Gaussian density is `e^{-x²/2}` at frequency `x`, which is exactly the integrand on the
 measure side.
@@ -34,6 +34,13 @@ integral of a probability measure against it is positive for the elementary reas
 formal proof spends no positivity of the transform. Only the antitone clause and the strict
 clause use `kernel_transform_pos`, and the strict one uses it only to know that the factor
 `μ̂_{0,s} ρ` is positive.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Transmittance.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

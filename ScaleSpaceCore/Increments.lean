@@ -11,7 +11,7 @@ import ScaleSpaceCore.Exponent
 
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`.
 
-`SpatialLine/LevyExtraction.lean` produced a finite measure `ϱ` on `[0,∞)` with
+`LevyExtraction` produced a finite measure `ϱ` on `[0,∞)` with
 
   `∫ k_ω dϱ = g_{s,t}(ω)` for every `ω`,  `k_ω(x) = (1 - cos ωx)/(1 ∧ x²)`, `k_ω(0) = ω²/2`.
 
@@ -36,6 +36,13 @@ power of measures. It is the only place in Chapter 5 where the trust boundary is
 together with (1) — ledger **A1** and **A3**.
 
 twin: `Hemigroup.CascadeCore.exponent_hasLevyRep` (`Hemigroup/LevyTriple.lean`).
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Increments.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace
@@ -152,7 +159,7 @@ own annotation identifies as what the toolbox supplies rather than what this the
 
 Class (b) — twin `Hemigroup.CascadeCore.exponent_hasLevyRep`, same null-array plan. Two
 changes: the weight `1 - e^{-x}` becomes `1 ∧ x²`, and the compactification is replaced by the
-truncation inequality of `SpatialLine/Tightness.lean`, because the test function
+truncation inequality of `Tightness`, because the test function
 `(1 - cos ωx)/(1 ∧ x²)` oscillates at infinity and does not extend to a compactification. -/
 theorem increments_levy (Fam : PreCascadeCore) (μ : ℝ → ℝ → Measure ℝ)
     (hker : IsKernelFamily Fam.Φ μ) {s t : ℝ} (hs : 0 ≤ s) (hst : s ≤ t) :

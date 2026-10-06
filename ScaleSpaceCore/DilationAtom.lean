@@ -37,6 +37,13 @@ convergence over a fixed interval, with the constant bound `2` of
 the blueprint proof is correct and is the one a reader should read — but the note is worth
 keeping, because the same Mathlib inequality is the tightness half of the truncation step of
 `thm:increments-levy`, and it was found here.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Dilation.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

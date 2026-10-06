@@ -40,6 +40,13 @@ destroy `SDProfile.k_antitone`. It is finite everywhere, and not by assumption: 
 so `f(theta) = infinity` would force `f = infinity` on `(theta - 1, theta]` and hence
 `m((theta-1,theta]) = infinity`, which the finiteness of the rays forbids
 (`dyadicDensity_ne_top`).
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/AnalysisDirection.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

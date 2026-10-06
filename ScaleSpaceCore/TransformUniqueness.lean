@@ -32,6 +32,13 @@ kept in `blueprint/AXIOMS.md` for the record and ground no node; neither reaches
 Weak convergence is spelled out as convergence of the integrals of bounded continuous functions
 rather than as convergence in `ProbabilityMeasure ℝ`, because that is the form the `ε/3`
 argument of `thm:main-characterization` consumes.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/TransformUniqueness.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

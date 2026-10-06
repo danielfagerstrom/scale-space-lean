@@ -36,6 +36,13 @@ much smaller than the chapter's prose suggests. In the log-displacement coordina
 `log` **decreases under every right translation**, and what is wanted is that such a measure has
 a nonincreasing density. Nothing else about `nu` is used. See the module note below and the
 skeleton's annotation at `sd_exponents_one_implies_three` for the cost of that step.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/DilationDecrease.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

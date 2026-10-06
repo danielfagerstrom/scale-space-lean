@@ -53,6 +53,13 @@ and both converge to `m((a,b])` --- from below by continuity of `m` from below, 
 continuity from above, which is where the finiteness of the rays is spent.
 
 The two measures then agree on every `(a,b]`, hence everywhere (`Measure.ext_of_Ioc'`).
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/AntitoneDensity.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

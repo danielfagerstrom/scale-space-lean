@@ -43,6 +43,13 @@ Two devices of the causal argument fall away and one is new.
 * **Positivity is a hypothesis, not a field.** The blueprint node names (A1), (A2), (A4), (A5) and
   no others, so the argument is written for a bare bounded operator with three hypotheses spelled
   out. Nothing here mentions a cascade, a reflection or a continuity assumption.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Representation.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

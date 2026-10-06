@@ -6,47 +6,22 @@ Authors: Daniel Fagerström
 import ScaleSpaceCore.SDProfile
 
 /-!
-# The function classes: positive definiteness, `NDₛ`, `LEₛ`, and the self-decomposable profile
+# The function classes: positive definiteness, `NDₛ` and `LEₛ`
 
-Blueprint: `blueprint/src/parts/02-preliminaries.tex` — `def:positive-definite` (2.1),
-`def:symmetric-negdef` (2.2), the representation (2.2)/`eq:levy-khintchine`, and the profile
-form (2.5)/`eq:sd-profile`.
+Blueprint (Paper V): `def:positive-definite` (2.1), `def:symmetric-negdef` (2.2), and the class
+`LEₛ` of exponents of the form `eq:levy-khintchine`. The representation's data, `SymLevyPair`,
+and the profile form, `SDProfile`, are in `SDProfile`; this module adds the three predicates the
+line classification states its interfaces and its increments in.
 
-## Representation first
+`prop:fourier-toolbox`(3) is the statement that `LEₛ = NDₛ`. It is cited, not proved, so the
+two directions the classification spends are hypotheses (`LineInterfaces`), not theorems here.
 
-`prop:fourier-toolbox`'s status annotation says it: "The classes `NDₛ` and `LEₛ` are the same
-class, named by the definition and by the representation respectively; this article's proofs
-manipulate the representation, and the machine-checked development is expected to define `LEₛ`
-alone." Both are defined here, because `def:positive-definite` and `def:symmetric-negdef` are
-blueprint nodes and a node needs a faithful Lean twin; but `SymLevyPair` is the object every
-later chapter works with, and `prop:fourier-toolbox`(3) is the only place the two meet.
+## Provenance
 
-This is Paper I's rule (`def:bernstein-function` ⇄ `Hemigroup.levyExponent`) with the Laplace
-side replaced by the Fourier side.
-
-## Two `ℝ≥0∞`-first definitions
-
-`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no
-integrability side condition and the elementary facts about them are unconditional; the
-real-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it
-is `lem:quadratic-growth`, a node, and stating it that way is what keeps the structures free of
-a condition whose proof the blueprint owns.
-
-twin: `Hemigroup.levyExponent` / `Hemigroup.levyExponentD` (the same design, opposite transform).
-
-## The profile structure and the bridge
-
-`SDProfile`'s fields are laid out to be field-for-field parallel with Paper I's
-`Hemigroup.SelfDecomposableExponent` — `b₀ ↦ a`, then `k`, `b₀_nonneg ↦ a_nonneg`, `k_nonneg`,
-`k_antitone`, `k_zero` — so that the bridge map of `lem:bridge-exponents` (blueprint (9.1)–(9.2),
-phase B) is a function between two structures with parallel fields and no reshaping. The one
-deliberate divergence is the last field: Paper I carries a single finiteness condition
-`ne_top`, this structure carries the *two* integrability conditions the blueprint states in
-`lem:profile-integrability`, because those are what every family in this article is tested
-against. `lem:profile-integrability` is the node that relates the two.
-
-`k_zero` is a normalisation, not a constraint, exactly as in Paper I: `k` is a density against
-`dx/x` on `(0,∞)` and every other field leaves `k 0` free.
+Moved by Q-0305 from Paper V's `SpatialLine/Exponent.lean` (the public cone export, `cone-v0.1`,
+commit `f28c066e`) for the line classification (`MainAnalysis`, `MainConstruction`): only
+`IsPositiveDefinite`, `IsSymNegDef` and `IsSymLevyExponent`, unchanged up to the namespace.
+`IsNegDefKernel` stayed behind; the rest of that file had already moved into `SDProfile`.
 -/
 
 namespace ScaleSpace

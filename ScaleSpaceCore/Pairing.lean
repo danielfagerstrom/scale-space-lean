@@ -26,7 +26,7 @@ measures with no axiom in it, and Paper I keeps it in `Nondegeneracy.lean`, apar
 existence proof in `Representation.lean`, for exactly this reason.
 
 `integral_mul_mconv` is Paper I's `Hemigroup.integral_mul_mconv` verbatim — its hypotheses are
-already in `SpatialLine/Basic.lean`, `integrable_uncurry_sub` doing the work Fubini needs. What
+already in `L1Operators`, `integrable_uncurry_sub` doing the work Fubini needs. What
 is new is the test pair. The causal argument pairs the box `1_{(0,1)}` against a clamped
 exponential and reads off a Laplace transform; on the line the box is the wrong function,
 its cosine transform `2 sin ω / ω` vanishing at every `ω ∈ πℤ`, and a measure is not determined
@@ -45,16 +45,23 @@ would be recoverable from one test function.
 Eight declarations proved here in parallel with chapters 2, 3 and 4 were deleted at the merge of
 2026-09-09 and their consumers rewired to the surviving copy: the transform bridge
 (`fourierCos_eq_charFun_re`, `charFun_eq_fourierCos_of_symmetric`) and `integrable_cos_mul` to
-chapter 2's `SpatialLine/TransformBridge.lean`; the transport lemmas `mconv_conv` and
-`mconv_dirac_zero` to chapter 4's `SpatialLine/ConvolutionOperator.lean`; `gaussL1` and its
-coercion lemma to `SpatialLine/BochnerConvolution.lean`; and `eq_of_mconv_ae`, which had no
-consumer, to `eq_mconvL1_of_ae` and `mconvL1_injective` in `SpatialLine/Representation.lean`.
+chapter 2's `TransformBridge`; the transport lemmas `mconv_conv` and
+`mconv_dirac_zero` to chapter 4's `L1Operators`; `gaussL1` and its
+coercion lemma to Paper V's `SpatialLine/BochnerConvolution.lean`; and `eq_of_mconv_ae`, which had no
+consumer, to `eq_mconvL1_of_ae` and `mconvL1_injective` in `Representation`.
 `fourierSin`, `charFun_eq` and the Gaussian test pair are this file's own and stay.
 
 The import of `ScaleSpace.Nonvanishing` that pays for the transport lemmas is not incidental:
 chapters 5 and 6 consume `lem:nonvanishing` and the uniqueness clause of
 `lem:convolution-representation` throughout, so the dependence belongs in the import graph. It
 corrects the independence `SKELETON.md` F4 claimed for these chapters.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Pairing.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace
@@ -238,7 +245,7 @@ theorem eq_of_mconv_gaussTest_ae {μ ν : Measure ℝ} [IsFiniteMeasure μ] [IsF
 /-- `gaussL1` read at the test function's own name.
 
 Wave 1 of the merge (2026-09-09): `gaussL1` and its coercion lemma were proved twice, here and in
-`SpatialLine/BochnerConvolution.lean`, where `lem:convolution-representation` needs them. That
+Paper V's `SpatialLine/BochnerConvolution.lean`, where `lem:convolution-representation` needs them. That
 copy survives; `gaussTest` is `gaussianPDFReal 0 1` by definition, so this adapter is the same
 statement read at the name chapters 5 and 6 use. -/
 lemma coeFn_gaussL1_gaussTest : ((gaussL1 : X) : ℝ → ℝ) =ᵐ[volume] gaussTest := coeFn_gaussL1

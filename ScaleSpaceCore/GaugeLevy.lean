@@ -11,16 +11,23 @@ import ScaleSpaceCore.Increments
 
 Blueprint: `blueprint/src/parts/06-covariance.tex`, `prop:canonical-gauge`.
 
-Wave 1 left this node one application wide. `SpatialLine/Gauge.lean` proved
+Wave 1 left this node one application wide. `Gauge` proved
 `canonical_gauge_of_levy`, which produces the gauge and the similarity form `eq:gauge` from
 `IsSymLevyExponent (exponent (μ 0 1))` **as a hypothesis** — the specification-as-hypothesis
 move, taken because the only clause of the node that waited on anything was `F ∈ LEₛ`, which is
 `thm:increments-levy` at `(0,1)`. Wave 2 proved that theorem, so the node closes here by
 supplying the hypothesis.
 
-The file exists rather than the theorem going into `SpatialLine/Gauge.lean` only because of the
+The file exists rather than the theorem going into `Gauge` only because of the
 import graph: `Gauge.lean` sits above `Rigidity.lean` and knows nothing of the null-array
 development, and this is the lowest file that sees both.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/GaugeLevy.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

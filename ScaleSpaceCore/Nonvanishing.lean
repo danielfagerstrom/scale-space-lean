@@ -22,7 +22,7 @@ the transform was free, and here it costs (A6) and (A7). The lemma is what makes
 Mathlib's `charFun` for a symmetric measure. Chapter 4 proved them in parallel with chapter 2,
 and wave 1 of the proving campaign (2026-09-09) deduplicated them: the bridge
 (`charFun_eq_fourierCos_of_symmetric`, `fourierCos_eq_charFun_re`) and the integrability of the
-cosine integrand now live in `SpatialLine/TransformBridge.lean`, chapter 2's file, together
+cosine integrand now live in `TransformBridge`, chapter 2's file, together
 with the value at `δ₀`, which three chapters read; the remaining four value-and-continuity facts
 stay here, where the node that consumes them is.
 
@@ -46,6 +46,13 @@ argument, which needs no infimum: on the compact triangle `{(a,b) : s ≤ a ≤ 
 in steps of `δ/2` by induction on the step count. The load-bearing hypothesis is the same one the
 blueprint identifies — *joint* continuity in `(s,t)`, which is (A7) divided by the transform of a
 zero-free test density, and where an indicator would not do.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Nonvanishing.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace

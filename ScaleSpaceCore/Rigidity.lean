@@ -34,6 +34,13 @@ bound that `θ_t`'s own continuity supplies. What the argument uses of `Θ` is e
 injectivity-with-a-direction, and `Set.invFunOn` never appears. The estimate was right about
 which half was expensive but wrong about what the expensive half was: the domination is three
 lines, and the "continuous inverse" is not an obligation.
+
+## Provenance
+
+Moved by Q-0305 from Paper V's `SpatialLine/Rigidity.lean` (the public cone export,
+`cone-v0.1`, commit `f28c066e`) for the line classification (`MainAnalysis`,
+`MainConstruction`): only the declarations those theorems reach, with statements and
+proofs unchanged up to the namespace. Blueprint labels are Paper V's.
 -/
 
 namespace ScaleSpace
