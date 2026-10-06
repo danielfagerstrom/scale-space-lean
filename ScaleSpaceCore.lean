@@ -23,6 +23,7 @@ import ScaleSpaceCore.Construction
 import ScaleSpaceCore.SDProfile
 import ScaleSpaceCore.SDProfileCone
 import ScaleSpaceCore.BrownianDensity
+import ScaleSpaceCore.GaussianKernel
 import ScaleSpaceCore.BridgeExponents
 import ScaleSpaceCore.Cin
 import ScaleSpaceCore.CinRays
