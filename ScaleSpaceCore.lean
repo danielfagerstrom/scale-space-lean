@@ -29,6 +29,32 @@ import ScaleSpaceCore.Cin
 import ScaleSpaceCore.CinRays
 import ScaleSpaceCore.SelfDecomposable
 import ScaleSpaceCore.DilationInvariance
+import ScaleSpaceCore.TransformBridge
+import ScaleSpaceCore.TransformUniqueness
+import ScaleSpaceCore.Exponent
+import ScaleSpaceCore.Representation
+import ScaleSpaceCore.Nonvanishing
+import ScaleSpaceCore.Pairing
+import ScaleSpaceCore.Cascade
+import ScaleSpaceCore.Additivity
+import ScaleSpaceCore.Transmittance
+import ScaleSpaceCore.Covariance
+import ScaleSpaceCore.DilationAtom
+import ScaleSpaceCore.Rigidity
+import ScaleSpaceCore.Gauge
+import ScaleSpaceCore.Truncation
+import ScaleSpaceCore.NullArray
+import ScaleSpaceCore.Tightness
+import ScaleSpaceCore.LevyExtraction
+import ScaleSpaceCore.Increments
+import ScaleSpaceCore.GaugeLevy
+import ScaleSpaceCore.LineInterfaces
+import ScaleSpaceCore.SDExponents
+import ScaleSpaceCore.DilationDecrease
+import ScaleSpaceCore.AntitoneDensity
+import ScaleSpaceCore.AnalysisDirection
+import ScaleSpaceCore.MainConstruction
+import ScaleSpaceCore.MainAnalysis
 
 /-! # The shared scale-space core
 

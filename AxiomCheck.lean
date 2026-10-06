@@ -447,3 +447,317 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 
 -- DilationInvariance: a function fixed by one dilation is constant
 #print axioms ScaleSpace.dilation_invariance
+
+-- Q-0305: the line classification and what it reaches, moved from Paper V
+-- (`cone-v0.1`). `main_analysis`, `main_analysis_exists` take `SymLevyUnique`,
+-- `main_construction` takes `LineLawInterfaces`, as hypotheses; each line below must
+-- print only `propext`, `Classical.choice`, `Quot.sound`.
+-- TransformBridge: The bridge between the cosine transform and Mathlib's characteristic function
+#print axioms ScaleSpace.integrable_cos_mul
+#print axioms ScaleSpace.integrable_sin_mul
+#print axioms ScaleSpace.fourierCos_zero
+#print axioms ScaleSpace.fourierCos_le_one
+#print axioms ScaleSpace.continuous_fourierCos
+#print axioms ScaleSpace.charFun_map_const_mul
+-- TransformUniqueness: Uniqueness and continuity for the Fourier transform of a measure on the line
+#print axioms ScaleSpace.fourier_uniqueness
+-- Exponent: The function classes: positive definiteness, `NDₛ` and `LEₛ`
+#print axioms ScaleSpace.IsPositiveDefinite
+#print axioms ScaleSpace.IsSymNegDef
+#print axioms ScaleSpace.IsSymLevyExponent
+-- BochnerConvolution: Convolution as a vector-valued integral, and pairing against a bounded functional
+#print axioms ScaleSpace.bconv_congr_ae
+#print axioms ScaleSpace.setIntegral_bconv
+#print axioms ScaleSpace.integrable_setIntegral_bconv
+#print axioms ScaleSpace.integrable_char_mul
+#print axioms ScaleSpace.charCLM
+#print axioms ScaleSpace.charCLM_apply
+#print axioms ScaleSpace.charCLM_transL1
+#print axioms ScaleSpace.charCLM_mconvL1
+#print axioms ScaleSpace.gaussL1
+#print axioms ScaleSpace.coeFn_gaussL1
+#print axioms ScaleSpace.charCLM_gaussL1
+#print axioms ScaleSpace.charCLM_gaussL1_ne_zero
+#print axioms ScaleSpace.mconvL1_injective
+-- Representation: `lem:convolution-representation`: the operators are convolutions
+#print axioms ScaleSpace.approxId
+#print axioms ScaleSpace.approxId_eq_zero
+#print axioms ScaleSpace.approxId_nonneg
+#print axioms ScaleSpace.integrable_approxId
+#print axioms ScaleSpace.integral_approxId
+#print axioms ScaleSpace.approxIdL1
+#print axioms ScaleSpace.coeFn_approxIdL1
+#print axioms ScaleSpace.isNonneg_approxIdL1
+#print axioms ScaleSpace.integral_approxIdL1
+#print axioms ScaleSpace.transL1_zero
+#print axioms ScaleSpace.tendsto_bconv_approxId
+#print axioms ScaleSpace.tendsto_bconv_approxIdL1
+#print axioms ScaleSpace.approx
+#print axioms ScaleSpace.approxMeasure
+#print axioms ScaleSpace.isNonneg_approx
+#print axioms ScaleSpace.integral_approx
+#print axioms ScaleSpace.bconv_approx
+#print axioms ScaleSpace.tendsto_bconv_approx
+#print axioms ScaleSpace.isProbabilityMeasure_approxMeasure
+#print axioms ScaleSpace.tailSet
+#print axioms ScaleSpace.measurableSet_tailSet
+#print axioms ScaleSpace.tailSet_antitone
+#print axioms ScaleSpace.setIntegral_comp_sub_right
+#print axioms ScaleSpace.tail_le_tail_bconv
+#print axioms ScaleSpace.exists_measure_tailSet_le
+#print axioms ScaleSpace.exists_setIntegral_abs_tailSet_le
+#print axioms ScaleSpace.epsSeq
+#print axioms ScaleSpace.epsSeq_pos
+#print axioms ScaleSpace.tendsto_epsSeq
+#print axioms ScaleSpace.exists_uniform_tail
+#print axioms ScaleSpace.approxMeasure_tailSet
+#print axioms ScaleSpace.isTightMeasureSet_approxMeasure
+#print axioms ScaleSpace.exists_weak_limit
+#print axioms ScaleSpace.integral_approxMeasure
+#print axioms ScaleSpace.apply_eq_integral_pairTrans
+#print axioms ScaleSpace.exists_isProbabilityMeasure_eq_mconvL1
+#print axioms ScaleSpace.eq_mconvL1_of_ae
+#print axioms ScaleSpace.existsUnique_repr_of_operator
+#print axioms ScaleSpace.reflL1_reflL1
+#print axioms ScaleSpace.mconvL1_map_neg
+#print axioms ScaleSpace.isSymmetric_of_reflL1
+#print axioms ScaleSpace.representation_existsUnique
+-- Nonvanishing: `lem:nonvanishing`: the transforms of the kernels never vanish
+#print axioms ScaleSpace.Phi_eq_mconvL1
+#print axioms ScaleSpace.isSymmetric_kernel
+#print axioms ScaleSpace.kernel_conv
+#print axioms ScaleSpace.kernel_diag
+#print axioms ScaleSpace.fourierCos_kernel_mul
+#print axioms ScaleSpace.continuousOn_fourierCos_kernel
+#print axioms ScaleSpace.nonvanishing
+-- Pairing: Pairing a test function against `mconv`, and the measure it determines
+#print axioms ScaleSpace.fourierSin
+#print axioms ScaleSpace.fourierSin_apply
+#print axioms ScaleSpace.charFun_eq
+#print axioms ScaleSpace.integral_odd_eq_zero
+#print axioms ScaleSpace.integrable_cos_mul_self
+#print axioms ScaleSpace.integrable_sin_mul_self
+#print axioms ScaleSpace.integral_sin_mul_eq_zero
+#print axioms ScaleSpace.integral_cos_mul_translate
+#print axioms ScaleSpace.integral_sin_mul_translate
+#print axioms ScaleSpace.integral_cos_mul_mconv
+#print axioms ScaleSpace.integral_sin_mul_mconv
+#print axioms ScaleSpace.gaussTest
+#print axioms ScaleSpace.measurable_gaussTest
+#print axioms ScaleSpace.integrable_gaussTest
+#print axioms ScaleSpace.gaussTest_even
+#print axioms ScaleSpace.integral_cos_mul_gaussTest
+#print axioms ScaleSpace.integral_cos_mul_gaussTest_pos
+#print axioms ScaleSpace.eq_of_mconv_gaussTest_ae
+#print axioms ScaleSpace.coeFn_gaussL1_gaussTest
+-- Cascade: The kernels of a cascade family, and the positivity of their transforms
+#print axioms ScaleSpace.exists_kernelFamily
+#print axioms ScaleSpace.kernel_symmetric
+#print axioms ScaleSpace.kernel_ne_dirac
+#print axioms ScaleSpace.fourierCos_kernel_diag
+#print axioms ScaleSpace.fourierCos_kernel_mul_comm
+#print axioms ScaleSpace.continuousOn_fourierCos_kernel_zero
+#print axioms ScaleSpace.kernel_transform_pos
+-- Additivity: `lem:additivity`: the cascade, at the level of measures and of exponents
+#print axioms ScaleSpace.abs_fourierCos_le_one
+#print axioms ScaleSpace.exponent_add
+#print axioms ScaleSpace.exponent_self
+#print axioms ScaleSpace.exponent_nonneg
+#print axioms ScaleSpace.exponent_eq_sub
+#print axioms ScaleSpace.continuousOn_exponent
+#print axioms ScaleSpace.continuous_exponent
+#print axioms ScaleSpace.exponent_atZero
+-- Transmittance: `cor:smoothed-transmittance`: one strictly monotone number per scale
+#print axioms ScaleSpace.gaussTest_apply
+#print axioms ScaleSpace.gaussTest_pos
+#print axioms ScaleSpace.continuous_gaussTest
+#print axioms ScaleSpace.integral_fourierCos_mul_gaussTest
+#print axioms ScaleSpace.strictAntiOn_transmittance
+-- Covariance: `lem:covariance-fourier`: (A8) as an identity of measures and of exponents
+#print axioms ScaleSpace.mconv_map_mul
+#print axioms ScaleSpace.dilate_dilate
+#print axioms ScaleSpace.dilate_one
+#print axioms ScaleSpace.dilate_inv_dilate
+#print axioms ScaleSpace.dilate_dilate_inv
+#print axioms ScaleSpace.fourierCos_map_mul
+#print axioms ScaleSpace.map_mul_kernel_of_covariant
+#print axioms ScaleSpace.isScaleCovariant_of_map_mul
+#print axioms ScaleSpace.map_mul_kernel_of_exponent
+#print axioms ScaleSpace.covariance_fourier
+#print axioms ScaleSpace.covariance_similarity
+-- DilationAtom: `lem:dilation-invariance` and `lem:dilation-atom`: the two elementary dilation facts
+#print axioms ScaleSpace.dilation_atom
+-- Rigidity: `lem:action-rigidity`: the relabellings are unique, compose, are continuous, and move
+#print axioms ScaleSpace.fourierCos_similarity
+#print axioms ScaleSpace.action_rigidity_injective
+#print axioms ScaleSpace.action_rigidity_group
+#print axioms ScaleSpace.action_rigidity_no_fixed_point
+#print axioms ScaleSpace.transmittance_similarity
+#print axioms ScaleSpace.continuous_transmittance_orbit
+#print axioms ScaleSpace.action_rigidity_continuous
+-- Gauge: `prop:canonical-gauge`, the orbit coordinate
+#print axioms ScaleSpace.lt_S_of_one_lt
+#print axioms ScaleSpace.S_strictMonoOn_ratio
+#print axioms ScaleSpace.canonical_gauge_orbit
+#print axioms ScaleSpace.canonical_gauge_of_levy
+-- Truncation: The two elementary inequalities of `thm:increments-levy`
+#print axioms ScaleSpace.one_sub_exp_neg_le
+#print axioms ScaleSpace.sub_one_sub_exp_neg_le
+#print axioms ScaleSpace.sub_sin_eq_intervalIntegral
+#print axioms ScaleSpace.one_sub_sinc_ge_of_le_pi
+#print axioms ScaleSpace.one_sub_sinc_ge
+-- NullArray: `thm:increments-levy`, part one: the null-array estimate
+#print axioms ScaleSpace.part
+#print axioms ScaleSpace.part_zero
+#print axioms ScaleSpace.part_self
+#print axioms ScaleSpace.part_le_succ
+#print axioms ScaleSpace.part_mem_Icc
+#print axioms ScaleSpace.part_nonneg
+#print axioms ScaleSpace.part_succ_sub
+#print axioms ScaleSpace.isProbabilityMeasure_part
+#print axioms ScaleSpace.sum_exponent_part
+#print axioms ScaleSpace.partitionMeasure
+#print axioms ScaleSpace.isFiniteMeasure_partitionMeasure
+#print axioms ScaleSpace.integral_partitionMeasure_eq_sum
+#print axioms ScaleSpace.integral_partitionMeasure
+#print axioms ScaleSpace.abs_sub_integral_partitionMeasure_le
+#print axioms ScaleSpace.exists_partition_increment_le
+#print axioms ScaleSpace.tendsto_integral_partitionMeasure
+-- Tightness: `thm:increments-levy`, part two: the truncation inequality
+#print axioms ScaleSpace.integrable_sinc_mul
+#print axioms ScaleSpace.intervalIntegral_fourierCos_eq
+#print axioms ScaleSpace.integral_one_sub_sinc_le
+#print axioms ScaleSpace.meanExponent
+#print axioms ScaleSpace.continuous_exponent_pair
+#print axioms ScaleSpace.meanExponent_nonneg
+#print axioms ScaleSpace.integral_one_sub_sinc_partitionMeasure_le
+#print axioms ScaleSpace.exponent_pair_atZero
+#print axioms ScaleSpace.exists_meanExponent_le
+#print axioms ScaleSpace.tendsto_meanExponent
+-- LevyExtraction: `thm:increments-levy`, part three: the test function and the limiting pair
+#print axioms ScaleSpace.levyTest
+#print axioms ScaleSpace.continuous_levyTest
+#print axioms ScaleSpace.levyTest_zero
+#print axioms ScaleSpace.levyTest_mul_min
+#print axioms ScaleSpace.levyTest_nonneg
+#print axioms ScaleSpace.levyTest_le
+#print axioms ScaleSpace.levyTestBdd
+#print axioms ScaleSpace.levyTestBdd_apply
+#print axioms ScaleSpace.eq_of_mapClusterPt
+#print axioms ScaleSpace.foldedPartition
+#print axioms ScaleSpace.weightedPartition
+#print axioms ScaleSpace.isFiniteMeasure_foldedPartition
+#print axioms ScaleSpace.isFiniteMeasure_weightedPartition
+#print axioms ScaleSpace.weightedPartition_le_foldedPartition
+#print axioms ScaleSpace.integral_levyTest_weightedPartition
+#print axioms ScaleSpace.measureReal_weightedPartition_univ_le
+#print axioms ScaleSpace.measureReal_weightedPartition_compl_le
+#print axioms ScaleSpace.finiteMeasure_apply_coe
+#print axioms ScaleSpace.exists_limit_measure
+-- Increments: `thm:increments-levy`: every increment exponent is a symmetric Lévy exponent
+#print axioms ScaleSpace.limitLevyMeasure
+#print axioms ScaleSpace.measurable_weightInv
+#print axioms ScaleSpace.isFolded_limitLevyMeasure
+#print axioms ScaleSpace.lintegral_limitLevyMeasure
+#print axioms ScaleSpace.weightInv_mul_ofReal
+#print axioms ScaleSpace.isSymLevyExponent_of_limit_measure
+#print axioms ScaleSpace.increments_levy
+-- GaugeLevy: `prop:canonical-gauge`, closed
+#print axioms ScaleSpace.canonical_gauge
+-- LineInterfaces: The cited interfaces of the line classification, as hypotheses
+#print axioms ScaleSpace.SymLevyUnique
+#print axioms ScaleSpace.SymLevyConverse
+#print axioms ScaleSpace.BochnerSymm
+#print axioms ScaleSpace.LineLawInterfaces
+-- SDExponents: `lem:selfdecomposable-exponents`, (3) ⟹ (1): the dilation increments
+#print axioms ScaleSpace.incrementProfile
+#print axioms ScaleSpace.profileJumpL
+#print axioms ScaleSpace.SDProfile.exponentL_eq_add_jump
+#print axioms ScaleSpace.aemeasurable_profileJump_integrand
+#print axioms ScaleSpace.antitoneOn_comp_div
+#print axioms ScaleSpace.profileJumpL_comp_div
+#print axioms ScaleSpace.lintegral_profileMeasure
+#print axioms ScaleSpace.lintegral_one_sub_cos_profileMeasure
+#print axioms ScaleSpace.min_one_sq_mul_le
+#print axioms ScaleSpace.lintegral_min_profileMeasure_comp_div_ne_top
+#print axioms ScaleSpace.incrementProfile_nonneg
+#print axioms ScaleSpace.incrementProfile_le
+#print axioms ScaleSpace.aemeasurable_incrementProfile
+#print axioms ScaleSpace.profileJumpL_add_increment
+#print axioms ScaleSpace.sd_increment_pair
+#print axioms ScaleSpace.sd_dilate_pair
+#print axioms ScaleSpace.sd_increment_isSymLevyExponent
+-- DilationDecrease: The dilation identity read backwards
+#print axioms ScaleSpace.symLevyPair_dilate
+#print axioms ScaleSpace.symLevyPair_add
+#print axioms ScaleSpace.dilate_le_of_increments
+-- AntitoneDensity: A translation-decreasing measure has a nonincreasing density
+#print axioms ScaleSpace.measure_Ioc_shift_le
+#print axioms ScaleSpace.measure_Ioc_double_le
+#print axioms ScaleSpace.tonelli_window
+#print axioms ScaleSpace.two_pow_mul_ofReal_half_pow
+#print axioms ScaleSpace.sandwich_upper
+#print axioms ScaleSpace.sandwich_lower
+#print axioms ScaleSpace.sigmaFinite_of_measure_Ioi_ne_top
+#print axioms ScaleSpace.dyadicTerm
+#print axioms ScaleSpace.dyadicDensity
+#print axioms ScaleSpace.antitone_dyadicTerm
+#print axioms ScaleSpace.measurable_dyadicTerm
+#print axioms ScaleSpace.monotone_dyadicTerm
+#print axioms ScaleSpace.antitone_dyadicDensity
+#print axioms ScaleSpace.setLIntegral_dyadicTerm
+#print axioms ScaleSpace.dyadicTerm_integral_lower
+#print axioms ScaleSpace.dyadicTerm_integral_upper
+#print axioms ScaleSpace.tendsto_half_pow
+#print axioms ScaleSpace.antitone_half_pow
+#print axioms ScaleSpace.setLIntegral_dyadicDensity
+#print axioms ScaleSpace.eq_withDensity_dyadicDensity
+-- AnalysisDirection: The analysis direction of `lem:selfdecomposable-exponents`
+#print axioms ScaleSpace.SymLevyPair.measure_Ioi_ne_top
+#print axioms ScaleSpace.measure_eq_of_inter_Ioi
+#print axioms ScaleSpace.map_log_Ioi
+#print axioms ScaleSpace.map_log_shift
+#print axioms ScaleSpace.map_exp_withDensity
+#print axioms ScaleSpace.dyadicDensity_ne_top
+#print axioms ScaleSpace.exists_profile_of_dilate_le
+#print axioms ScaleSpace.sd_exponents_one_implies_three
+-- MainConstruction: `thm:main-characterization`, the construction direction
+#print axioms ScaleSpace.exists_isSymmetric_of_isSymLevyExponent
+#print axioms ScaleSpace.ConstructionData
+#print axioms ScaleSpace.ConstructionData.chi_pos
+#print axioms ScaleSpace.ConstructionData.chi_nonneg
+#print axioms ScaleSpace.ConstructionData.chi_mapsTo
+#print axioms ScaleSpace.ConstructionData.chi_le
+#print axioms ScaleSpace.ConstructionData.chi_continuousOn
+#print axioms ScaleSpace.ConstructionData.expo
+#print axioms ScaleSpace.ConstructionData.expo_isSymLevyExponent
+#print axioms ScaleSpace.ConstructionData.expo_self
+#print axioms ScaleSpace.ConstructionData.expo_add
+#print axioms ScaleSpace.ConstructionData.kernel
+#print axioms ScaleSpace.ConstructionData.kernel_prob
+#print axioms ScaleSpace.ConstructionData.instIsProbabilityMeasureKernel
+#print axioms ScaleSpace.ConstructionData.kernel_sym
+#print axioms ScaleSpace.ConstructionData.fourierCos_kernel
+#print axioms ScaleSpace.ConstructionData.charFun_kernel
+#print axioms ScaleSpace.ConstructionData.kernel_self
+#print axioms ScaleSpace.ConstructionData.kernel_conv
+#print axioms ScaleSpace.ConstructionData.cos_continuousOn
+#print axioms ScaleSpace.ConstructionData.kernel_ne_dirac
+#print axioms ScaleSpace.ConstructionData.chiInv
+#print axioms ScaleSpace.ConstructionData.chiInv_spec
+#print axioms ScaleSpace.ConstructionData.chiInv_chi
+#print axioms ScaleSpace.ConstructionData.gaugeAction
+#print axioms ScaleSpace.ConstructionData.gaugeAction_nonneg
+#print axioms ScaleSpace.ConstructionData.chi_gaugeAction
+#print axioms ScaleSpace.ConstructionData.gaugeAction_strictMonoOn
+#print axioms ScaleSpace.ConstructionData.gaugeAction_surjOn
+#print axioms ScaleSpace.ConstructionData.kernel_map_const_mul
+#print axioms ScaleSpace.ConstructionData.cascadeData
+#print axioms ScaleSpace.main_construction
+-- MainAnalysis: `thm:main-characterization`, the analysis and uniqueness directions
+#print axioms ScaleSpace.main_uniqueness
+#print axioms ScaleSpace.fourierCos_eq_exp_neg_exponent
+#print axioms ScaleSpace.isSymLevyExponent_dilate_diff
+#print axioms ScaleSpace.main_analysis_of_profileForm
+#print axioms ScaleSpace.main_analysis
+#print axioms ScaleSpace.main_analysis_exists

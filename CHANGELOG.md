@@ -71,8 +71,9 @@ re-pointing Paper V and Paper VII onto these modules is later work. No tag is cu
   `prop:isotropic-corner`, `prop:similarity-ray-families`(3) and `prop:diagonal-ray-families`(5)
   (`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md` § 3 row V8; § 6, SSL-4). The
   statement is Lean-core only; `AxiomCheck.lean` prints only `propext`, `Classical.choice`,
-  `Quot.sound`. `dilation_atom`, the other lemma in the source file, is not moved: it is not
-  second demand and the moved proof does not use it. No article repository is edited by this
+  `Quot.sound`. `dilation_atom`, the other lemma in the source file, is not moved here: it is not
+  second demand and the moved proof does not use it. (It moved later with the line
+  classification, into `DilationAtom`.) No article repository is edited by this
   change.
 - `ScaleSpaceCore.L1Operators`: `X = L¹(ℝ)`, translation (`transL1`), convolution by a measure
   (`mconv`, `mconvL1`) and what the operator does — translation covariance, positivity, mass,
@@ -147,6 +148,44 @@ classification (SSL-6); `representation_converse`, the rest of `Covariance`
 rest of `TransformBridge` — none has a second demand yet. Paper V and Paper VII are not edited;
 they keep using the `require`d `SpatialHemigroup` declarations until a later re-pointing item. No
 tag is cut here.
+
+- **The line classification, stated conditionally** (Q-0305; SSL-6 of
+  `spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md`, row V6; ADR-0026 § 5).
+  Paper V's [V, Thm. 7.3] in the trunk, with each cited interface a **hypothesis**:
+  - `ScaleSpaceCore.LineInterfaces`: `SymLevyUnique` (the uniqueness clause of the symmetric
+    Lévy–Khintchine representation on `ℝ`, Sato Thm. 8.1(ii)), `SymLevyConverse` (its converse,
+    Sato Thm. 8.1(iii)) and `BochnerSymm` (Bochner's theorem, symmetric form, Sato Prop. 2.5),
+    each a `Prop` with exactly the statement of Paper V's axiom of the same content
+    (`fourier_toolbox_levy_unique`, `fourier_toolbox_levy_converse`,
+    `fourier_toolbox_bochner_symm`); the last two bundled as the `Prop`-valued structure
+    `LineLawInterfaces`, because the construction spends them together at one step.
+  - `ScaleSpaceCore.MainAnalysis`: `main_analysis` and `main_analysis_exists` take
+    `hA3 : SymLevyUnique` and nothing else (it is spent once, in `dilate_le_of_increments`,
+    through `sd_exponents_one_implies_three`); `main_uniqueness` takes no hypothesis;
+    `main_analysis_of_profileForm` as in Paper V.
+  - `ScaleSpaceCore.MainConstruction`: `main_construction` takes `hI : LineLawInterfaces`.
+  - What they reach, moved alongside: `Exponent` (`IsPositiveDefinite`, `IsSymNegDef`,
+    `IsSymLevyExponent`), `TransformBridge`, `TransformUniqueness`, the character pairing appended
+    to `BochnerConvolution` (`charCLM`, `gaussL1`, `mconvL1_injective`, `setIntegral_bconv`),
+    `Representation`, `Nonvanishing`, `Pairing`, `Cascade` (`exists_kernelFamily`,
+    `kernel_symmetric`), `Additivity`, `Transmittance`, `Covariance`, `DilationAtom`
+    (`dilation_atom`, now reached), `Rigidity`, `Gauge`, `GaugeLevy` (`canonical_gauge`),
+    `Truncation`, `NullArray`, `Tightness`, `LevyExtraction`, `Increments` (`increments_levy`),
+    `SDExponents` (Paper V's `SelfDecomposable` increments and `incrementProfile`),
+    `DilationDecrease`, `AntitoneDensity`, `AnalysisDirection`.
+
+  Moved from Paper V's cone export (`cone-v0.1`, `f28c066e`): exactly the declarations in the
+  closure of the four theorems, computed from Paper V's environment; statements and proofs
+  unchanged up to the namespace except where an axiom call became the hypothesis, and in
+  `MainConstruction`, where the continuity of `F` is `SDProfile.continuous_exponent` (Lean core)
+  instead of `profile_integrability_mem` (which spends A3's converse and stays behind). The
+  conclusions are Paper V's. `AxiomCheck.lean` gains a line for every moved declaration (282);
+  all print only `propext`, `Classical.choice`, `Quot.sound`. Stayed behind: the bundle
+  `main_characterization`, `profile_integrability_mem`, `increments_levy_infinitely_divisible`,
+  `sd_exponents_three_implies_one`, and the non-closure declarations of each source module. Paper
+  V and Paper VII are not edited: Paper V discharges `hA3` with `fourier_toolbox_levy_unique` and
+  `hI` with `⟨fourier_toolbox_levy_converse, fourier_toolbox_bochner_symm⟩`; Paper VII discharges
+  `hA3` from its own ledger A3 at `d = 1` when it switches. No tag is cut here.
 
 ## [0.2.0]
 

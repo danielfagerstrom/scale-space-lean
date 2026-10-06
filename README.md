@@ -72,6 +72,11 @@ deliberately, as one step.
 | `Cin`, `CinRays` | `Cin(z) = ∫₀^z (1 - cos v)dv/v` with `cin_elementary` (even, nondecreasing on `[0,∞)`, `≤ z²/4`) and the expansions `cin_expansion_zero`, `cin_expansion_top`; the unit-step profile `cinProfile τ` and the ray `cin_ray` (exponent `Cin(τ·)`) |
 | `SelfDecomposable` | self-decomposability `μ = (c •)_* μ ∗ ρ_c` (`IsSelfDecomposable`) and operator self-decomposability `μ = (e^{-tB})_* μ ∗ ρ_t` (`IsBSelfDecomposable`, the scalar case at `B = 1`) on a real vector space; the transform form on a finite-dimensional inner product space (`isSelfDecomposable_iff_charFun`), the line's `b > 1` form (`isSelfDecomposable_real_iff`), images under linear maps, and a transform without zeros (`IsSelfDecomposable.charFun_ne_zero`). A candidate for promotion to `harmonic-semigroups` |
 | `DilationInvariance` | a function continuous at the origin, where it vanishes, and fixed by one dilation vanishes identically (`dilation_invariance`) |
+| `LineInterfaces` | the three cited clauses the line classification rests on, as `Prop`s to be taken as hypotheses: `SymLevyUnique` (Sato Thm. 8.1(ii)), `SymLevyConverse` (Sato Thm. 8.1(iii)), `BochnerSymm` (Sato Prop. 2.5), the last two bundled as `LineLawInterfaces` |
+| `MainAnalysis`, `MainConstruction` | **the line classification** ([V, Thm. 7.3]), stated conditionally: `main_analysis`, `main_analysis_exists` (a family satisfying (A1)–(A8) and (ND) is a convolution cascade in a normalised gauge with an `SDProfile` exponent; hypothesis `SymLevyUnique`), `main_uniqueness` (no hypothesis), `main_construction` (the converse; hypothesis `LineLawInterfaces`) |
+| `Exponent`, `SDExponents`, `DilationDecrease`, `AntitoneDensity`, `AnalysisDirection` | `IsPositiveDefinite`, `IsSymNegDef`, `IsSymLevyExponent`; `lem:selfdecomposable-exponents` in both directions — the dilation increments of a profile exponent are Lévy exponents (`sd_increment_isSymLevyExponent`), and conversely (`sd_exponents_one_implies_three`, through `D_c ν ≤ ν` and the antitone density of a translation-decreasing measure) |
+| `TransformBridge`, `TransformUniqueness`, `Representation`, `Nonvanishing`, `Pairing`, `Cascade`, `Additivity`, `Transmittance`, `Covariance`, `DilationAtom`, `Rigidity`, `Gauge`, `GaugeLevy` | what the necessity direction reads: the convolution representation of a family (`representation_existsUnique`, with the character pairing appended to `BochnerConvolution`), nonvanishing of the transform, the kernel family (`exists_kernelFamily`, `kernel_symmetric`), additivity of the exponent, covariance and action rigidity, and the canonical gauge (`canonical_gauge`) |
+| `Truncation`, `NullArray`, `Tightness`, `LevyExtraction`, `Increments` | every increment exponent of a cascade is a symmetric Lévy exponent (`increments_levy`), by a null array, tightness and Lévy-measure extraction |
 
 Docstrings occasionally name a blueprint label (`def:lie-wedge`, `thm:receptive-field`,
 `thm:galilean-nonexistence`) or a declaration such as `ScaleSpace.drift_forced`. Those point into
@@ -95,6 +100,12 @@ and conservative", which needs `Symbol d`, `NegativeDefinite` and `Conservative`
 article-specific. Its abstract half (`LieWedge`, `CovariantTensor`) moved here; the predicate
 stayed behind. Adding a module that carried an axiom would silently widen every downstream
 article's trust base.
+
+Where a result needs a cited interface, the interface is a **hypothesis** of the statement
+instead (ADR-0026 § 5), stated as a `Prop` the consuming article discharges from its own ledger.
+`LineInterfaces` is the worked example: `main_analysis` takes `hA3 : SymLevyUnique`, which Paper V
+discharges with its axiom `fourier_toolbox_levy_unique` and Paper VII from its own A3 at `d = 1`.
+`#print axioms` on the conditional theorem is still Lean core.
 
 ## Growing it
 
