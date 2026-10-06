@@ -24,7 +24,8 @@ needs: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` 
 growth bound, and the half of `lem:profile-integrability` that rests on Lean core
 (`profile_integrability_pair`). The half that spends the article's ledger
 (`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the
-positive-definiteness vocabulary. Docstrings name the source article's blueprint labels.
+positive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the
+source article's blueprint labels.
 
 ## Two `ℝ≥0∞`-first definitions
 

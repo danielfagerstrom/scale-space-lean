@@ -19,9 +19,9 @@ read at `d = 1`.
 
 | hypothesis | source clause | Paper V's axiom (ledger) |
 |---|---|---|
-| `SymLevyUnique` | Sato Thm. 8.1(ii), uniqueness of the triplet | `fourier_toolbox_levy_unique` (A3) |
-| `SymLevyConverse` | Sato Thm. 8.1(iii), the converse | `fourier_toolbox_levy_converse` (A3) |
-| `BochnerSymm` | Sato Prop. 2.5, Bochner's theorem, symmetric form | `fourier_toolbox_bochner_symm` (A1) |
+| `SymLevyUnique` | Sato Thm. 8.1(ii), uniqueness | `fourier_toolbox_levy_unique` (A3) |
+| `SymLevyConverse` | Sato Thm. 8.1(iii), converse | `fourier_toolbox_levy_converse` (A3) |
+| `BochnerSymm` | Sato Prop. 2.5, Bochner, symmetric | `fourier_toolbox_bochner_symm` (A1) |
 
 The source is @sato1999levy (Sato, *Lévy Processes and Infinitely Divisible Distributions*,
 1999): Thm. 8.1 on pp. 37–38, Prop. 2.5 on pp. 8–9.

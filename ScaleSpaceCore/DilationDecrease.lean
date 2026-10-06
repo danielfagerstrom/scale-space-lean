@@ -24,8 +24,8 @@ where `D_c nu` is the image of the Levy measure under `x |-> c x`. That is a sta
 measures, and it is where the **uniqueness clause of `prop:fourier-toolbox`(3)** (Sato
 Thm. 8.1(ii); Paper V's ledger A3) is spent -- once, and the only time the line classification
 spends it. In this library it is the hypothesis `SymLevyUnique`, not an axiom. The proof is
-bookkeeping around it: the dilate of a symmetric Levy pair is a symmetric Levy pair (the Levy condition
-transfers by `min_one_sq_mul_le`, the same truncation comparison the (3) implies (1) direction
+bookkeeping around it: the dilate of a symmetric Levy pair is a symmetric Levy pair (the Levy
+condition transfers by `min_one_sq_mul_le`, the same truncation comparison the (3) implies (1) direction
 needed), the sum of two is a symmetric Levy pair, and the increment supplied by the hypothesis
 plus the dilate has the same exponent as the original pair.
 
@@ -129,7 +129,8 @@ What remains of the direction, once this is in hand, is a statement about measur
 coordinate `θ = log x` the conclusion says that the image of `ν` under `log` decreases under
 every right translation, and what is wanted is that such a measure has a nonincreasing density.
 No property of `F` enters after this point. -/
-theorem dilate_le_of_increments (hA3 : SymLevyUnique) (P : SymLevyPair) (F : ℝ → ℝ) (hF : ∀ ω, F ω = P.exponent ω)
+theorem dilate_le_of_increments (hA3 : SymLevyUnique) (P : SymLevyPair) (F : ℝ → ℝ)
+    (hF : ∀ ω, F ω = P.exponent ω)
     (h : ∀ s t : ℝ, 0 < s → s ≤ t → IsSymLevyExponent fun ω => F (t * ω) - F (s * ω))
     {c : ℝ} (hc : 0 < c) (hc1 : c ≤ 1) :
     Measure.map (fun x : ℝ => c * x) P.ν ≤ P.ν := by
