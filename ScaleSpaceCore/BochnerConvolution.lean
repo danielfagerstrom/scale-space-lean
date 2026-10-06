@@ -6,6 +6,8 @@ Authors: Daniel Fagerström
 import ScaleSpaceCore.L1Operators
 import Mathlib.MeasureTheory.Function.LpSpace.ContinuousCompMeasurePreserving
 import Mathlib.MeasureTheory.Function.AEEqOfIntegral
+import Mathlib.Probability.Distributions.Gaussian.Real
+import ScaleSpaceCore.TransformUniqueness
 
 /-!
 # Convolution as a vector-valued integral, and pairing against a bounded functional
@@ -19,13 +21,13 @@ integral `∫ f(y) · T_y g dy` and moves `Φ` inside; identifying that integral
 pointwise convolution goes through bounded set-integral functionals, and the same idea gives the
 Bochner form `μ * f = ∫ T_y f dμ(y)` of `mconvL1`.
 
-## What stayed behind
+## The character pairing
 
 Paper V's file continues past `apply_bconv` with a section pairing against the complex
-character `e_{-iωx}` and the standard Gaussian density, to prove the uniqueness clause of its own
-representation lemma (its own docstring: "no causal twin"), and a second pairing lemma
-(`setIntegral_bconv`) feeding a tightness argument specific to Paper V's construction. Neither is
-here: both are consumed by one article's own argument, not shared.
+character `e_{-iωx}` and the standard Gaussian density, which proves the uniqueness clause of its
+representation lemma, and a second pairing lemma (`setIntegral_bconv`) feeding the tightness
+argument of that lemma's existence clause. Both stayed behind until the line classification moved
+(Q-0305): its necessity direction rests on that lemma, so they are the last section below.
 -/
 
 namespace ScaleSpace
@@ -344,5 +346,199 @@ theorem apply_bconv (Ψ : X →L[ℝ] ℝ) {g : ℝ → ℝ} (hg : Integrable g)
   refine integral_congr_ae (Filter.Eventually.of_forall fun y => ?_)
   change Ψ (g y • transL1 y f) = g y * Ψ (transL1 y f)
   rw [ContinuousLinearMap.map_smul, smul_eq_mul]
+
+/-! ## The transform of the operator
+
+Moved from the rest of Paper V's `SpatialLine/BochnerConvolution.lean` (`cone-v0.1`) for the line
+classification (`MainAnalysis`), whose necessity direction reads its kernels through the
+representation lemma's uniqueness clause. Paper I gets that clause from a *Laplace* transform,
+injective on causal measures; on the line there is no half-line to clamp an exponential to, so
+the operator is paired against the character `e_ω(x) = e^{-iωx}`, bounded on all of `ℝ`, with the
+standard Gaussian density in the function slot. `charCLM ω` is that pairing; `charCLM_mconvL1` is
+Paper V's `(4.1)`, and `mconvL1_injective` follows because the Gaussian transform has no zeros.
+The sign convention is Mathlib's `charFun`; uniqueness does not see it.
+-/
+
+open ProbabilityTheory
+
+/-! ## `bconv` is the classical convolution
+
+The Bochner integral defining `bconv` has no pointwise meaning on the nose — `L¹` has no
+evaluation map — so identifying it with `x ↦ ∫ f(y) g(x-y) dy` goes through set integrals: the
+two agree on every set of finite measure, and `ae_eq_of_forall_setIntegral_eq_of_sigmaFinite`
+concludes. Pairing against a set is a bounded functional, so it passes through the Bochner
+integral, which is what makes the left-hand side computable at all.
+-/
+
+/-- `bconv` respects a.e. equality of the scalar factor. -/
+theorem bconv_congr_ae {f₁ f₂ : ℝ → ℝ} (h : f₁ =ᵐ[volume] f₂) (g : X) :
+    bconv f₁ g = bconv f₂ g := by
+  refine integral_congr_ae ?_
+  filter_upwards [h] with y hy
+  rw [hy]
+
+/-! ## `μ * f` as a Bochner integral
+
+`bconv` writes convolution by a density as `∫ f(y) · T_y g dy`. The same formula with the density
+replaced by a measure is `μ * f = ∫ T_y f dμ(y)`, and *that* is the form a bounded functional can
+be moved inside of.
+-/
+
+/-! ## Pairing with a bounded functional
+
+For `Ψ : X →L[ℝ] F` the map `y ↦ Ψ (T_y f)` is continuous — translation acts continuously on
+`L¹` — and bounded by `‖Ψ‖ ‖f‖`. Taking `F = ℝ` it is a legitimate test function for weak
+convergence, and that single observation is the whole bridge from `ν_ε → μ` to `f * h_ε → μ * f`;
+taking `F = ℂ` and `Ψ` the character pairing it gives the transform identity of the uniqueness
+clause.
+-/
+
+variable {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F] [CompleteSpace F]
+
+/-! ### Pairing `bconv` against a set integral
+
+The computation inside `coeFn_bconv`, extracted because the tightness step of the representation
+needs it a second time — and needs it in the form that avoids Fubini, the bounded functional
+`setIntegralCLM A` passing through the Bochner integral.
+-/
+
+theorem setIntegral_bconv (A : Set ℝ) {f : ℝ → ℝ} (hf : Integrable f) (g : X) :
+    ∫ x in A, (bconv f g : ℝ → ℝ) x = ∫ y, f y * ∫ x in A, (g : ℝ → ℝ) (x - y) := by
+  rw [← setIntegralCLM_apply A (bconv f g), bconv,
+    ← ContinuousLinearMap.integral_comp_comm _ (integrable_smul_transL1 hf g)]
+  refine integral_congr_ae (Filter.Eventually.of_forall fun y => ?_)
+  show setIntegralCLM A (f y • transL1 y g) = f y * ∫ x in A, (g : ℝ → ℝ) (x - y)
+  rw [ContinuousLinearMap.map_smul, setIntegralCLM_apply, smul_eq_mul]
+  congr 1
+  exact integral_congr_ae ((coeFn_transL1 y g).restrict)
+
+theorem integrable_setIntegral_bconv (A : Set ℝ) {f : ℝ → ℝ} (hf : Integrable f) (g : X) :
+    Integrable (fun y => f y * ∫ x in A, (g : ℝ → ℝ) (x - y)) := by
+  refine ((setIntegralCLM A).integrable_comp (integrable_smul_transL1 hf g)).congr
+    (Filter.Eventually.of_forall fun y => ?_)
+  show setIntegralCLM A (f y • transL1 y g) = f y * ∫ x in A, (g : ℝ → ℝ) (x - y)
+  rw [ContinuousLinearMap.map_smul, setIntegralCLM_apply, smul_eq_mul]
+  congr 1
+  exact integral_congr_ae ((coeFn_transL1 y g).restrict)
+
+/-! ## The character pairing, and uniqueness of the representing measure -/
+
+/-- The integrand of the character pairing is integrable: a unit-modulus continuous factor times
+an `L¹` function. -/
+theorem integrable_char_mul (ω : ℝ) (f : X) :
+    Integrable (fun x : ℝ => Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ)) := by
+  refine Integrable.bdd_mul (c := 1) (L1.integrable_coeFn f).ofReal ?_ ?_
+  · exact (Complex.continuous_exp.comp (by fun_prop)).aestronglyMeasurable
+  · filter_upwards with x
+    rw [Complex.norm_exp]
+    simp
+
+/-- The pairing `f ↦ ∫ e^{iωx} f(x) dx` against a character, as an `ℝ`-linear bounded functional
+on `L¹` with values in `ℂ`.
+
+The characters are bounded on all of `ℝ`, so no clamping and no support hypothesis is needed;
+this is the one place where the line is easier than the half-line. The sign is Mathlib's
+`charFun` convention. -/
+noncomputable def charCLM (ω : ℝ) : X →L[ℝ] ℂ :=
+  LinearMap.mkContinuous
+    { toFun := fun f => ∫ x : ℝ, Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ)
+      map_add' := fun f g => by
+        rw [← integral_add]
+        · refine integral_congr_ae ?_
+          filter_upwards [Lp.coeFn_add f g] with x hx
+          rw [hx]
+          push_cast [Pi.add_apply]
+          ring
+        · exact integrable_char_mul ω f
+        · exact integrable_char_mul ω g
+      map_smul' := fun c f => by
+        simp only [RingHom.id_apply]
+        rw [← integral_smul]
+        refine integral_congr_ae ?_
+        filter_upwards [Lp.coeFn_smul c f] with x hx
+        rw [hx]
+        simp only [Pi.smul_apply, smul_eq_mul, Complex.ofReal_mul, Complex.real_smul]
+        ring }
+    1 fun f => by
+      simp only [LinearMap.coe_mk, AddHom.coe_mk, one_mul]
+      calc ‖∫ x : ℝ, Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ)‖
+          ≤ ∫ x : ℝ, ‖Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ)‖ :=
+            norm_integral_le_integral_norm _
+        _ = ‖f‖ := by
+            rw [Lp.norm_def, eLpNorm_one_eq_lintegral_enorm,
+              ← integral_norm_eq_lintegral_enorm (Lp.aestronglyMeasurable f)]
+            refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+            simp [Complex.norm_exp]
+
+lemma charCLM_apply (ω : ℝ) (f : X) :
+    charCLM ω f = ∫ x : ℝ, Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ) := rfl
+
+/-- The character pairing turns translation into multiplication by a unimodular constant. -/
+theorem charCLM_transL1 (ω a : ℝ) (f : X) :
+    charCLM ω (transL1 a f) = Complex.exp (a * ω * Complex.I) * charCLM ω f := by
+  rw [charCLM_apply, charCLM_apply]
+  have hrepr : ∫ x : ℝ, Complex.exp (x * ω * Complex.I) * ((transL1 a f : X) : ℝ → ℝ) x
+      = ∫ x : ℝ, Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) (x - a) : ℂ) := by
+    refine integral_congr_ae ?_
+    filter_upwards [coeFn_transL1 a f] with x hx
+    rw [hx]
+  rw [hrepr, ← integral_add_right_eq_self
+    (fun x : ℝ => Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) (x - a) : ℂ)) a,
+    ← integral_const_mul]
+  refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+  simp only [add_sub_cancel_right]
+  rw [← mul_assoc, ← Complex.exp_add]
+  push_cast
+  ring_nf
+
+/-- **The blueprint’s pairing identity (4.1)**: pairing the operator against a character
+factorises into the transform of the measure times the transform of the test function. -/
+theorem charCLM_mconvL1 (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) (f : X) :
+    charCLM ω (mconvL1 μ f) = charFun μ ω * charCLM ω f := by
+  rw [apply_mconvL1_general (charCLM ω) μ f]
+  simp only [charCLM_transL1]
+  rw [integral_mul_const, charFun_apply_real]
+  congr 1
+  refine integral_congr_ae (Filter.Eventually.of_forall fun y => ?_)
+  ring_nf
+
+/-! ### The Gaussian test function -/
+
+/-- The standard Gaussian density, as an element of `L¹`. The blueprint’s test function: one
+function whose transform is zero-free at every frequency, so that a single pairing reads off the
+transform of the measure everywhere. -/
+noncomputable def gaussL1 : X := (integrable_gaussianPDFReal 0 1).toL1 _
+
+lemma coeFn_gaussL1 : ((gaussL1 : X) : ℝ → ℝ) =ᵐ[volume] gaussianPDFReal 0 1 :=
+  Integrable.coeFn_toL1 _
+
+/-- **The Gaussian transform has no zeros.** -/
+theorem charCLM_gaussL1 (ω : ℝ) :
+    charCLM ω gaussL1 = Complex.exp (-(ω ^ 2) / 2) := by
+  have hcoe : charCLM ω gaussL1
+      = ∫ x : ℝ, gaussianPDFReal 0 1 x • Complex.exp (ω * x * Complex.I) := by
+    rw [charCLM_apply]
+    refine integral_congr_ae ?_
+    filter_upwards [coeFn_gaussL1] with x hx
+    rw [hx, Complex.real_smul]
+    ring_nf
+  rw [hcoe, ← integral_gaussianReal_eq_integral_smul (one_ne_zero),
+    ← charFun_apply_real, charFun_gaussianReal]
+  push_cast
+  ring_nf
+
+theorem charCLM_gaussL1_ne_zero (ω : ℝ) : charCLM ω gaussL1 ≠ 0 := by
+  rw [charCLM_gaussL1]
+  exact Complex.exp_ne_zero _
+
+/-- **A finite measure is determined by its convolution operator** — the uniqueness clause of
+`lem:convolution-representation`. One test function suffices: pairing `Φ g` against `e_ω` reads
+off `μ̂(ω)` at every frequency, because the Gaussian transform never vanishes. -/
+theorem mconvL1_injective {μ ρ : Measure ℝ} [IsFiniteMeasure μ] [IsFiniteMeasure ρ]
+    (h : mconvL1 μ = mconvL1 ρ) : μ = ρ := by
+  refine fourier_uniqueness fun ω => ?_
+  have hpair : charFun μ ω * charCLM ω gaussL1 = charFun ρ ω * charCLM ω gaussL1 := by
+    rw [← charCLM_mconvL1, ← charCLM_mconvL1, h]
+  exact mul_right_cancel₀ (charCLM_gaussL1_ne_zero ω) hpair
 
 end ScaleSpace
