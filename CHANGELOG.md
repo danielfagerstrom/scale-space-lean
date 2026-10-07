@@ -5,6 +5,16 @@ All notable changes to this repository are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-10-07
+
+The shared library under ADR-0026, with the second-demand moves of Paper V and Paper VII:
+- the line's classification, stated conditionally (SSL-6);
+- the line's toolbox (SSL-1 to SSL-4, Q-0187);
+- the `L¹` operators in dimension `d` (SSL-5, Q-0332).
+
+Tagged by the author's decision of 2026-10-07, so that Paper VII can require SSL-5. Every
+declaration prints only `propext`, `Classical.choice` and `Quot.sound` (`AxiomCheck.lean`).
+
 ### Changed
 
 - `README.md` and a new `CLAUDE.md` describe this repository as the programme's **shared library**
