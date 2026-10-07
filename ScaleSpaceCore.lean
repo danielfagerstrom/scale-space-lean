@@ -55,6 +55,11 @@ import ScaleSpaceCore.AntitoneDensity
 import ScaleSpaceCore.AnalysisDirection
 import ScaleSpaceCore.MainConstruction
 import ScaleSpaceCore.MainAnalysis
+import ScaleSpaceCore.L1OperatorsSpace
+import ScaleSpaceCore.BochnerConvolutionSpace
+import ScaleSpaceCore.L1OperatorsEuclidean
+import ScaleSpaceCore.L1ContinuitySpace
+import ScaleSpaceCore.FourierPairingSpace
 
 /-! # The shared scale-space core
 

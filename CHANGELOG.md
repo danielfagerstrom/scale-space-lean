@@ -20,6 +20,48 @@ All notable changes to this repository are recorded here. The format follows
 
 ### Added
 
+- **The `L¹` operators in dimension `d`** (Q-0332; SSL-5 of `spatial-hemigroup-affine`'s
+  `records/formalization/SECOND-DEMAND.md`, row V10). This is a **generalization written in the
+  trunk, not an extraction**: Q-0187 moved the line's `L1Operators`/`BochnerConvolution` in on two
+  articles' demand, and the `d`-dimensional layer existed nowhere; the author decided on
+  2026-10-05 (Q-0281) that the trunk writes the general form first and Paper VII proves its
+  operator nodes (`lem:operators-to-kernels`, `lem:glplus-operator-families`,
+  `prop:glplus-families`) against a trunk tag. The setting is a finite-dimensional real normed
+  space `E` with `[MeasureSpace E] [BorelSpace E] [IsAddHaarMeasure (volume : Measure E)]`, so
+  `EuclideanSpace ℝ (Fin d)` and `ℝ` are instances; the general names carry an `E` suffix.
+  - `ScaleSpaceCore.L1OperatorsSpace`: `transL1E`, `reflL1E`, the linear dilation
+    `dilL1E A` (`D_A f = |det A|⁻¹ f(A⁻¹ ·)`, `A : E ≃L[ℝ] E`) with `norm_dilL1E`, `dilL1E_comp`
+    (`D_A D_B = D_{AB}`), `dilL1E_symm_comp`/`dilL1E_comp_symm`, `dilL1EEquiv`,
+    `dilL1E_comp_transL1E` (`D_A T_a = T_{Aa} D_A`), the isotropic case (`homothety`,
+    `coeFn_dilL1E_homothety`, `λ^{-d} f(·/λ)`) and rotations (`coeFn_dilL1E_of_abs_det_eq_one`);
+    `mconvE`/`mconvL1E` with `mconvL1E_transL1E`, `isNonnegE_mconvL1E`, `integral_mconvL1E`,
+    `norm_mconvL1E_le`, `mconvL1E_comp`, `mconvL1E_dirac_zero`; transport
+    `dilL1E_comp_mconvL1E` (`D_A (μ * f) = (A_* μ) * D_A f`) and its "if" corollary
+    `dilL1E_conj_mconvL1E`; the relational bridges `eq_transL1E_iff`, `eq_dilL1E_iff`,
+    `eq_mconvL1E_iff`, `intertwines_iff_dilL1E`, `translation_iff_transL1E`; and the `d = 1`
+    recoveries `transL1E_real`, `reflL1E_real`, `dilL1E_homothety_real` (with
+    `dilateE_homothety_real`: `dilate`'s `lam⁻¹ f(lam⁻¹ x)` is `|det A|⁻¹ f(A⁻¹ x)` at `A = lam`),
+    `mconvL1E_real`, `mconvE_real`, `isNonnegE_real`.
+  - `ScaleSpaceCore.L1OperatorsEuclidean`: the matrix form Paper VII reads — `matEquiv A` acting
+    by `Matrix.toEuclideanCLM`, `det_matEquiv`, `coeFn_dilL1E_matEquiv`, `eq_dilL1E_matEquiv_iff`,
+    `intertwines_iff_dilL1E_matEquiv`, `dilL1E_matEquiv_comp`, `coeFn_dilL1E_matEquiv_orthogonal`,
+    `matEquiv_smul_one`.
+  - `ScaleSpaceCore.BochnerConvolutionSpace`: `continuous_transL1E`, `bconvE`, `map_bconvE`
+    (`Φ (f * g) = f * Φ g`), `coeFn_bconvE`, `bconvME_eq_mconvL1E` (`μ * f = ∫ T_y f dμ`),
+    `apply_mconvL1E_general`, `pairTransE`, `apply_mconvL1E`, `apply_bconvE`,
+    `eq_dirac_of_mconvL1E_eq_id`, and `bconvE_real`, `bconvME_real`.
+  - `ScaleSpaceCore.L1ContinuitySpace` (stretch): `transDiffE`, `transDiffBCFE`, (★)
+    `norm_mconvL1E_sub_le`, `transDiffE_mconvL1E_le`, `norm_mconvL1E_comp_sub_le`, the Lévy clause
+    `tendsto_norm_mconvL1E_sub_of_tendsto_charFun` over an inner product space, `transDiffE_real`.
+  - `ScaleSpaceCore.FourierPairingSpace` (stretch): `charCLME`, `charCLME_transL1E`,
+    `charCLME_mconvL1E` (`(μ * f)^ = μ̂ f̂`, Mathlib's `charFun` convention).
+
+  Every ℝ declaration keeps its name and statement; the line's cascade vocabulary (`Family`,
+  `Construction`, `L1Continuity`, `Transform`) stays on the line. Not here: a zero-free test
+  function in dimension `d` and the injectivity of `μ ↦ μ * ·`, and the representation theorem
+  (Paper VII's `lem:operators-to-kernels`(1)). `AxiomCheck.lean` gains a line for each new public
+  declaration and prints only `propext`, `Classical.choice`, `Quot.sound` for all of them. No tag
+  is cut here.
 - `ScaleSpaceCore.GaussianKernel` (Q-0306): `measurable_multivariateGaussian_zero_smul_one`,
   `Measurable fun u : ℝ => multivariateGaussian (0 : EuclideanSpace ℝ (Fin d)) (u • 1)`, Paper
   VII's `measurable_gaussVar` in Mathlib's types (the line is the case `d = 1`); with
