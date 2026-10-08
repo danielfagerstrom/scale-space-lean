@@ -40,6 +40,16 @@ up to the namespace: Paper VII's `lem:bernstein-triplet-unique` is the second co
 `laplace_uniqueness_locally_finite` (`ScaleSpaceCore.LaplaceUniqueness`). Paper I's verbatim twin
 `Hemigroup.laplaceL` stays in Paper I, which is frozen (Q-0182).
 
+## Two small additions (Q-0364)
+
+`isSymmetric_dirac_zero` (the point mass at the origin is symmetric), from Paper V's development
+repository (`SpatialLine/PolyaFrequency.lean`, main at `387424ad8f9476af282b1fe9618aab2e9334bbd7`),
+and `one_sub_cos_le` (`1 - cos(ωv) ≤ (2 + ω²)(1 ∧ v²)`), from Paper V's cone export `v0.1`
+(`SpatialLine/Symbol.lean`), statements and proofs verbatim up to the namespace. Second demand:
+Paper VII's `isSymmetric_dirac_zero` (`MarginalFamily`, an identical statement) and
+`one_sub_cos_mul_le` (`SimilarityLine`, the same bound with `ω`, `v` named `τ`, `r` and the
+factors of the product and of the minimum written in the other order).
+
 ## What stayed behind
 
 Paper V's `IsFolded` has since moved to `ScaleSpaceCore.SDProfile` (Q-0302). The rest of
@@ -57,6 +67,11 @@ open scoped ENNReal
 /-- A measure on the line is *symmetric* when it is invariant under `x ↦ -x`. The blueprint's
 `R μ = μ`, with `R` extended to measures as the pushforward. -/
 def IsSymmetric (μ : Measure ℝ) : Prop := μ.map (fun x => -x) = μ
+
+/-- The point mass at the origin is symmetric. -/
+theorem isSymmetric_dirac_zero : IsSymmetric (Measure.dirac (0 : ℝ)) := by
+  rw [IsSymmetric, Measure.map_dirac' measurable_neg]
+  norm_num
 
 /-! ## The cosine transform -/
 
@@ -143,6 +158,16 @@ theorem charFun_eq_fourierCos_of_symmetric {μ : Measure ℝ} [IsFiniteMeasure �
     linarith
   have hre : (charFun μ ω).re = fourierCos μ ω := (fourierCos_eq_charFun_re μ ω).symm
   exact Complex.ext (by simpa using hre) (by simpa using him)
+
+/-! ## The truncation of `1 - cos` -/
+
+/-- `1 - cos(ωv) ≤ (2 + ω²)(1 ∧ v²)`: the truncation both regimes of the cosine obey. -/
+theorem one_sub_cos_le (ω v : ℝ) : 1 - Real.cos (ω * v) ≤ (2 + ω ^ 2) * min 1 (v ^ 2) := by
+  rcases le_or_gt (v ^ 2) 1 with hv | hv
+  · rw [min_eq_right hv]
+    nlinarith [Real.one_sub_sq_div_two_le_cos (x := ω * v), sq_nonneg ω, sq_nonneg v]
+  · rw [min_eq_left hv.le]
+    nlinarith [Real.neg_one_le_cos (ω * v), sq_nonneg ω]
 
 /-! ## The Laplace transform -/
 
