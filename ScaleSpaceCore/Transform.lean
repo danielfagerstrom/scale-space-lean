@@ -6,7 +6,7 @@ Authors: Daniel Fagerström
 import Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic
 
 /-!
-# The transform side on the line: symmetry, the cosine transform, the exponent
+# The transform side on the line: symmetry, cosine transform, exponent, Laplace transform
 
 Moved by Q-0301 from Paper V's `SpatialLine/Transform.lean` and `SpatialLine/TransformBridge.lean`
 at `v0.1`, statements verbatim up to the namespace. The cascade-family vocabulary
@@ -32,11 +32,19 @@ measure.
 junk (`Real.log` of a nonpositive number is `0`) where the transform is not positive; the
 positivity is a hypothesis of the statements that need it, not part of the definition.
 
+## The Laplace transform
+
+`laplaceL`, an `ℝ≥0∞`-valued `lintegral`, so no integrability side condition is needed. Moved by
+Q-0360 from Paper V's `SpatialLine/Transform.lean` at the cone export's `v0.1`, statement verbatim
+up to the namespace: Paper VII's `lem:bernstein-triplet-unique` is the second consumer, through
+`laplace_uniqueness_locally_finite` (`ScaleSpaceCore.LaplaceUniqueness`). Paper I's verbatim twin
+`Hemigroup.laplaceL` stays in Paper I, which is frozen (Q-0182).
+
 ## What stayed behind
 
-Paper V's `IsFolded` and `laplaceL` (same file) and the rest of `TransformBridge` (the sine
-integrand, `charFun_add_measure`, `continuous_fourierCos`, `fourierCos_gaussianReal`, …) have no
-second demand yet and stay in Paper V.
+Paper V's `IsFolded` has since moved to `ScaleSpaceCore.SDProfile` (Q-0302). The rest of
+`TransformBridge` (the sine integrand, `charFun_add_measure`, `continuous_fourierCos`,
+`fourierCos_gaussianReal`, …) has no second demand yet and stays in Paper V.
 -/
 
 namespace ScaleSpace
@@ -135,5 +143,16 @@ theorem charFun_eq_fourierCos_of_symmetric {μ : Measure ℝ} [IsFiniteMeasure �
     linarith
   have hre : (charFun μ ω).re = fourierCos μ ω := (fourierCos_eq_charFun_re μ ω).symm
   exact Complex.ext (by simpa using hre) (by simpa using him)
+
+/-! ## The Laplace transform -/
+
+/-- The Laplace transform of a measure carried by the half-line, valued in `ℝ≥0∞`.
+
+twin: `Hemigroup.laplaceL`, verbatim. -/
+noncomputable def laplaceL (m : Measure ℝ) (τ : ℝ) : ℝ≥0∞ :=
+  ∫⁻ u, ENNReal.ofReal (Real.exp (-(τ * u))) ∂m
+
+lemma laplaceL_apply (m : Measure ℝ) (τ : ℝ) :
+    laplaceL m τ = ∫⁻ u, ENNReal.ofReal (Real.exp (-(τ * u))) ∂m := rfl
 
 end ScaleSpace
