@@ -60,6 +60,7 @@ import ScaleSpaceCore.BochnerConvolutionSpace
 import ScaleSpaceCore.L1OperatorsEuclidean
 import ScaleSpaceCore.L1ContinuitySpace
 import ScaleSpaceCore.FourierPairingSpace
+import ScaleSpaceCore.ConvPow
 
 /-! # The shared scale-space core
 
