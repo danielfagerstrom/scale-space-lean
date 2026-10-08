@@ -196,6 +196,16 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.abs_integral_sub_le_of_carried
 #print axioms ScaleSpace.integral_polynomial_eq_of_moments
 #print axioms ScaleSpace.ext_of_moments
+-- LaplaceUniqueness: injectivity of the Laplace transform on folded measures (Q-0360)
+#print axioms ScaleSpace.integral_exp_neg_eq_toReal_laplaceL
+#print axioms ScaleSpace.expNeg_mem_Icc
+#print axioms ScaleSpace.map_expNeg_compl_Icc
+#print axioms ScaleSpace.isFiniteMeasure_map_expNeg
+#print axioms ScaleSpace.integral_pow_map_expNeg
+#print axioms ScaleSpace.laplaceL_injective_of_isFiniteMeasure
+#print axioms ScaleSpace.laplaceL_withDensity_expNeg
+#print axioms ScaleSpace.laplaceL_injective_of_ne_top
+#print axioms ScaleSpace.laplace_uniqueness_locally_finite
 
 -- TailInverse: the generalised inverse of a nonincreasing tail function
 #print axioms ScaleSpace.tailInv
@@ -231,6 +241,9 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.integrable_charFun_integrand
 #print axioms ScaleSpace.fourierCos_eq_charFun_re
 #print axioms ScaleSpace.charFun_eq_fourierCos_of_symmetric
+-- Transform: the Laplace transform on the half-line (Q-0360)
+#print axioms ScaleSpace.laplaceL
+#print axioms ScaleSpace.laplaceL_apply
 
 -- Transport: convolution against reflection and dilation, the kernel of the identity
 #print axioms ScaleSpace.mconv_reflect
