@@ -59,9 +59,9 @@ deliberately, as one step.
 | `PolyaFrequencyClass` | the bilateral Laplace transform in Karlin sign and the class `E₂*` (`polyaE2`): multipliability, the `±` paired parameters on the imaginary axis, the real-axis log form, the modulus on the imaginary axis, and the symmetry reduction (evenness near `0` forces `δ = 0` and vanishing odd power sums) |
 | `L1Operators` | `X = L¹(ℝ)`, translation (`transL1`), reflection (`reflL1`), mass-preserving dilation (`dilate`, `dilL1`) and convolution by a measure (`mconv`, `mconvL1`) with what the operator does — translation covariance, positivity, mass, composition — and the pairing lemma `integral_mul_mconv` |
 | `BochnerConvolution` | convolution as an `X`-valued Bochner integral (`bconv`, `bconvM`), `Φ (f * g) = f * (Φ g)` (`map_bconv`), `bconv` as the classical pointwise convolution (`coeFn_bconv`), the Bochner form of `mconvL1` (`bconvM_eq_mconvL1`), and pairing against a bounded functional (`pairTrans`, `apply_mconvL1`) |
-| `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass |
+| `LaplaceUniqueness` | two finite measures on `[0,1]` with the same moments are equal (`ext_of_moments`), via the substitution `x = e^{-t}` (`expNeg`) and Stone–Weierstrass; injectivity of `laplaceL` on folded measures — finite (`laplaceL_injective_of_isFiniteMeasure`), finite at one point (`laplaceL_injective_of_ne_top`, by damping with `laplaceL_withDensity_expNeg`), and agreeing and finite on a ray (`laplace_uniqueness_locally_finite`) |
 | `TailInverse` | the generalised inverse of a nonincreasing tail function (`tailInv`) and its order lemmas, the core of the Choquet-measure construction both articles' cone modules use |
-| `Transform` | symmetric measures on the line (`IsSymmetric`), the cosine transform (`fourierCos`) and the exponent `-log ∘ fourierCos` (`exponent`); the bridge to Mathlib's `charFun` (`fourierCos_eq_charFun_re`, `charFun_eq_fourierCos_of_symmetric`) |
+| `Transform` | symmetric measures on the line (`IsSymmetric`), the cosine transform (`fourierCos`) and the exponent `-log ∘ fourierCos` (`exponent`); the `ℝ≥0∞`-valued Laplace transform on the half-line (`laplaceL`); the bridge to Mathlib's `charFun` (`fourierCos_eq_charFun_re`, `charFun_eq_fourierCos_of_symmetric`) |
 | `L1OperatorsSpace` | the operators of `L1Operators` on `L¹(E)`, `E` a finite-dimensional real normed space with an additive Haar measure as `volume` (`EuclideanSpace ℝ (Fin d)` and `ℝ` are instances), under the suffix `E`: translation (`transL1E`), reflection (`reflL1E`), the linear dilation `D_A f = \|det A\|⁻¹ f(A⁻¹ ·)` for `A : E ≃L[ℝ] E` (`dilL1E`, an isometry with `D_A D_B = D_{AB}`, inverse `D_{A⁻¹}`, `D_A T_a = T_{Aa} D_A`; the isotropic case `homothety`, rotations at `\|det Q\| = 1`), convolution by a finite measure (`mconvE`, `mconvL1E`) with translation covariance, positivity, mass, contraction, composition and `δ₀`; transport `D_A (μ * f) = (A_* μ) * D_A f` (`dilL1E_comp_mconvL1E`); the relational bridges (`eq_transL1E_iff`, `eq_dilL1E_iff`, `eq_mconvL1E_iff`, `intertwines_iff_dilL1E`, `translation_iff_transL1E`); and the `d = 1` recoveries `transL1E_real`, `reflL1E_real`, `dilL1E_homothety_real`, `mconvL1E_real` |
 | `L1OperatorsEuclidean` | the matrix dilation on `L¹(ℝ^d)` in Paper VII's terms: `matEquiv A` for an invertible matrix (acting by `Matrix.toEuclideanCLM`, inverse `toEuclideanCLM A⁻¹`, determinant `A.det`), `coeFn_dilL1E_matEquiv`, `intertwines_iff_dilL1E_matEquiv`, `D_A D_B = D_{AB}`, rotations by orthogonal `Q`, and `λ • 1` as the homothety |
 | `BochnerConvolutionSpace` | `BochnerConvolution` on `L¹(E)`: `continuous_transL1E`, `bconvE` with the interchange identity `Φ (f * g) = f * Φ g` (`map_bconvE`) and `coeFn_bconvE`, the Bochner form `μ * f = ∫ T_y f dμ` (`bconvME_eq_mconvL1E`), pairing against a bounded functional (`pairTransE`, `apply_mconvL1E`, `apply_bconvE`), and the kernel of the identity is `δ₀` (`eq_dirac_of_mconvL1E_eq_id`) |
@@ -161,6 +161,16 @@ the rest stay queued) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
+
+**Moved (2026-10-08): the Laplace transform on the half-line and its uniqueness** (Q-0360) —
+`laplaceL` and `laplaceL_apply` into `Transform`, and the nine declarations E-0009 left in Paper V's
+`SpatialLine/LaplaceUniqueness.lean` (through `laplace_uniqueness_locally_finite`) into
+`LaplaceUniqueness`, from the cone export's `v0.1`, statements verbatim. E-0009 left them behind
+only because `IsFolded` was spatial-only; it has been in `SDProfile` since Q-0302. Second demand:
+Paper V's `Thorin`, `StableThorin`, `ScaleMonotone`, `ThorinBridge`, and Paper VII's
+`lem:bernstein-triplet-unique` (`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND-candidates.md`
+§ A1). Paper I's twin `Hemigroup.laplaceL` stays in Paper I, which is frozen (Q-0182); Paper V and
+Paper VII switch when each next requires a trunk tag.
 
 **Moved (2026-10-05): `dilation_invariance`** (`DilationInvariance`) — a function continuous at the
 origin, where it vanishes, and fixed by one dilation vanishes identically, from Paper V's
