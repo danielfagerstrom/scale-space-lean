@@ -928,6 +928,11 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.charCLME_apply
 #print axioms ScaleSpace.charCLME_transL1E
 #print axioms ScaleSpace.charCLME_mconvL1E
+-- GammaMeasure (Q-0362)
+#print axioms ScaleSpace.lintegral_gammaMeasure
+#print axioms ScaleSpace.lintegral_gammaMeasure_rpow_mul_exp
+#print axioms ScaleSpace.gammaMeasure_Iio_zero
+#print axioms ScaleSpace.ae_pos_gammaMeasure
 
 -- ConvPow (Q-0361): the `n`-fold convolution power of a measure
 #print axioms ScaleSpace.convPow
