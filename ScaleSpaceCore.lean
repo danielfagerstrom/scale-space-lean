@@ -62,6 +62,9 @@ import ScaleSpaceCore.L1ContinuitySpace
 import ScaleSpaceCore.FourierPairingSpace
 import ScaleSpaceCore.GammaMeasure
 import ScaleSpaceCore.ConvPow
+import ScaleSpaceCore.PosSemidefSum
+import ScaleSpaceCore.LaplaceLaw
+import ScaleSpaceCore.ExpIntegral
 
 /-! # The shared scale-space core
 

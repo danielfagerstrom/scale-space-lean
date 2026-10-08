@@ -244,6 +244,9 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 -- Transform: the Laplace transform on the half-line (Q-0360)
 #print axioms ScaleSpace.laplaceL
 #print axioms ScaleSpace.laplaceL_apply
+-- Transform: the point mass at the origin is symmetric, the truncation of `1 - cos` (Q-0364)
+#print axioms ScaleSpace.isSymmetric_dirac_zero
+#print axioms ScaleSpace.one_sub_cos_le
 
 -- Transport: convolution against reflection and dilation, the kernel of the identity
 #print axioms ScaleSpace.mconv_reflect
@@ -939,3 +942,33 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.isFiniteMeasure_convPow
 #print axioms ScaleSpace.isProbabilityMeasure_convPow_real
 #print axioms ScaleSpace.isFiniteMeasure_convPow_Rd
+
+-- PosSemidefSum (Q-0364): a real positive semidefinite matrix as a double sum and a positive definite kernel
+#print axioms ScaleSpace.star_dotProduct_mulVec_eq_sum
+#print axioms ScaleSpace.posSemidef_iff_sum
+#print axioms ScaleSpace.sum_sum_mul
+#print axioms ScaleSpace.sum_mul_conj_nonneg_of_posSemidef
+
+-- LaplaceLaw (Q-0364): the Laplace law on the line
+#print axioms ScaleSpace.laplaceDensity
+#print axioms ScaleSpace.laplaceLaw
+#print axioms ScaleSpace.laplaceDensity_nonneg
+#print axioms ScaleSpace.continuous_laplaceDensity
+#print axioms ScaleSpace.measurable_laplaceDensity
+#print axioms ScaleSpace.integrableOn_laplaceDensity_Ioi
+#print axioms ScaleSpace.integrableOn_laplaceDensity_Iic
+#print axioms ScaleSpace.integrable_laplaceDensity
+#print axioms ScaleSpace.expoDensity
+#print axioms ScaleSpace.expoDensity_def
+#print axioms ScaleSpace.expoDensity_nonneg
+#print axioms ScaleSpace.integrable_expoDensity
+#print axioms ScaleSpace.integral_expoDensity
+#print axioms ScaleSpace.integrable_expoDensity_neg
+#print axioms ScaleSpace.laplaceDensity_eq_half_add
+#print axioms ScaleSpace.laplaceDensity_ae_eq
+#print axioms ScaleSpace.integral_laplaceDensity
+#print axioms ScaleSpace.isProbabilityMeasure_laplaceLaw
+
+-- ExpIntegral (Q-0364): the integral of `e^{-cu}` over the half-line
+#print axioms ScaleSpace.integrableOn_exp_neg_Ioi_zero
+#print axioms ScaleSpace.lintegral_Ioi_exp_neg_mul
