@@ -5,6 +5,20 @@ All notable changes to this repository are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-10-08
+
+The second-demand moves filed from Paper VII's classification
+(`spatial-hemigroup-affine records/formalization/SECOND-DEMAND-candidates.md`):
+- the Laplace transform on the half-line and its uniqueness (Q-0360);
+- `convPow` (Q-0361);
+- the gamma law's Laplace transform (Q-0362);
+- Gaussian variance mixtures on the line with the inverse-gamma integral (SSL-8, Q-0363);
+- the small twins and the Laplace law (Q-0364).
+
+Tagged by the author's decision of 2026-10-08, so that Paper VII can read them from the trunk and
+drop its own copies. Every declaration prints only `propext`, `Classical.choice` and `Quot.sound`
+(`AxiomCheck.lean`).
+
 ### Added
 
 - **Small Mathlib-typed twins of Paper V and Paper VII, and the Laplace law on the line** (Q-0364; candidates A5 and A6 of `spatial-hemigroup-affine`'s `records/formalization/SECOND-DEMAND-candidates.md`). Moved from Paper V, statements and proofs verbatim up to the namespace:
