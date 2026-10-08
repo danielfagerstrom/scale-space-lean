@@ -61,6 +61,7 @@ import ScaleSpaceCore.L1OperatorsEuclidean
 import ScaleSpaceCore.L1ContinuitySpace
 import ScaleSpaceCore.FourierPairingSpace
 import ScaleSpaceCore.GammaMeasure
+import ScaleSpaceCore.ConvPow
 
 /-! # The shared scale-space core
 

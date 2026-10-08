@@ -19,6 +19,18 @@ All notable changes to this repository are recorded here. The format follows
   (`records/formalization/SECOND-DEMAND-candidates.md` § A3). Every declaration is Mathlib-only;
   `AxiomCheck.lean` prints only `propext`, `Classical.choice`, `Quot.sound`. Neither article is
   edited; Paper VII's switch to a one-line corollary is a later item. No tag is cut here.
+- `ScaleSpaceCore.ConvPow` (Q-0361): **the `n`-fold convolution power of a measure**, `convPow ν n
+  = ν^{n*}` with `ν^{0*} = δ₀`, on any `AddMonoid E`; `isFiniteMeasure_convPow` and
+  `isProbabilityMeasure_convPow_real` on `ℝ`, `isFiniteMeasure_convPow_Rd` on `ℝ^d`
+  (`EuclideanSpace ℝ (Fin d)`). Moved from Paper VII's `Formalization/AffineHemigroup/Defs/
+  Divisibility.lean`, `MaternOrbit.lean`, `SeparableMatern.lean` and `OriginLowerBound.lean`:
+  eight of Paper VII's modules read `convPow`, and Paper V's development main carries an identical
+  `ℝ`-only copy (`IncrementsDivisible.convPow`). Statements unchanged up to the namespace;
+  generalizing `isFiniteMeasure_convPow` and `isProbabilityMeasure_convPow_real` to an arbitrary
+  `E` is left to the promotion cycle. `convList`, `IsInfinitelyDivisible`, `compoundPoisson` and
+  `cpLaw` have one live consumer each and stayed behind. `AxiomCheck.lean` gains a line for each of
+  the four declarations; all print only `propext`, `Classical.choice`, `Quot.sound`. Neither
+  article is edited; re-pointing is a separate item. No tag is cut here.
 - **The Laplace transform on the half-line and its uniqueness** (Q-0360; candidate A1 of
   `spatial-hemigroup-affine`'s `records/formalization/SECOND-DEMAND-candidates.md`). Moved from
   Paper V's package at the cone export's `v0.1`, statements verbatim up to the namespace:
