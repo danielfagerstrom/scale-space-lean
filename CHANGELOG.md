@@ -5,6 +5,21 @@ All notable changes to this repository are recorded here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `ScaleSpaceCore.ConvPow` (Q-0361): **the `n`-fold convolution power of a measure**, `convPow ν n
+  = ν^{n*}` with `ν^{0*} = δ₀`, on any `AddMonoid E`; `isFiniteMeasure_convPow` and
+  `isProbabilityMeasure_convPow_real` on `ℝ`, `isFiniteMeasure_convPow_Rd` on `ℝ^d`
+  (`EuclideanSpace ℝ (Fin d)`). Moved from Paper VII's `Formalization/AffineHemigroup/Defs/
+  Divisibility.lean`, `MaternOrbit.lean`, `SeparableMatern.lean` and `OriginLowerBound.lean`:
+  eight of Paper VII's modules read `convPow`, and Paper V's development main carries an identical
+  `ℝ`-only copy (`IncrementsDivisible.convPow`). Statements unchanged up to the namespace;
+  generalizing `isFiniteMeasure_convPow` and `isProbabilityMeasure_convPow_real` to an arbitrary
+  `E` is left to the promotion cycle. `convList`, `IsInfinitelyDivisible`, `compoundPoisson` and
+  `cpLaw` have one live consumer each and stayed behind. `AxiomCheck.lean` gains a line for each of
+  the four declarations; all print only `propext`, `Classical.choice`, `Quot.sound`. Neither
+  article is edited; re-pointing is a separate item. No tag is cut here.
+
 ## [0.3.0] — 2026-10-07
 
 The shared library under ADR-0026, with the second-demand moves of Paper V and Paper VII:

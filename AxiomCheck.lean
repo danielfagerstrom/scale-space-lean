@@ -915,3 +915,9 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.charCLME_apply
 #print axioms ScaleSpace.charCLME_transL1E
 #print axioms ScaleSpace.charCLME_mconvL1E
+
+-- ConvPow (Q-0361): the `n`-fold convolution power of a measure
+#print axioms ScaleSpace.convPow
+#print axioms ScaleSpace.isFiniteMeasure_convPow
+#print axioms ScaleSpace.isProbabilityMeasure_convPow_real
+#print axioms ScaleSpace.isFiniteMeasure_convPow_Rd

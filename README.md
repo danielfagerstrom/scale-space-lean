@@ -66,6 +66,7 @@ deliberately, as one step.
 | `L1OperatorsEuclidean` | the matrix dilation on `L¹(ℝ^d)` in Paper VII's terms: `matEquiv A` for an invertible matrix (acting by `Matrix.toEuclideanCLM`, inverse `toEuclideanCLM A⁻¹`, determinant `A.det`), `coeFn_dilL1E_matEquiv`, `intertwines_iff_dilL1E_matEquiv`, `D_A D_B = D_{AB}`, rotations by orthogonal `Q`, and `λ • 1` as the homothety |
 | `BochnerConvolutionSpace` | `BochnerConvolution` on `L¹(E)`: `continuous_transL1E`, `bconvE` with the interchange identity `Φ (f * g) = f * Φ g` (`map_bconvE`) and `coeFn_bconvE`, the Bochner form `μ * f = ∫ T_y f dμ` (`bconvME_eq_mconvL1E`), pairing against a bounded functional (`pairTransE`, `apply_mconvL1E`, `apply_bconvE`), and the kernel of the identity is `δ₀` (`eq_dirac_of_mconvL1E_eq_id`) |
 | `L1ContinuitySpace`, `FourierPairingSpace` | on `L¹(E)`: the modulus of continuity `transDiffE`, the estimate (★) `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ dμ` (`norm_mconvL1E_sub_le`) and its Lévy clause; over an inner product space, the character pairing `charCLME` with `(μ * f)^ = μ̂ f̂` (`charCLME_mconvL1E`, Mathlib's `charFun` sign `e^{i⟨x,ω⟩}`) |
+| `ConvPow` | the `n`-fold convolution power `convPow ν n = ν^{n*}` on any `AddMonoid E`; it is finite resp. a probability measure under `isFiniteMeasure_convPow`/`isProbabilityMeasure_convPow_real` on `ℝ`, and finite under `isFiniteMeasure_convPow_Rd` on `ℝ^d` |
 | `Transport` | convolution against reflection and dilation — a symmetric kernel commutes with `reflL1` (`mconvL1_reflL1`), dilation intertwines with the dilated kernel (`dilL1_comp_mconvL1`) — and the kernel of the identity is `δ₀` (`eq_dirac_of_mconvL1_eq_id`) |
 | `Family` | the reflection-symmetric cascade family on `L¹(ℝ)`: `PreCascadeCore` ((A1)–(A3), (A5)–(A7)), `CascadeCore` (+ (A4) `IsPositive`, (ND) `IsNondegenerate`), `IsScaleCovariant` ((A8) relative to a set of ratios), `CascadeFamily`, and the kernel-family hypotheses `IsKernelFamily`, `IsSymmetricKernelFamily` |
 | `L1Continuity` | the modulus of continuity of translation (`transDiff`), the estimate `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ dμ` (`norm_mconvL1_sub_le`), and Lévy's continuity theorem in the form (A7) consumes |
@@ -161,6 +162,17 @@ the rest stay queued) and **the a.e.-tail / antitone-density
 toolkit** (`exists_antitone_density`, `tail_eq_of_ae_tail_eq`, `eqOn_of_ae_eq_of_antitoneOn`) stay
 queued; **variation diminution under convolution** and the test-function uniqueness of finite
 measures too. Each is article-independent and each has two consumers.
+
+**Moved (2026-10-08): `convPow`** (`ConvPow`) — the `n`-fold convolution power of a measure
+`ν^{n*}`, on any `AddMonoid E`, with `isFiniteMeasure_convPow` and
+`isProbabilityMeasure_convPow_real` on `ℝ` and `isFiniteMeasure_convPow_Rd` on `ℝ^d`
+(`EuclideanSpace ℝ (Fin d)`), from Paper VII's `Defs/Divisibility.lean`, `MaternOrbit.lean`,
+`SeparableMatern.lean` and `OriginLowerBound.lean`. Second demand: eight of Paper VII's modules
+read `convPow`, and Paper V's development main has an identical `ℝ`-only copy
+(`IncrementsDivisible.convPow`). Statements unchanged; generalizing the two `ℝ`-only lemmas to `E`
+is left to the promotion cycle. `convList`, `IsInfinitelyDivisible`, `compoundPoisson` and `cpLaw`
+have one live consumer each and stayed behind. Neither article is edited; re-pointing is a later
+item. No tag is cut here.
 
 **Moved (2026-10-05): `dilation_invariance`** (`DilationInvariance`) — a function continuous at the
 origin, where it vanishes, and fixed by one dilation vanishes identically, from Paper V's
