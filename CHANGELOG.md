@@ -5,6 +5,21 @@ All notable changes to this repository are recorded here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `ScaleSpaceCore.GammaMeasure` (Q-0362): four facts about Mathlib's `gammaMeasure` —
+  `lintegral_gammaMeasure` (integration against it is integration against its density on
+  `(0,∞)`), `lintegral_gammaMeasure_rpow_mul_exp` (its Laplace transform against `u^q e^{-su}`,
+  the one computation both second-demand consumers' proofs need), `gammaMeasure_Iio_zero` and
+  `ae_pos_gammaMeasure` (it lives on the positive axis). Moved from Paper V's cone export
+  (`cone-v0.1`, `f28c066e`, `SpatialLine.MaternMixture`), statements unchanged up to the
+  namespace. Second demand: Paper V's `matern_gamma_mixture` and Paper VII's
+  `lintegral_exp_gammaMeasure`/`ae_nonneg_gammaMeasure`
+  (`Formalization/AffineHemigroup/MaternOrbit.lean`), the case `q = 0`, `r = 1`
+  (`records/formalization/SECOND-DEMAND-candidates.md` § A3). Every declaration is Mathlib-only;
+  `AxiomCheck.lean` prints only `propext`, `Classical.choice`, `Quot.sound`. Neither article is
+  edited; Paper VII's switch to a one-line corollary is a later item. No tag is cut here.
+
 ## [0.3.0] — 2026-10-07
 
 The shared library under ADR-0026, with the second-demand moves of Paper V and Paper VII:
