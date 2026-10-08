@@ -62,6 +62,8 @@ import ScaleSpaceCore.L1ContinuitySpace
 import ScaleSpaceCore.FourierPairingSpace
 import ScaleSpaceCore.GammaMeasure
 import ScaleSpaceCore.ConvPow
+import ScaleSpaceCore.InverseGamma
+import ScaleSpaceCore.StudentTransform
 
 /-! # The shared scale-space core
 
