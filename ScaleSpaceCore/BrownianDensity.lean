@@ -5,6 +5,8 @@ Authors: Daniel Fagerström
 -/
 import Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic
 import Mathlib.Probability.Distributions.Gaussian.Real
+import Mathlib.MeasureTheory.Measure.GiryMonad
+import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 import ScaleSpaceCore.Transform
 
 /-!
@@ -20,9 +22,18 @@ Moved from the spatial article's export (`SpatialLine.BrownianDensity`, and from
 `SpatialLine.TransformBridge` the fact that computes the cosine transform at a Gaussian, at
 `cone-v0.1`), statements unchanged up to the namespace. The cosine transform `fourierCos` itself,
 with `integrable_charFun_integrand` and `fourierCos_eq_charFun_re`, is `ScaleSpaceCore.Transform`'s
-(Q-0301, merged first; the two moves had carried identical copies). Only
-what `bridge_exponents` needs moved: the mixture facts about `Measure.bind brownianLaw`, which
-serve `bridge_exponents_mixture` and the Gaussian variance mixtures, stayed behind.
+(Q-0301, merged first; the two moves had carried identical copies). The first move took only
+what `bridge_exponents` needs; the mixture facts about `Measure.bind brownianLaw` that the
+Gaussian variance mixtures read followed (Q-0363: `measurable_brownianLaw`,
+`isProbabilityMeasure_bind_brownianLaw`, `fourierCos_bind_brownianLaw`, from the same module at
+`cone-v0.1`, statements unchanged up to the namespace). `isSymmetric_bind_brownianLaw` stayed
+behind: no second consumer reads it.
+
+## The mixtures
+
+`Measure.bind brownianLaw` mixes the Gaussian laws against a law on the delay. It is a
+probability measure, and `fourierCos_bind_brownianLaw` says its cosine transform at `ω` is the
+Laplace transform of the delay law at `ω²/2`.
 
 ## The two elementary bounds
 
@@ -56,6 +67,11 @@ noncomputable def brownianLaw (u : ℝ) : Measure ℝ :=
 /-- **`g_u(x)`**, the density of `brownianLaw u` for `u > 0`. -/
 noncomputable def brownianDensity (u x : ℝ) : ℝ :=
   ProbabilityTheory.gaussianPDFReal 0 u.toNNReal x
+
+/-- **`brownianLaw` is a measurable family of measures.** -/
+theorem measurable_brownianLaw : Measurable brownianLaw := by
+  unfold brownianLaw
+  fun_prop
 
 /-! ## The Brownian density, explicitly -/
 
@@ -226,5 +242,67 @@ theorem lintegral_Ioi_brownianDensity_one_sub_cos {u : ℝ} (hu : 0 < u) (ω : �
     intro x
     rw [brownianDensity_neg, mul_neg, Real.cos_neg]
   rw [← hfull, lintegral_even_eq_two_mul heven, ← lintegral_const_mul' _ _ (by norm_num)]
+
+/-! ## Mixtures against the Brownian laws -/
+
+/-- The mixture of Gaussian laws against a probability law is a probability measure. -/
+theorem isProbabilityMeasure_bind_brownianLaw (ρ : Measure ℝ) [IsProbabilityMeasure ρ] :
+    IsProbabilityMeasure (ρ.bind brownianLaw) := by
+  refine isProbabilityMeasure_bind measurable_brownianLaw.aemeasurable (.of_forall fun u => ?_)
+  rw [brownianLaw]; infer_instance
+
+/-- **Conditioning on the delay.** The cosine transform of the mixture at `ω` is the Laplace
+transform of the delay law at `ω²/2`.
+
+The route is through `1 - \cos` rather than through `\cos`, because that integrand is
+nonnegative and `Measure.lintegral_bind` is available where a Bochner `integral_bind` is not.
+The hypothesis `hcausal` is what makes `g_u` a genuine Gaussian `ρ`-almost everywhere: off
+`[0,∞)` the wrapper is `δ₀` and the identity fails. -/
+theorem fourierCos_bind_brownianLaw {ρ : Measure ℝ} [IsProbabilityMeasure ρ]
+    (hcausal : ρ (Iio 0) = 0) (ω : ℝ) :
+    fourierCos (ρ.bind brownianLaw) ω = ∫ u, Real.exp (-(ω ^ 2 / 2 * u)) ∂ρ := by
+  set σ : ℝ := ω ^ 2 / 2 with hσdef
+  have hσ : (0 : ℝ) ≤ σ := by positivity
+  have hae : ∀ᵐ u ∂ρ, 0 ≤ u := by
+    rw [ae_iff]
+    convert hcausal using 2
+    ext u; simp
+  have hprob := isProbabilityMeasure_bind_brownianLaw ρ
+  have hexpint : Integrable (fun u : ℝ => Real.exp (-(σ * u))) ρ := by
+    refine Integrable.mono' (integrable_const 1) (by fun_prop) ?_
+    filter_upwards [hae] with u hu
+    rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
+    exact Real.exp_le_one_iff.mpr (by nlinarith)
+  have hcosint : Integrable (fun x : ℝ => Real.cos (ω * x)) (ρ.bind brownianLaw) := by
+    refine Integrable.mono' (integrable_const 1) (by fun_prop) (.of_forall fun x => ?_)
+    simpa using Real.abs_cos_le_one (ω * x)
+  have hjump : (∫⁻ x, ENNReal.ofReal (1 - Real.cos (ω * x)) ∂(ρ.bind brownianLaw))
+      = ∫⁻ u, ENNReal.ofReal (1 - Real.exp (-(σ * u))) ∂ρ := by
+    rw [Measure.lintegral_bind measurable_brownianLaw.aemeasurable (by fun_prop)]
+    refine lintegral_congr_ae ?_
+    filter_upwards [hae] with u hu
+    rw [lintegral_brownianLaw_one_sub_cos hu ω,
+      show -(u * ω ^ 2 / 2) = -(σ * u) from by rw [hσdef]; ring]
+  have hnn1 : ∀ᵐ x ∂(ρ.bind brownianLaw), 0 ≤ 1 - Real.cos (ω * x) :=
+    .of_forall fun x => by linarith [Real.cos_le_one (ω * x)]
+  have hint1 : Integrable (fun x : ℝ => 1 - Real.cos (ω * x)) (ρ.bind brownianLaw) :=
+    (integrable_const 1).sub hcosint
+  have hnn2 : ∀ᵐ u ∂ρ, 0 ≤ 1 - Real.exp (-(σ * u)) := by
+    filter_upwards [hae] with u hu
+    have hle := Real.exp_le_one_iff.mpr (by nlinarith : -(σ * u) ≤ 0)
+    linarith
+  have hint2 : Integrable (fun u : ℝ => 1 - Real.exp (-(σ * u))) ρ :=
+    (integrable_const 1).sub hexpint
+  rw [← ofReal_integral_eq_lintegral_ofReal hint1 hnn1,
+    ← ofReal_integral_eq_lintegral_ofReal hint2 hnn2] at hjump
+  have hreal : (∫ x, (1 - Real.cos (ω * x)) ∂(ρ.bind brownianLaw))
+      = ∫ u, (1 - Real.exp (-(σ * u))) ∂ρ :=
+    (ENNReal.ofReal_eq_ofReal_iff (integral_nonneg_of_ae hnn1)
+      (integral_nonneg_of_ae hnn2)).mp hjump
+  rw [integral_sub (integrable_const 1) hcosint,
+    integral_sub (integrable_const 1) hexpint] at hreal
+  simp only [integral_const, probReal_univ, smul_eq_mul, mul_one] at hreal
+  rw [fourierCos_apply]
+  linarith
 
 end ScaleSpace

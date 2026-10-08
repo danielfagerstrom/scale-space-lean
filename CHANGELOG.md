@@ -7,6 +7,43 @@ All notable changes to this repository are recorded here. The format follows
 
 ### Added
 
+- **Gaussian variance mixtures on the line, with the inverse-gamma integral** (Q-0363, SSL-8;
+  candidate A4 of `spatial-hemigroup-affine`'s `records/formalization/SECOND-DEMAND-candidates.md`).
+  Moved by declaration, statements and proofs unchanged up to the namespace:
+  - `ScaleSpaceCore.InverseGamma` (new): `inverse_gamma_integral` from Paper VII
+    (`Formalization/AffineHemigroup/Subordination.lean`); from Paper V's cone export (`cone-v0.1`,
+    `f28c066e`) `inverseGammaDensity`, `inverseGammaLaw` (`SpatialLine.Corners`), the exponential
+    substitution `expMap_image`, `expMap_monotone`, `expMap_hasDeriv`, `lintegral_Ioi_comp_exp`,
+    `exp_rpow` (`SpatialLine.FirstPassage`), `lintegral_Ioi_inverseGammaKernel`,
+    `inverseGammaDensity_eq_indicator`, `inverseGammaLaw_Iio_zero`,
+    `isProbabilityMeasure_inverseGammaLaw` (`SpatialLine.StudentTransform`),
+    `measurable_inverseGammaDensity`, `inverseGammaDensity_nonneg` (`SpatialLine.BridgeBessel`).
+  - `ScaleSpaceCore.StudentTransform` (new), from the same export: `besselK`
+    (`SpatialLine.CornerDefs`); `studentDensity`, `studentLaw` (`SpatialLine.Corners`);
+    `lintegral_exp_mul_of_even` (`SpatialLine.FirstPassage`); `inverseGamma_brownian_integrand`,
+    `integral_inverseGamma_brownian`, `studentDensity_pos`, `lintegral_inverseGamma_brownian`,
+    `bridge_families_bessel` (`SpatialLine.BridgeBessel`); `lintegral_Ioi_rpow_exp_besselKernel`,
+    `lintegral_cosh_exp_eq_besselK`, `besselK_neg`, `besselK_nonneg`,
+    `lintegral_exp_neg_inverseGammaLaw`, `student_transform` (`SpatialLine.StudentTransform`).
+  - `ScaleSpaceCore.BrownianDensity` gains the mixture facts from `SpatialLine.BrownianDensity`:
+    `measurable_brownianLaw`, `isProbabilityMeasure_bind_brownianLaw`,
+    `fourierCos_bind_brownianLaw`.
+
+  Second demand: Paper VII's `IsotropicBridge` (`prop:isotropic-bridge-student`) and Paper V's
+  corner and Student modules read the same declarations; Paper V's
+  `lintegral_Ioi_inverseGammaKernel` and Paper VII's `integral_rpow_exp_inv` are
+  `inverse_gamma_integral` at `c = 1/2` and `c = 1/4`, each kept with its own proof. Neither module
+  imports `ScaleSpaceCore.BridgeExponents` or anything stated in `CausalAdmissible`: Paper V's
+  package at `cone-v0.1` declares `ScaleSpace.CausalAdmissible.bridgeProfile` and its siblings,
+  so a consumer of Paper V's `StudentTransform`/`BridgeBessel` can import these modules beside them
+  (checked: such a file elaborates; adding `ScaleSpaceCore.BridgeExponents` reproduces the known
+  collision). None of the 32 names existed in the trunk or in Paper V's `ScaleSpace` namespace.
+  Left behind as not read by the moved statements: `isSymmetric_bind_brownianLaw`,
+  `isProbabilityMeasure_studentLaw_one`, `isSymmetric_studentLaw_one`, `studentDensity_dilate`,
+  `student_density`, and the first-passage lemmas of `SpatialLine.FirstPassage`. `AxiomCheck.lean`
+  gains a line for each of the 32 declarations; all print only `propext`, `Classical.choice`,
+  `Quot.sound`. Neither article is edited; Paper VII's switch (and the removal of its
+  `BridgeAdmissible` shim) is a later item. No tag.
 - `ScaleSpaceCore.GammaMeasure` (Q-0362): four facts about Mathlib's `gammaMeasure` —
   `lintegral_gammaMeasure` (integration against it is integration against its density on
   `(0,∞)`), `lintegral_gammaMeasure_rpow_mul_exp` (its Laplace transform against `u^q e^{-su}`,
