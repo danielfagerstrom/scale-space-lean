@@ -19,6 +19,21 @@ All notable changes to this repository are recorded here. The format follows
   `cpLaw` have one live consumer each and stayed behind. `AxiomCheck.lean` gains a line for each of
   the four declarations; all print only `propext`, `Classical.choice`, `Quot.sound`. Neither
   article is edited; re-pointing is a separate item. No tag is cut here.
+- **The Laplace transform on the half-line and its uniqueness** (Q-0360; candidate A1 of
+  `spatial-hemigroup-affine`'s `records/formalization/SECOND-DEMAND-candidates.md`). Moved from
+  Paper V's package at the cone export's `v0.1`, statements verbatim up to the namespace:
+  `laplaceL` and `laplaceL_apply` from `SpatialLine.Transform` into
+  `ScaleSpaceCore.Transform`; `integral_exp_neg_eq_toReal_laplaceL`, `expNeg_mem_Icc`,
+  `map_expNeg_compl_Icc`, `isFiniteMeasure_map_expNeg`, `integral_pow_map_expNeg`,
+  `laplaceL_injective_of_isFiniteMeasure`, `laplaceL_withDensity_expNeg`,
+  `laplaceL_injective_of_ne_top` and `laplace_uniqueness_locally_finite` from
+  `SpatialLine.LaplaceUniqueness` into `ScaleSpaceCore.LaplaceUniqueness`, beside `expNeg` and
+  `ext_of_moments` (which E-0009 moved). Second demand: Paper V (`Thorin`, `StableThorin`,
+  `ScaleMonotone`, `ThorinBridge`) and Paper VII (`lem:bernstein-triplet-unique`). E-0009 left them
+  behind because `IsFolded` was spatial-only; it has been in `SDProfile` since Q-0302.
+  `LaplaceUniqueness` now imports `Transform` and `SDProfile`. Paper I's twin `Hemigroup.laplaceL`
+  stays (Paper I is frozen, Q-0182); Paper V and Paper VII are not edited. All eleven print only
+  Lean core (`AxiomCheck.lean`).
 
 ## [0.3.0] — 2026-10-07
 
