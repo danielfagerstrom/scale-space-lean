@@ -365,6 +365,10 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 #print axioms ScaleSpace.lintegral_brownianDensity
 #print axioms ScaleSpace.lintegral_even_eq_two_mul
 #print axioms ScaleSpace.lintegral_Ioi_brownianDensity_one_sub_cos
+-- BrownianDensity: mixtures against the Brownian laws (Q-0363, SSL-8)
+#print axioms ScaleSpace.measurable_brownianLaw
+#print axioms ScaleSpace.isProbabilityMeasure_bind_brownianLaw
+#print axioms ScaleSpace.fourierCos_bind_brownianLaw
 
 -- BridgeExponents: `lem:bridge-exponents`, from `CausalAdmissible` into `SDProfile`
 #print axioms ScaleSpace.mixWeight
@@ -972,3 +976,36 @@ consumer's trust base gains nothing by depending on it. Anything beyond Lean cor
 -- ExpIntegral (Q-0364): the integral of `e^{-cu}` over the half-line
 #print axioms ScaleSpace.integrableOn_exp_neg_Ioi_zero
 #print axioms ScaleSpace.lintegral_Ioi_exp_neg_mul
+
+-- InverseGamma (Q-0363, SSL-8): the inverse-gamma integral and the inverse-gamma law
+#print axioms ScaleSpace.inverse_gamma_integral
+#print axioms ScaleSpace.expMap_image
+#print axioms ScaleSpace.expMap_monotone
+#print axioms ScaleSpace.expMap_hasDeriv
+#print axioms ScaleSpace.lintegral_Ioi_comp_exp
+#print axioms ScaleSpace.exp_rpow
+#print axioms ScaleSpace.lintegral_Ioi_inverseGammaKernel
+#print axioms ScaleSpace.inverseGammaDensity
+#print axioms ScaleSpace.inverseGammaLaw
+#print axioms ScaleSpace.measurable_inverseGammaDensity
+#print axioms ScaleSpace.inverseGammaDensity_nonneg
+#print axioms ScaleSpace.inverseGammaDensity_eq_indicator
+#print axioms ScaleSpace.inverseGammaLaw_Iio_zero
+#print axioms ScaleSpace.isProbabilityMeasure_inverseGammaLaw
+
+-- StudentTransform (Q-0363, SSL-8): the Student-t law as a Gaussian variance mixture
+#print axioms ScaleSpace.besselK
+#print axioms ScaleSpace.studentDensity
+#print axioms ScaleSpace.studentLaw
+#print axioms ScaleSpace.lintegral_exp_mul_of_even
+#print axioms ScaleSpace.inverseGamma_brownian_integrand
+#print axioms ScaleSpace.integral_inverseGamma_brownian
+#print axioms ScaleSpace.studentDensity_pos
+#print axioms ScaleSpace.lintegral_inverseGamma_brownian
+#print axioms ScaleSpace.bridge_families_bessel
+#print axioms ScaleSpace.lintegral_Ioi_rpow_exp_besselKernel
+#print axioms ScaleSpace.lintegral_cosh_exp_eq_besselK
+#print axioms ScaleSpace.besselK_neg
+#print axioms ScaleSpace.besselK_nonneg
+#print axioms ScaleSpace.lintegral_exp_neg_inverseGammaLaw
+#print axioms ScaleSpace.student_transform

@@ -65,6 +65,8 @@ import ScaleSpaceCore.ConvPow
 import ScaleSpaceCore.PosSemidefSum
 import ScaleSpaceCore.LaplaceLaw
 import ScaleSpaceCore.ExpIntegral
+import ScaleSpaceCore.InverseGamma
+import ScaleSpaceCore.StudentTransform
 
 /-! # The shared scale-space core
 
