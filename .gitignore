@@ -3,3 +3,5 @@
 build/
 lake-packages/
 *.olean
+
+__pycache__/
