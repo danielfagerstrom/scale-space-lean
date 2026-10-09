@@ -116,6 +116,25 @@ jobs:
       # The pattern excludes the backtick-wrapped prose `sorry`(-free) that legitimately
       # appears in docstrings, while still catching a real `sorry` term/tactic (always adjacent
       # to whitespace/parens, never a backtick).
+      # The published API reference (research.danielfagerstrom.com/library/) is rendered from
+      # site/library/data.json, which is generated from these sources and committed. Without
+      # this guard a declaration added or renamed here, or a module docstring edited, leaves
+      # the public page quietly describing code that no longer exists.
+      #
+      # --check-source, NOT --check. The generator reads three sources and only one of them
+      # is this repository: the blueprint claims come from the four released export repos
+      # under $DEV_DIR, and their titles and DOIs from the hub's constellation.json, which is
+      # private. A runner has neither. Run here, --check regenerates a data.json with no
+      # claims, compares it against a committed one that has them, and reports staleness on
+      # correct data — a check that is red when nothing is wrong, which teaches everyone to
+      # ignore it. --check-source compares only what this repository determines.
+      #
+      # No Lean, no Lake, no network: stdlib Python over the source text. It is placed with
+      # the other guards rather than in a workflow of its own because it guards the same
+      # thing they do — that what this repository says about itself is true.
+      - name: Guard — the API reference data matches the source
+        run: python3 scripts/gen_library_reference.py --check-source
+
       - name: Guard — no `sorry` in the Lean sources
         run: |
           if grep -rnE '(^|[^`[:alnum:]_])sorry([^`[:alnum:]_-]|$)' --include='*.lean' ScaleSpaceCore; then

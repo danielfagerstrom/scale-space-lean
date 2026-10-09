@@ -26,10 +26,28 @@ research.danielfagerstrom.com/library/, rendered from this data by research-site
 scripts/build-library.mjs. One datum, one rendering.
 
 Usage:
-    python3 scripts/gen_library_reference.py [--check]
+    python3 scripts/gen_library_reference.py [--check | --check-source]
 
---check regenerates in memory and diffs against the committed files without writing;
-exits nonzero if they differ (mirrors research-site/scripts/build-bibliography.mjs).
+Both regenerate in memory, diff against the committed data.json and write nothing; they
+differ in how much they compare, because the three sources this script reads are not
+equally reachable.
+
+--check          everything, including the blueprint claims and their release metadata.
+                 Needs the four released export repositories under $DEV_DIR and the hub's
+                 constellation.json under $WIKI_VAULT. For a desk that has them.
+
+--check-source   only what THIS repository determines: the modules, the declarations and
+                 their signatures and docstrings. For CI, which has none of the others --
+                 the exports would have to be cloned and the hub is private. Run there,
+                 --check regenerates a data.json with no claims, compares it against a
+                 committed one that has them, and reports staleness on correct data; a
+                 check that fails when nothing is wrong is worse than no check, because it
+                 teaches everyone to ignore it.
+
+What --check-source catches is the drift that actually originates here: a declaration
+added, renamed or removed, a signature changed, a docstring edited, without regenerating.
+The claims half changes when an ARTICLE makes a release, which is a different trigger with
+the release checklist already in front of it.
 
 Declarations: this library's own AxiomCheck.lean is taken as the enumeration of "every
 public declaration" (CLAUDE.md's own rule for that file), not a declaration scan of our
@@ -477,10 +495,18 @@ def build_blueprint_index():
     return claims
 
 
+# The keys of data.json this repository alone determines. Everything else -- the claims and
+# their release metadata -- comes from the export repositories and the hub.
+LOCAL_KEYS = ("repo", "source_dir", "modules", "declarations", "unresolved_in_axiom_check")
+
+
 def main():
-    check = "--check" in sys.argv
+    check_source = "--check-source" in sys.argv
+    check = check_source or "--check" in sys.argv
     entries, missing = build_declarations()
-    claims = build_blueprint_index()
+    # Not merely ignored afterwards: skipped, so a run in CI does not emit four warnings
+    # about repositories it was never going to find.
+    claims = {} if check_source else build_blueprint_index()
     data_path = OUT_DIR / "data.json"
     generated = os.environ.get("GEN_LIBRARY_REFERENCE_DATE")
     if generated is None and check and data_path.exists():
@@ -517,11 +543,28 @@ def main():
     new_data = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False) + "\n"
 
     if check:
-        ok = True
-        if not data_path.exists() or data_path.read_text(encoding="utf-8") != new_data:
-            print("data.json is stale", file=sys.stderr)
-            ok = False
-        sys.exit(0 if ok else 1)
+        if not data_path.exists():
+            print(f"{data_path} is missing", file=sys.stderr)
+            sys.exit(1)
+        committed_text = data_path.read_text(encoding="utf-8")
+
+        if not check_source:
+            if committed_text != new_data:
+                print("data.json is stale", file=sys.stderr)
+                sys.exit(1)
+            print(f"data.json is current ({len(entries)} declarations, {len(modules)} modules, "
+                  f"{len(claims)} claimed)")
+            sys.exit(0)
+
+        committed = json.loads(committed_text)
+        stale = [k for k in LOCAL_KEYS if committed.get(k) != data[k]]
+        if stale:
+            print(f"data.json is stale in: {', '.join(stale)}", file=sys.stderr)
+            print("regenerate with: python3 scripts/gen_library_reference.py", file=sys.stderr)
+            sys.exit(1)
+        print(f"data.json matches the source ({len(entries)} declarations, {len(modules)} "
+              f"modules); claims and release metadata not checked here")
+        sys.exit(0)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     data_path.write_text(new_data, encoding="utf-8")

@@ -54,8 +54,11 @@ into the source at the revision it was read from, and the blueprint node each mo
 
 It is generated from `site/library/data.json`, which `scripts/gen_library_reference.py` writes from
 this repository's source, `AxiomCheck.lean`'s list of public declarations, and the released
-articles' blueprints. Regenerate it after a module or a consuming article's blueprint changes;
-`--check` verifies the committed data is current and writes nothing. The script renders no HTML:
+articles' blueprints. Regenerate it after a module or a consuming article's blueprint changes. Two ways to verify it
+is current, differing in how much they can see: `--check` compares everything, and needs the
+released export repositories under `$DEV_DIR` and the hub under `$WIKI_VAULT`; `--check-source`
+compares only what this repository determines — the modules, the declarations, their signatures
+and docstrings — and is what CI runs, since a runner has neither of the others. The script renders no HTML:
 the page is `research-site`'s, from this data.
 
 Not a blueprint — ADR-0026 says this library does not get one (the hub's Q-0369). It restates
