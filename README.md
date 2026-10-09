@@ -48,13 +48,18 @@ deliberately, as one step.
 
 ## API reference
 
-`site/library/index.html` (data in `site/library/data.json`) lists every public declaration --
-module, signature, docstring -- and, for each, the released article blueprint node that states it
-(from the `\lean{}` tags in the public exports), or says plainly that no released node claims it.
-Not a blueprint (ADR-0026 says this library doesn't get one: see the hub's Q-0369): it restates
-nothing, only extracts and cross-references what already exists. Regenerate it with
-`scripts/gen_library_reference.py` (`lake env python3 scripts/gen_library_reference.py`, or the
-`--check` flag to verify it's current) after a module or a consuming article's blueprint changes.
+**[research.danielfagerstrom.com/library/](https://research.danielfagerstrom.com/library/)** — every
+module with its own description, every public declaration with its signature and docstring, a link
+into the source at the revision it was read from, and the blueprint node each module's prose names.
+
+It is generated from `site/library/data.json`, which `scripts/gen_library_reference.py` writes from
+this repository's source, `AxiomCheck.lean`'s list of public declarations, and the released
+articles' blueprints. Regenerate it after a module or a consuming article's blueprint changes;
+`--check` verifies the committed data is current and writes nothing. The script renders no HTML:
+the page is `research-site`'s, from this data.
+
+Not a blueprint — ADR-0026 says this library does not get one (the hub's Q-0369). It restates
+nothing; it extracts and cross-references what the source and the articles already say.
 
 ## What is here
 

@@ -13,10 +13,17 @@ forbidden in the unattended session that wrote this script, and in general a mul
 many-GB build for a library whose only dependency is Mathlib. This is the sanctioned
 fallback: no Lean build, no Mathlib dependency, pure source extraction.
 
-Two outputs, both under site/library/:
-  - data.json   structured: every public declaration (name, kind, module, signature,
-                docstring, source line) and, for each, the blueprint node(s) that claim it
-  - index.html  a single self-contained static page rendering data.json for a human reader
+One output, site/library/data.json: every module (title, description, the blueprint node
+labels its prose names) and every public declaration (name, kind, module, signature,
+docstring, source line), with the blueprint node(s) that claim it and the revision all of
+it was read from.
+
+This script renders no HTML. It used to also write site/library/index.html, which was
+served nowhere -- this repository has no Pages site, and GitHub shows a committed .html as
+source -- so the only way to read it was to clone and open the file, while the README
+pointed at it as the reference. The reference a reader can actually reach is
+research.danielfagerstrom.com/library/, rendered from this data by research-site's
+scripts/build-library.mjs. One datum, one rendering.
 
 Usage:
     python3 scripts/gen_library_reference.py [--check]
@@ -470,124 +477,6 @@ def build_blueprint_index():
     return claims
 
 
-# ---------------------------------------------------------------------------
-# Part 3: render.
-# ---------------------------------------------------------------------------
-
-def esc(s):
-    if s is None:
-        return ""
-    return (
-        str(s)
-        .replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace('"', "&quot;")
-    )
-
-
-def doc_to_html(text):
-    """A docstring's light markdown (`code`, **bold**, blank-line paragraphs) -> HTML."""
-    if not text:
-        return ""
-    escaped = esc(text)
-    escaped = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", escaped)
-    escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
-    paras = re.split(r"\n\s*\n", escaped)
-    return "".join(f"<p>{p.replace(chr(10), ' ')}</p>" for p in paras if p.strip())
-
-
-def render_html(entries, claims, missing, generated):
-    by_module = {}
-    for e in entries:
-        by_module.setdefault(e["module"], []).append(e)
-
-    total = len(entries)
-    documented = sum(1 for e in entries if e["doc"])
-    claimed = sum(1 for e in entries if e["name"] in claims)
-    interfaces = sum(1 for e in entries if e["kind"] == "interface")
-
-    rows = []
-    rows.append(
-        f"""<p id="summary">{total} public declarations across {len(by_module)} modules &mdash;
-{documented} carry a docstring, {claimed} are claimed by a node in a released article's blueprint,
-{interfaces} are cited interfaces taken as a hypothesis rather than statements proved here, and
-<strong>{total - claimed} are claimed by no released node</strong> (not proof that nothing cites
-them: a draft or unreleased module may; this counts only released, public blueprints).</p>"""
-    )
-
-    for module in sorted(by_module):
-        rows.append(f'<h2 id="mod-{esc(module)}">{esc(module)}</h2>')
-        rows.append('<dl class="module">')
-        for e in sorted(by_module[module], key=lambda e: e["line"]):
-            anchor = e["name"].replace(".", "_")
-            kind_label = {"interface": "interface (hypothesis)"}.get(e["kind"], e["kind"])
-            rows.append(f'<dt id="decl-{esc(anchor)}"><code>{esc(e["short_name"])}</code>'
-                        f' <span class="kind">{esc(kind_label)}</span>'
-                        f' <a class="src" href="../../ScaleSpaceCore/{esc(module)}.lean#L{e["line"]}">source</a></dt>')
-            rows.append(f'<dd><pre class="sig">{esc(e["signature"])}</pre>')
-            if e["doc"]:
-                rows.append(f'<div class="doc">{doc_to_html(e["doc"])}</div>')
-            else:
-                rows.append('<p class="doc missing">No docstring.</p>')
-            node_claims = claims.get(e["name"], [])
-            if node_claims:
-                rows.append('<ul class="claims">')
-                for c in node_claims:
-                    where = " / ".join(x for x in [c["title"], c["chapter"]] if x)
-                    env = (c["env"] or "node").capitalize()
-                    label = c["label"] or "(unlabelled)"
-                    version = f" {c['version']}" if c["version"] else ""
-                    rows.append(
-                        f'<li>{env} <code>{esc(label)}</code> of <a href="{esc(c["source_url"])}">{esc(where)}{esc(version)}</a></li>'
-                    )
-                rows.append("</ul>")
-            else:
-                rows.append('<p class="unclaimed">Claimed by no released node.</p>')
-            rows.append("</dd>")
-        rows.append("</dl>")
-
-    nav = " · ".join(f'<a href="#mod-{esc(m)}">{esc(m)}</a>' for m in sorted(by_module))
-
-    missing_note = ""
-    if missing:
-        missing_note = (
-            '<p class="warn">Declarations AxiomCheck.lean checks but this generator could not '
-            f"locate in source ({len(missing)}): {', '.join(esc(m) for m in missing)}</p>"
-        )
-
-    return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ScaleSpaceCore API reference</title>
-<meta name="description" content="Every public declaration of ScaleSpaceCore, with its signature, docstring, and the released blueprint node (if any) that states it.">
-<style>
-body {{ font-family: system-ui, sans-serif; max-width: 72rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }}
-code, pre {{ font-family: "Cascadia Code", Consolas, monospace; }}
-pre.sig {{ background: #f6f6f6; padding: 0.5rem; overflow-x: auto; white-space: pre-wrap; }}
-dt {{ margin-top: 1.5rem; }}
-.kind {{ color: #666; font-size: 0.85em; }}
-.src {{ font-size: 0.85em; margin-left: 0.5em; }}
-.doc.missing, .unclaimed {{ color: #a33; font-style: italic; }}
-.warn {{ color: #a33; }}
-nav#modnav {{ columns: 4; font-size: 0.9em; margin: 1rem 0; }}
-ul.claims {{ margin: 0.3em 0; }}
-</style>
-</head><body>
-<h1>ScaleSpaceCore API reference</h1>
-<p>Generated {esc(generated)} by <code>scripts/gen_library_reference.py</code> from this repository's
-source and AxiomCheck.lean, and from the released articles' own blueprints
-(<code>EXPORT_REPOS</code>, mirroring <code>research-site/scripts/build-bibliography.mjs</code>).
-Not a blueprint: this library carries no argument of its own (ADR-0026); every statement below
-belongs to an article, reached through its <code>\\lean{{}}</code> tag where one exists.</p>
-{"".join(rows[:1])}
-{missing_note}
-<nav id="modnav">{nav}</nav>
-{"".join(rows[1:])}
-</body></html>
-"""
-
-
 def main():
     check = "--check" in sys.argv
     entries, missing = build_declarations()
@@ -625,9 +514,6 @@ def main():
         "unresolved_in_axiom_check": missing,
     }
 
-    html = render_html(entries, claims, missing, generated)
-
-    html_path = OUT_DIR / "index.html"
     new_data = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False) + "\n"
 
     if check:
@@ -635,14 +521,10 @@ def main():
         if not data_path.exists() or data_path.read_text(encoding="utf-8") != new_data:
             print("data.json is stale", file=sys.stderr)
             ok = False
-        if not html_path.exists():
-            print("index.html is missing", file=sys.stderr)
-            ok = False
         sys.exit(0 if ok else 1)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     data_path.write_text(new_data, encoding="utf-8")
-    html_path.write_text(html, encoding="utf-8")
     print(f"{len(entries)} declarations, {sum(1 for e in entries if e['doc'])} documented, "
           f"{sum(1 for e in entries if e['name'] in claims)} claimed, {len(missing)} unresolved")
 
