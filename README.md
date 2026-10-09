@@ -46,6 +46,16 @@ The toolchain is pinned in `lean-toolchain` to `leanprover/lean4:v4.31.0`, with 
 matching tag. Consumers should track the same line: this library and the articles bump together,
 deliberately, as one step.
 
+## API reference
+
+`site/library/index.html` (data in `site/library/data.json`) lists every public declaration --
+module, signature, docstring -- and, for each, the released article blueprint node that states it
+(from the `\lean{}` tags in the public exports), or says plainly that no released node claims it.
+Not a blueprint (ADR-0026 says this library doesn't get one: see the hub's Q-0369): it restates
+nothing, only extracts and cross-references what already exists. Regenerate it with
+`scripts/gen_library_reference.py` (`lake env python3 scripts/gen_library_reference.py`, or the
+`--check` flag to verify it's current) after a module or a consuming article's blueprint changes.
+
 ## What is here
 
 | Module | What |
