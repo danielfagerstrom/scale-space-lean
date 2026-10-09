@@ -232,6 +232,65 @@ def parse_module(path: Path):
     return decls
 
 
+MODULE_DOC_RE = re.compile(r"/-!\s*\n?\s*#\s*(?P<title>.+?)\n(?P<body>.*?)-/", re.S)
+NODE_LABEL_RE = re.compile(r"\b(?:def|lem|prop|thm|cor|rem|ax|fig|eq):[A-Za-z0-9-]+")
+
+
+def parse_module_doc(path: Path):
+    r"""The module's own `/-! # Title ... -/` header: the one authored description of what a
+    module is for.
+
+    Every module here has one (64/64 at 2026-10-09, median 267 words) and nothing was
+    reading them -- the reference showed the bare module name, discarding the richest
+    authored prose in the repository.
+
+    They are also where the link to the articles is actually recorded: 40 of the 64 name a
+    blueprint node label in prose (`CinRays` is titled "`lem:cin-rays`(1): the `Cin` rays"),
+    where only 2 declarations carry a machine-readable `\lean{}` tag in a released export.
+    Extracting the labels lets the page show that connection without anyone restating it.
+    """
+    text = path.read_text(encoding="utf-8")
+    m = MODULE_DOC_RE.search(text)
+    if not m:
+        return None
+    title = " ".join(m.group("title").split())
+    body = m.group("body").strip()
+    labels = []
+    for label in NODE_LABEL_RE.findall(title + "\n" + body):
+        if label not in labels:
+            labels.append(label)
+    return {"title": title, "doc": body, "labels": labels}
+
+
+def load_module_docs():
+    out = {}
+    for path in sorted(CORE_DIR.glob("*.lean")):
+        doc = parse_module_doc(path)
+        if doc is not None:
+            out[path.stem] = doc
+        else:
+            print(f"warning: {path.name} has no /-! module docstring", file=sys.stderr)
+    return out
+
+
+def source_revision() -> str:
+    """The revision the reference describes, for the source links.
+
+    HEAD at generation time: that is the code just read, and a line number is a line number
+    *in a revision*. `main` would drift silently as the file moves under the link, and a
+    release tag would name code this page is not describing.
+    """
+    import subprocess
+
+    try:
+        return subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, check=True, capture_output=True, text=True
+        ).stdout.strip()
+    except Exception:
+        print("warning: could not read git HEAD; source links will point at main", file=sys.stderr)
+        return "main"
+
+
 def load_declarations():
     by_name = {}
     for path in sorted(CORE_DIR.glob("*.lean")):
@@ -544,8 +603,23 @@ def main():
             generated = None
     generated = generated or __import__("datetime").date.today().isoformat()
 
+    modules = load_module_docs()
+    commit = os.environ.get("GEN_LIBRARY_REFERENCE_COMMIT")
+    if commit is None and check and data_path.exists():
+        # Same reason as `generated`: --check asks whether the content is stale, not whether
+        # HEAD has moved since it was written.
+        try:
+            commit = json.loads(data_path.read_text(encoding="utf-8")).get("commit")
+        except Exception:
+            commit = None
+    commit = commit or source_revision()
+
     data = {
         "generated": generated,
+        "commit": commit,
+        "repo": "https://github.com/danielfagerstrom/scale-space-lean",
+        "source_dir": "ScaleSpaceCore",
+        "modules": modules,
         "declarations": entries,
         "claims": claims,
         "unresolved_in_axiom_check": missing,
