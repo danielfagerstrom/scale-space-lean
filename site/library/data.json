@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-10",
-  "commit": "064c1933cd5942d6ba40558a74da23b3f30a0cc6",
+  "commit": "898118e419c13f6457af6c3bf875d7b9e687fcc6",
   "repo": "https://github.com/danielfagerstrom/scale-space-lean",
   "source_dir": "ScaleSpaceCore",
   "modules": {
@@ -502,14 +502,14 @@
     },
     "LaplaceUniqueness": {
       "title": "Two finite measures on `[0,1]` with the same moments are equal",
-      "doc": "Home: line/cone:prop:laplace-uniqueness-locally-finite\n\nSlice 3 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Injectivity.lean` and\nPaper V's `SpatialLine/LaplaceUniqueness.lean`, where it was proved identically in both\narticles, differing only in which one-sided predicate (`IsCausal` or `IsFolded`) supplies the\nfiniteness/positivity hypotheses that consume it\n(`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6; already queued by hand\nin this trunk's own README before the survey). This file is the Mathlib-only core the two\narticles both build their Laplace-uniqueness proposition on; the predicate and the final\nhalf-line statement stayed behind, in each article, until Q-0360 moved Paper V's (below).\n\n## The route\n\nTwo routes were ruled out on both sides: Mathlib's `Measure.ext_of_complexMGF_id_eq` needs the\ncomplex moment generating functions to agree on all of `ℂ`, and Stone–Weierstrass on `ℝ` fails\ndirectly, because `t ↦ e^{-st}` is unbounded there. What works is the classical substitution\n`x = e^{-t}`, which carries a positive half-line onto `(0,1]`: there the transform at natural\nnumbers is the sequence of moments, polynomials are dense by Weierstrass, and two finite measures\nagreeing on every bounded continuous function are equal.\n\n## The half-line statement (Q-0360)\n\nThe last two sections were moved by Q-0360 from Paper V's `SpatialLine/LaplaceUniqueness.lean` at\nthe cone export's `v0.1`, statements verbatim up to the namespace: the Laplace transform as a real\nintegral, the pushforward under `expNeg` of a folded measure, and injectivity of `laplaceL` on\nfolded measures — finite (`laplaceL_injective_of_isFiniteMeasure`), finite at one point\n(`laplaceL_injective_of_ne_top`), and `prop:laplace-uniqueness-locally-finite`\n(`laplace_uniqueness_locally_finite`). E-0009 left them behind only because `IsFolded` was then\nspatial-only; it has been in `ScaleSpaceCore.SDProfile` since Q-0302, and Paper VII's\n`lem:bernstein-triplet-unique` is the second consumer. Paper I's `IsCausal` twins stay in Paper I,\nwhich is frozen (Q-0182).",
+      "doc": "Home: line:prop:laplace-uniqueness-locally-finite\n\nSlice 3 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Injectivity.lean` and\nPaper V's `SpatialLine/LaplaceUniqueness.lean`, where it was proved identically in both\narticles, differing only in which one-sided predicate (`IsCausal` or `IsFolded`) supplies the\nfiniteness/positivity hypotheses that consume it\n(`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6; already queued by hand\nin this trunk's own README before the survey). This file is the Mathlib-only core the two\narticles both build their Laplace-uniqueness proposition on; the predicate and the final\nhalf-line statement stayed behind, in each article, until Q-0360 moved Paper V's (below).\n\n## The route\n\nTwo routes were ruled out on both sides: Mathlib's `Measure.ext_of_complexMGF_id_eq` needs the\ncomplex moment generating functions to agree on all of `ℂ`, and Stone–Weierstrass on `ℝ` fails\ndirectly, because `t ↦ e^{-st}` is unbounded there. What works is the classical substitution\n`x = e^{-t}`, which carries a positive half-line onto `(0,1]`: there the transform at natural\nnumbers is the sequence of moments, polynomials are dense by Weierstrass, and two finite measures\nagreeing on every bounded continuous function are equal.\n\n## The half-line statement (Q-0360)\n\nThe last two sections were moved by Q-0360 from Paper V's `SpatialLine/LaplaceUniqueness.lean` at\nthe cone export's `v0.1`, statements verbatim up to the namespace: the Laplace transform as a real\nintegral, the pushforward under `expNeg` of a folded measure, and injectivity of `laplaceL` on\nfolded measures — finite (`laplaceL_injective_of_isFiniteMeasure`), finite at one point\n(`laplaceL_injective_of_ne_top`), and `prop:laplace-uniqueness-locally-finite`\n(`laplace_uniqueness_locally_finite`). E-0009 left them behind only because `IsFolded` was then\nspatial-only; it has been in `ScaleSpaceCore.SDProfile` since Q-0302, and Paper VII's\n`lem:bernstein-triplet-unique` is the second consumer. Paper I's `IsCausal` twins stay in Paper I,\nwhich is frozen (Q-0182).",
       "labels": [
         "prop:laplace-uniqueness-locally-finite",
         "lem:bernstein-triplet-unique"
       ],
       "home": {
         "kind": "home",
-        "article": "line/cone",
+        "article": "line",
         "labels": [
           "prop:laplace-uniqueness-locally-finite"
         ]
@@ -720,14 +720,14 @@
     },
     "SDProfile": {
       "title": "The admissible cone on the line: `SDProfile`",
-      "doc": "Home: line/cone:lem:profile-integrability\n\nThe data of a symmetric self-decomposable law on the line, in the form the spatial articles\nquantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on\n`(0,∞)`, with exponent\n\n`F(ω) = aω² + ∫₀^∞ (1 - cos ωx)\\,k(x)\\,dx/x`.\n\nThis is the line's analogue of `CausalAdmissible` (`CausalCone`), and the field layout is parallel\nto it: `b₀ ↦ a`, then `k`, its sign, monotonicity and normalisation, and the two integrability\nwindows. `bridge_exponents` (`BridgeExponents`) is the map from the causal cone into this one.\n\nMoved from the spatial article's export (`SpatialLine.Exponent`, `Growth`, `ProfileIntegrability`,\nand `SDProfile.exponent_zero` from `SelfDecomposable`, at `cone-v0.1`) together with what it\nneeds: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` with its quadratic\ngrowth bound, and the half of `lem:profile-integrability` that rests on Lean core\n(`profile_integrability_pair`). The half that spends the article's ledger\n(`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the\npositive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the\nsource article's blueprint labels.\n\n## Two `ℝ≥0∞`-first definitions\n\n`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no\nintegrability side condition and the elementary facts about them are unconditional; the\nreal-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it\nis `lem:quadratic-growth`.",
+      "doc": "Home: line:lem:profile-integrability\n\nThe data of a symmetric self-decomposable law on the line, in the form the spatial articles\nquantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on\n`(0,∞)`, with exponent\n\n`F(ω) = aω² + ∫₀^∞ (1 - cos ωx)\\,k(x)\\,dx/x`.\n\nThis is the line's analogue of `CausalAdmissible` (`CausalCone`), and the field layout is parallel\nto it: `b₀ ↦ a`, then `k`, its sign, monotonicity and normalisation, and the two integrability\nwindows. `bridge_exponents` (`BridgeExponents`) is the map from the causal cone into this one.\n\nMoved from the spatial article's export (`SpatialLine.Exponent`, `Growth`, `ProfileIntegrability`,\nand `SDProfile.exponent_zero` from `SelfDecomposable`, at `cone-v0.1`) together with what it\nneeds: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` with its quadratic\ngrowth bound, and the half of `lem:profile-integrability` that rests on Lean core\n(`profile_integrability_pair`). The half that spends the article's ledger\n(`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the\npositive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the\nsource article's blueprint labels.\n\n## Two `ℝ≥0∞`-first definitions\n\n`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no\nintegrability side condition and the elementary facts about them are unconditional; the\nreal-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it\nis `lem:quadratic-growth`.",
       "labels": [
         "lem:profile-integrability",
         "lem:quadratic-growth"
       ],
       "home": {
         "kind": "home",
-        "article": "line/cone",
+        "article": "line",
         "labels": [
           "lem:profile-integrability"
         ]
@@ -735,7 +735,7 @@
     },
     "SDProfileCone": {
       "title": "`lem:admissible-cone`: the admissible exponents form a convex cone, and are continuous",
-      "doc": "Home: line/cone:lem:admissible-cone\n\nMoved from the spatial article's export (`SpatialLine.AdmissibleCone`, `ExponentContinuity`, at\n`cone-v0.1`), statements unchanged up to the namespace.\n\nThe content is that all seven fields of `SDProfile` are stable under addition and under\nmultiplication by a nonnegative scalar, and that the exponent transports: the profile with data\n`(a₁+a₂, k₁+k₂)` has exponent `F₁ + F₂`, and the one with data `(c a₁, c k₁)` has exponent\n`c F₁`. Five fields are immediate; the two integrability conditions are the ones with content,\nand they are exactly the transport statement in `ℝ≥0∞`, a sum of two finite things being finite.\n\n## `ℝ≥0∞` first, and the one place `toReal` costs something\n\n`SDProfile.exponentL` is a `lintegral`, so additivity in `k` needs **no integrability side\ncondition**: `lintegral_add_left'` asks only for `AEMeasurable` of one summand, which\n`aemeasurable_restrict_of_antitoneOn` supplies from `k_antitone`. The classical argument would\nfirst have to know both integrals finite; here finiteness is a conclusion.\n\nThe node's statement is about the **real** exponent, though, and `(x + y).toReal` is\n`x.toReal + y.toReal` only when both are finite. That finiteness is `lem:quadratic-growth`,\nrouted through `lem:profile-integrability`: `SDProfile.exponentL_ne_top` below is the one step of\nthe file that leaves the elementary algebra.\n\n## Continuity\n\nThe bound is the truncation of `lem:quadratic-growth` read with the frequency in a bounded\nneighbourhood: for `|ω| ≤ M`,\n`1 - cos(ωx) ≤ 2(1 ∨ M²)(1 ∧ x²)`,\nwhose `ν`-integral is finite by the Lévy condition, which is a field of `SymLevyPair`. So\n`ω ↦ ∫ (1 - cos ωx) ν(dx)` is continuous by dominated convergence in `ℝ≥0∞`, the Gaussian term\nis a polynomial, and `lem:quadratic-growth` makes the sum finite, so the `.toReal` is continuous\ntoo.\n\ntwin: `CausalAdmissible.add`, `CausalAdmissible.smul` (`CausalCone`), the same construction over\nthe causal profile structure.",
+      "doc": "Home: line:lem:admissible-cone\n\nMoved from the spatial article's export (`SpatialLine.AdmissibleCone`, `ExponentContinuity`, at\n`cone-v0.1`), statements unchanged up to the namespace.\n\nThe content is that all seven fields of `SDProfile` are stable under addition and under\nmultiplication by a nonnegative scalar, and that the exponent transports: the profile with data\n`(a₁+a₂, k₁+k₂)` has exponent `F₁ + F₂`, and the one with data `(c a₁, c k₁)` has exponent\n`c F₁`. Five fields are immediate; the two integrability conditions are the ones with content,\nand they are exactly the transport statement in `ℝ≥0∞`, a sum of two finite things being finite.\n\n## `ℝ≥0∞` first, and the one place `toReal` costs something\n\n`SDProfile.exponentL` is a `lintegral`, so additivity in `k` needs **no integrability side\ncondition**: `lintegral_add_left'` asks only for `AEMeasurable` of one summand, which\n`aemeasurable_restrict_of_antitoneOn` supplies from `k_antitone`. The classical argument would\nfirst have to know both integrals finite; here finiteness is a conclusion.\n\nThe node's statement is about the **real** exponent, though, and `(x + y).toReal` is\n`x.toReal + y.toReal` only when both are finite. That finiteness is `lem:quadratic-growth`,\nrouted through `lem:profile-integrability`: `SDProfile.exponentL_ne_top` below is the one step of\nthe file that leaves the elementary algebra.\n\n## Continuity\n\nThe bound is the truncation of `lem:quadratic-growth` read with the frequency in a bounded\nneighbourhood: for `|ω| ≤ M`,\n`1 - cos(ωx) ≤ 2(1 ∨ M²)(1 ∧ x²)`,\nwhose `ν`-integral is finite by the Lévy condition, which is a field of `SymLevyPair`. So\n`ω ↦ ∫ (1 - cos ωx) ν(dx)` is continuous by dominated convergence in `ℝ≥0∞`, the Gaussian term\nis a polynomial, and `lem:quadratic-growth` makes the sum finite, so the `.toReal` is continuous\ntoo.\n\ntwin: `CausalAdmissible.add`, `CausalAdmissible.smul` (`CausalCone`), the same construction over\nthe causal profile structure.",
       "labels": [
         "lem:admissible-cone",
         "lem:quadratic-growth",
@@ -743,7 +743,7 @@
       ],
       "home": {
         "kind": "home",
-        "article": "line/cone",
+        "article": "line",
         "labels": [
           "lem:admissible-cone"
         ]
@@ -9519,19 +9519,19 @@
       "doi": "10.5281/zenodo.23047056"
     },
     "affine": {
-      "title": "Spatial scale space from hemigroup axioms: affine covariance and shape adaptation",
+      "title": null,
       "released": false,
       "version": null,
       "doi": null
     },
     "affine/iso": {
-      "title": "Spatial scale space from hemigroup axioms: rotation-invariant self-decomposable kernels in dimension d",
+      "title": null,
       "released": false,
       "version": null,
       "doi": null
     },
     "ssf": {
-      "title": "Scale-space foundations",
+      "title": null,
       "released": false,
       "version": null,
       "doi": null

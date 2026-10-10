@@ -508,7 +508,9 @@ def load_article_releases():
         latest = release.get("latest")
         released = member.get("status") == "released" and latest is not None
         out[slug] = {
-            "title": title_of(member),
+            # An unreleased article contributes its slug and nothing else to this public file:
+            # no title, as no statement text (Q-0391; the hub's public/private rule).
+            "title": title_of(member) if released else None,
             "released": released,
             "version": latest.get("version") if latest else None,
             "doi": latest.get("doi") if latest else None,
@@ -521,7 +523,7 @@ def load_article_releases():
             mod_latest = mod_release.get("latest")
             mod_released = mod.get("status") == "released" and mod_latest is not None
             out[f"{slug}/{mod_slug}"] = {
-                "title": mod.get("title"),
+                "title": mod.get("title") if mod_released else None,
                 "released": mod_released,
                 "version": mod_latest.get("version") if mod_latest else None,
                 "doi": mod_latest.get("doi") if mod_latest else None,

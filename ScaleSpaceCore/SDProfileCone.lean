@@ -8,7 +8,7 @@ import ScaleSpaceCore.SDProfile
 /-!
 # `lem:admissible-cone`: the admissible exponents form a convex cone, and are continuous
 
-Home: line/cone:lem:admissible-cone
+Home: line:lem:admissible-cone
 
 Moved from the spatial article's export (`SpatialLine.AdmissibleCone`, `ExponentContinuity`, at
 `cone-v0.1`), statements unchanged up to the namespace.
