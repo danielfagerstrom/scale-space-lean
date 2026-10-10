@@ -5,6 +5,45 @@ All notable changes to this repository are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-10-10
+
+The library's record of itself: where each statement's prose lives, and where its mathematics is
+stated in the literature. **No Lean declaration, statement or proof changed since 0.4.0**; every
+change is in a module docstring, the generator or the generated reference. `AxiomCheck.lean`
+prints the same 901 entries, each on `propext`, `Classical.choice` and `Quot.sound` or on nothing.
+
+Tagged by the author's decision of 2026-10-10, so that the articles can pin a revision whose
+`site/library/data.json` carries the homes: article-kit `v0.3.0`'s rule 15 reads that file at the
+pinned revision, and at `v0.4.0` it does not exist.
+
+### Added
+
+- **A generated reference of the library** (Q-0369): `site/library/data.json`, written by
+  `scripts/gen_library_reference.py` from the sources (every module with its docstring, every
+  public declaration with its signature and docstring, the four cited interfaces of
+  `LineInterfaces` marked as hypotheses) and from the articles (which blueprint node tags which
+  declaration). It is what the site serves at `/library/`. `--check-source`, which needs this
+  repository alone, runs in CI.
+- **A `Home:` line in every module docstring** (Q-0391; the hub's ADR-0026 as amended on
+  2026-10-10). The library has no blueprint: a statement that moved in by second demand has its
+  prose in the blueprint node of the article that first needed it, and the line says where —
+  `home` (an article and its node labels; 44 modules), `none` (standard material, documented as
+  Mathlib documents it; 19) or `owed` (the home's blueprint does not have the node yet; 1). The
+  line is parsed into `data.json`, and CI fails on a module without one. `README.md` has the
+  syntax; a module that moves in or is written here gets its line in the same pull request.
+- **References for the modules with no home node** (Q-0394): 12 of the 19 `none` modules cite the
+  literature in a `## References` section and in the line's `ref:`, each statement read at its
+  page in a held copy (Larsen, Engel–Nagel, Feller, Folland, Steutel–van Harn, Resnick, Bhatia,
+  Karlin); the other seven say why they need none.
+
+### Fixed
+
+- **What the record says of the articles** (found when the site's page was generated from it): a
+  tag in an article's development blueprint is recorded as unreleased whatever releases the
+  article has, since a release cut before the tag does not carry it; and only this library's
+  declarations are keyed, not every name an article declares under `ScaleSpace.`. No title of an
+  unreleased article is in the file, only its slug and labels.
+
 ## [0.4.0] — 2026-10-08
 
 The second-demand moves filed from Paper VII's classification
