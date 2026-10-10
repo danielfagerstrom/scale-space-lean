@@ -9,6 +9,8 @@ import ScaleSpaceCore.Transform
 /-!
 # The cited interfaces of the line classification, as hypotheses
 
+Home: line:prop:fourier-toolbox
+
 The line classification ([V, Thm. 7.3]: `main_analysis`, `main_uniqueness`, `main_construction`)
 rests in Paper V on three cited clauses, admitted there as axioms. This library declares no axiom
 (ADR-0026 § 5), so each clause is a `Prop` here, stated in exactly the shape of Paper V's axiom of

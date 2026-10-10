@@ -8,6 +8,8 @@ import ScaleSpaceCore.Truncation
 /-!
 # `thm:increments-levy`, part one: the null-array estimate
 
+Home: line:thm:increments-levy
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`, the first step of the
 proof ("the null array").
 

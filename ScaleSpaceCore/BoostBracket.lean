@@ -10,6 +10,8 @@ import Mathlib.Tactic.NoncommRing
 /-!
 # The Galilean boost bracket — the space-and-memory resolution as an operator identity
 
+Home: ssf:lem:boost-bracket
+
 The joint space × memory × boost system. This is the **resolution-side** companion to the
 *obstruction* side, `ScaleSpace.drift_forced` (`thm:galilean-nonexistence`), which is
 article-specific and so lives in the consuming article's own formalisation, not here.

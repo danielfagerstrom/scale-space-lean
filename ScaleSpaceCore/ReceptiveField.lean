@@ -11,6 +11,8 @@ import Mathlib.Analysis.Calculus.FDeriv.Linear
 # Receptive-field level: derivatives of a scale-space are scale-spaces, and the temporal jet
 is memory-axis powers of the generator
 
+Home: ssf:thm:receptive-field
+
 `blueprint: thm:receptive-field`. Two structural facts the receptive-field / N-jet chapter rests
 on, both consequences of **differentiation commuting with the (constant-coefficient) generator**.
 

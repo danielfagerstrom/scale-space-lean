@@ -12,6 +12,9 @@ import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 /-!
 # The inverse-gamma integral and the inverse-gamma law
 
+Home: none (standard analysis in Mathlib's types: an elementary integral identity and the
+inverse-gamma law it defines, with no programme vocabulary)
+
 The general identity `∫₀^∞ t^{-1-b} e^{-c/t} dt = c^{-b} Γ(b)` for `b, c > 0`, with integrability
 (`inverse_gamma_integral`); the exponential change of variables `u = c e^v` in `ℝ≥0∞` form
 (`lintegral_Ioi_comp_exp`) and the case `c = 1/2` of the identity computed through it

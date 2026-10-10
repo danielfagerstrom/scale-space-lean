@@ -9,6 +9,8 @@ import ScaleSpaceCore.Exponent
 /-!
 # `prop:canonical-gauge`, the orbit coordinate
 
+Home: line:prop:canonical-gauge
+
 Blueprint: `blueprint/src/parts/06-covariance.tex`, `prop:canonical-gauge`.
 
 `c(λ) := S_λ 1` is a continuous strictly increasing bijection of `(0,∞)` onto `(0,∞)` with

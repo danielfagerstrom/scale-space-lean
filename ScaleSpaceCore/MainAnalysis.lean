@@ -11,6 +11,8 @@ import ScaleSpaceCore.DilationInvariance
 /-!
 # `thm:main-characterization`, the analysis and uniqueness directions
 
+Home: line:thm:main-characterization
+
 Blueprint: `thm:main-characterization` (⇒) and its uniqueness clause,
 `blueprint/src/parts/07-characterization.tex`.
 

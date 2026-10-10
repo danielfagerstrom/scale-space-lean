@@ -9,6 +9,8 @@ import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 /-!
 # `Cin` and its elementary properties
 
+Home: line/cone:lem:cin-rays
+
 `Cin(z) = ∫₀^z (1 - cos v)\,dv/v`, the Fourier-side twin of the causal `Ein`, with the function
 clauses of `lem:cin-rays`(1) — evenness, monotonicity, the bound `z^2/4`, and the two
 expansions — and the unit-step profile `cinProfile` of the `Cin` ray. The ray itself, which is

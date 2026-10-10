@@ -12,6 +12,9 @@ import ScaleSpaceCore.TransformUniqueness
 /-!
 # Convolution as a vector-valued integral, and pairing against a bounded functional
 
+Home: none (standard analysis in Mathlib's types: convolution as a Bochner integral, the Mathlib-
+only core both Paper I and Paper V build their representation lemma on)
+
 Slice 2 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Representation.lean` and
 Paper V's `SpatialLine/BochnerConvolution.lean`
 (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6). The step every route to

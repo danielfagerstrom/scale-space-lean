@@ -132,6 +132,11 @@ jobs:
       # No Lean, no Lake, no network: stdlib Python over the source text. It is placed with
       # the other guards rather than in a workflow of its own because it guards the same
       # thing they do — that what this repository says about itself is true.
+      #
+      # This also covers every module's `Home:` line (Q-0391): a missing or malformed one is a
+      # hard error even here, where the generator cannot resolve it against an article's
+      # blueprint — that resolution is --check's job, on a desk that has the other repositories,
+      # and a reported mismatch there is not a CI failure.
       - name: Guard — the API reference data matches the source
         run: python3 scripts/gen_library_reference.py --check-source
 

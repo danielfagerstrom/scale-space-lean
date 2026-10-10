@@ -24,6 +24,12 @@ them restated here.
 - **No import of an article package.** Dependencies run one way: this library may `require`
   `harmonic-semigroups` (once it exists); it never imports a paper's own package, and nothing here
   is stated in terms of a paper-specific symbol type or predicate.
+- **Every module says where its home is.** One `Home: …` line in each module's docstring, right
+  after the title — `Home: <article>[/<module>]:<label>[, …]` (a blueprint node states it),
+  `Home: none (<why>)` or `Home: owed <article> (<what is missing>)`. README.md's "Home" section
+  has the full syntax. A module that moves in or is written here gets its line in the same pull
+  request as the move. `scripts/gen_library_reference.py --check-source` fails on a module
+  without one, or with a malformed one.
 - **Tags are the author's.** A session does not cut a release or move `RELEASES.md`'s pin.
 - **A move is a move, then a build** — copy the declaration, delete it from its old home, adjust
   the namespace and imports, `lake build`; not an occasion to restate, generalize, or otherwise

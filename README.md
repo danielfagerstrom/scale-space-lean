@@ -50,19 +50,59 @@ deliberately, as one step.
 
 **[research.danielfagerstrom.com/library/](https://research.danielfagerstrom.com/library/)** — every
 module with its own description, every public declaration with its signature and docstring, a link
-into the source at the revision it was read from, and the blueprint node each module's prose names.
+into the source at the revision it was read from, and the module's **home**.
 
 It is generated from `site/library/data.json`, which `scripts/gen_library_reference.py` writes from
 this repository's source, `AxiomCheck.lean`'s list of public declarations, and the released
 articles' blueprints. Regenerate it after a module or a consuming article's blueprint changes. Two ways to verify it
 is current, differing in how much they can see: `--check` compares everything, and needs the
-released export repositories under `$DEV_DIR` and the hub under `$WIKI_VAULT`; `--check-source`
-compares only what this repository determines — the modules, the declarations, their signatures
-and docstrings — and is what CI runs, since a runner has neither of the others. The script renders no HTML:
-the page is `research-site`'s, from this data.
+released export repositories, each article's own development checkout, under `$DEV_DIR`, and the
+hub under `$WIKI_VAULT`; `--check-source` compares only what this repository determines — the
+modules (including that every one's `Home:` line is well-formed), the declarations, their
+signatures and docstrings — and is what CI runs, since a runner has none of the others. The script
+renders no HTML: the page is `research-site`'s, from this data.
 
 Not a blueprint — ADR-0026 says this library does not get one (the hub's Q-0369). It restates
 nothing; it extracts and cross-references what the source and the articles already say.
+
+### Home: every module says where its home node is
+
+ADR-0026's amendment of 2026-10-10 (notes-wiki#119, Q-0391): a statement that moved into this
+library by second demand has a **home** — the blueprint node of the article that first needed it,
+which tags the library's declaration with `\lean{ScaleSpace.…}`. Since this library has no
+blueprint of its own, that node is the one place its prose actually lives; every module's
+docstring says where it is, in one line, right after the title:
+
+```
+Home: <article>[/<module>]:<label>[, <label>…]
+Home: none (<why>[; ref: <reference>])
+Home: owed <article>[/<module>] (<what is missing>)
+```
+
+`<article>` is a constellation slug as the hub's `constellation.json` writes it, with the module
+where there is one — `line`, `line/cone`, `line/selection`, `affine`, `affine/iso`,
+`ssf`, `causal-kernels`. The three kinds:
+
+- **home** — a blueprint node states it (or, for shared infrastructure that reads directly on
+  one node's proof without its own `\lean` tag, the author has confirmed it belongs there). One
+  or more labels, comma-separated, when several nodes of the same article claim the module.
+- **none** — no blueprint node does: standard analysis in Mathlib's types with no programme
+  vocabulary, a cited result of the literature (`ref:` names it), or vocabulary a module's own
+  prose says outright is "not a blueprint node".
+- **owed** — a home is expected at a named article but nothing tags this declaration yet; what is
+  missing says why (the usual reason: the article's blueprint still tags its own, not-yet-deleted
+  duplicate of the declaration that moved here).
+
+`scripts/gen_library_reference.py` parses the line into each module's `data.json` entry
+(`--check-source` fails on one that is missing or malformed, in every repository that imports
+this generator — a module can never be published without one) and, on a desk that has the other
+repositories, checks the named article and labels actually exist there (a warning, not a CI
+failure: resolving a label against an article needs the article). `/library/` links a **home**
+to the node on the site when the named article is released, and shows it as text otherwise; a
+**none** or **owed** home is never a link.
+
+A module that moves in or is written here gets its `Home:` line in the same pull request as the
+move — not a follow-up, so the library is never without one.
 
 ## What is here
 

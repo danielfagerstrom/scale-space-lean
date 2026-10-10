@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.LevyConvergence
 /-!
 # Uniqueness and continuity for the Fourier transform of a measure on the line
 
+Home: line:prop:fourier-uniqueness
+
 Blueprint: `prop:fourier-uniqueness` and `prop:levy-continuity`
 (`blueprint/src/parts/02-preliminaries.tex`). Both were graded `[A]` in the statement skeleton,
 on ledger entries **A5** and **A6**; both are **proved here from Mathlib**, and the author's

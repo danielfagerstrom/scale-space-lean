@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.IntegralCharFun
 /-!
 # `thm:increments-levy`, part two: the truncation inequality
 
+Home: line:thm:increments-levy
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`, the second step of the
 proof ("two bounds, uniform in `n`"), `eq:truncation`.
 

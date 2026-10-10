@@ -9,6 +9,9 @@ import ScaleSpaceCore.BochnerConvolution
 /-!
 # Convolution on `L¹(E)` as a vector-valued integral, and the kernel of the identity
 
+Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of
+`ScaleSpaceCore.BochnerConvolution`, with no programme vocabulary)
+
 Q-0332 (SSL-5), the `d`-dimensional counterpart of `ScaleSpaceCore.BochnerConvolution` up to its
 `apply_bconv`, with the same proofs over a finite-dimensional space `E` carrying an additive Haar
 measure: translation acts continuously on `L¹(E)` (`continuous_transL1E`); `f * g` is the

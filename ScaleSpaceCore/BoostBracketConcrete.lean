@@ -11,6 +11,8 @@ import Mathlib.Algebra.Algebra.Bilinear
 /-!
 # Grounding the Galilean structure constants in the Weyl algebra
 
+Home: ssf:lem:boost-bracket
+
 `ScaleSpace.BoostBracket` derives the boost bracket from *posited* Galilean structure constants
 (as `drift_forced` does). Here those constants are **proved**, by realizing the generators as
 differential operators on `MvPolynomial (Fin 3) ℝ` (variables `t = 0`, spatial `x = 1`, memory

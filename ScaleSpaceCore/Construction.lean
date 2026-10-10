@@ -9,6 +9,8 @@ import ScaleSpaceCore.L1Continuity
 /-!
 # From kernels to a cascade family
 
+Home: line:thm:main-characterization
+
 Moved by Q-0301 from Paper V's `SpatialLine/Construction.lean` at `v0.1`, statements verbatim up
 to the namespace. Paper V builds its concrete families on `CascadeData`; Paper VII builds the
 marginal family of an isotropic family on it.

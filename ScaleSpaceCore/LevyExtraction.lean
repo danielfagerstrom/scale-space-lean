@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.Prokhorov
 /-!
 # `thm:increments-levy`, part three: the test function and the limiting pair
 
+Home: line:thm:increments-levy
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`, third step of the proof
 ("the limit").
 

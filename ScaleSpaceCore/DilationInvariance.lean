@@ -8,6 +8,8 @@ import Mathlib.Analysis.SpecificLimits.Basic
 /-!
 # A function fixed by one dilation is constant
 
+Home: line:lem:dilation-invariance
+
 `lem:dilation-invariance` ([V, Lem. 6.3]), moved from Paper V's `SpatialLine/Dilation.lean`
 (the public cone export `spatial-hemigroup-scale-space-cone`, tag `v0.1`) and second demand now:
 Paper V uses it in the uniqueness clause of its classification, and Paper VII

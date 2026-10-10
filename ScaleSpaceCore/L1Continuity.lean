@@ -11,6 +11,8 @@ import Mathlib.MeasureTheory.Measure.LevyConvergence
 /-!
 # The modulus of continuity of translation, and what it buys for (A7)
 
+Home: line:prop:levy-continuity
+
 Moved by Q-0301 from Paper V's `SpatialLine/L1Continuity.lean` at `v0.1`, statements verbatim up
 to the namespace, together with the one declaration of `SpatialLine/TransformUniqueness.lean` it
 calls, `levy_continuity`. It is the (A7) machinery of the kernel constructor

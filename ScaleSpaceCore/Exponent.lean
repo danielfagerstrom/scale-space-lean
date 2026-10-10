@@ -8,6 +8,8 @@ import ScaleSpaceCore.SDProfile
 /-!
 # The function classes: positive definiteness, `NDₛ` and `LEₛ`
 
+Home: line:def:positive-definite, def:symmetric-negdef, def:levy-exponents
+
 Blueprint (Paper V): `def:positive-definite` (2.1), `def:symmetric-negdef` (2.2), and the class
 `LEₛ` of exponents of the form `eq:levy-khintchine`. The representation's data, `SymLevyPair`,
 and the profile form, `SDProfile`, are in `SDProfile`; this module adds the three predicates the

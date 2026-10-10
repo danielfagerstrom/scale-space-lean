@@ -8,6 +8,8 @@ import ScaleSpaceCore.Pairing
 /-!
 # The kernels of a cascade family, and the positivity of their transforms
 
+Home: line:lem:convolution-representation, lem:nonvanishing
+
 Blueprint: `blueprint/src/parts/04-representation.tex` and `05-cascade.tex`.
 
 What Chapters 5 and 6 actually consume from Chapter 4 is not the *existence* half of

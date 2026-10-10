@@ -8,6 +8,9 @@ import ScaleSpaceCore.BochnerConvolutionSpace
 /-!
 # The Fourier pairing on `L¹(E)`: `(μ * f)^ = μ̂ f̂`
 
+Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of
+`ScaleSpaceCore.BochnerConvolution`'s character pairing, with no programme vocabulary)
+
 Q-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `charCLM`/`charCLM_transL1`/
 `charCLM_mconvL1` of `ScaleSpaceCore.BochnerConvolution`, over a finite-dimensional real inner
 product space `E` with an additive Haar measure as its `volume`. The pairing is

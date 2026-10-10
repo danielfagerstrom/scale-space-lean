@@ -10,6 +10,8 @@ import ScaleSpaceCore.BrownianDensity
 /-!
 # `lem:bridge-exponents`: from the causal cone to the line's cone
 
+Home: line/cone:lem:bridge-exponents
+
 What is built here is the `SDProfile` of `eq:bridge-profile`: Gaussian coefficient `b₀/2` and
 folded profile `k(x) = 2x∫₀^∞ g_u(x)k_I(u)du/u`, with exponent `F_I(ω²/2)`. So
 `bridge_exponents` is a map between the two shared cones, `CausalAdmissible` (`CausalCone`) and

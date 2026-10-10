@@ -12,6 +12,11 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 /-!
 # Three generators of the causal admissible cone
 
+Home: owed causal-kernels (the causal article's `prop:gamma-family` and `prop:stable-family`
+already state the Gamma and stable corners, but tag Paper I's own `Hemigroup.SelfDecomposableExponent`
+copies, not this shared declaration; the drift corner has no node of its own. The home is owed
+once the causal article's blueprint re-points its `\lean` tags here.)
+
 One datum per family, each a value of `ScaleSpace.CausalAdmissible`:
 
 * `driftDatum b₀`, the data `(b₀, 0)`, with exponent `σ ↦ b₀σ` on `[0,∞)`;

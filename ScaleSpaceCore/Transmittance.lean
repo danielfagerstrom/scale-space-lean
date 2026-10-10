@@ -8,6 +8,8 @@ import ScaleSpaceCore.Additivity
 /-!
 # `cor:smoothed-transmittance`: one strictly monotone number per scale
 
+Home: line:cor:smoothed-transmittance
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `cor:smoothed-transmittance`.
 
 The coordinate the gauge argument of Chapter 6 runs on, and the one node of Chapter 5 with no

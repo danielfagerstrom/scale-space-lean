@@ -13,10 +13,11 @@ forbidden in the unattended session that wrote this script, and in general a mul
 many-GB build for a library whose only dependency is Mathlib. This is the sanctioned
 fallback: no Lean build, no Mathlib dependency, pure source extraction.
 
-One output, site/library/data.json: every module (title, description, the blueprint node
-labels its prose names) and every public declaration (name, kind, module, signature,
-docstring, source line), with the blueprint node(s) that claim it and the revision all of
-it was read from.
+One output, site/library/data.json: every module (title, description, its `Home:` line --
+Q-0391, the amendment to ADR-0026, notes-wiki#119 -- parsed into kind/article/labels, or
+none's reason or owed's missing piece) and every public declaration (name, kind, module,
+signature, docstring, source line), with the blueprint node(s) that claim it and the
+revision all of it was read from.
 
 This script renders no HTML. It used to also write site/library/index.html, which was
 served nowhere -- this repository has no Pages site, and GitHub shows a committed .html as
@@ -32,22 +33,31 @@ Both regenerate in memory, diff against the committed data.json and write nothin
 differ in how much they compare, because the three sources this script reads are not
 equally reachable.
 
---check          everything, including the blueprint claims and their release metadata.
-                 Needs the four released export repositories under $DEV_DIR and the hub's
-                 constellation.json under $WIKI_VAULT. For a desk that has them.
+--check          everything, including the blueprint claims, the `Home:` lines' release
+                 state, and -- on stderr, warnings only -- whether each `Home:` line's
+                 article and labels are ones the named article's blueprint actually has.
+                 Needs the released export repositories and each article's own development
+                 checkout under $DEV_DIR, and the hub's constellation.json under
+                 $WIKI_VAULT. For a desk that has them.
 
---check-source   only what THIS repository determines: the modules, the declarations and
-                 their signatures and docstrings. For CI, which has none of the others --
-                 the exports would have to be cloned and the hub is private. Run there,
-                 --check regenerates a data.json with no claims, compares it against a
-                 committed one that has them, and reports staleness on correct data; a
-                 check that fails when nothing is wrong is worse than no check, because it
-                 teaches everyone to ignore it.
+--check-source   only what THIS repository determines: the modules (including that every
+                 one has a well-formed `Home:` line, and its kind/article/labels, or
+                 none's/owed's text), the declarations and their signatures and docstrings.
+                 For CI, which has none of the others -- the exports and the other
+                 articles would have to be cloned and the hub is private. Run there,
+                 --check regenerates a data.json with no claims and no release state,
+                 compares it against a committed one that has them, and reports staleness
+                 on correct data; a check that fails when nothing is wrong is worse than no
+                 check, because it teaches everyone to ignore it. A missing or malformed
+                 `Home:` line is instead a hard error under EITHER flag, and under neither:
+                 generation itself refuses to run, so a module can never be published
+                 without one.
 
 What --check-source catches is the drift that actually originates here: a declaration
-added, renamed or removed, a signature changed, a docstring edited, without regenerating.
-The claims half changes when an ARTICLE makes a release, which is a different trigger with
-the release checklist already in front of it.
+added, renamed or removed, a signature changed, a docstring edited, a `Home:` line not
+updated to match, without regenerating. The claims half, and a `Home:` line's release
+state, change when an ARTICLE makes a release, which is a different trigger with the
+release checklist already in front of it.
 
 Declarations: this library's own AxiomCheck.lean is taken as the enumeration of "every
 public declaration" (CLAUDE.md's own rule for that file), not a declaration scan of our
@@ -55,11 +65,14 @@ own invention -- it already excludes structure-field projections, which are not 
 separately citable here either.
 
 Blueprint claims: scanned from the released exports under $DEV_DIR (else ~/dev), the same
-EXPORT_REPOS list research-site/scripts/build-bibliography.mjs uses, read-only. A module's
-title and release are read from the hub's constellation.json ($WIKI_VAULT, else
-~/Documents/Notes); if a repo or the hub is not present locally, that source is skipped
-(reported on stderr), not treated as an error -- this mirrors the export script's own
-tolerance for a missing local checkout.
+EXPORT_REPOS list research-site/scripts/build-bibliography.mjs uses, read-only, AND from
+each article's own development checkout (DEV_REPOS) -- its live `blueprint/src`, where a
+tag found there and not in a release is unreleased: only its slug and label go into
+data.json, no statement text and no title (Q-0391 task 3). A module's title and release,
+and a `Home:` line's article's release, are read from the hub's constellation.json
+($WIKI_VAULT, else ~/Documents/Notes); if a repo or the hub is not present locally, that
+source is skipped (reported on stderr), not treated as an error -- this mirrors the export
+script's own tolerance for a missing local checkout.
 """
 
 import json
@@ -260,6 +273,81 @@ def parse_module(path: Path):
 MODULE_DOC_RE = re.compile(r"/-!\s*\n?\s*#\s*(?P<title>.+?)\n(?P<body>.*?)-/", re.S)
 NODE_LABEL_RE = re.compile(r"\b(?:def|lem|prop|thm|cor|rem|ax|fig|eq):[A-Za-z0-9-]+")
 
+# ---------------------------------------------------------------------------
+# Part 1b: the `Home:` line (Q-0391, the amendment to ADR-0026, notes-wiki#119).
+#
+# Every module's docstring carries exactly one `Home:` paragraph, in one of three forms:
+#   Home: <article>[/<module>]:<label>[, <label>...]      -- a blueprint node states it
+#   Home: none (<why>[; ref: <reference>])                 -- no blueprint node does
+#   Home: owed <article>[/<module>] (<what is missing>)    -- a home is expected, not yet tagged
+# `<article>` is a constellation slug (`line`, `ssf`, `causal-kernels`, ...), optionally with a
+# module slug (`line/cone`, `affine/iso`). This is the ONLY place that syntax is parsed; a
+# malformed or missing line is a generation error, not merely a `--check-source` failure, so a
+# module can never be published without one.
+# ---------------------------------------------------------------------------
+
+ARTICLE_RE = r"[a-z][a-z0-9-]*(?:/[a-z][a-z0-9-]*)?"
+LABEL_TOKEN_RE = r"(?:def|lem|prop|thm|cor|rem|ax|fig|eq):[A-Za-z0-9-]+"
+HOME_HOME_RE = re.compile(
+    rf"^(?P<article>{ARTICLE_RE}):(?P<labels>{LABEL_TOKEN_RE}(?:\s*,\s*{LABEL_TOKEN_RE})*)$"
+)
+HOME_NONE_RE = re.compile(r"^none \((?P<body>.*)\)$", re.S)
+HOME_OWED_RE = re.compile(rf"^owed (?P<article>{ARTICLE_RE}) \((?P<missing>.*)\)$", re.S)
+HOME_PARA_RE = re.compile(r"^Home:[ \t]*(?P<rest>.*?)\n\n", re.S)
+HOME_PARA_AT_END_RE = re.compile(r"^Home:[ \t]*(?P<rest>.*)$", re.S)
+
+
+class HomeLineError(ValueError):
+    pass
+
+
+def extract_home_paragraph(body: str) -> str:
+    """The `Home: ...` paragraph of a module doc's body: from `Home:` to the next blank line
+    (or the end of the body), with its internal wrapping collapsed to single spaces."""
+    text = body.strip("\n")
+    idx = None
+    for m in re.finditer(r"(?:^|\n\n)Home:", text):
+        idx = m.start() + (0 if m.group().startswith("Home:") else 2)
+        break
+    if idx is None:
+        raise HomeLineError("no `Home:` line in the module docstring")
+    rest = text[idx:]
+    m = HOME_PARA_RE.match(rest) or HOME_PARA_AT_END_RE.match(rest)
+    if not m:
+        raise HomeLineError("malformed `Home:` paragraph")
+    para = "Home: " + " ".join(m.group("rest").split())
+    return para
+
+
+def parse_home_line(body: str) -> dict:
+    """The `Home:` paragraph of a module's docstring, parsed into its `data.json` attributes.
+    Raises `HomeLineError` with a message naming the defect on anything malformed."""
+    para = extract_home_paragraph(body)
+    rest = para[len("Home:"):].strip()
+    if rest.startswith("none"):
+        m = HOME_NONE_RE.match(rest)
+        if not m:
+            raise HomeLineError(f"malformed `Home: none (...)` line: {para!r}")
+        inner = m.group("body")
+        if "; ref:" in inner:
+            reason, reference = inner.split("; ref:", 1)
+            return {"kind": "none", "reason": reason.strip(), "reference": reference.strip()}
+        return {"kind": "none", "reason": inner.strip(), "reference": None}
+    if rest.startswith("owed "):
+        m = HOME_OWED_RE.match(rest)
+        if not m:
+            raise HomeLineError(f"malformed `Home: owed <article> (...)` line: {para!r}")
+        return {
+            "kind": "owed",
+            "article": m.group("article"),
+            "missing": m.group("missing").strip(),
+        }
+    m = HOME_HOME_RE.match(rest)
+    if not m:
+        raise HomeLineError(f"malformed `Home: <article>:<label>,...` line: {para!r}")
+    labels = [lbl.strip() for lbl in m.group("labels").split(",")]
+    return {"kind": "home", "article": m.group("article"), "labels": labels}
+
 
 def parse_module_doc(path: Path):
     r"""The module's own `/-! # Title ... -/` header: the one authored description of what a
@@ -284,17 +372,30 @@ def parse_module_doc(path: Path):
     for label in NODE_LABEL_RE.findall(title + "\n" + body):
         if label not in labels:
             labels.append(label)
-    return {"title": title, "doc": body, "labels": labels}
+    try:
+        home = parse_home_line(body)
+    except HomeLineError as e:
+        raise HomeLineError(f"{path.name}: {e}") from None
+    return {"title": title, "doc": body, "labels": labels, "home": home}
 
 
 def load_module_docs():
     out = {}
+    errors = []
     for path in sorted(CORE_DIR.glob("*.lean")):
-        doc = parse_module_doc(path)
-        if doc is not None:
-            out[path.stem] = doc
-        else:
+        try:
+            doc = parse_module_doc(path)
+        except HomeLineError as e:
+            errors.append(str(e))
+            continue
+        if doc is None:
             print(f"warning: {path.name} has no /-! module docstring", file=sys.stderr)
+            continue
+        out[path.stem] = doc
+    if errors:
+        for e in errors:
+            print(f"error: {e}", file=sys.stderr)
+        sys.exit(1)
     return out
 
 
@@ -374,6 +475,60 @@ LEAN_TAG_RE = re.compile(r"\\lean\{([^}]*)\}")
 LABEL_RE = re.compile(r"\\label\{([^}]*)\}")
 BEGIN_ENV_RE = re.compile(r"\\begin\{([A-Za-z]+)\}")
 CHAPTER_RE = re.compile(r"\\chapter\{(.*)\}")
+
+
+def load_article_releases():
+    """`<article>` or `<article>/<module>` token -> {title, released, version, doi}, read from
+    the hub's constellation.json. This is what a module's `Home: <article>:<label>` line's
+    release state is checked against; it is the computed half (needs the hub), so it lives
+    outside `LOCAL_KEYS` as `article_releases`, parallel to `claims`."""
+    path = hub_dir() / "constellation.json"
+    if not path.exists():
+        print(f"warning: constellation.json not found at {path}; home release state will be unresolved", file=sys.stderr)
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    out = {}
+
+    def title_of(member, fallback=None):
+        site = member.get("site")
+        if isinstance(site, dict):
+            return site.get("title", fallback)
+        if isinstance(site, list) and site:
+            return site[0].get("title", fallback)
+        return fallback
+
+    # Only members a `Home:` line can actually name -- not the hub's whole constellation, which
+    # also lists private tooling (the hub itself, the librarian, the archive) no module cites.
+    relevant = set(DEV_REPOS)
+    for member in data.get("members", []):
+        slug = member.get("slug")
+        if not slug or slug not in relevant:
+            continue
+        release = member.get("release") or {}
+        latest = release.get("latest")
+        released = member.get("status") == "released" and latest is not None
+        out[slug] = {
+            # An unreleased article contributes its slug and nothing else to this public file:
+            # no title, as no statement text (Q-0391; the hub's public/private rule).
+            "title": title_of(member) if released else None,
+            "released": released,
+            "version": latest.get("version") if latest else None,
+            "doi": latest.get("doi") if latest else None,
+        }
+        for mod in member.get("modules", []):
+            mod_slug = mod.get("slug")
+            if not mod_slug:
+                continue
+            mod_release = mod.get("release") or {}
+            mod_latest = mod_release.get("latest")
+            mod_released = mod.get("status") == "released" and mod_latest is not None
+            out[f"{slug}/{mod_slug}"] = {
+                "title": mod.get("title") if mod_released else None,
+                "released": mod_released,
+                "version": mod_latest.get("version") if mod_latest else None,
+                "doi": mod_latest.get("doi") if mod_latest else None,
+            }
+    return out
 
 
 def load_constellation():
@@ -459,9 +614,112 @@ def scan_blueprint_tags(repo_dir: Path):
     return found
 
 
+# The constellation member whose own dev checkout holds the live, unreleased blueprint for each
+# article -- as opposed to EXPORT_REPOS, which names the frozen snapshot a *release* publishes.
+# A development checkout holds every module's chapters in ONE `blueprint/src`, not yet split by
+# module the way a release's separate export repo is, so a tag found only there is attributed to
+# the member as a whole -- never guessed into a submodule from its chapter number, because the
+# trunk's own chapter numbering need not match a past release's (chapters get renumbered).
+DEV_REPOS = {
+    "line": "spatial-hemigroup-scale-space",
+    "affine": "spatial-hemigroup-affine",
+    "ssf": "scale-space-foundations",
+    "causal-kernels": "hemigroup-causal-scale-space-kernels",
+}
+
+
+def load_constellation_members():
+    path = hub_dir() / "constellation.json"
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {m.get("slug"): m for m in data.get("members", []) if m.get("slug")}
+
+
+def load_site_slug_to_article():
+    """EXPORT_REPOS's site slug -> `<article>` or `<article>/<module>`, read from each
+    constellation member's `site` (a dict for the member itself, or a list whose later entries
+    carry a `module` key for a submodule's own release)."""
+    members = load_constellation_members()
+    out = {}
+    for slug, member in members.items():
+        site = member.get("site")
+        sites = [site] if isinstance(site, dict) else (site if isinstance(site, list) else [])
+        for s in sites:
+            site_slug = s.get("slug")
+            if not site_slug:
+                continue
+            mod = s.get("module")
+            out[site_slug] = f"{slug}/{mod}" if mod else slug
+    return out
+
+
+def scan_all_labels(repo_dir: Path) -> set:
+    """Every `\\label{...}` in a blueprint/src, not only the ones a `\\lean{}` tags -- what a
+    `Home:` line's label is checked to exist against."""
+    found = set()
+    blueprint_src = repo_dir / "blueprint" / "src"
+    if not blueprint_src.exists():
+        return found
+    for tex in sorted(blueprint_src.rglob("*.tex")):
+        for line in tex.read_text(encoding="utf-8", errors="replace").splitlines():
+            m = LABEL_RE.search(line)
+            if m:
+                found.add(m.group(1))
+    return found
+
+
+def verify_home_labels(modules: dict):
+    """Warn (not fail -- this needs the articles, which CI does not have) when a `home` or
+    `owed` module names an article not in the constellation, or a label that is in neither the
+    named article's own development checkout nor (for an `<article>/<module>` token) the
+    matching release export's blueprint. A development checkout is not split by module, so it
+    can only confirm a label exists somewhere in the member, not pin it to the right submodule --
+    that half of the check is the export's, when a release exists."""
+    constellation_members = load_constellation_members()
+    site_slug_to_article = load_site_slug_to_article()
+    article_to_export_repo = {a: EXPORT_REPOS[s] for s, a in site_slug_to_article.items() if s in EXPORT_REPOS}
+    dev_cache = {}
+    export_cache = {}
+    for name, doc in modules.items():
+        home = doc.get("home", {})
+        kind = home.get("kind")
+        if kind not in ("home", "owed"):
+            continue
+        article = home["article"]
+        member_slug = article.split("/", 1)[0]
+        if member_slug not in constellation_members and member_slug not in DEV_REPOS:
+            print(f"warning: {name}.lean: Home: article {article!r} is not in the constellation", file=sys.stderr)
+            continue
+        if kind == "owed":
+            continue
+        known = set()
+        repo_name = DEV_REPOS.get(member_slug)
+        if repo_name is not None:
+            if member_slug not in dev_cache:
+                repo_dir = dev_dir() / repo_name
+                dev_cache[member_slug] = scan_all_labels(repo_dir) if repo_dir.exists() else None
+            if dev_cache[member_slug] is not None:
+                known |= dev_cache[member_slug]
+        export_repo = article_to_export_repo.get(article)
+        if export_repo is not None:
+            if export_repo not in export_cache:
+                repo_dir = dev_dir() / export_repo
+                export_cache[export_repo] = scan_all_labels(repo_dir) if repo_dir.exists() else None
+            if export_cache[export_repo] is not None:
+                known |= export_cache[export_repo]
+        if not known:
+            continue  # neither source present locally; nothing to check against
+        for label in home.get("labels", []):
+            if label not in known:
+                print(f"warning: {name}.lean: Home: label {label!r} not found for article {article!r}", file=sys.stderr)
+
+
 def build_blueprint_index():
     constellation = load_constellation()
+    site_slug_to_article = load_site_slug_to_article()
     claims = {}  # declaration name -> list of claim dicts
+    seen = set()  # (name, label, article) already recorded, to dedupe the two scans below
     for site_slug, export_repo in EXPORT_REPOS.items():
         repo_dir = dev_dir() / export_repo
         if not repo_dir.exists():
@@ -479,6 +737,7 @@ def build_blueprint_index():
         except Exception:
             tag = None
         ref = tag or meta.get("version") or "main"
+        article = site_slug_to_article.get(site_slug, site_slug)
         for tagged in scan_blueprint_tags(repo_dir):
             claim = {
                 "site_slug": site_slug,
@@ -486,17 +745,47 @@ def build_blueprint_index():
                 "title": meta.get("title"),
                 "version": meta.get("version"),
                 "doi": meta.get("doi"),
+                "released": True,
                 "label": tagged["label"],
                 "env": tagged["env"],
                 "chapter": tagged["chapter"],
                 "source_url": f"https://github.com/danielfagerstrom/{export_repo}/blob/{ref}/{tagged['file']}#L{tagged['line']}",
             }
             claims.setdefault(tagged["name"], []).append(claim)
+            seen.add((tagged["name"], tagged["label"], article))
+            # Also blocks the member-level dev-trunk scan below from adding a redundant, less
+            # informative duplicate of a pair the export above already covers.
+            seen.add((tagged["name"], tagged["label"], article.split("/", 1)[0]))
+
+    # The development blueprints: every article's own live `blueprint/src`, not only the four
+    # released exports. A tag found here and not above is unreleased -- its slug and label only,
+    # no statement text and no title (Q-0391, task 3). Attributed to the member as a whole, never
+    # guessed into a submodule (see DEV_REPOS): a submodule attribution only ever comes from that
+    # submodule's own release export, above.
+    article_releases = load_article_releases()
+    for member_slug, repo_name in DEV_REPOS.items():
+        repo_dir = dev_dir() / repo_name
+        if not repo_dir.exists():
+            print(f"warning: dev repo not found locally: {repo_dir} (article {member_slug})", file=sys.stderr)
+            continue
+        for tagged in scan_blueprint_tags(repo_dir):
+            key = (tagged["name"], tagged["label"], member_slug)
+            if key in seen:
+                continue
+            seen.add(key)
+            info = article_releases.get(member_slug, {})
+            claim = {"site_slug": member_slug, "label": tagged["label"], "released": bool(info.get("released"))}
+            if info.get("released"):
+                claim["version"] = info.get("version")
+                claim["doi"] = info.get("doi")
+            claims.setdefault(tagged["name"], []).append(claim)
     return claims
 
 
-# The keys of data.json this repository alone determines. Everything else -- the claims and
-# their release metadata -- comes from the export repositories and the hub.
+# The keys of data.json this repository alone determines -- including each module's `Home:`
+# line, parsed into "modules"."<name>"."home" (kind/article/labels, or none's/owed's text).
+# Everything else -- the claims, and a home's release state in "article_releases" -- comes from
+# the export repositories and the hub.
 LOCAL_KEYS = ("repo", "source_dir", "modules", "declarations", "unresolved_in_axiom_check")
 
 
@@ -507,6 +796,7 @@ def main():
     # Not merely ignored afterwards: skipped, so a run in CI does not emit four warnings
     # about repositories it was never going to find.
     claims = {} if check_source else build_blueprint_index()
+    article_releases = {} if check_source else load_article_releases()
     data_path = OUT_DIR / "data.json"
     generated = os.environ.get("GEN_LIBRARY_REFERENCE_DATE")
     if generated is None and check and data_path.exists():
@@ -519,6 +809,8 @@ def main():
     generated = generated or __import__("datetime").date.today().isoformat()
 
     modules = load_module_docs()
+    if not check_source:
+        verify_home_labels(modules)
     commit = os.environ.get("GEN_LIBRARY_REFERENCE_COMMIT")
     if commit is None and check and data_path.exists():
         # Same reason as `generated`: --check asks whether the content is stale, not whether
@@ -537,6 +829,7 @@ def main():
         "modules": modules,
         "declarations": entries,
         "claims": claims,
+        "article_releases": article_releases,
         "unresolved_in_axiom_check": missing,
     }
 
