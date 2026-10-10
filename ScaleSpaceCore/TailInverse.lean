@@ -13,7 +13,7 @@ import Mathlib.Analysis.Normed.Group.Basic
 # The generalised inverse of a nonincreasing tail function
 
 Home: none (standard analysis in Mathlib's types: pure order theory and real analysis, not
-article-specific in any sense, per the module's own prose)
+article-specific in any sense, per the module's own prose; ref: @resnick1987extreme, §0.2, p. 3)
 
 Slice 4 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Subordinator.lean` and
 Paper V's `SpatialLine/CinRays.lean`, where it was proved identically in both articles
@@ -21,6 +21,12 @@ Paper V's `SpatialLine/CinRays.lean`, where it was proved identically in both ar
 real analysis, no measure theory: a generalised inverse of an antitone function on a half-line is
 not article-specific in any sense, and both articles use it to build a Choquet measure whose
 tails realise a given nonincreasing profile.
+
+## References
+
+* @resnick1987extreme, §0.2, p. 3: the (left-continuous) generalised inverse of a monotone
+  function, `H^←(y) = inf{s : H(s) ≥ y}` with `inf ∅ = +∞` — `tailInv h y = sup{u > 0 : y < h u}`
+  is the same construction for an antitone `h`, with the sign and the half-line domain flipped.
 -/
 
 namespace ScaleSpace
