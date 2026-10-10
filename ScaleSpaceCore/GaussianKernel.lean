@@ -9,8 +9,10 @@ import ScaleSpaceCore.BrownianDensity
 /-!
 # The Gaussian kernel `u ↦ N(0, uI_d)` is measurable
 
-Home: none (standard analysis in Mathlib's types, per RELEASES case (a): measurability of the
-multivariate Gaussian variance kernel, with no programme vocabulary)
+Home: none (needs no citation: a measurability computation turning on Mathlib's own junk
+conventions for `CFC.sqrt` and `Real.sqrt` agreeing off their domains, not a theorem any text
+states — standard analysis in Mathlib's types, per RELEASES case (a), with no programme
+vocabulary)
 
 Paper VII (`spatial-hemigroup-affine`) mixes multivariate Gaussians over a variance law,
 `ρ.bind (gaussVar d)` with `gaussVar d u = multivariateGaussian 0 (u • 1)`; `Measure.bind` of a

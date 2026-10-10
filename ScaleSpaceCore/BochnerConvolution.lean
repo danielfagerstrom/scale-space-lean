@@ -13,7 +13,8 @@ import ScaleSpaceCore.TransformUniqueness
 # Convolution as a vector-valued integral, and pairing against a bounded functional
 
 Home: none (standard analysis in Mathlib's types: convolution as a Bochner integral, the Mathlib-
-only core both Paper I and Paper V build their representation lemma on)
+only core both Paper I and Paper V build their representation lemma on; ref: @larsen1971introduction,
+Thm. 0.1.1, p. 2)
 
 Slice 2 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Representation.lean` and
 Paper V's `SpatialLine/BochnerConvolution.lean`
@@ -31,6 +32,15 @@ character `e_{-iωx}` and the standard Gaussian density, which proves the unique
 representation lemma, and a second pairing lemma (`setIntegral_bconv`) feeding the tightness
 argument of that lemma's existence clause. Both stayed behind until the line classification moved
 (Q-0305): its necessity direction rests on that lemma, so they are the last section below.
+
+## References
+
+* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on
+  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure
+  `μ ∈ M(G)` — the standard fact `map_bconv` specialises (`Φ` commuting with translation) and
+  `mconvL1`/`bconv` realise (the convolution side) for `G = ℝ`.
+* @engel2000one, Example 5.4, p. 39: the (left) translation group is strongly continuous on
+  `Lᵖ(ℝ)` for `1 ≤ p < ∞` — `continuous_transL1` is this fact at `p = 1`.
 -/
 
 namespace ScaleSpace

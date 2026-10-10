@@ -10,7 +10,7 @@ import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 # The Gamma law's Laplace transform
 
 Home: none (standard analysis in Mathlib's types: four facts about `ProbabilityTheory.gammaMeasure`,
-with no programme vocabulary)
+with no programme vocabulary; ref: @feller2009introduction, Ch. XIII §2, p. 435)
 
 Four facts about Mathlib's `ProbabilityTheory.gammaMeasure`: integration against it is
 integration against its density on `(0, ∞)` (`lintegral_gammaMeasure`); its Laplace transform
@@ -24,6 +24,13 @@ Paper VII's `lintegral_exp_gammaMeasure`/`ae_nonneg_gammaMeasure`
 (`Formalization/AffineHemigroup/MaternOrbit.lean`), the case `q = 0`, `r = 1`, both read
 `lintegral_gammaMeasure_rpow_mul_exp`. Everything here is proved from Mathlib's gamma-measure and
 Gaussian-integral lemmas alone.
+
+## References
+
+* @feller2009introduction, Ch. XIII §2, Examples (a)–(b), p. 435: the Laplace transform of the
+  gamma density `f_{1,ν}` is `(1 + λ)^{-ν}` (via the power density `u_α(x) = x^{α-1}/Γ(α)`'s
+  transform `λ^{-α}` and the translation rule) — `lintegral_gammaMeasure_rpow_mul_exp` is this
+  fact at a general rate `r` and with the extra power `u^q`.
 -/
 
 namespace ScaleSpace

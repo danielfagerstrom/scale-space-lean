@@ -16,7 +16,8 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 # `L¹(ℝ)`, translation, reflection, dilation, and convolution by a measure
 
 Home: none (standard analysis in Mathlib's types: the translation, reflection, dilation and
-measure-convolution operators on `L¹(ℝ)`, with no programme vocabulary in any statement)
+measure-convolution operators on `L¹(ℝ)`, with no programme vocabulary in any statement; ref:
+@larsen1971introduction, Thm. 0.1.1, p. 2)
 
 Slice 1 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Operator.lean` /
 `OperatorL1.lean` / `Family.lean` and Paper V's `SpatialLine/Basic.lean` /
@@ -43,6 +44,15 @@ clause is stated with `IsSymmetric` (`ScaleSpaceCore.Transform`).
 * `mconv μ f x = ∫ y, f (x - y) ∂μ`, packaged as the bounded operator `mconvL1`; the six
   properties below are what a translation- and reflection-covariant, positivity- and
   mass-preserving convolution family needs of it, short of the reflection clause.
+
+## References
+
+* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on
+  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure
+  `μ ∈ M(G)`, with operator norm `‖μ‖` — the standard fact `mconvL1` realises and `norm_mconvL1_le`
+  states the inequality half of, for `G = ℝ`. Translation (`transL1`), reflection (`reflL1`) and
+  the mass-preserving dilation (`dilL1`) are elementary measure-preserving substitutions, not
+  separately cited.
 -/
 
 namespace ScaleSpace

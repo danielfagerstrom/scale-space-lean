@@ -10,7 +10,8 @@ import ScaleSpaceCore.BochnerConvolution
 # Convolution on `L¹(E)` as a vector-valued integral, and the kernel of the identity
 
 Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of
-`ScaleSpaceCore.BochnerConvolution`, with no programme vocabulary)
+`ScaleSpaceCore.BochnerConvolution`, with no programme vocabulary; ref: @larsen1971introduction,
+Thm. 0.1.1, p. 2)
 
 Q-0332 (SSL-5), the `d`-dimensional counterpart of `ScaleSpaceCore.BochnerConvolution` up to its
 `apply_bconv`, with the same proofs over a finite-dimensional space `E` carrying an additive Haar
@@ -27,6 +28,17 @@ compactly supported continuous function is integrable for every Haar measure.
 
 What stays on the line: the character pairing and `mconvL1_injective` (the Fourier step of
 uniqueness), `bconv_comm`, and `setIntegral_bconv`.
+
+## References
+
+* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on
+  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure
+  `μ ∈ M(G)`, stated for an arbitrary locally compact Abelian group — the fact `map_bconvE` and
+  `bconvME_eq_mconvL1E` specialise at `G = E`.
+* @engel2000one, Example 5.4, p. 39: the translation group's strong continuity on `Lᵖ(ℝ)`, whose
+  proof (density of compactly supported continuous functions, uniform continuity on compacts)
+  transfers verbatim to `Lᵖ(E)` under an additive Haar measure and is what `continuous_transL1E`
+  states at `p = 1`.
 -/
 
 namespace ScaleSpace

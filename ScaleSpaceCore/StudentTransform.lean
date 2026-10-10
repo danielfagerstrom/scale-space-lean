@@ -34,6 +34,14 @@ This module imports neither `ScaleSpaceCore.BridgeExponents` nor anything stated
 `ScaleSpace.CausalAdmissible` that `ScaleSpaceCore.BridgeExponents` also declares, so a consumer
 that imports Paper V's bridge modules can import this one beside them.
 
+## References
+
+* @dlmf2026, §10.32.9: the integral representation `K_ν(z) = ∫₀^∞ e^{-z cosh u} cosh(νu) du`
+  defining `besselK` (see "The special function Mathlib does not have" below).
+* A source for the classical fact itself — a normal variance mixture over the inverse-gamma law
+  is the Student-t distribution — is not yet held; requested below. `bridge_families_bessel` is
+  proved directly from Mathlib's Gaussian and gamma integrals, not read off such a source.
+
 ## The special function Mathlib does not have
 
 Mathlib (v4.31.0) has no modified Bessel function, so `besselK` is defined by the integral
