@@ -9,6 +9,8 @@ import ScaleSpaceCore.Increments
 /-!
 # `prop:canonical-gauge`, closed
 
+Home: line:prop:canonical-gauge
+
 Blueprint: `blueprint/src/parts/06-covariance.tex`, `prop:canonical-gauge`.
 
 Wave 1 left this node one application wide. `Gauge` proved

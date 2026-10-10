@@ -10,6 +10,8 @@ import ScaleSpaceCore.CausalCone
 /-!
 # `lem:selfdecomposable-exponents`, (3) ⟹ (1): the dilation increments
 
+Home: line:lem:selfdecomposable-exponents
+
 Blueprint: `lem:selfdecomposable-exponents` (`blueprint/src/parts/07-characterization.tex`),
 the implication (3) ⟹ (1) and nothing else. That is the direction
 `thm:main-characterization`'s constructive half consumes: it needs exactly

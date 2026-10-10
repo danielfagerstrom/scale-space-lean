@@ -9,6 +9,9 @@ import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 /-!
 # The Gamma law's Laplace transform
 
+Home: none (standard analysis in Mathlib's types: four facts about `ProbabilityTheory.gammaMeasure`,
+with no programme vocabulary)
+
 Four facts about Mathlib's `ProbabilityTheory.gammaMeasure`: integration against it is
 integration against its density on `(0, ∞)` (`lintegral_gammaMeasure`); its Laplace transform
 against `u^q e^{-su}` (`lintegral_gammaMeasure_rpow_mul_exp`, the one computation a Gamma-mixture

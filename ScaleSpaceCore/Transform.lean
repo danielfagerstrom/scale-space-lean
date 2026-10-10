@@ -8,6 +8,10 @@ import Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic
 /-!
 # The transform side on the line: symmetry, cosine transform, exponent, Laplace transform
 
+Home: none (vocabulary, not a blueprint node of its own: the cascade-family vocabulary and the
+kernel constructor that read on it are stated in `line:def:cascade-family`
+(`ScaleSpaceCore.Family`) and `line:thm:main-characterization` (`ScaleSpaceCore.Construction`))
+
 Moved by Q-0301 from Paper V's `SpatialLine/Transform.lean` and `SpatialLine/TransformBridge.lean`
 at `v0.1`, statements verbatim up to the namespace. The cascade-family vocabulary
 (`ScaleSpaceCore.Family`) and the kernel constructor (`ScaleSpaceCore.Construction`) are stated in

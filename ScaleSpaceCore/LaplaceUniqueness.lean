@@ -12,6 +12,8 @@ import Mathlib.Topology.ContinuousMap.Weierstrass
 /-!
 # Two finite measures on `[0,1]` with the same moments are equal
 
+Home: line/cone:prop:laplace-uniqueness-locally-finite
+
 Slice 3 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Injectivity.lean` and
 Paper V's `SpatialLine/LaplaceUniqueness.lean`, where it was proved identically in both
 articles, differing only in which one-sided predicate (`IsCausal` or `IsFolded`) supplies the

@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.IntegralCharFun
 /-!
 # `lem:dilation-invariance` and `lem:dilation-atom`: the two elementary dilation facts
 
+Home: line:lem:dilation-atom
+
 Blueprint: `blueprint/src/parts/06-covariance.tex`. Two nodes of Chapter 6 that depend on
 nothing else in the development — neither mentions the axioms, a kernel family or an exponent —
 and they are therefore the leaves the proving campaign of Chapters 5 and 6 starts from.

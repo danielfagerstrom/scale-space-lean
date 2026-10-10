@@ -15,6 +15,9 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 /-!
 # `L¹(ℝ)`, translation, reflection, dilation, and convolution by a measure
 
+Home: none (standard analysis in Mathlib's types: the translation, reflection, dilation and
+measure-convolution operators on `L¹(ℝ)`, with no programme vocabulary in any statement)
+
 Slice 1 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Operator.lean` /
 `OperatorL1.lean` / `Family.lean` and Paper V's `SpatialLine/Basic.lean` /
 `ConvolutionOperator.lean` / `Pairing.lean`, where the two developments carried this analysis as

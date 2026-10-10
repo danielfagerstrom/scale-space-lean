@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 /-!
 # The `n`-fold convolution power of a measure
 
+Home: affine/iso:prop:origin-lower-bound-d
+
 `convPow ν n = ν^{n*}`, the `n`-fold additive convolution of `ν` with itself (`ν^{0*} = δ₀`), on
 any additive monoid. Second demand (Q-0361; Paper VII's formalisation session notes,
 `spatial-hemigroup-affine/records/formalization/SKELETON.md`, Group E and the

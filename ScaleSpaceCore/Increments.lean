@@ -9,6 +9,8 @@ import ScaleSpaceCore.Exponent
 /-!
 # `thm:increments-levy`: every increment exponent is a symmetric Lévy exponent
 
+Home: line:thm:increments-levy
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`.
 
 `LevyExtraction` produced a finite measure `ϱ` on `[0,∞)` with

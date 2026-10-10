@@ -12,6 +12,8 @@ import Mathlib.Analysis.Real.Pi.Bounds
 /-!
 # The two elementary inequalities of `thm:increments-levy`
 
+Home: line:thm:increments-levy
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `thm:increments-levy`.
 
 The null-array proof of the increments theorem rests on two pointwise inequalities and nothing

@@ -9,6 +9,8 @@ import ScaleSpaceCore.TransformBridge
 /-!
 # `lem:nonvanishing`: the transforms of the kernels never vanish
 
+Home: line:lem:nonvanishing
+
 Blueprint: `blueprint/src/parts/04-representation.tex`, `lem:nonvanishing`.
 
 The first statement of the article with no causal counterpart: on the half-line the positivity of

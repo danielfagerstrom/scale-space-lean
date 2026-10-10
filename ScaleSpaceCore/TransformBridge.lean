@@ -9,6 +9,9 @@ import Mathlib.Probability.Distributions.Gaussian.Real
 /-!
 # The bridge between the cosine transform and Mathlib's characteristic function
 
+Home: none (standard analysis in Mathlib's types: the sign-convention bridge between `fourierCos`
+and Mathlib's `charFun`, with no programme vocabulary)
+
 Nothing here is a blueprint node. These are the two identities that let the article's real
 cosine transform `fourierCos` (the primitive of `blueprint/src/parts/02-preliminaries.tex`,
 equation (2.1) read on a symmetric measure) and Mathlib's complex `charFun` be used in the same

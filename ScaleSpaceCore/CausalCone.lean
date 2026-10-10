@@ -11,6 +11,8 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 /-!
 # The causal admissible cone
 
+Home: line/cone:def:causal-admissible
+
 The data of a self-decomposable law on the half-line, in the form both articles in this line
 quantify over: a drift `b₀ ≥ 0` and a nonincreasing delay profile `k ≥ 0` on `(0,∞)`, with
 exponent

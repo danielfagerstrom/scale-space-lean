@@ -10,6 +10,9 @@ import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 /-!
 # Convolution against reflection and dilation, and the kernel of the identity
 
+Home: none (vocabulary, not a blueprint node of its own: the clauses the kernel constructor
+`line:thm:main-characterization` (`ScaleSpaceCore.Construction`) reads for (A3), (A8) and (ND))
+
 Moved by Q-0301 from Paper V's `SpatialLine/ConvolutionOperator.lean` (`mconv_reflect`,
 `mconvL1_reflL1`) and `SpatialLine/Transport.lean` (the rest) at `v0.1`, statements verbatim up to
 the namespace. These are the clauses the kernel constructor `ScaleSpaceCore.Construction` reads:

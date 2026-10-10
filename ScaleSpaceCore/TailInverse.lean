@@ -12,6 +12,9 @@ import Mathlib.Analysis.Normed.Group.Basic
 /-!
 # The generalised inverse of a nonincreasing tail function
 
+Home: none (standard analysis in Mathlib's types: pure order theory and real analysis, not
+article-specific in any sense, per the module's own prose)
+
 Slice 4 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Subordinator.lean` and
 Paper V's `SpatialLine/CinRays.lean`, where it was proved identically in both articles
 (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6). Pure order theory and

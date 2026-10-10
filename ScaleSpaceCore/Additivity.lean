@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.CharacteristicFunction.TaylorExpansion
 /-!
 # `lem:additivity`: the cascade, at the level of measures and of exponents
 
+Home: line:lem:additivity
+
 Blueprint: `blueprint/src/parts/05-cascade.tex`, `lem:additivity`.
 
 Chapter 5 opens by transporting (A6) down two levels. `lem:convolution-representation` turned

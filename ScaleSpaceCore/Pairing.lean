@@ -11,6 +11,9 @@ import Mathlib.Probability.Distributions.Gaussian.Real
 /-!
 # Pairing a test function against `mconv`, and the measure it determines
 
+Home: none (vocabulary, not a blueprint node, in the module's own words: infrastructure for the
+uniqueness clause of `line:lem:convolution-representation`'s consumers in Chapters 5–6)
+
 Vocabulary, not a blueprint node. What is proved here is the block finding **F9** of
 `SKELETON.md` calls the natural second `ScaleSpaceCore` candidate: the transport lemmas that
 turn an identity between convolution *operators* into an identity between *measures*, and the

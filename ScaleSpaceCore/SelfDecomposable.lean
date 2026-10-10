@@ -9,6 +9,8 @@ import Mathlib.Analysis.SpecialFunctions.Exponential
 /-!
 # Self-decomposable laws on a real vector space
 
+Home: affine/iso:def:isotropic-kernel-family
+
 A measure `μ` is **self-decomposable** if for every `c ∈ (0,1)` there is a probability measure
 `ρ_c` (a *residual*) with `μ = (c •)_* μ ∗ ρ_c` (Sato, *Lévy Processes and Infinitely Divisible
 Distributions*, § 15); it is **`B`-self-decomposable**, for a linear endomorphism `B`, if for every

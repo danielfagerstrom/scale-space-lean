@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Integral.ExpDecay
 /-!
 # The Laplace law on the line
 
+Home: line/cone:prop:corner-generators
+
 The Laplace kernel of range `θ`, `laplaceDensity θ x = (2θ)⁻¹ e^{-|x|/θ}`, and the probability
 measure `laplaceLaw θ` it defines: nonnegative and measurable (`laplaceDensity_nonneg`,
 `measurable_laplaceDensity`), integrable (`integrable_laplaceDensity`, through its two half-line

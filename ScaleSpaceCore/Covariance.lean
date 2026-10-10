@@ -8,6 +8,8 @@ import ScaleSpaceCore.Transmittance
 /-!
 # `lem:covariance-fourier`: (A8) as an identity of measures and of exponents
 
+Home: line:lem:covariance-fourier
+
 Blueprint: `blueprint/src/parts/06-covariance.tex`, `lem:covariance-fourier`.
 
 The compatibility `D_λ(μ * f) = (D_λ μ) * (D_λ f)` turns (A8) into the statement that

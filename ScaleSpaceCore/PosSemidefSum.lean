@@ -8,6 +8,9 @@ import Mathlib.Analysis.Matrix.Order
 /-!
 # A real positive semidefinite matrix as a double sum, and as a positive definite kernel
 
+Home: none (standard analysis in Mathlib's types: four facts about real matrices, stated in
+Mathlib's types only)
+
 Four facts about real matrices over `Fin n`, all stated in Mathlib's types only.
 
 * `star_dotProduct_mulVec_eq_sum`: the quadratic form `x ↦ x⋆ A x` of a real matrix, written out

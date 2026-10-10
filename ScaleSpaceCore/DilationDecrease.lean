@@ -9,6 +9,8 @@ import ScaleSpaceCore.LineInterfaces
 /-!
 # The dilation identity read backwards
 
+Home: line:lem:selfdecomposable-exponents
+
 Blueprint: the first half of the (1) implies (3) direction of
 `lem:selfdecomposable-exponents`, `blueprint/src/parts/07-characterization.tex`, up to and
 including `eq:dilation-decrease`.

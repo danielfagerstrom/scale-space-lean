@@ -11,6 +11,8 @@ import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 /-!
 # `lem:convolution-representation`: the operators are convolutions
 
+Home: line:lem:convolution-representation
+
 Blueprint: `blueprint/src/parts/04-representation.tex`, `lem:convolution-representation`.
 
 Under (A1), (A2), (A4), (A5) a single operator on `L¹(ℝ)` is convolution by exactly one

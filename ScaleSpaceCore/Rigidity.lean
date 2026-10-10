@@ -11,6 +11,8 @@ import ScaleSpaceCore.DilationAtom
 # `lem:action-rigidity`: the relabellings are unique, compose, are continuous, and move
 every point
 
+Home: line:lem:action-rigidity
+
 Blueprint: `blueprint/src/parts/06-covariance.tex`, `lem:action-rigidity`.
 
 Nothing in (A8) says that the relabellings `S_λ` are unique, that they compose, or that they

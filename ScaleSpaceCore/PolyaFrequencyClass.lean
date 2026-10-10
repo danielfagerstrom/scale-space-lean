@@ -17,6 +17,10 @@ import Mathlib.Topology.Algebra.InfiniteSum.NatInt
 /-!
 # Karlin's class `E₂*` and the bilateral Laplace transform
 
+Home: none (a result of the literature, cited: Karlin, *Total Positivity* I, 1968, Ch. 7 §§1–2;
+it serves the same node as `PowerSumSymmetry`, `line/selection:prop:polya-frequency`, but is
+Karlin's class `E₂*` at its own generality rather than that node's symmetry reduction)
+
 Karlin (*Total Positivity* I, 1968) characterises Pólya-frequency densities on the line through
 the reciprocal of their bilateral Laplace transform `φ(s) = ∫ e^{-su} f(u) du`:
 

@@ -12,6 +12,8 @@ import ScaleSpaceCore.Transform
 /-!
 # The Brownian laws and their density
 
+Home: line/cone:lem:bridge-exponents
+
 The objects `lem:bridge-exponents` is written in (`BridgeExponents`), and the elementary facts its
 proof reads: `brownianLaw u = g_u` is Mathlib's `gaussianReal 0 u`, and `brownianDensity u x =
 g_u(x)` its density; both are thin wrappers whose only job is to let the bridge equations be

@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Measure.Prod
 /-!
 # A translation-decreasing measure has a nonincreasing density
 
+Home: line:lem:selfdecomposable-exponents
+
 Blueprint: the second half of `lem:selfdecomposable-exponents`(1) implies (3),
 `blueprint/src/parts/07-characterization.tex` --- the paragraph that passes to the
 log-displacement coordinate and calls the tail function convex. This file is that paragraph, and

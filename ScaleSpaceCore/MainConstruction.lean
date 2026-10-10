@@ -12,6 +12,8 @@ import ScaleSpaceCore.LineInterfaces
 /-!
 # `thm:main-characterization`, the construction direction
 
+Home: line:thm:main-characterization
+
 Blueprint: `thm:main-characterization` (⇐), `blueprint/src/parts/07-characterization.tex`.
 
 Given an admissible exponent `F ≢ 0` of the form `eq:sd-profile` and any gauge `χ` — an

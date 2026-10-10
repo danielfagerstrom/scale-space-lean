@@ -9,6 +9,8 @@ import Mathlib.MeasureTheory.Function.JacobianOneDim
 /-!
 # The analysis direction of `lem:selfdecomposable-exponents`
 
+Home: line:lem:selfdecomposable-exponents
+
 Blueprint: `lem:selfdecomposable-exponents`(1) implies (3), the direction
 `thm:main-characterization`'s analysis half consumes.
 

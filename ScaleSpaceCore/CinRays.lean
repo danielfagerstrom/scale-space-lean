@@ -9,6 +9,8 @@ import ScaleSpaceCore.SDProfile
 /-!
 # `lem:cin-rays`(1): the `Cin` rays
 
+Home: line/cone:lem:cin-rays
+
 `cinSDProfile τ` is the unit-step profile `1_{(0,τ)}` packaged as an `SDProfile`, and `cin_ray`
 says its exponent is `Cin(τ·)`. It is defined for every real `τ` — for `τ ≤ 0` it is the zero
 profile — because none of the structure's fields needs `τ > 0`; positivity of the step enters

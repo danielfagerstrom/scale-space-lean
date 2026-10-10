@@ -12,6 +12,8 @@ import Mathlib.Data.Real.Basic
 /-!
 # Lie wedges and infinitesimal covariance — the abstract scaffolding
 
+Home: ssf:def:lie-wedge, def:infinitesimal-covariance
+
 Definitions the scale-space theorems quantify over, kept deliberately free of any concrete
 operator representation so that an argument depending only on the covariance/wedge interface
 does not drag in a symbol model.

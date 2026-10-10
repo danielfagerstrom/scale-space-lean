@@ -8,6 +8,8 @@ import Mathlib.MeasureTheory.Measure.CharacteristicFunction.Basic
 /-!
 # The admissible cone on the line: `SDProfile`
 
+Home: line/cone:lem:profile-integrability
+
 The data of a symmetric self-decomposable law on the line, in the form the spatial articles
 quantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on
 `(0,∞)`, with exponent

@@ -9,6 +9,8 @@ import ScaleSpaceCore.Transform
 /-!
 # The reflection-symmetric cascade family on `L¹(ℝ)`: the axioms, as structures
 
+Home: line:def:cascade-family
+
 Moved by Q-0301 from Paper V's `SpatialLine/Family.lean` (the structures and predicates) and
 `SpatialLine/Covariance.lean` (`IsScaleCovariant.S_zero`, `IsScaleCovariant.S_pos`) at `v0.1`,
 statements verbatim up to the namespace. Paper V states its line classification in these, and

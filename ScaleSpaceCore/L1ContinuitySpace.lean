@@ -9,6 +9,9 @@ import ScaleSpaceCore.L1Continuity
 /-!
 # The modulus of continuity of translation on `L¹(E)`, and the estimate (★)
 
+Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of
+`ScaleSpaceCore.L1Continuity`'s estimate, with no programme vocabulary)
+
 Q-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `ScaleSpaceCore.L1Continuity`:
 `Θ_f(y) = ‖T_y f - f‖₁` is bounded, continuous and vanishes at `0` (`transDiffE`, packaged as
 `transDiffBCFE`), and for a probability measure

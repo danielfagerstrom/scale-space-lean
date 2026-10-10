@@ -9,6 +9,11 @@ import ScaleSpaceCore.BrownianDensity
 /-!
 # The Student-t law as a Gaussian variance mixture, and its transform
 
+Home: none (a result of the literature, cited: the classical normal variance-mixture
+representation of the Student-t law, and `besselK` by its integral representation, DLMF 10.32.9;
+second-demand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge`
+`prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\lean`)
+
 The Brownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law with `2a`
 degrees of freedom at scale `1` (`bridge_families_bessel`), and its cosine transform is
 `2^{1-a}Γ(a)^{-1}|ω|^a K_a(|ω|)` for `ω ≠ 0` (`student_transform`), with `K_ν` the modified

@@ -10,6 +10,9 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar
 # `L¹(E)` over a finite-dimensional space: translation, reflection, linear dilation, and
 convolution by a measure
 
+Home: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a
+finite-dimensional space with an additive Haar measure)
+
 Q-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of
 `ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an
 additive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both

@@ -10,6 +10,8 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Series
 /-!
 # Vanishing odd power sums and the symmetry of a square-summable sequence
 
+Home: line/selection:prop:polya-frequency
+
 A real sequence `a` with `∑ a_j² < ∞` whose odd power sums `∑ a_j^{2k+3}` all vanish is
 symmetric in distribution: the atomic measure `ν = ∑ a_j² δ_{a_j}` is invariant under
 `y ↦ -y`. Consequently every even function `g` with `g 0 = 0` and `|g y| ≤ C y²` satisfies
