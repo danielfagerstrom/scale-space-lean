@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-10",
-  "commit": "9641c7dc74db0c6617c6d39763d05c55f0deaf54",
+  "commit": "6a487285a63489ae7f3c4d70ce7aa60b6bc91c0e",
   "repo": "https://github.com/danielfagerstrom/scale-space-lean",
   "source_dir": "ScaleSpaceCore",
   "modules": {
@@ -478,7 +478,7 @@
     },
     "L1OperatorsSpace": {
       "title": "`L¹(E)` over a finite-dimensional space: translation, reflection, linear dilation, and",
-      "doc": "convolution by a measure\n\nHome: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a\nfinite-dimensional space with an additive Haar measure; ref: @larsen1971introduction, Thm. 0.1.1,\np. 2)\n\nQ-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of\n`ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an\nadditive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both\ninstances. This is a generalization written in the trunk, not an extraction: the author decided on\n2026-10-05 (Q-0281) that the trunk writes the `d`-dimensional form first and Paper VII proves its\noperator nodes against it.\n\n## Design\n\n* The setting is `[MeasureSpace E] [IsAddHaarMeasure (volume : Measure E)]`: translation\n  invariance is what the translation and convolution operators use, and the `|det|` change of\n  variables (`addHaar_preimage_continuousLinearEquiv`) is what the dilation uses.\n* The general declarations carry the ℝ names with an `E` suffix (`transL1E`, `dilL1E`,\n  `mconvL1E`, ...), so that a consumer opening `ScaleSpace` sees no overloaded name. The ℝ\n  declarations of `L1Operators` stay as they are; `transL1E_real`, `reflL1E_real`,\n  `dilL1E_homothety_real` and `mconvL1E_real` identify the general operator at `E = ℝ` with them.\n* The dilation is indexed by `A : E ≃L[ℝ] E`:\n  `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation, an isometry of `L¹(E)`. The\n  isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation\n  `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).\n* `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,\n  stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at\n  `G = E` directly, with no generalisation needed.\n* The linear-map change of variables the dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry\n  rest on (`addHaar_preimage_continuousLinearEquiv`'s `|det A|` scaling of Haar measure) is a\n  standard real-analysis fact, and no source the programme's library holds states it. It is not\n  cited here until one has been read at the page; a real-analysis text was requested for that\n  on 2026-10-10 (the librarian's acquisition queue).",
+      "doc": "convolution by a measure\n\nHome: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a\nfinite-dimensional space with an additive Haar measure; ref: @larsen1971introduction, Thm. 0.1.1,\np. 2)\n\nQ-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of\n`ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an\nadditive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both\ninstances. This is a generalization written in the trunk, not an extraction: the author decided on\n2026-10-05 (Q-0281) that the trunk writes the `d`-dimensional form first and Paper VII proves its\noperator nodes against it.\n\n## Design\n\n* The setting is `[MeasureSpace E] [IsAddHaarMeasure (volume : Measure E)]`: translation\n  invariance is what the translation and convolution operators use, and the `|det|` change of\n  variables (`addHaar_preimage_continuousLinearEquiv`) is what the dilation uses.\n* The general declarations carry the ℝ names with an `E` suffix (`transL1E`, `dilL1E`,\n  `mconvL1E`, ...), so that a consumer opening `ScaleSpace` sees no overloaded name. The ℝ\n  declarations of `L1Operators` stay as they are; `transL1E_real`, `reflL1E_real`,\n  `dilL1E_homothety_real` and `mconvL1E_real` identify the general operator at `E = ℝ` with them.\n* The dilation is indexed by `A : E ≃L[ℝ] E`:\n  `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation, an isometry of `L¹(E)`. The\n  isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation\n  `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).\n* `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,\n  stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at\n  `G = E` directly, with no generalisation needed.\n* @folland1999real, §2.6, Theorem 2.44, p. 73: for `T ∈ GL(n, ℝ)`,\n  `∫ f(x) dx = |det T| ∫ f ∘ T (x) dx` for `f ≥ 0` or `f ∈ L¹` (2.45), and\n  `m(T(E)) = |det T| m(E)` for a Lebesgue measurable `E` — the linear change of variables the\n  dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry rest on, through Mathlib's\n  `addHaar_preimage_continuousLinearEquiv`, which states it for an additive Haar measure on a\n  finite-dimensional space.",
       "labels": [],
       "home": {
         "kind": "none",
@@ -7175,7 +7175,7 @@
       "kind": "def",
       "signature": "def IsNonnegE (f : E →₁[volume] ℝ) : Prop",
       "doc": "The positive cone of `L¹(E)`.",
-      "line": 64
+      "line": 65
     },
     {
       "name": "ScaleSpace.measurePreserving_sub_constE",
@@ -7184,7 +7184,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_sub_constE (a : E) :\n    MeasurePreserving (fun x : E => x - a) volume volume",
       "doc": "`x ↦ x - a` preserves the Haar measure.",
-      "line": 69
+      "line": 70
     },
     {
       "name": "ScaleSpace.translate_congr_aeE",
@@ -7193,7 +7193,7 @@
       "kind": "theorem",
       "signature": "theorem translate_congr_aeE (a : E) {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (x - a)) =ᵐ[volume] fun x => g (x - a)",
       "doc": null,
-      "line": 73
+      "line": 74
     },
     {
       "name": "ScaleSpace.integrable_translateE",
@@ -7202,7 +7202,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_translateE {f : E → ℝ} (hf : Integrable f) (a : E) :\n    Integrable (fun x => f (x - a))",
       "doc": null,
-      "line": 77
+      "line": 78
     },
     {
       "name": "ScaleSpace.transₗE",
@@ -7211,7 +7211,7 @@
       "kind": "def",
       "signature": "noncomputable def transₗE (a : E) : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`T_a f = f(· - a)` as a linear map on `L¹(E)`.",
-      "line": 82
+      "line": 83
     },
     {
       "name": "ScaleSpace.transL1E",
@@ -7220,7 +7220,7 @@
       "kind": "def",
       "signature": "noncomputable def transL1E (a : E) : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Translation `T_a f = f(· - a)` is an isometry of `L¹(E)`.**",
-      "line": 93
+      "line": 94
     },
     {
       "name": "ScaleSpace.coeFn_transL1E",
@@ -7229,7 +7229,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_transL1E (a : E) (f : E →₁[volume] ℝ) :\n    transL1E a f =ᵐ[volume] fun x => (f : E → ℝ) (x - a)",
       "doc": null,
-      "line": 100
+      "line": 101
     },
     {
       "name": "ScaleSpace.norm_transL1E_le",
@@ -7238,7 +7238,7 @@
       "kind": "lemma",
       "signature": "lemma norm_transL1E_le (a : E) (f : E →₁[volume] ℝ) : ‖transL1E a f‖ ≤ ‖f‖",
       "doc": null,
-      "line": 104
+      "line": 105
     },
     {
       "name": "ScaleSpace.eq_transL1E_iff",
@@ -7247,7 +7247,7 @@
       "kind": "theorem",
       "signature": "theorem eq_transL1E_iff (a : E) (f g : E →₁[volume] ℝ) :\n    g = transL1E a f ↔ (g : E → ℝ) =ᵐ[volume] fun x => (f : E → ℝ) (x - a)",
       "doc": "**The relational form of translation.** `g = T_a f` in `L¹` exactly when `g = f(· - a)` a.e.\n— the bridge from a statement written on representatives to the operator.",
-      "line": 112
+      "line": 113
     },
     {
       "name": "ScaleSpace.transL1E_zero",
@@ -7256,7 +7256,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_zero : transL1E (0 : E) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": null,
-      "line": 120
+      "line": 121
     },
     {
       "name": "ScaleSpace.transL1E_comp",
@@ -7265,7 +7265,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_comp (a b : E) :\n    (transL1E a).comp (transL1E b) = transL1E (a + b)",
       "doc": "`T_a T_b = T_{a + b}`.",
-      "line": 127
+      "line": 128
     },
     {
       "name": "ScaleSpace.isNonnegE_transL1E",
@@ -7274,7 +7274,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_transL1E (a : E) {f : E →₁[volume] ℝ} (hf : IsNonnegE f) :\n    IsNonnegE (transL1E a f)",
       "doc": null,
-      "line": 137
+      "line": 138
     },
     {
       "name": "ScaleSpace.det_ne_zeroE",
@@ -7283,7 +7283,7 @@
       "kind": "theorem",
       "signature": "theorem det_ne_zeroE (A : E ≃L[ℝ] E) : LinearMap.det (A : E →ₗ[ℝ] E) ≠ 0",
       "doc": "`|det A| ≠ 0` for an invertible `A`.",
-      "line": 152
+      "line": 153
     },
     {
       "name": "ScaleSpace.dilateE",
@@ -7292,7 +7292,7 @@
       "kind": "def",
       "signature": "noncomputable def dilateE (A : E ≃L[ℝ] E) (f : E → ℝ) : E → ℝ",
       "doc": "`D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation.",
-      "line": 156
+      "line": 157
     },
     {
       "name": "ScaleSpace.dilateE_apply",
@@ -7301,7 +7301,7 @@
       "kind": "lemma",
       "signature": "lemma dilateE_apply (A : E ≃L[ℝ] E) (f : E → ℝ) (x : E) :\n    dilateE A f x = |LinearMap.det (A : E →ₗ[ℝ] E)|⁻¹ * f (A.symm x)",
       "doc": null,
-      "line": 159
+      "line": 160
     },
     {
       "name": "ScaleSpace.homothety",
@@ -7310,7 +7310,7 @@
       "kind": "def",
       "signature": "noncomputable def homothety [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) : E ≃L[ℝ] E",
       "doc": "The homothety `x ↦ λ x`, `λ ≠ 0`, as a continuous linear equivalence.",
-      "line": 163
+      "line": 164
     },
     {
       "name": "ScaleSpace.homothety_apply",
@@ -7319,7 +7319,7 @@
       "kind": "lemma",
       "signature": "lemma homothety_apply [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) (x : E) :\n    homothety lam hlam x = lam • x",
       "doc": null,
-      "line": 166
+      "line": 167
     },
     {
       "name": "ScaleSpace.homothety_symm_apply",
@@ -7328,7 +7328,7 @@
       "kind": "lemma",
       "signature": "lemma homothety_symm_apply [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) (x : E) :\n    (homothety lam hlam).symm x = lam⁻¹ • x",
       "doc": null,
-      "line": 169
+      "line": 170
     },
     {
       "name": "ScaleSpace.det_homothety",
@@ -7337,7 +7337,7 @@
       "kind": "lemma",
       "signature": "lemma det_homothety [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) :\n    LinearMap.det ((homothety lam hlam : E ≃L[ℝ] E) : E →ₗ[ℝ] E)\n      = lam ^ Module.finrank ℝ E",
       "doc": null,
-      "line": 172
+      "line": 173
     },
     {
       "name": "ScaleSpace.abs_det_neg",
@@ -7346,7 +7346,7 @@
       "kind": "lemma",
       "signature": "lemma abs_det_neg [FiniteDimensional ℝ E] :",
       "doc": "`|det (-id)| = |(-1)^d| = 1`.",
-      "line": 181
+      "line": 182
     },
     {
       "name": "ScaleSpace.det_refl",
@@ -7355,7 +7355,7 @@
       "kind": "lemma",
       "signature": "lemma det_refl :\n    LinearMap.det ((ContinuousLinearEquiv.refl ℝ E : E ≃L[ℝ] E) : E →ₗ[ℝ] E) = 1",
       "doc": null,
-      "line": 189
+      "line": 190
     },
     {
       "name": "ScaleSpace.map_symm_volumeE",
@@ -7364,7 +7364,7 @@
       "kind": "theorem",
       "signature": "theorem map_symm_volumeE (A : E ≃L[ℝ] E) :\n    Measure.map A.symm volume = ENNReal.ofReal |LinearMap.det (A : E →ₗ[ℝ] E)| • volume",
       "doc": "**The change of variables**: `A⁻¹_* vol = |det A| · vol`.",
-      "line": 202
+      "line": 203
     },
     {
       "name": "ScaleSpace.quasiMeasurePreserving_symmE",
@@ -7373,7 +7373,7 @@
       "kind": "theorem",
       "signature": "theorem quasiMeasurePreserving_symmE (A : E ≃L[ℝ] E) :\n    Measure.QuasiMeasurePreserving A.symm volume volume",
       "doc": null,
-      "line": 209
+      "line": 210
     },
     {
       "name": "ScaleSpace.lintegral_comp_symmE",
@@ -7382,7 +7382,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_comp_symmE (A : E ≃L[ℝ] E) (g : E → ℝ≥0∞) :\n    ∫⁻ x, g (A.symm x) = ENNReal.ofReal |LinearMap.det (A : E →ₗ[ℝ] E)| * ∫⁻ x, g x",
       "doc": "`∫⁻ g(A⁻¹ x) dx = |det A| ∫⁻ g`.",
-      "line": 216
+      "line": 217
     },
     {
       "name": "ScaleSpace.dilateE_congr_ae",
@@ -7391,7 +7391,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_congr_ae (A : E ≃L[ℝ] E) {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    dilateE A f =ᵐ[volume] dilateE A g",
       "doc": null,
-      "line": 223
+      "line": 224
     },
     {
       "name": "ScaleSpace.integrable_dilateE",
@@ -7400,7 +7400,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_dilateE (A : E ≃L[ℝ] E) {f : E → ℝ} (hf : Integrable f) :\n    Integrable (dilateE A f)",
       "doc": null,
-      "line": 228
+      "line": 229
     },
     {
       "name": "ScaleSpace.dilₗE",
@@ -7409,7 +7409,7 @@
       "kind": "def",
       "signature": "noncomputable def dilₗE (A : E ≃L[ℝ] E) : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`D_A` as a linear map on `L¹(E)`.",
-      "line": 239
+      "line": 240
     },
     {
       "name": "ScaleSpace.lintegral_enorm_dilateE",
@@ -7418,7 +7418,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_dilateE (A : E ≃L[ℝ] E) (f : E → ℝ) :\n    ∫⁻ x, ‖dilateE A f x‖ₑ = ∫⁻ x, ‖f x‖ₑ",
       "doc": "`∫⁻ ‖D_A f‖ = ∫⁻ ‖f‖`: the normalisation `|det A|⁻¹` cancels the Jacobian.",
-      "line": 257
+      "line": 258
     },
     {
       "name": "ScaleSpace.dilL1E",
@@ -7427,7 +7427,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1E (A : E ≃L[ℝ] E) : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**The matrix dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` is an isometry of `L¹(E)`.**",
-      "line": 270
+      "line": 271
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E",
@@ -7436,7 +7436,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    dilL1E A f =ᵐ[volume] dilateE A (f : E → ℝ)",
       "doc": null,
-      "line": 275
+      "line": 276
     },
     {
       "name": "ScaleSpace.eq_dilL1E_iff",
@@ -7445,7 +7445,7 @@
       "kind": "theorem",
       "signature": "theorem eq_dilL1E_iff (A : E ≃L[ℝ] E) (f g : E →₁[volume] ℝ) :\n    g = dilL1E A f ↔ (g : E → ℝ) =ᵐ[volume]\n      fun x => |LinearMap.det (A : E →ₗ[ℝ] E)|⁻¹ * (f : E → ℝ) (A.symm x)",
       "doc": "**The relational form of dilation.** `g = D_A f` in `L¹` exactly when\n`g = |det A|⁻¹ f(A⁻¹ ·)` a.e.",
-      "line": 281
+      "line": 282
     },
     {
       "name": "ScaleSpace.norm_dilL1E",
@@ -7454,7 +7454,7 @@
       "kind": "theorem",
       "signature": "theorem norm_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) : ‖dilL1E A f‖ = ‖f‖",
       "doc": "**`D_A` preserves the norm.**",
-      "line": 291
+      "line": 292
     },
     {
       "name": "ScaleSpace.dilL1E_refl",
@@ -7463,7 +7463,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_refl :\n    dilL1E (ContinuousLinearEquiv.refl ℝ E) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "`D_A` at the identity is the identity.",
-      "line": 300
+      "line": 301
     },
     {
       "name": "ScaleSpace.dilL1E_comp",
@@ -7472,7 +7472,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp (A B : E ≃L[ℝ] E) :\n    (dilL1E A).comp (dilL1E B) = dilL1E (B.trans A)",
       "doc": "**`D_A D_B = D_{AB}`**, with `AB = B.trans A` the composite `x ↦ A (B x)`.",
-      "line": 309
+      "line": 310
     },
     {
       "name": "ScaleSpace.dilL1E_symm_comp",
@@ -7481,7 +7481,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_symm_comp (A : E ≃L[ℝ] E) :\n    (dilL1E A.symm).comp (dilL1E A) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "**`D_A` is a bijection with inverse `D_{A⁻¹}`.**",
-      "line": 325
+      "line": 326
     },
     {
       "name": "ScaleSpace.dilL1E_comp_symm",
@@ -7490,7 +7490,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_symm (A : E ≃L[ℝ] E) :\n    (dilL1E A).comp (dilL1E A.symm) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": null,
-      "line": 329
+      "line": 330
     },
     {
       "name": "ScaleSpace.dilL1EEquiv",
@@ -7499,7 +7499,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1EEquiv (A : E ≃L[ℝ] E) :\n    (E →₁[volume] ℝ) ≃ₗᵢ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`D_A` as a linear isometry equivalence of `L¹(E)`, inverse `D_{A⁻¹}`.",
-      "line": 334
+      "line": 335
     },
     {
       "name": "ScaleSpace.dilL1EEquiv_apply",
@@ -7508,7 +7508,7 @@
       "kind": "lemma",
       "signature": "lemma dilL1EEquiv_apply (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    dilL1EEquiv A f = dilL1E A f",
       "doc": null,
-      "line": 350
+      "line": 351
     },
     {
       "name": "ScaleSpace.dilL1EEquiv_symm_apply",
@@ -7517,7 +7517,7 @@
       "kind": "lemma",
       "signature": "lemma dilL1EEquiv_symm_apply (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    (dilL1EEquiv A).symm f = dilL1E A.symm f",
       "doc": null,
-      "line": 353
+      "line": 354
     },
     {
       "name": "ScaleSpace.dilL1E_comp_transL1E",
@@ -7526,7 +7526,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_transL1E (A : E ≃L[ℝ] E) (a : E) :\n    (dilL1E A).comp (transL1E a) = (transL1E (A a)).comp (dilL1E A)",
       "doc": "**`D_A T_a = T_{Aa} D_A`.**",
-      "line": 357
+      "line": 358
     },
     {
       "name": "ScaleSpace.isNonnegE_dilL1E",
@@ -7535,7 +7535,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_dilL1E (A : E ≃L[ℝ] E) {f : E →₁[volume] ℝ} (hf : IsNonnegE f) :\n    IsNonnegE (dilL1E A f)",
       "doc": null,
-      "line": 367
+      "line": 368
     },
     {
       "name": "ScaleSpace.integral_dilL1E",
@@ -7544,7 +7544,7 @@
       "kind": "theorem",
       "signature": "theorem integral_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    ∫ x, (dilL1E A f : E → ℝ) x = ∫ x, (f : E → ℝ) x",
       "doc": "`D_A` preserves the integral.",
-      "line": 375
+      "line": 376
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_of_abs_det_eq_one",
@@ -7553,7 +7553,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_of_abs_det_eq_one (Q : E ≃L[ℝ] E)\n    (hQ : |LinearMap.det (Q : E →ₗ[ℝ] E)| = 1) (f : E →₁[volume] ℝ) :\n    dilL1E Q f =ᵐ[volume] fun x => (f : E → ℝ) (Q.symm x)",
       "doc": "A rotation `R_Q f = f(Q⁻¹ ·)` is `D_Q` when `|det Q| = 1`.",
-      "line": 389
+      "line": 390
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_homothety",
@@ -7562,7 +7562,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_homothety {lam : ℝ} (hlam : 0 < lam) (f : E →₁[volume] ℝ) :\n    dilL1E (homothety lam hlam.ne') f =ᵐ[volume]\n      fun x => (lam ^ Module.finrank ℝ E)⁻¹ * (f : E → ℝ) (lam⁻¹ • x)",
       "doc": "**The isotropic dilation** `D_λ f = λ^{-d} f(·/λ)`, `d = finrank ℝ E`, is `D_A` at the\nhomothety `A = λ • id`.",
-      "line": 397
+      "line": 398
     },
     {
       "name": "ScaleSpace.measurePreserving_negE",
@@ -7571,7 +7571,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_negE : MeasurePreserving (fun x : E => -x) volume volume",
       "doc": "`x ↦ -x` preserves the Haar measure.",
-      "line": 406
+      "line": 407
     },
     {
       "name": "ScaleSpace.reflect_congr_aeE",
@@ -7580,7 +7580,7 @@
       "kind": "theorem",
       "signature": "theorem reflect_congr_aeE {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (-x)) =ᵐ[volume] fun x => g (-x)",
       "doc": null,
-      "line": 412
+      "line": 413
     },
     {
       "name": "ScaleSpace.integrable_reflectE",
@@ -7589,7 +7589,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_reflectE {f : E → ℝ} (hf : Integrable f) :\n    Integrable (fun x => f (-x))",
       "doc": null,
-      "line": 416
+      "line": 417
     },
     {
       "name": "ScaleSpace.reflₗE",
@@ -7598,7 +7598,7 @@
       "kind": "def",
       "signature": "noncomputable def reflₗE : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`R f = f(-·)` as a linear map on `L¹(E)`.",
-      "line": 421
+      "line": 422
     },
     {
       "name": "ScaleSpace.reflL1E",
@@ -7607,7 +7607,7 @@
       "kind": "def",
       "signature": "noncomputable def reflL1E : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Reflection `R f = f(-·)` is an isometry of `L¹(E)`.**",
-      "line": 432
+      "line": 433
     },
     {
       "name": "ScaleSpace.coeFn_reflL1E",
@@ -7616,7 +7616,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_reflL1E (f : E →₁[volume] ℝ) :\n    reflL1E f =ᵐ[volume] fun x => (f : E → ℝ) (-x)",
       "doc": null,
-      "line": 440
+      "line": 441
     },
     {
       "name": "ScaleSpace.reflL1E_eq_dilL1E",
@@ -7625,7 +7625,7 @@
       "kind": "theorem",
       "signature": "theorem reflL1E_eq_dilL1E :\n    (reflL1E : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) = dilL1E (ContinuousLinearEquiv.neg ℝ)",
       "doc": "Reflection is the dilation by `-id`.",
-      "line": 445
+      "line": 446
     },
     {
       "name": "ScaleSpace.mconvE",
@@ -7634,7 +7634,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvE (μ : Measure E) (f : E → ℝ) : E → ℝ",
       "doc": "`(μ * f)(x) = ∫ f(x - y) μ(dy)`.",
-      "line": 458
+      "line": 459
     },
     {
       "name": "ScaleSpace.mconvE_apply",
@@ -7643,7 +7643,7 @@
       "kind": "lemma",
       "signature": "lemma mconvE_apply (μ : Measure E) (f : E → ℝ) (x : E) :\n    mconvE μ f x = ∫ y, f (x - y) ∂μ",
       "doc": null,
-      "line": 462
+      "line": 463
     },
     {
       "name": "ScaleSpace.lintegral_lintegral_sub_eqE",
@@ -7652,7 +7652,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_lintegral_sub_eqE (μ : Measure E) [SFinite μ] {g : E → ℝ≥0∞}\n    (hg : AEMeasurable g) :\n    ∫⁻ x, (∫⁻ y, g (x - y) ∂μ) = μ univ * ∫⁻ x, g x",
       "doc": null,
-      "line": 465
+      "line": 466
     },
     {
       "name": "ScaleSpace.lintegral_enorm_mconv_leE",
@@ -7661,7 +7661,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_mconv_leE (μ : Measure E) [SFinite μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) :\n    ∫⁻ x, ‖mconvE μ f x‖ₑ ≤ μ univ * ∫⁻ x, ‖f x‖ₑ",
       "doc": null,
-      "line": 475
+      "line": 476
     },
     {
       "name": "ScaleSpace.integrable_uncurry_subE",
@@ -7670,7 +7670,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_uncurry_subE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    Integrable (Function.uncurry fun x y : E => f (x - y)) (volume.prod μ)",
       "doc": null,
-      "line": 482
+      "line": 483
     },
     {
       "name": "ScaleSpace.integrable_mconvE",
@@ -7679,7 +7679,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_mconvE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) : Integrable (mconvE μ f)",
       "doc": "`μ * f` is integrable.",
-      "line": 494
+      "line": 495
     },
     {
       "name": "ScaleSpace.ae_ae_sub_of_aeE",
@@ -7688,7 +7688,7 @@
       "kind": "theorem",
       "signature": "theorem ae_ae_sub_of_aeE (μ : Measure E) [SFinite μ] {p : E → Prop} (h : ∀ᵐ u ∂volume, p u) :\n    ∀ᵐ x ∂volume, ∀ᵐ y ∂μ, p (x - y)",
       "doc": null,
-      "line": 498
+      "line": 499
     },
     {
       "name": "ScaleSpace.mconvE_congr_ae",
@@ -7697,7 +7697,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_congr_ae (μ : Measure E) [SFinite μ] {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    mconvE μ f =ᵐ[volume] mconvE μ g",
       "doc": null,
-      "line": 502
+      "line": 503
     },
     {
       "name": "ScaleSpace.mconvE_add_ae",
@@ -7706,7 +7706,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_add_ae (μ : Measure E) [IsFiniteMeasure μ] {f g : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f)\n    (hg : AEStronglyMeasurable g) (hgi : Integrable g) :\n    mconvE μ (f + g) =ᵐ[volume] mconvE μ f + mconvE μ g",
       "doc": null,
-      "line": 507
+      "line": 508
     },
     {
       "name": "ScaleSpace.mconvE_smul",
@@ -7715,7 +7715,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_smul (μ : Measure E) (c : ℝ) (f : E → ℝ) :\n    mconvE μ (c • f) = c • mconvE μ f",
       "doc": null,
-      "line": 519
+      "line": 520
     },
     {
       "name": "ScaleSpace.mconvₗE",
@@ -7724,7 +7724,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvₗE (μ : Measure E) [IsFiniteMeasure μ] :\n    (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`f ↦ μ * f` as a linear map on `L¹(E)`.",
-      "line": 525
+      "line": 526
     },
     {
       "name": "ScaleSpace.mconvL1E",
@@ -7733,7 +7733,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvL1E (μ : Measure E) [IsFiniteMeasure μ] :\n    (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Convolution by a finite measure `f ↦ μ * f` is a bounded operator on `L¹(E)`**, of norm at\nmost `μ(E)`.",
-      "line": 543
+      "line": 544
     },
     {
       "name": "ScaleSpace.coeFn_mconvL1E",
@@ -7742,7 +7742,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] (f : E →₁[volume] ℝ) :\n    mconvL1E μ f =ᵐ[volume] mconvE μ (f : E → ℝ)",
       "doc": null,
-      "line": 551
+      "line": 552
     },
     {
       "name": "ScaleSpace.eq_mconvL1E_iff",
@@ -7751,7 +7751,7 @@
       "kind": "theorem",
       "signature": "theorem eq_mconvL1E_iff (μ : Measure E) [IsFiniteMeasure μ]\n    (Φ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    Φ = mconvL1E μ ↔ ∀ f : E →₁[volume] ℝ, (Φ f : E → ℝ) =ᵐ[volume] mconvE μ (f : E → ℝ)",
       "doc": "**The relational form of convolution.** An operator is `μ * ·` exactly when it is\n`f ↦ ∫ f(· - y) dμ(y)` a.e. on every `f`.",
-      "line": 557
+      "line": 558
     },
     {
       "name": "ScaleSpace.mconvE_comp_sub",
@@ -7760,7 +7760,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_comp_sub (μ : Measure E) (f : E → ℝ) (a : E) :\n    mconvE μ (fun x => f (x - a)) = fun x => mconvE μ f (x - a)",
       "doc": null,
-      "line": 570
+      "line": 571
     },
     {
       "name": "ScaleSpace.integral_mconvE",
@@ -7769,7 +7769,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    ∫ x, mconvE μ f x = (μ univ).toReal * ∫ x, f x",
       "doc": "`∫ (μ * f) = μ(E) ∫ f`.",
-      "line": 576
+      "line": 577
     },
     {
       "name": "ScaleSpace.mconvE_conv",
@@ -7778,7 +7778,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_conv (μ ν : Measure E) [IsFiniteMeasure μ] [IsFiniteMeasure ν] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    mconvE ν (mconvE μ f) =ᵐ[volume] mconvE (μ ∗ ν) f",
       "doc": "`ν * (μ * f) = (μ ∗ ν) * f`, a.e.",
-      "line": 585
+      "line": 586
     },
     {
       "name": "ScaleSpace.mconvE_dirac_zero",
@@ -7787,7 +7787,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_dirac_zero (f : E → ℝ) : mconvE (Measure.dirac 0) f = f",
       "doc": null,
-      "line": 603
+      "line": 604
     },
     {
       "name": "ScaleSpace.mconvL1E_congr",
@@ -7796,7 +7796,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_congr {μ ν : Measure E} [IsFiniteMeasure μ] [IsFiniteMeasure ν] (h : μ = ν) :\n    mconvL1E μ = mconvL1E ν",
       "doc": "Equal measures give equal operators (the instance argument blocks a plain `rw`).",
-      "line": 608
+      "line": 609
     },
     {
       "name": "ScaleSpace.norm_mconvL1E_le",
@@ -7805,7 +7805,7 @@
       "kind": "theorem",
       "signature": "theorem norm_mconvL1E_le (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ‖mconvL1E μ f‖ ≤ ‖f‖",
       "doc": "**`μ * ·` is a contraction** for a probability measure.",
-      "line": 614
+      "line": 615
     },
     {
       "name": "ScaleSpace.mconvL1E_transL1E",
@@ -7814,7 +7814,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_transL1E (μ : Measure E) [IsFiniteMeasure μ] (a : E) (f : E →₁[volume] ℝ) :\n    mconvL1E μ (transL1E a f) = transL1E a (mconvL1E μ f)",
       "doc": "**`μ * ·` commutes with translation.**",
-      "line": 625
+      "line": 626
     },
     {
       "name": "ScaleSpace.isNonnegE_mconvL1E",
@@ -7823,7 +7823,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] {f : E →₁[volume] ℝ}\n    (hf : IsNonnegE f) : IsNonnegE (mconvL1E μ f)",
       "doc": "**`μ * ·` preserves nonnegativity.**",
-      "line": 636
+      "line": 637
     },
     {
       "name": "ScaleSpace.integral_mconvL1E",
@@ -7832,7 +7832,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvL1E (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ∫ x, (mconvL1E μ f : E → ℝ) x = ∫ x, (f : E → ℝ) x",
       "doc": "**`μ * ·` preserves the integral** for a probability measure, for every `f`.",
-      "line": 643
+      "line": 644
     },
     {
       "name": "ScaleSpace.mconvL1E_comp",
@@ -7841,7 +7841,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_comp (μ ν : Measure E) [IsFiniteMeasure μ] [IsFiniteMeasure ν] :\n    (mconvL1E ν).comp (mconvL1E μ) = mconvL1E (μ ∗ ν)",
       "doc": "**`(μ * ·) ∘ (ν * ·)`**: composing the operators convolves the measures.",
-      "line": 650
+      "line": 651
     },
     {
       "name": "ScaleSpace.mconvL1E_dirac_zero",
@@ -7850,7 +7850,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_dirac_zero :\n    mconvL1E (Measure.dirac (0 : E)) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "**`δ₀ * f = f`.**",
-      "line": 659
+      "line": 660
     },
     {
       "name": "ScaleSpace.dilateE_mconvE",
@@ -7859,7 +7859,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_mconvE (A : E ≃L[ℝ] E) (μ : Measure E) {f : E → ℝ} (hf : Measurable f) :\n    dilateE A (mconvE μ f) = mconvE (μ.map A) (dilateE A f)",
       "doc": "**Transport** at the level of functions.",
-      "line": 670
+      "line": 671
     },
     {
       "name": "ScaleSpace.dilL1E_comp_mconvL1E",
@@ -7868,7 +7868,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_mconvL1E (A : E ≃L[ℝ] E) (μ : Measure E) [IsFiniteMeasure μ]\n    [IsFiniteMeasure (μ.map A)] :\n    (dilL1E A).comp (mconvL1E μ) = (mconvL1E (μ.map A)).comp (dilL1E A)",
       "doc": "**Transport `D_A (μ * f) = (A_* μ) * D_A f`**, as operators.",
-      "line": 682
+      "line": 683
     },
     {
       "name": "ScaleSpace.dilL1E_conj_mconvL1E",
@@ -7877,7 +7877,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_conj_mconvL1E (A : E ≃L[ℝ] E) (μ ν : Measure E) [IsFiniteMeasure μ]\n    [IsFiniteMeasure ν] (h : μ.map A = ν) :\n    ((dilL1E A).comp (mconvL1E μ)).comp (dilL1E A.symm) = mconvL1E ν",
       "doc": "**Conjugating `μ * ·` by `D_A` gives `ν * ·` when `A_* μ = ν`.** The converse needs\nuniqueness of the representing measure, which this module does not state.",
-      "line": 704
+      "line": 705
     },
     {
       "name": "ScaleSpace.intertwines_iff_dilL1E",
@@ -7886,7 +7886,7 @@
       "kind": "theorem",
       "signature": "theorem intertwines_iff_dilL1E (c : ℝ) (hc : c ≠ 0) (A : E ≃L[ℝ] E)\n    (Φ Ψ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    (∀ f g : E →₁[volume] ℝ, ((g : E → ℝ) =ᵐ[volume] fun x => c * (f : E → ℝ) (A.symm x)) →\n      ((Ψ g : E → ℝ) =ᵐ[volume] fun x => c * (Φ f : E → ℝ) (A.symm x))) ↔\n    Ψ.comp (dilL1E A) = (dilL1E A).comp Φ",
       "doc": "**Relational intertwining is the operator identity.**",
-      "line": 718
+      "line": 719
     },
     {
       "name": "ScaleSpace.translation_iff_transL1E",
@@ -7895,7 +7895,7 @@
       "kind": "theorem",
       "signature": "theorem translation_iff_transL1E (Φ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    (∀ (a : E) (f g : E →₁[volume] ℝ), ((g : E → ℝ) =ᵐ[volume] fun x => (f : E → ℝ) (x - a)) →\n      ((Φ g : E → ℝ) =ᵐ[volume] fun x => (Φ f : E → ℝ) (x - a))) ↔\n    ∀ a : E, Φ.comp (transL1E a) = (transL1E a).comp Φ",
       "doc": "**Relational translation covariance is the operator identity.**",
-      "line": 753
+      "line": 754
     },
     {
       "name": "ScaleSpace.transL1E_real",
@@ -7904,7 +7904,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_real (a : ℝ) : transL1E a = transL1 a",
       "doc": null,
-      "line": 773
+      "line": 774
     },
     {
       "name": "ScaleSpace.reflL1E_real",
@@ -7913,7 +7913,7 @@
       "kind": "theorem",
       "signature": "theorem reflL1E_real : (reflL1E : X →L[ℝ] X) = reflL1",
       "doc": null,
-      "line": 776
+      "line": 777
     },
     {
       "name": "ScaleSpace.mconvL1E_real",
@@ -7922,7 +7922,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_real (μ : Measure ℝ) [IsFiniteMeasure μ] : mconvL1E μ = mconvL1 μ",
       "doc": null,
-      "line": 779
+      "line": 780
     },
     {
       "name": "ScaleSpace.mconvE_real",
@@ -7931,7 +7931,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_real (μ : Measure ℝ) (f : ℝ → ℝ) : mconvE μ f = mconv μ f",
       "doc": null,
-      "line": 782
+      "line": 783
     },
     {
       "name": "ScaleSpace.dilateE_homothety_real",
@@ -7940,7 +7940,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_homothety_real {lam : ℝ} (hlam : 0 < lam) (f : ℝ → ℝ) :\n    dilateE (homothety lam hlam.ne') f = dilate lam f",
       "doc": "`dilate`'s `lam⁻¹ f(lam⁻¹ x)` is `|det A|⁻¹ f(A⁻¹ x)` at `A = lam`.",
-      "line": 785
+      "line": 786
     },
     {
       "name": "ScaleSpace.dilL1E_homothety_real",
@@ -7949,7 +7949,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_homothety_real {lam : ℝ} (hlam : 0 < lam) :\n    dilL1E (homothety lam hlam.ne') = dilL1 hlam",
       "doc": "**The matrix dilation at `E = ℝ`, `A = lam`, is the line's dilation.**",
-      "line": 793
+      "line": 794
     },
     {
       "name": "ScaleSpace.isNonnegE_real",
@@ -7958,7 +7958,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_real (f : X) : IsNonnegE f ↔ IsNonneg f",
       "doc": null,
-      "line": 800
+      "line": 801
     },
     {
       "name": "ScaleSpace.subCME",

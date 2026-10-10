@@ -42,11 +42,12 @@ operator nodes against it.
   `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,
   stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at
   `G = E` directly, with no generalisation needed.
-* The linear-map change of variables the dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry
-  rest on (`addHaar_preimage_continuousLinearEquiv`'s `|det A|` scaling of Haar measure) is a
-  standard real-analysis fact, and no source the programme's library holds states it. It is not
-  cited here until one has been read at the page; a real-analysis text was requested for that
-  on 2026-10-10 (the librarian's acquisition queue).
+* @folland1999real, §2.6, Theorem 2.44, p. 73: for `T ∈ GL(n, ℝ)`,
+  `∫ f(x) dx = |det T| ∫ f ∘ T (x) dx` for `f ≥ 0` or `f ∈ L¹` (2.45), and
+  `m(T(E)) = |det T| m(E)` for a Lebesgue measurable `E` — the linear change of variables the
+  dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry rest on, through Mathlib's
+  `addHaar_preimage_continuousLinearEquiv`, which states it for an additive Haar measure on a
+  finite-dimensional space.
 -/
 
 namespace ScaleSpace
