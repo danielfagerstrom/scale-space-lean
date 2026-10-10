@@ -182,8 +182,11 @@ discharges with its axiom `fourier_toolbox_levy_unique` and Paper VII from its o
 Seeded minimally, and extended **on second demand** — a result moves here when a second article
 actually needs it, not when it looks general. The test (`RELEASES.md`, hub, § "Dependencies between
 modules") reads statements only: a declaration whose *statement* mentions only Mathlib types is
-material for this library; one whose statement mentions a paper-specific structure stays in that
-paper, reached by `require`ing its package at a release tag.
+material for this library; one whose statement mentions a structure only one article uses stays in
+that article, reached by `require`ing its package at a release tag. When a second article needs the
+structure itself, the structure moves here together with the declarations stated in it: that is the
+programme vocabulary this library admits (as `CausalAdmissible` moved in v0.2.0, and the cascade
+family in v0.3.0).
 
 **No axiom moves in.** Where a statement would otherwise need to cite an article's analytic
 interface, it takes what that interface provides as a **hypothesis** instead, and the article that
