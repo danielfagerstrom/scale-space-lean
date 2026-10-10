@@ -10,7 +10,8 @@ import ScaleSpaceCore.L1Continuity
 # The modulus of continuity of translation on `L¹(E)`, and the estimate (★)
 
 Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of
-`ScaleSpaceCore.L1Continuity`'s estimate, with no programme vocabulary)
+`ScaleSpaceCore.L1Continuity`'s estimate, with no programme vocabulary; ref: @engel2000one,
+Example 5.4, p. 39)
 
 Q-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `ScaleSpaceCore.L1Continuity`:
 `Θ_f(y) = ‖T_y f - f‖₁` is bounded, continuous and vanishes at `0` (`transDiffE`, packaged as
@@ -26,6 +27,13 @@ Over an inner product space the Lévy clause follows as on the line: kernels who
 characteristic functions tend to `1` give operators tending strongly to the identity
 (`tendsto_norm_mconvL1E_sub_of_tendsto_charFun`), through Mathlib's Lévy continuity theorem on a
 finite-dimensional inner product space.
+
+## References
+
+* @engel2000one, Example 5.4, p. 39: the translation group's strong continuity on `Lᵖ(ℝ)` — the
+  density-of-compactly-supported-functions argument that `transDiffE`'s vanishing at `0` is the
+  Haar-measure generalisation of, at `p = 1`. (★) and the Lévy clause are elementary consequences
+  once that continuity, and Mathlib's own Lévy continuity theorem, are in hand.
 -/
 
 namespace ScaleSpace

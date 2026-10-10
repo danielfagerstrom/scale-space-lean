@@ -9,7 +9,8 @@ import ScaleSpaceCore.BochnerConvolutionSpace
 # The Fourier pairing on `L¹(E)`: `(μ * f)^ = μ̂ f̂`
 
 Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of
-`ScaleSpaceCore.BochnerConvolution`'s character pairing, with no programme vocabulary)
+`ScaleSpaceCore.BochnerConvolution`'s character pairing, with no programme vocabulary; ref:
+@larsen1971introduction, p. 2)
 
 Q-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `charCLM`/`charCLM_transL1`/
 `charCLM_mconvL1` of `ScaleSpaceCore.BochnerConvolution`, over a finite-dimensional real inner
@@ -22,6 +23,12 @@ which is how Paper VII's blueprint writes it. `charCLME_mconvL1E` is the identit
 What is not here: a test function with a zero-free transform and the injectivity of
 `μ ↦ mconvL1E μ` that follows (the line's `gaussL1`, `mconvL1_injective`). Paper VII reads them
 with its own Gaussian density.
+
+## References
+
+* @larsen1971introduction, p. 2 (F.5, F.6): the Fourier and Fourier–Stieltjes transforms on a
+  locally compact Abelian group are homomorphisms, `(f * g)^ = f̂ ĝ` and `(μ * ν)^ = μ̂ ν̂` — the
+  convolution theorem `charCLME_mconvL1E` restates with `charFun`'s sign and `E` in place of `G`.
 -/
 
 namespace ScaleSpace

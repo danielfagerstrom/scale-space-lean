@@ -9,8 +9,8 @@ import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 /-!
 # The integral of `e^{-cu}` over the half-line
 
-Home: none (standard analysis in Mathlib's types: an elementary half-line integral, with no
-programme vocabulary)
+Home: none (an elementary computation whose proof is the whole content: `∫ e^{-cu} du = c⁻¹` from
+Mathlib's `integral_exp_mul_Ioi` alone, needing no citation beyond itself)
 
 `∫₀^∞ e^{-cu} du = c⁻¹` for `c > 0`, as a lower Lebesgue integral valued in `ℝ≥0∞`
 (`lintegral_Ioi_exp_neg_mul`), with the integrability of `e^{-pu}` on `(0,∞)` it reads

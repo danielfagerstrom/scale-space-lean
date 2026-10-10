@@ -8,8 +8,8 @@ import Mathlib.Analysis.Matrix.Order
 /-!
 # A real positive semidefinite matrix as a double sum, and as a positive definite kernel
 
-Home: none (standard analysis in Mathlib's types: four facts about real matrices, stated in
-Mathlib's types only)
+Home: none (standard linear algebra in Mathlib's types: four facts about real matrices, stated in
+Mathlib's types only; ref: @bhatia2007positive, §1.1, pp. 1–2)
 
 Four facts about real matrices over `Fin n`, all stated in Mathlib's types only.
 
@@ -30,6 +30,14 @@ and Paper VII's `complex_kernel_nonneg` (`Formalization/AffineHemigroup/LevyKhin
 which is the composite of the first two statements (`spatial-hemigroup-affine`,
 `records/formalization/SECOND-DEMAND-candidates.md` § A6). The rest of the file (conditionally
 negative definite functions and the Schoenberg route) has no second demand and stays in Paper V.
+
+## References
+
+* @bhatia2007positive, §1.1, pp. 1–2: a matrix `A` on a complex Hilbert space `H` is positive
+  semidefinite iff `⟨x, Ax⟩ ≥ 0` for every `x ∈ H`, (1.1) — the quadratic-form characterisation
+  `posSemidef_iff_sum` restates in coordinates for a real symmetric `A`, and whose extension to
+  complex `x` (taking `A` real symmetric, hence Hermitian, as a special case of (1.1) stated over
+  `H`) is what `sum_mul_conj_nonneg_of_posSemidef` reads as "a positive definite kernel".
 -/
 
 namespace ScaleSpace

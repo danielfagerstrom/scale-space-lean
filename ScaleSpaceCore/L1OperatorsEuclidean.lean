@@ -10,8 +10,9 @@ import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 /-!
 # The matrix dilation on `L¹(ℝ^d)`
 
-Home: none (standard analysis in Mathlib's types: a matrix reading of `L1OperatorsSpace`'s linear
-dilation, with no programme vocabulary)
+Home: none (needs no citation: a bridging reformulation of `L1OperatorsSpace`'s linear dilation
+in matrix terms — `matEquiv`'s inverse and determinant read off `Matrix.toEuclideanCLM`'s own
+ring-hom and `LinearMap.det` lemmas, not a theorem of its own)
 
 Q-0332 (SSL-5). `ScaleSpaceCore.L1OperatorsSpace` indexes the dilation by `A : E ≃L[ℝ] E`; Paper VII
 writes its operators with matrices, `A : Matrix (Fin d) (Fin d) ℝ` acting on

@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-10",
-  "commit": "898118e419c13f6457af6c3bf875d7b9e687fcc6",
+  "commit": "6a487285a63489ae7f3c4d70ce7aa60b6bc91c0e",
   "repo": "https://github.com/danielfagerstrom/scale-space-lean",
   "source_dir": "ScaleSpaceCore",
   "modules": {
@@ -51,22 +51,22 @@
     },
     "BochnerConvolution": {
       "title": "Convolution as a vector-valued integral, and pairing against a bounded functional",
-      "doc": "Home: none (standard analysis in Mathlib's types: convolution as a Bochner integral, the Mathlib-\nonly core both Paper I and Paper V build their representation lemma on)\n\nSlice 2 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Representation.lean` and\nPaper V's `SpatialLine/BochnerConvolution.lean`\n(`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6). The step every route to\na convolution representation lemma needs first is `Φ (f * g) = f * (Φ g)`, for any bounded\noperator `Φ` that commutes with translation. The proof writes `f * g` as the `X`-valued Bochner\nintegral `∫ f(y) · T_y g dy` and moves `Φ` inside; identifying that integral with the classical\npointwise convolution goes through bounded set-integral functionals, and the same idea gives the\nBochner form `μ * f = ∫ T_y f dμ(y)` of `mconvL1`.\n\n## The character pairing\n\nPaper V's file continues past `apply_bconv` with a section pairing against the complex\ncharacter `e_{-iωx}` and the standard Gaussian density, which proves the uniqueness clause of its\nrepresentation lemma, and a second pairing lemma (`setIntegral_bconv`) feeding the tightness\nargument of that lemma's existence clause. Both stayed behind until the line classification moved\n(Q-0305): its necessity direction rests on that lemma, so they are the last section below.",
+      "doc": "Home: none (standard analysis in Mathlib's types: convolution as a Bochner integral, the Mathlib-\nonly core both Paper I and Paper V build their representation lemma on; ref: @larsen1971introduction,\nThm. 0.1.1, p. 2)\n\nSlice 2 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Representation.lean` and\nPaper V's `SpatialLine/BochnerConvolution.lean`\n(`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6). The step every route to\na convolution representation lemma needs first is `Φ (f * g) = f * (Φ g)`, for any bounded\noperator `Φ` that commutes with translation. The proof writes `f * g` as the `X`-valued Bochner\nintegral `∫ f(y) · T_y g dy` and moves `Φ` inside; identifying that integral with the classical\npointwise convolution goes through bounded set-integral functionals, and the same idea gives the\nBochner form `μ * f = ∫ T_y f dμ(y)` of `mconvL1`.\n\n## The character pairing\n\nPaper V's file continues past `apply_bconv` with a section pairing against the complex\ncharacter `e_{-iωx}` and the standard Gaussian density, which proves the uniqueness clause of its\nrepresentation lemma, and a second pairing lemma (`setIntegral_bconv`) feeding the tightness\nargument of that lemma's existence clause. Both stayed behind until the line classification moved\n(Q-0305): its necessity direction rests on that lemma, so they are the last section below.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure\n  `μ ∈ M(G)` — the standard fact `map_bconv` specialises (`Φ` commuting with translation) and\n  `mconvL1`/`bconv` realise (the convolution side) for `G = ℝ`.\n* @engel2000one, Example 5.4, p. 39: the (left) translation group is strongly continuous on\n  `Lᵖ(ℝ)` for `1 ≤ p < ∞` — `continuous_transL1` is this fact at `p = 1`.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: convolution as a Bochner integral, the Mathlib- only core both Paper I and Paper V build their representation lemma on",
-        "reference": null
+        "reference": "@larsen1971introduction, Thm. 0.1.1, p. 2"
       }
     },
     "BochnerConvolutionSpace": {
       "title": "Convolution on `L¹(E)` as a vector-valued integral, and the kernel of the identity",
-      "doc": "Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of\n`ScaleSpaceCore.BochnerConvolution`, with no programme vocabulary)\n\nQ-0332 (SSL-5), the `d`-dimensional counterpart of `ScaleSpaceCore.BochnerConvolution` up to its\n`apply_bconv`, with the same proofs over a finite-dimensional space `E` carrying an additive Haar\nmeasure: translation acts continuously on `L¹(E)` (`continuous_transL1E`); `f * g` is the\n`L¹(E)`-valued Bochner integral `∫ f(y) T_y g dy` (`bconvE`, identified with the classical\nconvolution by `coeFn_bconvE`), and a bounded operator commuting with every translation passes\nthrough it (`map_bconvE`, the interchange identity `Φ (f * g) = f * Φ g`); `μ * f = ∫ T_y f dμ(y)`\n(`bconvME_eq_mconvL1E`), so a bounded functional pairs against `μ * f` as an integral over `μ`\n(`apply_mconvL1E`, `apply_bconvE`).\n\nThe last section is the `d`-dimensional `eq_dirac_of_mconvL1_eq_id` of `ScaleSpaceCore.Transport`,\ntested at the tent `k(y) = max 0 (1 - ‖y‖)` instead of the line's Gaussian bump, because a\ncompactly supported continuous function is integrable for every Haar measure.\n\nWhat stays on the line: the character pairing and `mconvL1_injective` (the Fourier step of\nuniqueness), `bconv_comm`, and `setIntegral_bconv`.",
+      "doc": "Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of\n`ScaleSpaceCore.BochnerConvolution`, with no programme vocabulary; ref: @larsen1971introduction,\nThm. 0.1.1, p. 2)\n\nQ-0332 (SSL-5), the `d`-dimensional counterpart of `ScaleSpaceCore.BochnerConvolution` up to its\n`apply_bconv`, with the same proofs over a finite-dimensional space `E` carrying an additive Haar\nmeasure: translation acts continuously on `L¹(E)` (`continuous_transL1E`); `f * g` is the\n`L¹(E)`-valued Bochner integral `∫ f(y) T_y g dy` (`bconvE`, identified with the classical\nconvolution by `coeFn_bconvE`), and a bounded operator commuting with every translation passes\nthrough it (`map_bconvE`, the interchange identity `Φ (f * g) = f * Φ g`); `μ * f = ∫ T_y f dμ(y)`\n(`bconvME_eq_mconvL1E`), so a bounded functional pairs against `μ * f` as an integral over `μ`\n(`apply_mconvL1E`, `apply_bconvE`).\n\nThe last section is the `d`-dimensional `eq_dirac_of_mconvL1_eq_id` of `ScaleSpaceCore.Transport`,\ntested at the tent `k(y) = max 0 (1 - ‖y‖)` instead of the line's Gaussian bump, because a\ncompactly supported continuous function is integrable for every Haar measure.\n\nWhat stays on the line: the character pairing and `mconvL1_injective` (the Fourier step of\nuniqueness), `bconv_comm`, and `setIntegral_bconv`.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure\n  `μ ∈ M(G)`, stated for an arbitrary locally compact Abelian group — the fact `map_bconvE` and\n  `bconvME_eq_mconvL1E` specialise at `G = E`.\n* @engel2000one, Example 5.4, p. 39: the translation group's strong continuity on `Lᵖ(ℝ)`, whose\n  proof (density of compactly supported continuous functions, uniform continuity on compacts)\n  transfers verbatim to `Lᵖ(E)` under an additive Haar measure and is what `continuous_transL1E`\n  states at `p = 1`.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: the `d`-dimensional counterpart of `ScaleSpaceCore.BochnerConvolution`, with no programme vocabulary",
-        "reference": null
+        "reference": "@larsen1971introduction, Thm. 0.1.1, p. 2"
       }
     },
     "BoostBracket": {
@@ -303,11 +303,11 @@
     },
     "ExpIntegral": {
       "title": "The integral of `e^{-cu}` over the half-line",
-      "doc": "Home: none (standard analysis in Mathlib's types: an elementary half-line integral, with no\nprogramme vocabulary)\n\n`∫₀^∞ e^{-cu} du = c⁻¹` for `c > 0`, as a lower Lebesgue integral valued in `ℝ≥0∞`\n(`lintegral_Ioi_exp_neg_mul`), with the integrability of `e^{-pu}` on `(0,∞)` it reads\n(`integrableOn_exp_neg_Ioi_zero`).\n\nMoved by Q-0364, statements and proofs verbatim up to the namespace: `lintegral_Ioi_exp_neg_mul`\nfrom Paper V's cone export `v0.1` (`SpatialLine/ThorinBridgeOnto.lean`) and\n`integrableOn_exp_neg_Ioi_zero` from `SpatialLine/Frullani.lean` (identical on development main).\nSecond demand: Paper VII's `lintegral_exp_neg_mul_Ioi` (`Formalization/AffineHemigroup/\nMaternOrbit.lean`), the same identity with the value written `1 / t` (`spatial-hemigroup-affine`,\n`records/formalization/SECOND-DEMAND-candidates.md` § A6).",
+      "doc": "Home: none (an elementary computation whose proof is the whole content: `∫ e^{-cu} du = c⁻¹` from\nMathlib's `integral_exp_mul_Ioi` alone, needing no citation beyond itself)\n\n`∫₀^∞ e^{-cu} du = c⁻¹` for `c > 0`, as a lower Lebesgue integral valued in `ℝ≥0∞`\n(`lintegral_Ioi_exp_neg_mul`), with the integrability of `e^{-pu}` on `(0,∞)` it reads\n(`integrableOn_exp_neg_Ioi_zero`).\n\nMoved by Q-0364, statements and proofs verbatim up to the namespace: `lintegral_Ioi_exp_neg_mul`\nfrom Paper V's cone export `v0.1` (`SpatialLine/ThorinBridgeOnto.lean`) and\n`integrableOn_exp_neg_Ioi_zero` from `SpatialLine/Frullani.lean` (identical on development main).\nSecond demand: Paper VII's `lintegral_exp_neg_mul_Ioi` (`Formalization/AffineHemigroup/\nMaternOrbit.lean`), the same identity with the value written `1 / t` (`spatial-hemigroup-affine`,\n`records/formalization/SECOND-DEMAND-candidates.md` § A6).",
       "labels": [],
       "home": {
         "kind": "none",
-        "reason": "standard analysis in Mathlib's types: an elementary half-line integral, with no programme vocabulary",
+        "reason": "an elementary computation whose proof is the whole content: `∫ e^{-cu} du = c⁻¹` from Mathlib's `integral_exp_mul_Ioi` alone, needing no citation beyond itself",
         "reference": null
       }
     },
@@ -347,22 +347,22 @@
     },
     "FourierPairingSpace": {
       "title": "The Fourier pairing on `L¹(E)`: `(μ * f)^ = μ̂ f̂`",
-      "doc": "Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of\n`ScaleSpaceCore.BochnerConvolution`'s character pairing, with no programme vocabulary)\n\nQ-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `charCLM`/`charCLM_transL1`/\n`charCLM_mconvL1` of `ScaleSpaceCore.BochnerConvolution`, over a finite-dimensional real inner\nproduct space `E` with an additive Haar measure as its `volume`. The pairing is\n`f̂(ω) = ∫ e^{i⟨x, ω⟩} f(x) dx`, Mathlib's `charFun` convention (`charFun μ ω = ∫ e^{i⟨x, ω⟩} dμ`),\nwhich is how Paper VII's blueprint writes it. `charCLME_mconvL1E` is the identity\n`(μ * f)^(ω) = μ̂(ω) f̂(ω)`; it is proved, as on the line, by pairing the bounded functional\n`charCLME ω` through the Bochner form `μ * f = ∫ T_y f dμ(y)` (`apply_mconvL1E_general`).\n\nWhat is not here: a test function with a zero-free transform and the injectivity of\n`μ ↦ mconvL1E μ` that follows (the line's `gaussL1`, `mconvL1_injective`). Paper VII reads them\nwith its own Gaussian density.",
+      "doc": "Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of\n`ScaleSpaceCore.BochnerConvolution`'s character pairing, with no programme vocabulary; ref:\n@larsen1971introduction, p. 2)\n\nQ-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `charCLM`/`charCLM_transL1`/\n`charCLM_mconvL1` of `ScaleSpaceCore.BochnerConvolution`, over a finite-dimensional real inner\nproduct space `E` with an additive Haar measure as its `volume`. The pairing is\n`f̂(ω) = ∫ e^{i⟨x, ω⟩} f(x) dx`, Mathlib's `charFun` convention (`charFun μ ω = ∫ e^{i⟨x, ω⟩} dμ`),\nwhich is how Paper VII's blueprint writes it. `charCLME_mconvL1E` is the identity\n`(μ * f)^(ω) = μ̂(ω) f̂(ω)`; it is proved, as on the line, by pairing the bounded functional\n`charCLME ω` through the Bochner form `μ * f = ∫ T_y f dμ(y)` (`apply_mconvL1E_general`).\n\nWhat is not here: a test function with a zero-free transform and the injectivity of\n`μ ↦ mconvL1E μ` that follows (the line's `gaussL1`, `mconvL1_injective`). Paper VII reads them\nwith its own Gaussian density.\n\n## References\n\n* @larsen1971introduction, p. 2 (F.5, F.6): the Fourier and Fourier–Stieltjes transforms on a\n  locally compact Abelian group are homomorphisms, `(f * g)^ = f̂ ĝ` and `(μ * ν)^ = μ̂ ν̂` — the\n  convolution theorem `charCLME_mconvL1E` restates with `charFun`'s sign and `E` in place of `G`.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: the `d`-dimensional counterpart of `ScaleSpaceCore.BochnerConvolution`'s character pairing, with no programme vocabulary",
-        "reference": null
+        "reference": "@larsen1971introduction, p. 2"
       }
     },
     "GammaMeasure": {
       "title": "The Gamma law's Laplace transform",
-      "doc": "Home: none (standard analysis in Mathlib's types: four facts about `ProbabilityTheory.gammaMeasure`,\nwith no programme vocabulary)\n\nFour facts about Mathlib's `ProbabilityTheory.gammaMeasure`: integration against it is\nintegration against its density on `(0, ∞)` (`lintegral_gammaMeasure`); its Laplace transform\nagainst `u^q e^{-su}` (`lintegral_gammaMeasure_rpow_mul_exp`, the one computation a Gamma-mixture\nargument needs both for the transform and for the moments); and that it lives on the positive\naxis (`gammaMeasure_Iio_zero`, `ae_pos_gammaMeasure`).\n\nMoved from Paper V's cone export (`cone-v0.1`, `f28c066e`, `SpatialLine.MaternMixture`),\nstatements unchanged up to the namespace. Second demand: Paper V's `matern_gamma_mixture` and\nPaper VII's `lintegral_exp_gammaMeasure`/`ae_nonneg_gammaMeasure`\n(`Formalization/AffineHemigroup/MaternOrbit.lean`), the case `q = 0`, `r = 1`, both read\n`lintegral_gammaMeasure_rpow_mul_exp`. Everything here is proved from Mathlib's gamma-measure and\nGaussian-integral lemmas alone.",
+      "doc": "Home: none (standard analysis in Mathlib's types: four facts about `ProbabilityTheory.gammaMeasure`,\nwith no programme vocabulary; ref: @feller2009introduction, Ch. XIII §2, p. 435)\n\nFour facts about Mathlib's `ProbabilityTheory.gammaMeasure`: integration against it is\nintegration against its density on `(0, ∞)` (`lintegral_gammaMeasure`); its Laplace transform\nagainst `u^q e^{-su}` (`lintegral_gammaMeasure_rpow_mul_exp`, the one computation a Gamma-mixture\nargument needs both for the transform and for the moments); and that it lives on the positive\naxis (`gammaMeasure_Iio_zero`, `ae_pos_gammaMeasure`).\n\nMoved from Paper V's cone export (`cone-v0.1`, `f28c066e`, `SpatialLine.MaternMixture`),\nstatements unchanged up to the namespace. Second demand: Paper V's `matern_gamma_mixture` and\nPaper VII's `lintegral_exp_gammaMeasure`/`ae_nonneg_gammaMeasure`\n(`Formalization/AffineHemigroup/MaternOrbit.lean`), the case `q = 0`, `r = 1`, both read\n`lintegral_gammaMeasure_rpow_mul_exp`. Everything here is proved from Mathlib's gamma-measure and\nGaussian-integral lemmas alone.\n\n## References\n\n* @feller2009introduction, Ch. XIII §2, Examples (a)–(b), p. 435: the Laplace transform of the\n  gamma density `f_{1,ν}` is `(1 + λ)^{-ν}` (via the power density `u_α(x) = x^{α-1}/Γ(α)`'s\n  transform `λ^{-α}` and the translation rule) — `lintegral_gammaMeasure_rpow_mul_exp` is this\n  fact at a general rate `r` and with the extra power `u^q`.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: four facts about `ProbabilityTheory.gammaMeasure`, with no programme vocabulary",
-        "reference": null
+        "reference": "@feller2009introduction, Ch. XIII §2, p. 435"
       }
     },
     "Gauge": {
@@ -399,11 +399,11 @@
     },
     "GaussianKernel": {
       "title": "The Gaussian kernel `u ↦ N(0, uI_d)` is measurable",
-      "doc": "Home: none (standard analysis in Mathlib's types, per RELEASES case (a): measurability of the\nmultivariate Gaussian variance kernel, with no programme vocabulary)\n\nPaper VII (`spatial-hemigroup-affine`) mixes multivariate Gaussians over a variance law,\n`ρ.bind (gaussVar d)` with `gaussVar d u = multivariateGaussian 0 (u • 1)`; `Measure.bind` of a\nnon-measurable kernel is `0`, so every such mixture needs `measurable_gaussVar`,\n`Measurable fun u : ℝ => multivariateGaussian (0 : EuclideanSpace ℝ (Fin d)) (u • 1)`. This is\nthat statement, in Mathlib's types (RELEASES case (a)): second demand is Paper VII's use and\n(not filed) the line's Gaussian variance mixtures, of which this is the `ℝ^d` generalization with\nthe line an instance (SSL-9,\n`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md` § 6).\n\nThe proof identifies `CFC.sqrt (u • 1) = Real.sqrt u • 1` for every `u : ℝ`, including `u < 0`:\nMathlib's junk convention for `CFC.sqrt` off the positive-semidefinite cone (`0`) and `Real.sqrt`'s\njunk convention off the nonnegative reals (`0`) agree, so the identity needs no side condition.\nThis turns `multivariateGaussian 0 (u • 1)` into the pushforward of the fixed measure `stdGaussian`\nby the jointly continuous map `(u, x) ↦ Real.sqrt u • x`, and measurability of the kernel follows\nfrom the general fact that pushing a fixed measure forward along a jointly measurable family is\nmeasurable in the parameter (`Measurable.map_prodMk_left` composed with `Measure.measurable_map`).\n\nAt `d = 1`, `EuclideanSpace ℝ (Fin 1) ≃ₗᵢ[ℝ] ℝ` identifies `multivariateGaussian 0 (u • 1)` with\n`ProbabilityTheory.gaussianReal 0 u.toNNReal`, this module's `ScaleSpace.brownianLaw u`\n(`BrownianDensity`); the identification is not formalized here; `measurable_brownianDensity_time`'s\ncousin `Measurable fun u : ℝ => brownianLaw u` is immediate from `measurable_gaussVar` the same way\n(`gaussianReal 0 u.toNNReal` is `gaussianReal`'s own junk convention off `u ≥ 0`, matching\n`brownianLaw`'s doc comment).",
+      "doc": "Home: none (needs no citation: a measurability computation turning on Mathlib's own junk\nconventions for `CFC.sqrt` and `Real.sqrt` agreeing off their domains, not a theorem any text\nstates — standard analysis in Mathlib's types, per RELEASES case (a), with no programme\nvocabulary)\n\nPaper VII (`spatial-hemigroup-affine`) mixes multivariate Gaussians over a variance law,\n`ρ.bind (gaussVar d)` with `gaussVar d u = multivariateGaussian 0 (u • 1)`; `Measure.bind` of a\nnon-measurable kernel is `0`, so every such mixture needs `measurable_gaussVar`,\n`Measurable fun u : ℝ => multivariateGaussian (0 : EuclideanSpace ℝ (Fin d)) (u • 1)`. This is\nthat statement, in Mathlib's types (RELEASES case (a)): second demand is Paper VII's use and\n(not filed) the line's Gaussian variance mixtures, of which this is the `ℝ^d` generalization with\nthe line an instance (SSL-9,\n`spatial-hemigroup-affine/records/formalization/SECOND-DEMAND.md` § 6).\n\nThe proof identifies `CFC.sqrt (u • 1) = Real.sqrt u • 1` for every `u : ℝ`, including `u < 0`:\nMathlib's junk convention for `CFC.sqrt` off the positive-semidefinite cone (`0`) and `Real.sqrt`'s\njunk convention off the nonnegative reals (`0`) agree, so the identity needs no side condition.\nThis turns `multivariateGaussian 0 (u • 1)` into the pushforward of the fixed measure `stdGaussian`\nby the jointly continuous map `(u, x) ↦ Real.sqrt u • x`, and measurability of the kernel follows\nfrom the general fact that pushing a fixed measure forward along a jointly measurable family is\nmeasurable in the parameter (`Measurable.map_prodMk_left` composed with `Measure.measurable_map`).\n\nAt `d = 1`, `EuclideanSpace ℝ (Fin 1) ≃ₗᵢ[ℝ] ℝ` identifies `multivariateGaussian 0 (u • 1)` with\n`ProbabilityTheory.gaussianReal 0 u.toNNReal`, this module's `ScaleSpace.brownianLaw u`\n(`BrownianDensity`); the identification is not formalized here; `measurable_brownianDensity_time`'s\ncousin `Measurable fun u : ℝ => brownianLaw u` is immediate from `measurable_gaussVar` the same way\n(`gaussianReal 0 u.toNNReal` is `gaussianReal`'s own junk convention off `u ≥ 0`, matching\n`brownianLaw`'s doc comment).",
       "labels": [],
       "home": {
         "kind": "none",
-        "reason": "standard analysis in Mathlib's types, per RELEASES case (a): measurability of the multivariate Gaussian variance kernel, with no programme vocabulary",
+        "reason": "needs no citation: a measurability computation turning on Mathlib's own junk conventions for `CFC.sqrt` and `Real.sqrt` agreeing off their domains, not a theorem any text states — standard analysis in Mathlib's types, per RELEASES case (a), with no programme vocabulary",
         "reference": null
       }
     },
@@ -424,12 +424,12 @@
     },
     "InverseGamma": {
       "title": "The inverse-gamma integral and the inverse-gamma law",
-      "doc": "Home: none (standard analysis in Mathlib's types: an elementary integral identity and the\ninverse-gamma law it defines, with no programme vocabulary)\n\nThe general identity `∫₀^∞ t^{-1-b} e^{-c/t} dt = c^{-b} Γ(b)` for `b, c > 0`, with integrability\n(`inverse_gamma_integral`); the exponential change of variables `u = c e^v` in `ℝ≥0∞` form\n(`lintegral_Ioi_comp_exp`) and the case `c = 1/2` of the identity computed through it\n(`lintegral_Ioi_inverseGammaKernel`); and the scaled inverse-gamma law of shape `a`,\n`p(u) = u^{-a-1}e^{-1/(2u)}/(2^aΓ(a))` on `(0,∞)` (`inverseGammaDensity`, `inverseGammaLaw`), a\nprobability law carried by the half-line (`isProbabilityMeasure_inverseGammaLaw`,\n`inverseGammaLaw_Iio_zero`). It is the delay law of the causal Bessel family, whose Brownian\nmixture is the Student-t law (`ScaleSpaceCore.StudentTransform`).\n\nMoved (Q-0363, SSL-8), statements unchanged up to the namespace:\n* `inverse_gamma_integral` from Paper VII (`Formalization/AffineHemigroup/Subordination.lean`);\n* `inverseGammaDensity` and `inverseGammaLaw` from Paper V's cone export (`cone-v0.1`,\n  `f28c066e`, `SpatialLine.Corners`); the exponential substitution (`expMap_image`,\n  `expMap_monotone`, `expMap_hasDeriv`, `lintegral_Ioi_comp_exp`, `exp_rpow`) from\n  `SpatialLine.FirstPassage`; `lintegral_Ioi_inverseGammaKernel`,\n  `inverseGammaDensity_eq_indicator`, `inverseGammaLaw_Iio_zero` and\n  `isProbabilityMeasure_inverseGammaLaw` from `SpatialLine.StudentTransform`;\n  `measurable_inverseGammaDensity` and `inverseGammaDensity_nonneg` from `SpatialLine.BridgeBessel`.\n\nPaper V's `lintegral_Ioi_inverseGammaKernel` and Paper VII's `integral_rpow_exp_inv`\n(`MaternKernel`) are cases of `inverse_gamma_integral`, at `c = 1/2` and `c = 1/4`; each keeps the\nproof it was written with. Everything here is proved from Mathlib alone.",
+      "doc": "Home: none (standard analysis in Mathlib's types: an elementary integral identity and the\ninverse-gamma law it defines, with no programme vocabulary; ref: @feller2009introduction, Ch. II\n§2 (2.1), p. 47)\n\nThe general identity `∫₀^∞ t^{-1-b} e^{-c/t} dt = c^{-b} Γ(b)` for `b, c > 0`, with integrability\n(`inverse_gamma_integral`); the exponential change of variables `u = c e^v` in `ℝ≥0∞` form\n(`lintegral_Ioi_comp_exp`) and the case `c = 1/2` of the identity computed through it\n(`lintegral_Ioi_inverseGammaKernel`); and the scaled inverse-gamma law of shape `a`,\n`p(u) = u^{-a-1}e^{-1/(2u)}/(2^aΓ(a))` on `(0,∞)` (`inverseGammaDensity`, `inverseGammaLaw`), a\nprobability law carried by the half-line (`isProbabilityMeasure_inverseGammaLaw`,\n`inverseGammaLaw_Iio_zero`). It is the delay law of the causal Bessel family, whose Brownian\nmixture is the Student-t law (`ScaleSpaceCore.StudentTransform`).\n\nMoved (Q-0363, SSL-8), statements unchanged up to the namespace:\n* `inverse_gamma_integral` from Paper VII (`Formalization/AffineHemigroup/Subordination.lean`);\n* `inverseGammaDensity` and `inverseGammaLaw` from Paper V's cone export (`cone-v0.1`,\n  `f28c066e`, `SpatialLine.Corners`); the exponential substitution (`expMap_image`,\n  `expMap_monotone`, `expMap_hasDeriv`, `lintegral_Ioi_comp_exp`, `exp_rpow`) from\n  `SpatialLine.FirstPassage`; `lintegral_Ioi_inverseGammaKernel`,\n  `inverseGammaDensity_eq_indicator`, `inverseGammaLaw_Iio_zero` and\n  `isProbabilityMeasure_inverseGammaLaw` from `SpatialLine.StudentTransform`;\n  `measurable_inverseGammaDensity` and `inverseGammaDensity_nonneg` from `SpatialLine.BridgeBessel`.\n\nPaper V's `lintegral_Ioi_inverseGammaKernel` and Paper VII's `integral_rpow_exp_inv`\n(`MaternKernel`) are cases of `inverse_gamma_integral`, at `c = 1/2` and `c = 1/4`; each keeps the\nproof it was written with. Everything here is proved from Mathlib alone.\n\n## References\n\n* @feller2009introduction, Ch. II §2 (2.1), p. 47: Euler's integral `Γ(t) = ∫₀^∞ x^{t-1} e^{-x} dx`\n  — `inverse_gamma_integral` is this identity read through the reciprocal substitution `t = 1/y`.\n  The inverse-gamma density and law built from it (`inverseGammaDensity`, `inverseGammaLaw`) are\n  this module's own normalisation, not separately cited.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: an elementary integral identity and the inverse-gamma law it defines, with no programme vocabulary",
-        "reference": null
+        "reference": "@feller2009introduction, Ch. II §2 (2.1), p. 47"
       }
     },
     "L1Continuity": {
@@ -448,42 +448,42 @@
     },
     "L1ContinuitySpace": {
       "title": "The modulus of continuity of translation on `L¹(E)`, and the estimate (★)",
-      "doc": "Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of\n`ScaleSpaceCore.L1Continuity`'s estimate, with no programme vocabulary)\n\nQ-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `ScaleSpaceCore.L1Continuity`:\n`Θ_f(y) = ‖T_y f - f‖₁` is bounded, continuous and vanishes at `0` (`transDiffE`, packaged as\n`transDiffBCFE`), and for a probability measure\n\n  `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ μ(dy)`.                                            (★)\n\nOn the line (★) is proved by Tonelli; here it is one line from the Bochner form\n`μ * f = ∫ T_y f dμ(y)` (`bconvME_eq_mconvL1E`): `μ * f - f = ∫ (T_y f - f) dμ(y)`, and the norm\nof an integral is at most the integral of the norm.\n\nOver an inner product space the Lévy clause follows as on the line: kernels whose\ncharacteristic functions tend to `1` give operators tending strongly to the identity\n(`tendsto_norm_mconvL1E_sub_of_tendsto_charFun`), through Mathlib's Lévy continuity theorem on a\nfinite-dimensional inner product space.",
+      "doc": "Home: none (standard analysis in Mathlib's types: the `d`-dimensional counterpart of\n`ScaleSpaceCore.L1Continuity`'s estimate, with no programme vocabulary; ref: @engel2000one,\nExample 5.4, p. 39)\n\nQ-0332 (SSL-5, stretch), the `d`-dimensional counterpart of `ScaleSpaceCore.L1Continuity`:\n`Θ_f(y) = ‖T_y f - f‖₁` is bounded, continuous and vanishes at `0` (`transDiffE`, packaged as\n`transDiffBCFE`), and for a probability measure\n\n  `‖μ * f - f‖₁ ≤ ∫ ‖T_y f - f‖₁ μ(dy)`.                                            (★)\n\nOn the line (★) is proved by Tonelli; here it is one line from the Bochner form\n`μ * f = ∫ T_y f dμ(y)` (`bconvME_eq_mconvL1E`): `μ * f - f = ∫ (T_y f - f) dμ(y)`, and the norm\nof an integral is at most the integral of the norm.\n\nOver an inner product space the Lévy clause follows as on the line: kernels whose\ncharacteristic functions tend to `1` give operators tending strongly to the identity\n(`tendsto_norm_mconvL1E_sub_of_tendsto_charFun`), through Mathlib's Lévy continuity theorem on a\nfinite-dimensional inner product space.\n\n## References\n\n* @engel2000one, Example 5.4, p. 39: the translation group's strong continuity on `Lᵖ(ℝ)` — the\n  density-of-compactly-supported-functions argument that `transDiffE`'s vanishing at `0` is the\n  Haar-measure generalisation of, at `p = 1`. (★) and the Lévy clause are elementary consequences\n  once that continuity, and Mathlib's own Lévy continuity theorem, are in hand.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: the `d`-dimensional counterpart of `ScaleSpaceCore.L1Continuity`'s estimate, with no programme vocabulary",
-        "reference": null
+        "reference": "@engel2000one, Example 5.4, p. 39"
       }
     },
     "L1Operators": {
       "title": "`L¹(ℝ)`, translation, reflection, dilation, and convolution by a measure",
-      "doc": "Home: none (standard analysis in Mathlib's types: the translation, reflection, dilation and\nmeasure-convolution operators on `L¹(ℝ)`, with no programme vocabulary in any statement)\n\nSlice 1 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Operator.lean` /\n`OperatorL1.lean` / `Family.lean` and Paper V's `SpatialLine/Basic.lean` /\n`ConvolutionOperator.lean` / `Pairing.lean`, where the two developments carried this analysis as\nbyte-identical copies (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6).\nNeither article is `require`d here; the two copies are collapsed into one, under `ScaleSpace`.\n\n## Reflection and dilation (Q-0301)\n\nQ-0187 left Paper V's reflection `reflL1`/`reflₗ` and dilation `dilate`/`dilₗ`/`dilL1` behind as\nspatial-specific. Q-0301 moved them in from `SpatialLine/Basic.lean` at Paper V's `v0.1`: a second\nspatial module (Paper VII) needs them, with the cascade-family vocabulary stated over them\n(`ScaleSpaceCore.Family`), which is case (c) of the second-demand test (hub `RELEASES.md`\n§ \"Dependencies between modules\"). What the convolution operator does against them\n(`mconvL1_reflL1`, `dilL1_comp_mconvL1`) is in `ScaleSpaceCore.Transport`, because the reflection\nclause is stated with `IsSymmetric` (`ScaleSpaceCore.Transform`).\n\n## Design\n\n* `X = ℝ →₁[volume] ℝ`, real, and the operators are `X →L[ℝ] X`.\n* `dilate lam f = lam⁻¹ f (lam⁻¹ ·)` — the mass-preserving normalisation, which is what makes\n  `dilL1` an isometry of `L¹` and matches the measure-side dilation, pushforward along\n  `x ↦ lam * x`.\n* `mconv μ f x = ∫ y, f (x - y) ∂μ`, packaged as the bounded operator `mconvL1`; the six\n  properties below are what a translation- and reflection-covariant, positivity- and\n  mass-preserving convolution family needs of it, short of the reflection clause.",
+      "doc": "Home: none (standard analysis in Mathlib's types: the translation, reflection, dilation and\nmeasure-convolution operators on `L¹(ℝ)`, with no programme vocabulary in any statement; ref:\n@larsen1971introduction, Thm. 0.1.1, p. 2)\n\nSlice 1 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Operator.lean` /\n`OperatorL1.lean` / `Family.lean` and Paper V's `SpatialLine/Basic.lean` /\n`ConvolutionOperator.lean` / `Pairing.lean`, where the two developments carried this analysis as\nbyte-identical copies (`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6).\nNeither article is `require`d here; the two copies are collapsed into one, under `ScaleSpace`.\n\n## Reflection and dilation (Q-0301)\n\nQ-0187 left Paper V's reflection `reflL1`/`reflₗ` and dilation `dilate`/`dilₗ`/`dilL1` behind as\nspatial-specific. Q-0301 moved them in from `SpatialLine/Basic.lean` at Paper V's `v0.1`: a second\nspatial module (Paper VII) needs them, with the cascade-family vocabulary stated over them\n(`ScaleSpaceCore.Family`), which is case (c) of the second-demand test (hub `RELEASES.md`\n§ \"Dependencies between modules\"). What the convolution operator does against them\n(`mconvL1_reflL1`, `dilL1_comp_mconvL1`) is in `ScaleSpaceCore.Transport`, because the reflection\nclause is stated with `IsSymmetric` (`ScaleSpaceCore.Transform`).\n\n## Design\n\n* `X = ℝ →₁[volume] ℝ`, real, and the operators are `X →L[ℝ] X`.\n* `dilate lam f = lam⁻¹ f (lam⁻¹ ·)` — the mass-preserving normalisation, which is what makes\n  `dilL1` an isometry of `L¹` and matches the measure-side dilation, pushforward along\n  `x ↦ lam * x`.\n* `mconv μ f x = ∫ y, f (x - y) ∂μ`, packaged as the bounded operator `mconvL1`; the six\n  properties below are what a translation- and reflection-covariant, positivity- and\n  mass-preserving convolution family needs of it, short of the reflection clause.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure\n  `μ ∈ M(G)`, with operator norm `‖μ‖` — the standard fact `mconvL1` realises and `norm_mconvL1_le`\n  states the inequality half of, for `G = ℝ`. Translation (`transL1`), reflection (`reflL1`) and\n  the mass-preserving dilation (`dilL1`) are elementary measure-preserving substitutions, not\n  separately cited.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: the translation, reflection, dilation and measure-convolution operators on `L¹(ℝ)`, with no programme vocabulary in any statement",
-        "reference": null
+        "reference": "@larsen1971introduction, Thm. 0.1.1, p. 2"
       }
     },
     "L1OperatorsEuclidean": {
       "title": "The matrix dilation on `L¹(ℝ^d)`",
-      "doc": "Home: none (standard analysis in Mathlib's types: a matrix reading of `L1OperatorsSpace`'s linear\ndilation, with no programme vocabulary)\n\nQ-0332 (SSL-5). `ScaleSpaceCore.L1OperatorsSpace` indexes the dilation by `A : E ≃L[ℝ] E`; Paper VII\nwrites its operators with matrices, `A : Matrix (Fin d) (Fin d) ℝ` acting on\n`EuclideanSpace ℝ (Fin d)` through `Matrix.toEuclideanCLM`, with the representative\n`|det A|⁻¹ f(A⁻¹ x)` read with the matrix inverse and the matrix determinant. This file is that\nreading: `matEquiv A` is the equivalence of an invertible matrix, its inverse is\n`toEuclideanCLM A⁻¹` and its determinant is `A.det`, so `D_A`'s representative and the relational\nintertwining of `intertwines_iff_dilL1E` are stated on the nose in Paper VII's terms.",
+      "doc": "Home: none (needs no citation: a bridging reformulation of `L1OperatorsSpace`'s linear dilation\nin matrix terms — `matEquiv`'s inverse and determinant read off `Matrix.toEuclideanCLM`'s own\nring-hom and `LinearMap.det` lemmas, not a theorem of its own)\n\nQ-0332 (SSL-5). `ScaleSpaceCore.L1OperatorsSpace` indexes the dilation by `A : E ≃L[ℝ] E`; Paper VII\nwrites its operators with matrices, `A : Matrix (Fin d) (Fin d) ℝ` acting on\n`EuclideanSpace ℝ (Fin d)` through `Matrix.toEuclideanCLM`, with the representative\n`|det A|⁻¹ f(A⁻¹ x)` read with the matrix inverse and the matrix determinant. This file is that\nreading: `matEquiv A` is the equivalence of an invertible matrix, its inverse is\n`toEuclideanCLM A⁻¹` and its determinant is `A.det`, so `D_A`'s representative and the relational\nintertwining of `intertwines_iff_dilL1E` are stated on the nose in Paper VII's terms.",
       "labels": [],
       "home": {
         "kind": "none",
-        "reason": "standard analysis in Mathlib's types: a matrix reading of `L1OperatorsSpace`'s linear dilation, with no programme vocabulary",
+        "reason": "needs no citation: a bridging reformulation of `L1OperatorsSpace`'s linear dilation in matrix terms — `matEquiv`'s inverse and determinant read off `Matrix.toEuclideanCLM`'s own ring-hom and `LinearMap.det` lemmas, not a theorem of its own",
         "reference": null
       }
     },
     "L1OperatorsSpace": {
       "title": "`L¹(E)` over a finite-dimensional space: translation, reflection, linear dilation, and",
-      "doc": "convolution by a measure\n\nHome: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a\nfinite-dimensional space with an additive Haar measure)\n\nQ-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of\n`ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an\nadditive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both\ninstances. This is a generalization written in the trunk, not an extraction: the author decided on\n2026-10-05 (Q-0281) that the trunk writes the `d`-dimensional form first and Paper VII proves its\noperator nodes against it.\n\n## Design\n\n* The setting is `[MeasureSpace E] [IsAddHaarMeasure (volume : Measure E)]`: translation\n  invariance is what the translation and convolution operators use, and the `|det|` change of\n  variables (`addHaar_preimage_continuousLinearEquiv`) is what the dilation uses.\n* The general declarations carry the ℝ names with an `E` suffix (`transL1E`, `dilL1E`,\n  `mconvL1E`, ...), so that a consumer opening `ScaleSpace` sees no overloaded name. The ℝ\n  declarations of `L1Operators` stay as they are; `transL1E_real`, `reflL1E_real`,\n  `dilL1E_homothety_real` and `mconvL1E_real` identify the general operator at `E = ℝ` with them.\n* The dilation is indexed by `A : E ≃L[ℝ] E`:\n  `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation, an isometry of `L¹(E)`. The\n  isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation\n  `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).\n* `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.",
+      "doc": "convolution by a measure\n\nHome: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a\nfinite-dimensional space with an additive Haar measure; ref: @larsen1971introduction, Thm. 0.1.1,\np. 2)\n\nQ-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of\n`ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an\nadditive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both\ninstances. This is a generalization written in the trunk, not an extraction: the author decided on\n2026-10-05 (Q-0281) that the trunk writes the `d`-dimensional form first and Paper VII proves its\noperator nodes against it.\n\n## Design\n\n* The setting is `[MeasureSpace E] [IsAddHaarMeasure (volume : Measure E)]`: translation\n  invariance is what the translation and convolution operators use, and the `|det|` change of\n  variables (`addHaar_preimage_continuousLinearEquiv`) is what the dilation uses.\n* The general declarations carry the ℝ names with an `E` suffix (`transL1E`, `dilL1E`,\n  `mconvL1E`, ...), so that a consumer opening `ScaleSpace` sees no overloaded name. The ℝ\n  declarations of `L1Operators` stay as they are; `transL1E_real`, `reflL1E_real`,\n  `dilL1E_homothety_real` and `mconvL1E_real` identify the general operator at `E = ℝ` with them.\n* The dilation is indexed by `A : E ≃L[ℝ] E`:\n  `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation, an isometry of `L¹(E)`. The\n  isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation\n  `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).\n* `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,\n  stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at\n  `G = E` directly, with no generalisation needed.\n* @folland1999real, §2.6, Theorem 2.44, p. 73: for `T ∈ GL(n, ℝ)`,\n  `∫ f(x) dx = |det T| ∫ f ∘ T (x) dx` for `f ≥ 0` or `f ∈ L¹` (2.45), and\n  `m(T(E)) = |det T| m(E)` for a Lebesgue measurable `E` — the linear change of variables the\n  dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry rest on, through Mathlib's\n  `addHaar_preimage_continuousLinearEquiv`, which states it for an additive Haar measure on a\n  finite-dimensional space.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a finite-dimensional space with an additive Haar measure",
-        "reference": null
+        "reference": "@larsen1971introduction, Thm. 0.1.1, p. 2"
       }
     },
     "LaplaceLaw": {
@@ -636,12 +636,12 @@
     },
     "PosSemidefSum": {
       "title": "A real positive semidefinite matrix as a double sum, and as a positive definite kernel",
-      "doc": "Home: none (standard analysis in Mathlib's types: four facts about real matrices, stated in\nMathlib's types only)\n\nFour facts about real matrices over `Fin n`, all stated in Mathlib's types only.\n\n* `star_dotProduct_mulVec_eq_sum`: the quadratic form `x ↦ x⋆ A x` of a real matrix, written out\n  as a double sum.\n* `posSemidef_iff_sum`: a real matrix is positive semidefinite exactly when it is symmetric and\n  its quadratic form, written as a double sum, is nonnegative.\n* `sum_sum_mul`: a double sum of products is a product of sums.\n* `sum_mul_conj_nonneg_of_posSemidef`: **a real symmetric positive semidefinite matrix is a\n  positive definite kernel**: the complex double sum `∑_{j,k} c_j conj(c_k) A_{jk}` is a\n  nonnegative real.\n\nMoved by Q-0364 from Paper V's development repository, `Formalization/SpatialLine/\nPositiveDefinite.lean` (`spatial-hemigroup-scale-space`, main at `387424ad8f9476af282b1fe9618aab2e9334bbd7`;\nthe file is on development main only, not at a release tag), statements and proofs verbatim up to\nthe namespace. Second demand: Paper V's `sum_mul_conj_exp_neg_nonneg` (Schoenberg's easy half),\nand Paper VII's `complex_kernel_nonneg` (`Formalization/AffineHemigroup/LevyKhintchineNegDef.lean`),\nwhich is the composite of the first two statements (`spatial-hemigroup-affine`,\n`records/formalization/SECOND-DEMAND-candidates.md` § A6). The rest of the file (conditionally\nnegative definite functions and the Schoenberg route) has no second demand and stays in Paper V.",
+      "doc": "Home: none (standard linear algebra in Mathlib's types: four facts about real matrices, stated in\nMathlib's types only; ref: @bhatia2007positive, §1.1, pp. 1–2)\n\nFour facts about real matrices over `Fin n`, all stated in Mathlib's types only.\n\n* `star_dotProduct_mulVec_eq_sum`: the quadratic form `x ↦ x⋆ A x` of a real matrix, written out\n  as a double sum.\n* `posSemidef_iff_sum`: a real matrix is positive semidefinite exactly when it is symmetric and\n  its quadratic form, written as a double sum, is nonnegative.\n* `sum_sum_mul`: a double sum of products is a product of sums.\n* `sum_mul_conj_nonneg_of_posSemidef`: **a real symmetric positive semidefinite matrix is a\n  positive definite kernel**: the complex double sum `∑_{j,k} c_j conj(c_k) A_{jk}` is a\n  nonnegative real.\n\nMoved by Q-0364 from Paper V's development repository, `Formalization/SpatialLine/\nPositiveDefinite.lean` (`spatial-hemigroup-scale-space`, main at `387424ad8f9476af282b1fe9618aab2e9334bbd7`;\nthe file is on development main only, not at a release tag), statements and proofs verbatim up to\nthe namespace. Second demand: Paper V's `sum_mul_conj_exp_neg_nonneg` (Schoenberg's easy half),\nand Paper VII's `complex_kernel_nonneg` (`Formalization/AffineHemigroup/LevyKhintchineNegDef.lean`),\nwhich is the composite of the first two statements (`spatial-hemigroup-affine`,\n`records/formalization/SECOND-DEMAND-candidates.md` § A6). The rest of the file (conditionally\nnegative definite functions and the Schoenberg route) has no second demand and stays in Paper V.\n\n## References\n\n* @bhatia2007positive, §1.1, pp. 1–2: a matrix `A` on a complex Hilbert space `H` is positive\n  semidefinite iff `⟨x, Ax⟩ ≥ 0` for every `x ∈ H`, (1.1) — the quadratic-form characterisation\n  `posSemidef_iff_sum` restates in coordinates for a real symmetric `A`, and whose extension to\n  complex `x` (taking `A` real symmetric, hence Hermitian, as a special case of (1.1) stated over\n  `H`) is what `sum_mul_conj_nonneg_of_posSemidef` reads as \"a positive definite kernel\".",
       "labels": [],
       "home": {
         "kind": "none",
-        "reason": "standard analysis in Mathlib's types: four facts about real matrices, stated in Mathlib's types only",
-        "reference": null
+        "reason": "standard linear algebra in Mathlib's types: four facts about real matrices, stated in Mathlib's types only",
+        "reference": "@bhatia2007positive, §1.1, pp. 1–2"
       }
     },
     "PowerSumSymmetry": {
@@ -720,7 +720,7 @@
     },
     "SDProfile": {
       "title": "The admissible cone on the line: `SDProfile`",
-      "doc": "Home: line:lem:profile-integrability\n\nThe data of a symmetric self-decomposable law on the line, in the form the spatial articles\nquantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on\n`(0,∞)`, with exponent\n\n`F(ω) = aω² + ∫₀^∞ (1 - cos ωx)\\,k(x)\\,dx/x`.\n\nThis is the line's analogue of `CausalAdmissible` (`CausalCone`), and the field layout is parallel\nto it: `b₀ ↦ a`, then `k`, its sign, monotonicity and normalisation, and the two integrability\nwindows. `bridge_exponents` (`BridgeExponents`) is the map from the causal cone into this one.\n\nMoved from the spatial article's export (`SpatialLine.Exponent`, `Growth`, `ProfileIntegrability`,\nand `SDProfile.exponent_zero` from `SelfDecomposable`, at `cone-v0.1`) together with what it\nneeds: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` with its quadratic\ngrowth bound, and the half of `lem:profile-integrability` that rests on Lean core\n(`profile_integrability_pair`). The half that spends the article's ledger\n(`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the\npositive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the\nsource article's blueprint labels.\n\n## Two `ℝ≥0∞`-first definitions\n\n`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no\nintegrability side condition and the elementary facts about them are unconditional; the\nreal-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it\nis `lem:quadratic-growth`.",
+      "doc": "Home: line:lem:profile-integrability, lem:quadratic-growth\n\nThe data of a symmetric self-decomposable law on the line, in the form the spatial articles\nquantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on\n`(0,∞)`, with exponent\n\n`F(ω) = aω² + ∫₀^∞ (1 - cos ωx)\\,k(x)\\,dx/x`.\n\nThis is the line's analogue of `CausalAdmissible` (`CausalCone`), and the field layout is parallel\nto it: `b₀ ↦ a`, then `k`, its sign, monotonicity and normalisation, and the two integrability\nwindows. `bridge_exponents` (`BridgeExponents`) is the map from the causal cone into this one.\n\nMoved from the spatial article's export (`SpatialLine.Exponent`, `Growth`, `ProfileIntegrability`,\nand `SDProfile.exponent_zero` from `SelfDecomposable`, at `cone-v0.1`) together with what it\nneeds: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` with its quadratic\ngrowth bound, and the half of `lem:profile-integrability` that rests on Lean core\n(`profile_integrability_pair`). The half that spends the article's ledger\n(`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the\npositive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the\nsource article's blueprint labels.\n\n## Two `ℝ≥0∞`-first definitions\n\n`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no\nintegrability side condition and the elementary facts about them are unconditional; the\nreal-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it\nis `lem:quadratic-growth`.",
       "labels": [
         "lem:profile-integrability",
         "lem:quadratic-growth"
@@ -729,7 +729,8 @@
         "kind": "home",
         "article": "line",
         "labels": [
-          "lem:profile-integrability"
+          "lem:profile-integrability",
+          "lem:quadratic-growth"
         ]
       }
     },
@@ -766,24 +767,24 @@
     },
     "StudentTransform": {
       "title": "The Student-t law as a Gaussian variance mixture, and its transform",
-      "doc": "Home: none (the classical normal variance-mixture representation of the Student-t law; second-\ndemand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge`\n`prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\\lean`;\nref: DLMF 10.32.9 for `besselK`'s integral representation)\n\nThe Brownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law with `2a`\ndegrees of freedom at scale `1` (`bridge_families_bessel`), and its cosine transform is\n`2^{1-a}Γ(a)^{-1}|ω|^a K_a(|ω|)` for `ω ≠ 0` (`student_transform`), with `K_ν` the modified\nBessel function of the second kind (`besselK`).\n\nMoved (Q-0363, SSL-8) from Paper V's cone export (`cone-v0.1`, `f28c066e`), statements unchanged\nup to the namespace: `besselK` from `SpatialLine.CornerDefs`; `studentDensity` and `studentLaw`\nfrom `SpatialLine.Corners`; `lintegral_exp_mul_of_even` from `SpatialLine.FirstPassage`;\n`inverseGamma_brownian_integrand`, `integral_inverseGamma_brownian`, `studentDensity_pos`,\n`lintegral_inverseGamma_brownian` and `bridge_families_bessel` from `SpatialLine.BridgeBessel`;\n`lintegral_Ioi_rpow_exp_besselKernel`, `lintegral_cosh_exp_eq_besselK`, `besselK_neg`,\n`lintegral_exp_neg_inverseGammaLaw`, `besselK_nonneg` and `student_transform` from\n`SpatialLine.StudentTransform`. Second demand: Paper V's corner and Student modules, and Paper\nVII's `IsotropicBridge` (`prop:isotropic-bridge-student`).\n\nThis module imports neither `ScaleSpaceCore.BridgeExponents` nor anything stated in\n`CausalAdmissible`: Paper V's package at `cone-v0.1` declares names in\n`ScaleSpace.CausalAdmissible` that `ScaleSpaceCore.BridgeExponents` also declares, so a consumer\nthat imports Paper V's bridge modules can import this one beside them.\n\n## The special function Mathlib does not have\n\nMathlib (v4.31.0) has no modified Bessel function, so `besselK` is defined by the integral\nrepresentation `K_ν(z) = ∫₀^∞ e^{-z\\cosh u}\\cosh(νu)\\,du` (DLMF 10.32.9), valid for `z > 0`. For\n`z ≤ 0` the integral diverges and the Bochner integral is junk. Only the two properties the\ntransform reads are proved here: `besselK_neg` (even in the order) and `besselK_nonneg`.\n\n## The route\n\nThe mixture is computed at the densities: the substitution `w = 1/u` (`integral_comp_rpow_Ioi`\nat `p = -1`) turns the mixture integral into a Gamma integral, and the computed value being\nstrictly positive (`studentDensity_pos`) forces the `ℝ≥0∞` integral to be finite without an\nintegrability proof. The transform conditions on the delay (`fourierCos_bind_brownianLaw`) and\nevaluates the Laplace transform of the inverse-gamma law by the substitution `u = c e^v`, which\nlands on the defining integral of `K_a` itself, so no Bessel asymptotic is used.",
+      "doc": "Home: none (the classical normal variance-mixture representation of the Student-t law; second-\ndemand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge`\n`prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\\lean`;\nref: @steutel2004infinite, Ch. IV, Example 11.6, p. 226)\n\nThe Brownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law with `2a`\ndegrees of freedom at scale `1` (`bridge_families_bessel`), and its cosine transform is\n`2^{1-a}Γ(a)^{-1}|ω|^a K_a(|ω|)` for `ω ≠ 0` (`student_transform`), with `K_ν` the modified\nBessel function of the second kind (`besselK`).\n\nMoved (Q-0363, SSL-8) from Paper V's cone export (`cone-v0.1`, `f28c066e`), statements unchanged\nup to the namespace: `besselK` from `SpatialLine.CornerDefs`; `studentDensity` and `studentLaw`\nfrom `SpatialLine.Corners`; `lintegral_exp_mul_of_even` from `SpatialLine.FirstPassage`;\n`inverseGamma_brownian_integrand`, `integral_inverseGamma_brownian`, `studentDensity_pos`,\n`lintegral_inverseGamma_brownian` and `bridge_families_bessel` from `SpatialLine.BridgeBessel`;\n`lintegral_Ioi_rpow_exp_besselKernel`, `lintegral_cosh_exp_eq_besselK`, `besselK_neg`,\n`lintegral_exp_neg_inverseGammaLaw`, `besselK_nonneg` and `student_transform` from\n`SpatialLine.StudentTransform`. Second demand: Paper V's corner and Student modules, and Paper\nVII's `IsotropicBridge` (`prop:isotropic-bridge-student`).\n\nThis module imports neither `ScaleSpaceCore.BridgeExponents` nor anything stated in\n`CausalAdmissible`: Paper V's package at `cone-v0.1` declares names in\n`ScaleSpace.CausalAdmissible` that `ScaleSpaceCore.BridgeExponents` also declares, so a consumer\nthat imports Paper V's bridge modules can import this one beside them.\n\n## References\n\n* @steutel2004infinite, Ch. IV, Example 11.6, p. 226: a variance mixture of centred normal laws\n  has density `f(x) = π^{-1/2} ∫ e^{-x²/t} t^{-1/2} dG(t)`, and with `V = 1/T` standard gamma(`r`)\n  distributed this is the Student(`r`) density `B(r, ½)^{-1} (1 + x²)^{-(r+½)}` — the classical\n  fact `bridge_families_bessel` states, in the book's scaling (its normal component has variance\n  `t/2`, and `r` is half the degrees of freedom). The proof here is direct, from Mathlib's\n  Gaussian and gamma integrals, not read off the book.\n* @dlmf2026, §10.32.9: the integral representation `K_ν(z) = ∫₀^∞ e^{-z cosh u} cosh(νu) du`\n  defining `besselK` (see \"The special function Mathlib does not have\" below).\n\n## The special function Mathlib does not have\n\nMathlib (v4.31.0) has no modified Bessel function, so `besselK` is defined by the integral\nrepresentation `K_ν(z) = ∫₀^∞ e^{-z\\cosh u}\\cosh(νu)\\,du` (DLMF 10.32.9), valid for `z > 0`. For\n`z ≤ 0` the integral diverges and the Bochner integral is junk. Only the two properties the\ntransform reads are proved here: `besselK_neg` (even in the order) and `besselK_nonneg`.\n\n## The route\n\nThe mixture is computed at the densities: the substitution `w = 1/u` (`integral_comp_rpow_Ioi`\nat `p = -1`) turns the mixture integral into a Gamma integral, and the computed value being\nstrictly positive (`studentDensity_pos`) forces the `ℝ≥0∞` integral to be finite without an\nintegrability proof. The transform conditions on the delay (`fourierCos_bind_brownianLaw`) and\nevaluates the Laplace transform of the inverse-gamma law by the substitution `u = c e^v`, which\nlands on the defining integral of `K_a` itself, so no Bessel asymptotic is used.",
       "labels": [
         "prop:isotropic-bridge-student"
       ],
       "home": {
         "kind": "none",
         "reason": "the classical normal variance-mixture representation of the Student-t law; second- demand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge` `prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\\lean`",
-        "reference": "DLMF 10.32.9 for `besselK`'s integral representation"
+        "reference": "@steutel2004infinite, Ch. IV, Example 11.6, p. 226"
       }
     },
     "TailInverse": {
       "title": "The generalised inverse of a nonincreasing tail function",
-      "doc": "Home: none (standard analysis in Mathlib's types: pure order theory and real analysis, not\narticle-specific in any sense, per the module's own prose)\n\nSlice 4 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Subordinator.lean` and\nPaper V's `SpatialLine/CinRays.lean`, where it was proved identically in both articles\n(`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6). Pure order theory and\nreal analysis, no measure theory: a generalised inverse of an antitone function on a half-line is\nnot article-specific in any sense, and both articles use it to build a Choquet measure whose\ntails realise a given nonincreasing profile.",
+      "doc": "Home: none (standard analysis in Mathlib's types: pure order theory and real analysis, not\narticle-specific in any sense, per the module's own prose; ref: @resnick1987extreme, §0.2, p. 3)\n\nSlice 4 of E-0009 (hub `proposals/E-0009.md`), moved from Paper I's `Subordinator.lean` and\nPaper V's `SpatialLine/CinRays.lean`, where it was proved identically in both articles\n(`offices/engineer/notes/2026-09-19-lean-duplication-survey.md` §§ 3, 6). Pure order theory and\nreal analysis, no measure theory: a generalised inverse of an antitone function on a half-line is\nnot article-specific in any sense, and both articles use it to build a Choquet measure whose\ntails realise a given nonincreasing profile.\n\n## References\n\n* @resnick1987extreme, §0.2, p. 3: the (left-continuous) generalised inverse of a monotone\n  function, `H^←(y) = inf{s : H(s) ≥ y}` with `inf ∅ = +∞` — `tailInv h y = sup{u > 0 : y < h u}`\n  is the same construction for an antitone `h`, with the sign and the half-line domain flipped.",
       "labels": [],
       "home": {
         "kind": "none",
         "reason": "standard analysis in Mathlib's types: pure order theory and real analysis, not article-specific in any sense, per the module's own prose",
-        "reference": null
+        "reference": "@resnick1987extreme, §0.2, p. 3"
       }
     },
     "Tightness": {
@@ -1864,7 +1865,7 @@
       "kind": "abbrev",
       "signature": "noncomputable abbrev X",
       "doc": "`X = L¹(ℝ)`.",
-      "line": 54
+      "line": 64
     },
     {
       "name": "ScaleSpace.IsNonneg",
@@ -1873,7 +1874,7 @@
       "kind": "def",
       "signature": "def IsNonneg (f : X) : Prop",
       "doc": "The positive cone `L¹₊`.",
-      "line": 57
+      "line": 67
     },
     {
       "name": "ScaleSpace.measurePreserving_sub_const",
@@ -1882,7 +1883,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_sub_const (a : ℝ) :\n    MeasurePreserving (fun x : ℝ => x - a) volume volume",
       "doc": "`x ↦ x - a` preserves Lebesgue measure.",
-      "line": 62
+      "line": 72
     },
     {
       "name": "ScaleSpace.translate_congr_ae",
@@ -1891,7 +1892,7 @@
       "kind": "theorem",
       "signature": "theorem translate_congr_ae (a : ℝ) {f g : ℝ → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (x - a)) =ᵐ[volume] fun x => g (x - a)",
       "doc": null,
-      "line": 66
+      "line": 76
     },
     {
       "name": "ScaleSpace.integrable_translate",
@@ -1900,7 +1901,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_translate {f : ℝ → ℝ} (hf : Integrable f) (a : ℝ) :\n    Integrable (fun x => f (x - a))",
       "doc": null,
-      "line": 70
+      "line": 80
     },
     {
       "name": "ScaleSpace.transₗ",
@@ -1909,7 +1910,7 @@
       "kind": "def",
       "signature": "noncomputable def transₗ (a : ℝ) : (ℝ →₁[volume] ℝ) →ₗ[ℝ] (ℝ →₁[volume] ℝ) where",
       "doc": "`T_a f = f(· - a)` as a linear map on `L¹`.",
-      "line": 75
+      "line": 85
     },
     {
       "name": "ScaleSpace.transL1",
@@ -1918,7 +1919,7 @@
       "kind": "def",
       "signature": "noncomputable def transL1 (a : ℝ) : (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ →₁[volume] ℝ)",
       "doc": "**Translation is an isometry of `L¹`** — Lebesgue measure is translation invariant.",
-      "line": 86
+      "line": 96
     },
     {
       "name": "ScaleSpace.coeFn_transL1",
@@ -1927,7 +1928,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_transL1 (a : ℝ) (f : ℝ →₁[volume] ℝ) :\n    transL1 a f =ᵐ[volume] fun x => (f : ℝ → ℝ) (x - a)",
       "doc": null,
-      "line": 93
+      "line": 103
     },
     {
       "name": "ScaleSpace.mconv",
@@ -1936,7 +1937,7 @@
       "kind": "def",
       "signature": "noncomputable def mconv (μ : Measure ℝ) (f : ℝ → ℝ) : ℝ → ℝ",
       "doc": "`(μ * f)(x) = ∫ f(x - y) μ(dy)`.",
-      "line": 215
+      "line": 225
     },
     {
       "name": "ScaleSpace.mconv_apply",
@@ -1945,7 +1946,7 @@
       "kind": "lemma",
       "signature": "lemma mconv_apply (μ : Measure ℝ) (f : ℝ → ℝ) (x : ℝ) :\n    mconv μ f x = ∫ y, f (x - y) ∂μ",
       "doc": null,
-      "line": 217
+      "line": 227
     },
     {
       "name": "ScaleSpace.lintegral_lintegral_sub_eq",
@@ -1954,7 +1955,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_lintegral_sub_eq (μ : Measure ℝ) [SFinite μ] {g : ℝ → ℝ≥0∞}\n    (hg : AEMeasurable g) :\n    ∫⁻ x, (∫⁻ y, g (x - y) ∂μ) = μ univ * ∫⁻ x, g x",
       "doc": null,
-      "line": 220
+      "line": 230
     },
     {
       "name": "ScaleSpace.lintegral_enorm_mconv_le",
@@ -1963,7 +1964,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_mconv_le (μ : Measure ℝ) [SFinite μ] {f : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) :\n    ∫⁻ x, ‖mconv μ f x‖ₑ ≤ μ univ * ∫⁻ x, ‖f x‖ₑ",
       "doc": null,
-      "line": 230
+      "line": 240
     },
     {
       "name": "ScaleSpace.integrable_uncurry_sub",
@@ -1972,7 +1973,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_uncurry_sub (μ : Measure ℝ) [IsFiniteMeasure μ] {f : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    Integrable (Function.uncurry fun x y : ℝ => f (x - y)) (volume.prod μ)",
       "doc": null,
-      "line": 237
+      "line": 247
     },
     {
       "name": "ScaleSpace.integrable_mconv",
@@ -1981,7 +1982,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_mconv (μ : Measure ℝ) [IsFiniteMeasure μ] {f : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) : Integrable (mconv μ f)",
       "doc": "`μ * f` is integrable.",
-      "line": 249
+      "line": 259
     },
     {
       "name": "ScaleSpace.ae_ae_sub_of_ae",
@@ -1990,7 +1991,7 @@
       "kind": "theorem",
       "signature": "theorem ae_ae_sub_of_ae (μ : Measure ℝ) [SFinite μ] {p : ℝ → Prop} (h : ∀ᵐ u ∂volume, p u) :\n    ∀ᵐ x ∂volume, ∀ᵐ y ∂μ, p (x - y)",
       "doc": null,
-      "line": 253
+      "line": 263
     },
     {
       "name": "ScaleSpace.mconv_congr_ae",
@@ -1999,7 +2000,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_congr_ae (μ : Measure ℝ) [SFinite μ] {f g : ℝ → ℝ} (h : f =ᵐ[volume] g) :\n    mconv μ f =ᵐ[volume] mconv μ g",
       "doc": null,
-      "line": 257
+      "line": 267
     },
     {
       "name": "ScaleSpace.mconv_add_ae",
@@ -2008,7 +2009,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_add_ae (μ : Measure ℝ) [IsFiniteMeasure μ] {f g : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f)\n    (hg : AEStronglyMeasurable g) (hgi : Integrable g) :\n    mconv μ (f + g) =ᵐ[volume] mconv μ f + mconv μ g",
       "doc": null,
-      "line": 262
+      "line": 272
     },
     {
       "name": "ScaleSpace.mconv_smul",
@@ -2017,7 +2018,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_smul (μ : Measure ℝ) (c : ℝ) (f : ℝ → ℝ) :\n    mconv μ (c • f) = c • mconv μ f",
       "doc": null,
-      "line": 272
+      "line": 282
     },
     {
       "name": "ScaleSpace.mconvₗ",
@@ -2026,7 +2027,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvₗ (μ : Measure ℝ) [IsFiniteMeasure μ] :\n    (ℝ →₁[volume] ℝ) →ₗ[ℝ] (ℝ →₁[volume] ℝ) where",
       "doc": "`Φ f = μ * f` as a linear map on `L¹`.",
-      "line": 278
+      "line": 288
     },
     {
       "name": "ScaleSpace.mconvL1",
@@ -2035,7 +2036,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvL1 (μ : Measure ℝ) [IsFiniteMeasure μ] :\n    (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ →₁[volume] ℝ)",
       "doc": "**`Φ` is a bounded operator on `L¹`.**",
-      "line": 298
+      "line": 308
     },
     {
       "name": "ScaleSpace.coeFn_mconvL1",
@@ -2044,7 +2045,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_mconvL1 (μ : Measure ℝ) [IsFiniteMeasure μ] (f : ℝ →₁[volume] ℝ) :\n    mconvL1 μ f =ᵐ[volume] mconv μ (f : ℝ → ℝ)",
       "doc": null,
-      "line": 306
+      "line": 316
     },
     {
       "name": "ScaleSpace.mconv_comp_sub",
@@ -2053,7 +2054,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_comp_sub (μ : Measure ℝ) (f : ℝ → ℝ) (a : ℝ) :\n    mconv μ (fun x => f (x - a)) = fun x => mconv μ f (x - a)",
       "doc": null,
-      "line": 314
+      "line": 324
     },
     {
       "name": "ScaleSpace.mconv_nonneg",
@@ -2062,7 +2063,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_nonneg (μ : Measure ℝ) {f : ℝ → ℝ} (hf : ∀ x, 0 ≤ f x) (x : ℝ) :\n    0 ≤ mconv μ f x",
       "doc": null,
-      "line": 319
+      "line": 329
     },
     {
       "name": "ScaleSpace.integral_mconv",
@@ -2071,7 +2072,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconv (μ : Measure ℝ) [IsFiniteMeasure μ] {f : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    ∫ x, mconv μ f x = (μ univ).toReal * ∫ x, f x",
       "doc": "`∫ (μ * f) = ‖μ‖ ∫ f`.",
-      "line": 323
+      "line": 333
     },
     {
       "name": "ScaleSpace.mconv_conv",
@@ -2080,7 +2081,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_conv (μ ν : Measure ℝ) [IsFiniteMeasure μ] [IsFiniteMeasure ν] {f : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    mconv ν (mconv μ f) =ᵐ[volume] mconv (μ ∗ ν) f",
       "doc": "`ν * (μ * f) = (μ ∗ ν) * f`, a.e.",
-      "line": 332
+      "line": 342
     },
     {
       "name": "ScaleSpace.mconv_dirac_zero",
@@ -2089,7 +2090,7 @@
       "kind": "theorem",
       "signature": "theorem mconv_dirac_zero (f : ℝ → ℝ) : mconv (Measure.dirac 0) f = f",
       "doc": null,
-      "line": 349
+      "line": 359
     },
     {
       "name": "ScaleSpace.mconvL1_congr",
@@ -2098,7 +2099,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1_congr {μ ν : Measure ℝ} [IsFiniteMeasure μ] [IsFiniteMeasure ν] (h : μ = ν) :\n    mconvL1 μ = mconvL1 ν",
       "doc": "Equal measures give equal operators. Needed because `mconvL1` carries an `IsFiniteMeasure`\ninstance argument, so `rw` on the measure produces an ill-typed motive.",
-      "line": 355
+      "line": 365
     },
     {
       "name": "ScaleSpace.norm_mconvL1_le",
@@ -2107,7 +2108,7 @@
       "kind": "theorem",
       "signature": "theorem norm_mconvL1_le (μ : Measure ℝ) [IsProbabilityMeasure μ] (f : X) :\n    ‖mconvL1 μ f‖ ≤ ‖f‖",
       "doc": "`Φ` is a contraction for a probability measure.",
-      "line": 361
+      "line": 371
     },
     {
       "name": "ScaleSpace.mconvL1_transL1",
@@ -2116,7 +2117,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1_transL1 [IsFiniteMeasure μ] (a : ℝ) (f : X) :\n    mconvL1 μ (transL1 a f) = transL1 a (mconvL1 μ f)",
       "doc": "`mconvL1` commutes with translation.",
-      "line": 372
+      "line": 382
     },
     {
       "name": "ScaleSpace.isNonneg_mconvL1",
@@ -2125,7 +2126,7 @@
       "kind": "theorem",
       "signature": "theorem isNonneg_mconvL1 [IsFiniteMeasure μ] (f : X) (hf : IsNonneg f) :\n    IsNonneg (mconvL1 μ f)",
       "doc": null,
-      "line": 382
+      "line": 392
     },
     {
       "name": "ScaleSpace.integral_mconvL1",
@@ -2134,7 +2135,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvL1 [IsProbabilityMeasure μ] (f : X) :\n    ∫ x, ((mconvL1 μ f : X) : ℝ → ℝ) x = ∫ x, (f : ℝ → ℝ) x",
       "doc": "`mconvL1` preserves total mass, for every `f`: the Tonelli identity does not see the sign.",
-      "line": 389
+      "line": 399
     },
     {
       "name": "ScaleSpace.mconvL1_comp",
@@ -2143,7 +2144,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1_comp (μ ν : Measure ℝ) [IsFiniteMeasure μ] [IsFiniteMeasure ν] :\n    (mconvL1 ν).comp (mconvL1 μ) = mconvL1 (μ ∗ ν)",
       "doc": "Composing the operators convolves the measures.",
-      "line": 396
+      "line": 406
     },
     {
       "name": "ScaleSpace.mconvL1_dirac_zero",
@@ -2152,7 +2153,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1_dirac_zero : mconvL1 (Measure.dirac (0 : ℝ)) = ContinuousLinearMap.id ℝ X",
       "doc": "`δ₀` acts as the identity on `L¹`.",
-      "line": 405
+      "line": 415
     },
     {
       "name": "ScaleSpace.integral_mul_mconv",
@@ -2161,7 +2162,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mul_mconv (μ : Measure ℝ) [IsFiniteMeasure μ] {f g : ℝ → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f)\n    (hg : Measurable g) {C : ℝ} (hgb : ∀ t, |g t| ≤ C) :\n    ∫ t, g t * mconv μ f t = ∫ r, (∫ t, g t * f (t - r)) ∂μ",
       "doc": "**Pairing against a bounded function.** `∫ g · (μ * f) = ∫∫ g(t) f(t - r)`. The\nintegrability Fubini needs is `integrable_uncurry_sub`, dominated by `C`, which is why `g` is\nasked to be bounded rather than integrable.",
-      "line": 416
+      "line": 426
     },
     {
       "name": "ScaleSpace.subCM",
@@ -2170,7 +2171,7 @@
       "kind": "def",
       "signature": "noncomputable def subCM : C(ℝ, C(ℝ, ℝ))",
       "doc": "`a ↦ (x ↦ x - a)`, as a continuous map into `C(ℝ,ℝ)`. Currying is what makes the\ncompact-open continuity automatic.",
-      "line": 45
+      "line": 55
     },
     {
       "name": "ScaleSpace.subCM_apply",
@@ -2179,7 +2180,7 @@
       "kind": "lemma",
       "signature": "lemma subCM_apply (a x : ℝ) : subCM a x = x - a",
       "doc": null,
-      "line": 48
+      "line": 58
     },
     {
       "name": "ScaleSpace.measurePreserving_subCM",
@@ -2188,7 +2189,7 @@
       "kind": "lemma",
       "signature": "lemma measurePreserving_subCM (a : ℝ) :\n    MeasurePreserving (subCM a) volume volume",
       "doc": null,
-      "line": 50
+      "line": 60
     },
     {
       "name": "ScaleSpace.transL1_eq",
@@ -2197,7 +2198,7 @@
       "kind": "theorem",
       "signature": "theorem transL1_eq (a : ℝ) (g : X) :\n    transL1 a g = Lp.compMeasurePreserving (subCM a) (measurePreserving_subCM a) g",
       "doc": "The hand-built `transL1` is Mathlib's composition operator.",
-      "line": 54
+      "line": 64
     },
     {
       "name": "ScaleSpace.continuous_transL1",
@@ -2206,7 +2207,7 @@
       "kind": "theorem",
       "signature": "theorem continuous_transL1 (g : X) : Continuous fun a : ℝ => transL1 a g",
       "doc": "**Translation acts continuously on `L¹`.**",
-      "line": 60
+      "line": 70
     },
     {
       "name": "ScaleSpace.norm_transL1_le",
@@ -2215,7 +2216,7 @@
       "kind": "lemma",
       "signature": "lemma norm_transL1_le (a : ℝ) (g : X) : ‖transL1 a g‖ ≤ ‖g‖",
       "doc": null,
-      "line": 70
+      "line": 80
     },
     {
       "name": "ScaleSpace.bconv",
@@ -2224,7 +2225,7 @@
       "kind": "def",
       "signature": "noncomputable def bconv (f : ℝ → ℝ) (g : X) : X",
       "doc": "`f * g = ∫ f(y) · T_y g dy`, as an `X`-valued Bochner integral.",
-      "line": 81
+      "line": 91
     },
     {
       "name": "ScaleSpace.integrable_smul_transL1",
@@ -2233,7 +2234,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_smul_transL1 {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    Integrable (fun y => f y • transL1 y g)",
       "doc": null,
-      "line": 83
+      "line": 93
     },
     {
       "name": "ScaleSpace.map_bconv",
@@ -2242,7 +2243,7 @@
       "kind": "theorem",
       "signature": "theorem map_bconv (L : X →L[ℝ] X) (hL : ∀ a g, L (transL1 a g) = transL1 a (L g))\n    {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    L (bconv f g) = bconv f (L g)",
       "doc": "**`Φ (f * g) = f * (Φ g)`**, for any bounded operator that commutes with translation.",
-      "line": 95
+      "line": 105
     },
     {
       "name": "ScaleSpace.setIntegralCLM",
@@ -2251,7 +2252,7 @@
       "kind": "def",
       "signature": "noncomputable def setIntegralCLM (A : Set ℝ) : X →L[ℝ] ℝ",
       "doc": "Integration over a fixed set, as a bounded functional on `L¹`.",
-      "line": 112
+      "line": 122
     },
     {
       "name": "ScaleSpace.setIntegralCLM_apply",
@@ -2260,7 +2261,7 @@
       "kind": "lemma",
       "signature": "lemma setIntegralCLM_apply (A : Set ℝ) (h : X) :\n    setIntegralCLM A h = ∫ x in A, (h : ℝ → ℝ) x",
       "doc": null,
-      "line": 140
+      "line": 150
     },
     {
       "name": "ScaleSpace.integrable_uncurry_pconv",
@@ -2269,7 +2270,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_uncurry_pconv {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    Integrable (fun p : ℝ × ℝ => f p.2 * (g : ℝ → ℝ) (p.1 - p.2)) (volume.prod volume)",
       "doc": "The two-variable integrand of the classical convolution is integrable on the product — the\nTonelli bound `‖f‖₁ ‖g‖₁`, by translation invariance in `x`.",
-      "line": 145
+      "line": 155
     },
     {
       "name": "ScaleSpace.integrable_pconv",
@@ -2278,7 +2279,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_pconv {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    Integrable (fun x => ∫ y, f y * (g : ℝ → ℝ) (x - y))",
       "doc": "The classical convolution is integrable.",
-      "line": 177
+      "line": 187
     },
     {
       "name": "ScaleSpace.coeFn_bconv",
@@ -2287,7 +2288,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_bconv {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    (bconv f g : ℝ → ℝ) =ᵐ[volume] fun x => ∫ y, f y * (g : ℝ → ℝ) (x - y)",
       "doc": "**`bconv` is the classical convolution.**",
-      "line": 182
+      "line": 192
     },
     {
       "name": "ScaleSpace.measurePreserving_const_sub",
@@ -2296,7 +2297,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_const_sub (x : ℝ) :\n    MeasurePreserving (fun y : ℝ => x - y) volume volume",
       "doc": "`y ↦ x - y` preserves Lebesgue measure.",
-      "line": 229
+      "line": 239
     },
     {
       "name": "ScaleSpace.bconv_comm",
@@ -2305,7 +2306,7 @@
       "kind": "theorem",
       "signature": "theorem bconv_comm {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    bconv f g = bconv (g : ℝ → ℝ) (hf.toL1 f)",
       "doc": "Convolution is commutative — the change of variables `y ↦ x - y`.",
-      "line": 234
+      "line": 244
     },
     {
       "name": "ScaleSpace.integrable_transL1",
@@ -2314,7 +2315,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_transL1 (μ : Measure ℝ) [IsFiniteMeasure μ] (f : X) :\n    Integrable (fun y => transL1 y f) μ",
       "doc": "`y ↦ T_y f` is `μ`-integrable for every finite `μ`: continuous, hence strongly measurable,\nand bounded by `‖f‖`.",
-      "line": 257
+      "line": 267
     },
     {
       "name": "ScaleSpace.bconvM",
@@ -2323,7 +2324,7 @@
       "kind": "def",
       "signature": "noncomputable def bconvM (μ : Measure ℝ) (f : X) : X",
       "doc": "`μ * f = ∫ T_y f dμ(y)`, as an `X`-valued Bochner integral.",
-      "line": 263
+      "line": 273
     },
     {
       "name": "ScaleSpace.bconvM_eq_mconvL1",
@@ -2332,7 +2333,7 @@
       "kind": "theorem",
       "signature": "theorem bconvM_eq_mconvL1 (μ : Measure ℝ) [IsFiniteMeasure μ] (f : X) :\n    bconvM μ f = mconvL1 μ f",
       "doc": "**The Bochner form of `mconvL1`.**",
-      "line": 266
+      "line": 276
     },
     {
       "name": "ScaleSpace.apply_mconvL1_general",
@@ -2341,7 +2342,7 @@
       "kind": "theorem",
       "signature": "theorem apply_mconvL1_general (Ψ : X →L[ℝ] F) (μ : Measure ℝ) [IsFiniteMeasure μ] (f : X) :\n    Ψ (mconvL1 μ f) = ∫ y, Ψ (transL1 y f) ∂μ",
       "doc": "**`Ψ (μ * f) = ∫ Ψ (T_y f) dμ(y)`**, for a bounded functional with values in any Banach\nspace.",
-      "line": 326
+      "line": 336
     },
     {
       "name": "ScaleSpace.pairTrans",
@@ -2350,7 +2351,7 @@
       "kind": "def",
       "signature": "noncomputable def pairTrans (Ψ : X →L[ℝ] ℝ) (f : X) : BoundedContinuousFunction ℝ ℝ",
       "doc": "`y ↦ Ψ (T_y f)`, as a bounded continuous function.",
-      "line": 332
+      "line": 342
     },
     {
       "name": "ScaleSpace.pairTrans_apply",
@@ -2359,7 +2360,7 @@
       "kind": "lemma",
       "signature": "lemma pairTrans_apply (Ψ : X →L[ℝ] ℝ) (f : X) (y : ℝ) :\n    pairTrans Ψ f y = Ψ (transL1 y f)",
       "doc": null,
-      "line": 337
+      "line": 347
     },
     {
       "name": "ScaleSpace.apply_mconvL1",
@@ -2368,7 +2369,7 @@
       "kind": "theorem",
       "signature": "theorem apply_mconvL1 (Ψ : X →L[ℝ] ℝ) (μ : Measure ℝ) [IsFiniteMeasure μ] (f : X) :\n    Ψ (mconvL1 μ f) = ∫ y, pairTrans Ψ f y ∂μ",
       "doc": "**`Ψ (μ * f) = ∫ Ψ (T_y f) dμ(y)`.**",
-      "line": 341
+      "line": 351
     },
     {
       "name": "ScaleSpace.apply_bconv",
@@ -2377,7 +2378,7 @@
       "kind": "theorem",
       "signature": "theorem apply_bconv (Ψ : X →L[ℝ] ℝ) {g : ℝ → ℝ} (hg : Integrable g) (f : X) :\n    Ψ (bconv g f) = ∫ y, g y * pairTrans Ψ f y",
       "doc": "**`Ψ (g * f) = ∫ g(y) Ψ (T_y f) dy`**, the density counterpart.",
-      "line": 346
+      "line": 356
     },
     {
       "name": "ScaleSpace.expNeg",
@@ -2539,7 +2540,7 @@
       "kind": "def",
       "signature": "noncomputable def tailInv (h : ℝ → ℝ) (y : ℝ) : ℝ",
       "doc": "The generalised inverse of a nonincreasing `h`: `tailInv h y = sup {u > 0 : h u > y}`.",
-      "line": 31
+      "line": 37
     },
     {
       "name": "ScaleSpace.tailInv_nonneg",
@@ -2548,7 +2549,7 @@
       "kind": "theorem",
       "signature": "theorem tailInv_nonneg (y : ℝ) : 0 ≤ tailInv h y",
       "doc": null,
-      "line": 35
+      "line": 41
     },
     {
       "name": "ScaleSpace.bddAbove_tailSet",
@@ -2557,7 +2558,7 @@
       "kind": "theorem",
       "signature": "theorem bddAbove_tailSet (htend : Tendsto h atTop (𝓝 0)) {y : ℝ} (hy : 0 < y) :\n    BddAbove {u : ℝ | 0 < u ∧ y < h u}",
       "doc": null,
-      "line": 42
+      "line": 48
     },
     {
       "name": "ScaleSpace.lt_of_lt_tailInv",
@@ -2566,7 +2567,7 @@
       "kind": "theorem",
       "signature": "theorem lt_of_lt_tailInv (hmono : AntitoneOn h (Ioi 0))\n    {y r : ℝ} (hr : 0 < r) (hlt : r < tailInv h y) : y < h r",
       "doc": null,
-      "line": 49
+      "line": 55
     },
     {
       "name": "ScaleSpace.lt_tailInv_of_lt",
@@ -2575,7 +2576,7 @@
       "kind": "theorem",
       "signature": "theorem lt_tailInv_of_lt (htend : Tendsto h atTop (𝓝 0)) {y u r : ℝ} (hy : 0 < y) (hu : 0 < u)\n    (hru : r < u) (hlt : y < h u) : r < tailInv h y",
       "doc": null,
-      "line": 58
+      "line": 64
     },
     {
       "name": "ScaleSpace.antitoneOn_tailInv",
@@ -2584,7 +2585,7 @@
       "kind": "theorem",
       "signature": "theorem antitoneOn_tailInv (htend : Tendsto h atTop (𝓝 0)) :\n    AntitoneOn (tailInv h) (Ioi 0)",
       "doc": null,
-      "line": 62
+      "line": 68
     },
     {
       "name": "ScaleSpace.measurePreserving_neg'",
@@ -2593,7 +2594,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_neg' : MeasurePreserving (fun x : ℝ => -x) volume volume",
       "doc": "`x ↦ -x` preserves Lebesgue measure.",
-      "line": 104
+      "line": 114
     },
     {
       "name": "ScaleSpace.reflect_congr_ae",
@@ -2602,7 +2603,7 @@
       "kind": "theorem",
       "signature": "theorem reflect_congr_ae {f g : ℝ → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (-x)) =ᵐ[volume] fun x => g (-x)",
       "doc": null,
-      "line": 107
+      "line": 117
     },
     {
       "name": "ScaleSpace.integrable_reflect",
@@ -2611,7 +2612,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_reflect {f : ℝ → ℝ} (hf : Integrable f) :\n    Integrable (fun x => f (-x))",
       "doc": null,
-      "line": 111
+      "line": 121
     },
     {
       "name": "ScaleSpace.reflₗ",
@@ -2620,7 +2621,7 @@
       "kind": "def",
       "signature": "noncomputable def reflₗ : (ℝ →₁[volume] ℝ) →ₗ[ℝ] (ℝ →₁[volume] ℝ) where",
       "doc": "`R f = f(-·)` as a linear map on `L¹`.",
-      "line": 116
+      "line": 126
     },
     {
       "name": "ScaleSpace.reflL1",
@@ -2629,7 +2630,7 @@
       "kind": "def",
       "signature": "noncomputable def reflL1 : (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ →₁[volume] ℝ)",
       "doc": "**Reflection is an isometry of `L¹`.** The change of variables is `x ↦ -x`, a measurable\nequivalence preserving Lebesgue measure, so the constant is `1`.",
-      "line": 128
+      "line": 138
     },
     {
       "name": "ScaleSpace.coeFn_reflL1",
@@ -2638,7 +2639,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_reflL1 (f : ℝ →₁[volume] ℝ) :\n    reflL1 f =ᵐ[volume] fun x => (f : ℝ → ℝ) (-x)",
       "doc": null,
-      "line": 136
+      "line": 146
     },
     {
       "name": "ScaleSpace.quasiMeasurePreserving_const_mul",
@@ -2647,7 +2648,7 @@
       "kind": "theorem",
       "signature": "theorem quasiMeasurePreserving_const_mul {c : ℝ} (hc : c ≠ 0) :\n    Measure.QuasiMeasurePreserving (fun x : ℝ => c * x) volume volume",
       "doc": "Multiplication by a nonzero constant is quasi-measure-preserving.",
-      "line": 143
+      "line": 153
     },
     {
       "name": "ScaleSpace.dilate",
@@ -2656,7 +2657,7 @@
       "kind": "def",
       "signature": "noncomputable def dilate (lam : ℝ) (f : ℝ → ℝ) : ℝ → ℝ",
       "doc": "`D_lam f = lam⁻¹ f(lam⁻¹ ·)`, the mass-preserving normalisation.",
-      "line": 150
+      "line": 160
     },
     {
       "name": "ScaleSpace.dilate_congr_ae",
@@ -2665,7 +2666,7 @@
       "kind": "theorem",
       "signature": "theorem dilate_congr_ae {lam : ℝ} (hlam : lam ≠ 0) {f g : ℝ → ℝ} (h : f =ᵐ[volume] g) :\n    dilate lam f =ᵐ[volume] dilate lam g",
       "doc": null,
-      "line": 152
+      "line": 162
     },
     {
       "name": "ScaleSpace.integrable_dilate",
@@ -2674,7 +2675,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_dilate {f : ℝ → ℝ} (hf : Integrable f) {lam : ℝ} (hlam : lam ≠ 0) :\n    Integrable (dilate lam f)",
       "doc": null,
-      "line": 157
+      "line": 167
     },
     {
       "name": "ScaleSpace.lintegral_comp_const_mul",
@@ -2683,7 +2684,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_comp_const_mul {c : ℝ} (hc : c ≠ 0) {g : ℝ → ℝ≥0∞} (hg : AEMeasurable g) :\n    ∫⁻ x, g (c * x) = ENNReal.ofReal |c⁻¹| * ∫⁻ x, g x",
       "doc": "The change of variables the isometry rests on: `∫⁻ g(c x) dx = |c⁻¹| ∫⁻ g`.",
-      "line": 162
+      "line": 172
     },
     {
       "name": "ScaleSpace.dilₗ",
@@ -2692,7 +2693,7 @@
       "kind": "def",
       "signature": "noncomputable def dilₗ {lam : ℝ} (hlam : lam ≠ 0) :\n    (ℝ →₁[volume] ℝ) →ₗ[ℝ] (ℝ →₁[volume] ℝ) where",
       "doc": "`D_lam` as a linear map on `L¹`.",
-      "line": 173
+      "line": 183
     },
     {
       "name": "ScaleSpace.dilL1",
@@ -2701,7 +2702,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1 {lam : ℝ} (hlam : 0 < lam) :\n    (ℝ →₁[volume] ℝ) →L[ℝ] (ℝ →₁[volume] ℝ)",
       "doc": "**Dilation is an isometry of `L¹`** for `lam > 0`.",
-      "line": 192
+      "line": 202
     },
     {
       "name": "ScaleSpace.coeFn_dilL1",
@@ -2710,7 +2711,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_dilL1 {lam : ℝ} (hlam : 0 < lam) (f : ℝ →₁[volume] ℝ) :\n    dilL1 hlam f =ᵐ[volume] dilate lam (f : ℝ → ℝ)",
       "doc": null,
-      "line": 208
+      "line": 218
     },
     {
       "name": "ScaleSpace.IsSymmetric",
@@ -4600,7 +4601,7 @@
       "kind": "theorem",
       "signature": "theorem sqrt_smul_one_eq (d : ℕ) (u : ℝ) :\n    CFC.sqrt (u • (1 : Matrix (Fin d) (Fin d) ℝ)) =\n      Real.sqrt u • (1 : Matrix (Fin d) (Fin d) ℝ)",
       "doc": "**The square root of a scalar multiple of the identity matrix**, for every real scalar\n`u`, including `u < 0`. `CFC.sqrt`'s junk value off the positive-semidefinite cone (`0`) and\n`Real.sqrt`'s junk value off the nonnegative reals (`0`) agree, so no side condition on `u` is\nneeded.",
-      "line": 51
+      "line": 53
     },
     {
       "name": "ScaleSpace.multivariateGaussian_zero_smul_one",
@@ -4609,7 +4610,7 @@
       "kind": "theorem",
       "signature": "theorem multivariateGaussian_zero_smul_one (d : ℕ) (u : ℝ) :\n    multivariateGaussian (0 : EuclideanSpace ℝ (Fin d)) (u • 1) =\n      (stdGaussian (EuclideanSpace ℝ (Fin d))).map (fun x => Real.sqrt u • x)",
       "doc": "**The multivariate Gaussian `N(0, uI_d)` is the pushforward of the standard Gaussian by\nscaling**, for every real `u`, with `Real.sqrt`'s own junk convention off `u < 0` doing the work\nof `multivariateGaussian`'s junk convention there: both sides are `dirac 0`.",
-      "line": 76
+      "line": 78
     },
     {
       "name": "ScaleSpace.measurable_multivariateGaussian_zero_smul_one",
@@ -4618,7 +4619,7 @@
       "kind": "theorem",
       "signature": "theorem measurable_multivariateGaussian_zero_smul_one (d : ℕ) :\n    Measurable fun u : ℝ => multivariateGaussian (0 : EuclideanSpace ℝ (Fin d)) (u • 1)",
       "doc": "**`u ↦ N(0, uI_d)` is measurable**, Paper VII's `measurable_gaussVar` in Mathlib's types\n(`gaussVar d u = multivariateGaussian 0 (u • 1)`), `d` arbitrary.",
-      "line": 86
+      "line": 88
     },
     {
       "name": "ScaleSpace.dilation_invariance",
@@ -4726,7 +4727,7 @@
       "kind": "theorem",
       "signature": "theorem bconv_congr_ae {f₁ f₂ : ℝ → ℝ} (h : f₁ =ᵐ[volume] f₂) (g : X) :\n    bconv f₁ g = bconv f₂ g",
       "doc": "`bconv` respects a.e. equality of the scalar factor.",
-      "line": 377
+      "line": 387
     },
     {
       "name": "ScaleSpace.setIntegral_bconv",
@@ -4735,7 +4736,7 @@
       "kind": "theorem",
       "signature": "theorem setIntegral_bconv (A : Set ℝ) {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    ∫ x in A, (bconv f g : ℝ → ℝ) x = ∫ y, f y * ∫ x in A, (g : ℝ → ℝ) (x - y)",
       "doc": null,
-      "line": 408
+      "line": 418
     },
     {
       "name": "ScaleSpace.integrable_setIntegral_bconv",
@@ -4744,7 +4745,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_setIntegral_bconv (A : Set ℝ) {f : ℝ → ℝ} (hf : Integrable f) (g : X) :\n    Integrable (fun y => f y * ∫ x in A, (g : ℝ → ℝ) (x - y))",
       "doc": null,
-      "line": 418
+      "line": 428
     },
     {
       "name": "ScaleSpace.integrable_char_mul",
@@ -4753,7 +4754,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_char_mul (ω : ℝ) (f : X) :\n    Integrable (fun x : ℝ => Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ))",
       "doc": "The integrand of the character pairing is integrable: a unit-modulus continuous factor times\nan `L¹` function.",
-      "line": 431
+      "line": 441
     },
     {
       "name": "ScaleSpace.charCLM",
@@ -4762,7 +4763,7 @@
       "kind": "def",
       "signature": "noncomputable def charCLM (ω : ℝ) : X →L[ℝ] ℂ",
       "doc": "The pairing `f ↦ ∫ e^{iωx} f(x) dx` against a character, as an `ℝ`-linear bounded functional\non `L¹` with values in `ℂ`.\n\nThe characters are bounded on all of `ℝ`, so no clamping and no support hypothesis is needed;\nthis is the one place where the line is easier than the half-line. The sign is Mathlib's\n`charFun` convention.",
-      "line": 445
+      "line": 455
     },
     {
       "name": "ScaleSpace.charCLM_apply",
@@ -4771,7 +4772,7 @@
       "kind": "lemma",
       "signature": "lemma charCLM_apply (ω : ℝ) (f : X) :\n    charCLM ω f = ∫ x : ℝ, Complex.exp (x * ω * Complex.I) * ((f : ℝ → ℝ) x : ℂ)",
       "doc": null,
-      "line": 476
+      "line": 486
     },
     {
       "name": "ScaleSpace.charCLM_transL1",
@@ -4780,7 +4781,7 @@
       "kind": "theorem",
       "signature": "theorem charCLM_transL1 (ω a : ℝ) (f : X) :\n    charCLM ω (transL1 a f) = Complex.exp (a * ω * Complex.I) * charCLM ω f",
       "doc": "The character pairing turns translation into multiplication by a unimodular constant.",
-      "line": 480
+      "line": 490
     },
     {
       "name": "ScaleSpace.charCLM_mconvL1",
@@ -4789,7 +4790,7 @@
       "kind": "theorem",
       "signature": "theorem charCLM_mconvL1 (μ : Measure ℝ) [IsFiniteMeasure μ] (ω : ℝ) (f : X) :\n    charCLM ω (mconvL1 μ f) = charFun μ ω * charCLM ω f",
       "doc": "**The blueprint’s pairing identity (4.1)**: pairing the operator against a character\nfactorises into the transform of the measure times the transform of the test function.",
-      "line": 499
+      "line": 509
     },
     {
       "name": "ScaleSpace.gaussL1",
@@ -4798,7 +4799,7 @@
       "kind": "def",
       "signature": "noncomputable def gaussL1 : X",
       "doc": "The standard Gaussian density, as an element of `L¹`. The blueprint’s test function: one\nfunction whose transform is zero-free at every frequency, so that a single pairing reads off the\ntransform of the measure everywhere.",
-      "line": 513
+      "line": 523
     },
     {
       "name": "ScaleSpace.coeFn_gaussL1",
@@ -4807,7 +4808,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_gaussL1 : ((gaussL1 : X) : ℝ → ℝ) =ᵐ[volume] gaussianPDFReal 0 1",
       "doc": null,
-      "line": 515
+      "line": 525
     },
     {
       "name": "ScaleSpace.charCLM_gaussL1",
@@ -4816,7 +4817,7 @@
       "kind": "theorem",
       "signature": "theorem charCLM_gaussL1 (ω : ℝ) :\n    charCLM ω gaussL1 = Complex.exp (-(ω ^ 2) / 2)",
       "doc": "**The Gaussian transform has no zeros.**",
-      "line": 519
+      "line": 529
     },
     {
       "name": "ScaleSpace.charCLM_gaussL1_ne_zero",
@@ -4825,7 +4826,7 @@
       "kind": "theorem",
       "signature": "theorem charCLM_gaussL1_ne_zero (ω : ℝ) : charCLM ω gaussL1 ≠ 0",
       "doc": null,
-      "line": 533
+      "line": 543
     },
     {
       "name": "ScaleSpace.mconvL1_injective",
@@ -4834,7 +4835,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1_injective {μ ρ : Measure ℝ} [IsFiniteMeasure μ] [IsFiniteMeasure ρ]\n    (h : mconvL1 μ = mconvL1 ρ) : μ = ρ",
       "doc": "**A finite measure is determined by its convolution operator** — the uniqueness clause of\n`lem:convolution-representation`. One test function suffices: pairing `Φ g` against `e_ω` reads\noff `μ̂(ω)` at every frequency, because the Gaussian transform never vanishes.",
-      "line": 540
+      "line": 550
     },
     {
       "name": "ScaleSpace.approxId",
@@ -7174,7 +7175,7 @@
       "kind": "def",
       "signature": "def IsNonnegE (f : E →₁[volume] ℝ) : Prop",
       "doc": "The positive cone of `L¹(E)`.",
-      "line": 51
+      "line": 65
     },
     {
       "name": "ScaleSpace.measurePreserving_sub_constE",
@@ -7183,7 +7184,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_sub_constE (a : E) :\n    MeasurePreserving (fun x : E => x - a) volume volume",
       "doc": "`x ↦ x - a` preserves the Haar measure.",
-      "line": 56
+      "line": 70
     },
     {
       "name": "ScaleSpace.translate_congr_aeE",
@@ -7192,7 +7193,7 @@
       "kind": "theorem",
       "signature": "theorem translate_congr_aeE (a : E) {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (x - a)) =ᵐ[volume] fun x => g (x - a)",
       "doc": null,
-      "line": 60
+      "line": 74
     },
     {
       "name": "ScaleSpace.integrable_translateE",
@@ -7201,7 +7202,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_translateE {f : E → ℝ} (hf : Integrable f) (a : E) :\n    Integrable (fun x => f (x - a))",
       "doc": null,
-      "line": 64
+      "line": 78
     },
     {
       "name": "ScaleSpace.transₗE",
@@ -7210,7 +7211,7 @@
       "kind": "def",
       "signature": "noncomputable def transₗE (a : E) : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`T_a f = f(· - a)` as a linear map on `L¹(E)`.",
-      "line": 69
+      "line": 83
     },
     {
       "name": "ScaleSpace.transL1E",
@@ -7219,7 +7220,7 @@
       "kind": "def",
       "signature": "noncomputable def transL1E (a : E) : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Translation `T_a f = f(· - a)` is an isometry of `L¹(E)`.**",
-      "line": 80
+      "line": 94
     },
     {
       "name": "ScaleSpace.coeFn_transL1E",
@@ -7228,7 +7229,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_transL1E (a : E) (f : E →₁[volume] ℝ) :\n    transL1E a f =ᵐ[volume] fun x => (f : E → ℝ) (x - a)",
       "doc": null,
-      "line": 87
+      "line": 101
     },
     {
       "name": "ScaleSpace.norm_transL1E_le",
@@ -7237,7 +7238,7 @@
       "kind": "lemma",
       "signature": "lemma norm_transL1E_le (a : E) (f : E →₁[volume] ℝ) : ‖transL1E a f‖ ≤ ‖f‖",
       "doc": null,
-      "line": 91
+      "line": 105
     },
     {
       "name": "ScaleSpace.eq_transL1E_iff",
@@ -7246,7 +7247,7 @@
       "kind": "theorem",
       "signature": "theorem eq_transL1E_iff (a : E) (f g : E →₁[volume] ℝ) :\n    g = transL1E a f ↔ (g : E → ℝ) =ᵐ[volume] fun x => (f : E → ℝ) (x - a)",
       "doc": "**The relational form of translation.** `g = T_a f` in `L¹` exactly when `g = f(· - a)` a.e.\n— the bridge from a statement written on representatives to the operator.",
-      "line": 99
+      "line": 113
     },
     {
       "name": "ScaleSpace.transL1E_zero",
@@ -7255,7 +7256,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_zero : transL1E (0 : E) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": null,
-      "line": 107
+      "line": 121
     },
     {
       "name": "ScaleSpace.transL1E_comp",
@@ -7264,7 +7265,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_comp (a b : E) :\n    (transL1E a).comp (transL1E b) = transL1E (a + b)",
       "doc": "`T_a T_b = T_{a + b}`.",
-      "line": 114
+      "line": 128
     },
     {
       "name": "ScaleSpace.isNonnegE_transL1E",
@@ -7273,7 +7274,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_transL1E (a : E) {f : E →₁[volume] ℝ} (hf : IsNonnegE f) :\n    IsNonnegE (transL1E a f)",
       "doc": null,
-      "line": 124
+      "line": 138
     },
     {
       "name": "ScaleSpace.det_ne_zeroE",
@@ -7282,7 +7283,7 @@
       "kind": "theorem",
       "signature": "theorem det_ne_zeroE (A : E ≃L[ℝ] E) : LinearMap.det (A : E →ₗ[ℝ] E) ≠ 0",
       "doc": "`|det A| ≠ 0` for an invertible `A`.",
-      "line": 139
+      "line": 153
     },
     {
       "name": "ScaleSpace.dilateE",
@@ -7291,7 +7292,7 @@
       "kind": "def",
       "signature": "noncomputable def dilateE (A : E ≃L[ℝ] E) (f : E → ℝ) : E → ℝ",
       "doc": "`D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation.",
-      "line": 143
+      "line": 157
     },
     {
       "name": "ScaleSpace.dilateE_apply",
@@ -7300,7 +7301,7 @@
       "kind": "lemma",
       "signature": "lemma dilateE_apply (A : E ≃L[ℝ] E) (f : E → ℝ) (x : E) :\n    dilateE A f x = |LinearMap.det (A : E →ₗ[ℝ] E)|⁻¹ * f (A.symm x)",
       "doc": null,
-      "line": 146
+      "line": 160
     },
     {
       "name": "ScaleSpace.homothety",
@@ -7309,7 +7310,7 @@
       "kind": "def",
       "signature": "noncomputable def homothety [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) : E ≃L[ℝ] E",
       "doc": "The homothety `x ↦ λ x`, `λ ≠ 0`, as a continuous linear equivalence.",
-      "line": 150
+      "line": 164
     },
     {
       "name": "ScaleSpace.homothety_apply",
@@ -7318,7 +7319,7 @@
       "kind": "lemma",
       "signature": "lemma homothety_apply [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) (x : E) :\n    homothety lam hlam x = lam • x",
       "doc": null,
-      "line": 153
+      "line": 167
     },
     {
       "name": "ScaleSpace.homothety_symm_apply",
@@ -7327,7 +7328,7 @@
       "kind": "lemma",
       "signature": "lemma homothety_symm_apply [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) (x : E) :\n    (homothety lam hlam).symm x = lam⁻¹ • x",
       "doc": null,
-      "line": 156
+      "line": 170
     },
     {
       "name": "ScaleSpace.det_homothety",
@@ -7336,7 +7337,7 @@
       "kind": "lemma",
       "signature": "lemma det_homothety [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) :\n    LinearMap.det ((homothety lam hlam : E ≃L[ℝ] E) : E →ₗ[ℝ] E)\n      = lam ^ Module.finrank ℝ E",
       "doc": null,
-      "line": 159
+      "line": 173
     },
     {
       "name": "ScaleSpace.abs_det_neg",
@@ -7345,7 +7346,7 @@
       "kind": "lemma",
       "signature": "lemma abs_det_neg [FiniteDimensional ℝ E] :",
       "doc": "`|det (-id)| = |(-1)^d| = 1`.",
-      "line": 168
+      "line": 182
     },
     {
       "name": "ScaleSpace.det_refl",
@@ -7354,7 +7355,7 @@
       "kind": "lemma",
       "signature": "lemma det_refl :\n    LinearMap.det ((ContinuousLinearEquiv.refl ℝ E : E ≃L[ℝ] E) : E →ₗ[ℝ] E) = 1",
       "doc": null,
-      "line": 176
+      "line": 190
     },
     {
       "name": "ScaleSpace.map_symm_volumeE",
@@ -7363,7 +7364,7 @@
       "kind": "theorem",
       "signature": "theorem map_symm_volumeE (A : E ≃L[ℝ] E) :\n    Measure.map A.symm volume = ENNReal.ofReal |LinearMap.det (A : E →ₗ[ℝ] E)| • volume",
       "doc": "**The change of variables**: `A⁻¹_* vol = |det A| · vol`.",
-      "line": 189
+      "line": 203
     },
     {
       "name": "ScaleSpace.quasiMeasurePreserving_symmE",
@@ -7372,7 +7373,7 @@
       "kind": "theorem",
       "signature": "theorem quasiMeasurePreserving_symmE (A : E ≃L[ℝ] E) :\n    Measure.QuasiMeasurePreserving A.symm volume volume",
       "doc": null,
-      "line": 196
+      "line": 210
     },
     {
       "name": "ScaleSpace.lintegral_comp_symmE",
@@ -7381,7 +7382,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_comp_symmE (A : E ≃L[ℝ] E) (g : E → ℝ≥0∞) :\n    ∫⁻ x, g (A.symm x) = ENNReal.ofReal |LinearMap.det (A : E →ₗ[ℝ] E)| * ∫⁻ x, g x",
       "doc": "`∫⁻ g(A⁻¹ x) dx = |det A| ∫⁻ g`.",
-      "line": 203
+      "line": 217
     },
     {
       "name": "ScaleSpace.dilateE_congr_ae",
@@ -7390,7 +7391,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_congr_ae (A : E ≃L[ℝ] E) {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    dilateE A f =ᵐ[volume] dilateE A g",
       "doc": null,
-      "line": 210
+      "line": 224
     },
     {
       "name": "ScaleSpace.integrable_dilateE",
@@ -7399,7 +7400,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_dilateE (A : E ≃L[ℝ] E) {f : E → ℝ} (hf : Integrable f) :\n    Integrable (dilateE A f)",
       "doc": null,
-      "line": 215
+      "line": 229
     },
     {
       "name": "ScaleSpace.dilₗE",
@@ -7408,7 +7409,7 @@
       "kind": "def",
       "signature": "noncomputable def dilₗE (A : E ≃L[ℝ] E) : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`D_A` as a linear map on `L¹(E)`.",
-      "line": 226
+      "line": 240
     },
     {
       "name": "ScaleSpace.lintegral_enorm_dilateE",
@@ -7417,7 +7418,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_dilateE (A : E ≃L[ℝ] E) (f : E → ℝ) :\n    ∫⁻ x, ‖dilateE A f x‖ₑ = ∫⁻ x, ‖f x‖ₑ",
       "doc": "`∫⁻ ‖D_A f‖ = ∫⁻ ‖f‖`: the normalisation `|det A|⁻¹` cancels the Jacobian.",
-      "line": 244
+      "line": 258
     },
     {
       "name": "ScaleSpace.dilL1E",
@@ -7426,7 +7427,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1E (A : E ≃L[ℝ] E) : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**The matrix dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` is an isometry of `L¹(E)`.**",
-      "line": 257
+      "line": 271
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E",
@@ -7435,7 +7436,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    dilL1E A f =ᵐ[volume] dilateE A (f : E → ℝ)",
       "doc": null,
-      "line": 262
+      "line": 276
     },
     {
       "name": "ScaleSpace.eq_dilL1E_iff",
@@ -7444,7 +7445,7 @@
       "kind": "theorem",
       "signature": "theorem eq_dilL1E_iff (A : E ≃L[ℝ] E) (f g : E →₁[volume] ℝ) :\n    g = dilL1E A f ↔ (g : E → ℝ) =ᵐ[volume]\n      fun x => |LinearMap.det (A : E →ₗ[ℝ] E)|⁻¹ * (f : E → ℝ) (A.symm x)",
       "doc": "**The relational form of dilation.** `g = D_A f` in `L¹` exactly when\n`g = |det A|⁻¹ f(A⁻¹ ·)` a.e.",
-      "line": 268
+      "line": 282
     },
     {
       "name": "ScaleSpace.norm_dilL1E",
@@ -7453,7 +7454,7 @@
       "kind": "theorem",
       "signature": "theorem norm_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) : ‖dilL1E A f‖ = ‖f‖",
       "doc": "**`D_A` preserves the norm.**",
-      "line": 278
+      "line": 292
     },
     {
       "name": "ScaleSpace.dilL1E_refl",
@@ -7462,7 +7463,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_refl :\n    dilL1E (ContinuousLinearEquiv.refl ℝ E) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "`D_A` at the identity is the identity.",
-      "line": 287
+      "line": 301
     },
     {
       "name": "ScaleSpace.dilL1E_comp",
@@ -7471,7 +7472,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp (A B : E ≃L[ℝ] E) :\n    (dilL1E A).comp (dilL1E B) = dilL1E (B.trans A)",
       "doc": "**`D_A D_B = D_{AB}`**, with `AB = B.trans A` the composite `x ↦ A (B x)`.",
-      "line": 296
+      "line": 310
     },
     {
       "name": "ScaleSpace.dilL1E_symm_comp",
@@ -7480,7 +7481,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_symm_comp (A : E ≃L[ℝ] E) :\n    (dilL1E A.symm).comp (dilL1E A) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "**`D_A` is a bijection with inverse `D_{A⁻¹}`.**",
-      "line": 312
+      "line": 326
     },
     {
       "name": "ScaleSpace.dilL1E_comp_symm",
@@ -7489,7 +7490,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_symm (A : E ≃L[ℝ] E) :\n    (dilL1E A).comp (dilL1E A.symm) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": null,
-      "line": 316
+      "line": 330
     },
     {
       "name": "ScaleSpace.dilL1EEquiv",
@@ -7498,7 +7499,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1EEquiv (A : E ≃L[ℝ] E) :\n    (E →₁[volume] ℝ) ≃ₗᵢ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`D_A` as a linear isometry equivalence of `L¹(E)`, inverse `D_{A⁻¹}`.",
-      "line": 321
+      "line": 335
     },
     {
       "name": "ScaleSpace.dilL1EEquiv_apply",
@@ -7507,7 +7508,7 @@
       "kind": "lemma",
       "signature": "lemma dilL1EEquiv_apply (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    dilL1EEquiv A f = dilL1E A f",
       "doc": null,
-      "line": 337
+      "line": 351
     },
     {
       "name": "ScaleSpace.dilL1EEquiv_symm_apply",
@@ -7516,7 +7517,7 @@
       "kind": "lemma",
       "signature": "lemma dilL1EEquiv_symm_apply (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    (dilL1EEquiv A).symm f = dilL1E A.symm f",
       "doc": null,
-      "line": 340
+      "line": 354
     },
     {
       "name": "ScaleSpace.dilL1E_comp_transL1E",
@@ -7525,7 +7526,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_transL1E (A : E ≃L[ℝ] E) (a : E) :\n    (dilL1E A).comp (transL1E a) = (transL1E (A a)).comp (dilL1E A)",
       "doc": "**`D_A T_a = T_{Aa} D_A`.**",
-      "line": 344
+      "line": 358
     },
     {
       "name": "ScaleSpace.isNonnegE_dilL1E",
@@ -7534,7 +7535,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_dilL1E (A : E ≃L[ℝ] E) {f : E →₁[volume] ℝ} (hf : IsNonnegE f) :\n    IsNonnegE (dilL1E A f)",
       "doc": null,
-      "line": 354
+      "line": 368
     },
     {
       "name": "ScaleSpace.integral_dilL1E",
@@ -7543,7 +7544,7 @@
       "kind": "theorem",
       "signature": "theorem integral_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    ∫ x, (dilL1E A f : E → ℝ) x = ∫ x, (f : E → ℝ) x",
       "doc": "`D_A` preserves the integral.",
-      "line": 362
+      "line": 376
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_of_abs_det_eq_one",
@@ -7552,7 +7553,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_of_abs_det_eq_one (Q : E ≃L[ℝ] E)\n    (hQ : |LinearMap.det (Q : E →ₗ[ℝ] E)| = 1) (f : E →₁[volume] ℝ) :\n    dilL1E Q f =ᵐ[volume] fun x => (f : E → ℝ) (Q.symm x)",
       "doc": "A rotation `R_Q f = f(Q⁻¹ ·)` is `D_Q` when `|det Q| = 1`.",
-      "line": 376
+      "line": 390
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_homothety",
@@ -7561,7 +7562,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_homothety {lam : ℝ} (hlam : 0 < lam) (f : E →₁[volume] ℝ) :\n    dilL1E (homothety lam hlam.ne') f =ᵐ[volume]\n      fun x => (lam ^ Module.finrank ℝ E)⁻¹ * (f : E → ℝ) (lam⁻¹ • x)",
       "doc": "**The isotropic dilation** `D_λ f = λ^{-d} f(·/λ)`, `d = finrank ℝ E`, is `D_A` at the\nhomothety `A = λ • id`.",
-      "line": 384
+      "line": 398
     },
     {
       "name": "ScaleSpace.measurePreserving_negE",
@@ -7570,7 +7571,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_negE : MeasurePreserving (fun x : E => -x) volume volume",
       "doc": "`x ↦ -x` preserves the Haar measure.",
-      "line": 393
+      "line": 407
     },
     {
       "name": "ScaleSpace.reflect_congr_aeE",
@@ -7579,7 +7580,7 @@
       "kind": "theorem",
       "signature": "theorem reflect_congr_aeE {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (-x)) =ᵐ[volume] fun x => g (-x)",
       "doc": null,
-      "line": 399
+      "line": 413
     },
     {
       "name": "ScaleSpace.integrable_reflectE",
@@ -7588,7 +7589,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_reflectE {f : E → ℝ} (hf : Integrable f) :\n    Integrable (fun x => f (-x))",
       "doc": null,
-      "line": 403
+      "line": 417
     },
     {
       "name": "ScaleSpace.reflₗE",
@@ -7597,7 +7598,7 @@
       "kind": "def",
       "signature": "noncomputable def reflₗE : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`R f = f(-·)` as a linear map on `L¹(E)`.",
-      "line": 408
+      "line": 422
     },
     {
       "name": "ScaleSpace.reflL1E",
@@ -7606,7 +7607,7 @@
       "kind": "def",
       "signature": "noncomputable def reflL1E : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Reflection `R f = f(-·)` is an isometry of `L¹(E)`.**",
-      "line": 419
+      "line": 433
     },
     {
       "name": "ScaleSpace.coeFn_reflL1E",
@@ -7615,7 +7616,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_reflL1E (f : E →₁[volume] ℝ) :\n    reflL1E f =ᵐ[volume] fun x => (f : E → ℝ) (-x)",
       "doc": null,
-      "line": 427
+      "line": 441
     },
     {
       "name": "ScaleSpace.reflL1E_eq_dilL1E",
@@ -7624,7 +7625,7 @@
       "kind": "theorem",
       "signature": "theorem reflL1E_eq_dilL1E :\n    (reflL1E : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) = dilL1E (ContinuousLinearEquiv.neg ℝ)",
       "doc": "Reflection is the dilation by `-id`.",
-      "line": 432
+      "line": 446
     },
     {
       "name": "ScaleSpace.mconvE",
@@ -7633,7 +7634,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvE (μ : Measure E) (f : E → ℝ) : E → ℝ",
       "doc": "`(μ * f)(x) = ∫ f(x - y) μ(dy)`.",
-      "line": 445
+      "line": 459
     },
     {
       "name": "ScaleSpace.mconvE_apply",
@@ -7642,7 +7643,7 @@
       "kind": "lemma",
       "signature": "lemma mconvE_apply (μ : Measure E) (f : E → ℝ) (x : E) :\n    mconvE μ f x = ∫ y, f (x - y) ∂μ",
       "doc": null,
-      "line": 449
+      "line": 463
     },
     {
       "name": "ScaleSpace.lintegral_lintegral_sub_eqE",
@@ -7651,7 +7652,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_lintegral_sub_eqE (μ : Measure E) [SFinite μ] {g : E → ℝ≥0∞}\n    (hg : AEMeasurable g) :\n    ∫⁻ x, (∫⁻ y, g (x - y) ∂μ) = μ univ * ∫⁻ x, g x",
       "doc": null,
-      "line": 452
+      "line": 466
     },
     {
       "name": "ScaleSpace.lintegral_enorm_mconv_leE",
@@ -7660,7 +7661,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_mconv_leE (μ : Measure E) [SFinite μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) :\n    ∫⁻ x, ‖mconvE μ f x‖ₑ ≤ μ univ * ∫⁻ x, ‖f x‖ₑ",
       "doc": null,
-      "line": 462
+      "line": 476
     },
     {
       "name": "ScaleSpace.integrable_uncurry_subE",
@@ -7669,7 +7670,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_uncurry_subE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    Integrable (Function.uncurry fun x y : E => f (x - y)) (volume.prod μ)",
       "doc": null,
-      "line": 469
+      "line": 483
     },
     {
       "name": "ScaleSpace.integrable_mconvE",
@@ -7678,7 +7679,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_mconvE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) : Integrable (mconvE μ f)",
       "doc": "`μ * f` is integrable.",
-      "line": 481
+      "line": 495
     },
     {
       "name": "ScaleSpace.ae_ae_sub_of_aeE",
@@ -7687,7 +7688,7 @@
       "kind": "theorem",
       "signature": "theorem ae_ae_sub_of_aeE (μ : Measure E) [SFinite μ] {p : E → Prop} (h : ∀ᵐ u ∂volume, p u) :\n    ∀ᵐ x ∂volume, ∀ᵐ y ∂μ, p (x - y)",
       "doc": null,
-      "line": 485
+      "line": 499
     },
     {
       "name": "ScaleSpace.mconvE_congr_ae",
@@ -7696,7 +7697,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_congr_ae (μ : Measure E) [SFinite μ] {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    mconvE μ f =ᵐ[volume] mconvE μ g",
       "doc": null,
-      "line": 489
+      "line": 503
     },
     {
       "name": "ScaleSpace.mconvE_add_ae",
@@ -7705,7 +7706,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_add_ae (μ : Measure E) [IsFiniteMeasure μ] {f g : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f)\n    (hg : AEStronglyMeasurable g) (hgi : Integrable g) :\n    mconvE μ (f + g) =ᵐ[volume] mconvE μ f + mconvE μ g",
       "doc": null,
-      "line": 494
+      "line": 508
     },
     {
       "name": "ScaleSpace.mconvE_smul",
@@ -7714,7 +7715,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_smul (μ : Measure E) (c : ℝ) (f : E → ℝ) :\n    mconvE μ (c • f) = c • mconvE μ f",
       "doc": null,
-      "line": 506
+      "line": 520
     },
     {
       "name": "ScaleSpace.mconvₗE",
@@ -7723,7 +7724,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvₗE (μ : Measure E) [IsFiniteMeasure μ] :\n    (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`f ↦ μ * f` as a linear map on `L¹(E)`.",
-      "line": 512
+      "line": 526
     },
     {
       "name": "ScaleSpace.mconvL1E",
@@ -7732,7 +7733,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvL1E (μ : Measure E) [IsFiniteMeasure μ] :\n    (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Convolution by a finite measure `f ↦ μ * f` is a bounded operator on `L¹(E)`**, of norm at\nmost `μ(E)`.",
-      "line": 530
+      "line": 544
     },
     {
       "name": "ScaleSpace.coeFn_mconvL1E",
@@ -7741,7 +7742,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] (f : E →₁[volume] ℝ) :\n    mconvL1E μ f =ᵐ[volume] mconvE μ (f : E → ℝ)",
       "doc": null,
-      "line": 538
+      "line": 552
     },
     {
       "name": "ScaleSpace.eq_mconvL1E_iff",
@@ -7750,7 +7751,7 @@
       "kind": "theorem",
       "signature": "theorem eq_mconvL1E_iff (μ : Measure E) [IsFiniteMeasure μ]\n    (Φ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    Φ = mconvL1E μ ↔ ∀ f : E →₁[volume] ℝ, (Φ f : E → ℝ) =ᵐ[volume] mconvE μ (f : E → ℝ)",
       "doc": "**The relational form of convolution.** An operator is `μ * ·` exactly when it is\n`f ↦ ∫ f(· - y) dμ(y)` a.e. on every `f`.",
-      "line": 544
+      "line": 558
     },
     {
       "name": "ScaleSpace.mconvE_comp_sub",
@@ -7759,7 +7760,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_comp_sub (μ : Measure E) (f : E → ℝ) (a : E) :\n    mconvE μ (fun x => f (x - a)) = fun x => mconvE μ f (x - a)",
       "doc": null,
-      "line": 557
+      "line": 571
     },
     {
       "name": "ScaleSpace.integral_mconvE",
@@ -7768,7 +7769,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    ∫ x, mconvE μ f x = (μ univ).toReal * ∫ x, f x",
       "doc": "`∫ (μ * f) = μ(E) ∫ f`.",
-      "line": 563
+      "line": 577
     },
     {
       "name": "ScaleSpace.mconvE_conv",
@@ -7777,7 +7778,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_conv (μ ν : Measure E) [IsFiniteMeasure μ] [IsFiniteMeasure ν] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    mconvE ν (mconvE μ f) =ᵐ[volume] mconvE (μ ∗ ν) f",
       "doc": "`ν * (μ * f) = (μ ∗ ν) * f`, a.e.",
-      "line": 572
+      "line": 586
     },
     {
       "name": "ScaleSpace.mconvE_dirac_zero",
@@ -7786,7 +7787,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_dirac_zero (f : E → ℝ) : mconvE (Measure.dirac 0) f = f",
       "doc": null,
-      "line": 590
+      "line": 604
     },
     {
       "name": "ScaleSpace.mconvL1E_congr",
@@ -7795,7 +7796,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_congr {μ ν : Measure E} [IsFiniteMeasure μ] [IsFiniteMeasure ν] (h : μ = ν) :\n    mconvL1E μ = mconvL1E ν",
       "doc": "Equal measures give equal operators (the instance argument blocks a plain `rw`).",
-      "line": 595
+      "line": 609
     },
     {
       "name": "ScaleSpace.norm_mconvL1E_le",
@@ -7804,7 +7805,7 @@
       "kind": "theorem",
       "signature": "theorem norm_mconvL1E_le (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ‖mconvL1E μ f‖ ≤ ‖f‖",
       "doc": "**`μ * ·` is a contraction** for a probability measure.",
-      "line": 601
+      "line": 615
     },
     {
       "name": "ScaleSpace.mconvL1E_transL1E",
@@ -7813,7 +7814,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_transL1E (μ : Measure E) [IsFiniteMeasure μ] (a : E) (f : E →₁[volume] ℝ) :\n    mconvL1E μ (transL1E a f) = transL1E a (mconvL1E μ f)",
       "doc": "**`μ * ·` commutes with translation.**",
-      "line": 612
+      "line": 626
     },
     {
       "name": "ScaleSpace.isNonnegE_mconvL1E",
@@ -7822,7 +7823,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] {f : E →₁[volume] ℝ}\n    (hf : IsNonnegE f) : IsNonnegE (mconvL1E μ f)",
       "doc": "**`μ * ·` preserves nonnegativity.**",
-      "line": 623
+      "line": 637
     },
     {
       "name": "ScaleSpace.integral_mconvL1E",
@@ -7831,7 +7832,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvL1E (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ∫ x, (mconvL1E μ f : E → ℝ) x = ∫ x, (f : E → ℝ) x",
       "doc": "**`μ * ·` preserves the integral** for a probability measure, for every `f`.",
-      "line": 630
+      "line": 644
     },
     {
       "name": "ScaleSpace.mconvL1E_comp",
@@ -7840,7 +7841,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_comp (μ ν : Measure E) [IsFiniteMeasure μ] [IsFiniteMeasure ν] :\n    (mconvL1E ν).comp (mconvL1E μ) = mconvL1E (μ ∗ ν)",
       "doc": "**`(μ * ·) ∘ (ν * ·)`**: composing the operators convolves the measures.",
-      "line": 637
+      "line": 651
     },
     {
       "name": "ScaleSpace.mconvL1E_dirac_zero",
@@ -7849,7 +7850,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_dirac_zero :\n    mconvL1E (Measure.dirac (0 : E)) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "**`δ₀ * f = f`.**",
-      "line": 646
+      "line": 660
     },
     {
       "name": "ScaleSpace.dilateE_mconvE",
@@ -7858,7 +7859,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_mconvE (A : E ≃L[ℝ] E) (μ : Measure E) {f : E → ℝ} (hf : Measurable f) :\n    dilateE A (mconvE μ f) = mconvE (μ.map A) (dilateE A f)",
       "doc": "**Transport** at the level of functions.",
-      "line": 657
+      "line": 671
     },
     {
       "name": "ScaleSpace.dilL1E_comp_mconvL1E",
@@ -7867,7 +7868,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_mconvL1E (A : E ≃L[ℝ] E) (μ : Measure E) [IsFiniteMeasure μ]\n    [IsFiniteMeasure (μ.map A)] :\n    (dilL1E A).comp (mconvL1E μ) = (mconvL1E (μ.map A)).comp (dilL1E A)",
       "doc": "**Transport `D_A (μ * f) = (A_* μ) * D_A f`**, as operators.",
-      "line": 669
+      "line": 683
     },
     {
       "name": "ScaleSpace.dilL1E_conj_mconvL1E",
@@ -7876,7 +7877,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_conj_mconvL1E (A : E ≃L[ℝ] E) (μ ν : Measure E) [IsFiniteMeasure μ]\n    [IsFiniteMeasure ν] (h : μ.map A = ν) :\n    ((dilL1E A).comp (mconvL1E μ)).comp (dilL1E A.symm) = mconvL1E ν",
       "doc": "**Conjugating `μ * ·` by `D_A` gives `ν * ·` when `A_* μ = ν`.** The converse needs\nuniqueness of the representing measure, which this module does not state.",
-      "line": 691
+      "line": 705
     },
     {
       "name": "ScaleSpace.intertwines_iff_dilL1E",
@@ -7885,7 +7886,7 @@
       "kind": "theorem",
       "signature": "theorem intertwines_iff_dilL1E (c : ℝ) (hc : c ≠ 0) (A : E ≃L[ℝ] E)\n    (Φ Ψ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    (∀ f g : E →₁[volume] ℝ, ((g : E → ℝ) =ᵐ[volume] fun x => c * (f : E → ℝ) (A.symm x)) →\n      ((Ψ g : E → ℝ) =ᵐ[volume] fun x => c * (Φ f : E → ℝ) (A.symm x))) ↔\n    Ψ.comp (dilL1E A) = (dilL1E A).comp Φ",
       "doc": "**Relational intertwining is the operator identity.**",
-      "line": 705
+      "line": 719
     },
     {
       "name": "ScaleSpace.translation_iff_transL1E",
@@ -7894,7 +7895,7 @@
       "kind": "theorem",
       "signature": "theorem translation_iff_transL1E (Φ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    (∀ (a : E) (f g : E →₁[volume] ℝ), ((g : E → ℝ) =ᵐ[volume] fun x => (f : E → ℝ) (x - a)) →\n      ((Φ g : E → ℝ) =ᵐ[volume] fun x => (Φ f : E → ℝ) (x - a))) ↔\n    ∀ a : E, Φ.comp (transL1E a) = (transL1E a).comp Φ",
       "doc": "**Relational translation covariance is the operator identity.**",
-      "line": 740
+      "line": 754
     },
     {
       "name": "ScaleSpace.transL1E_real",
@@ -7903,7 +7904,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_real (a : ℝ) : transL1E a = transL1 a",
       "doc": null,
-      "line": 760
+      "line": 774
     },
     {
       "name": "ScaleSpace.reflL1E_real",
@@ -7912,7 +7913,7 @@
       "kind": "theorem",
       "signature": "theorem reflL1E_real : (reflL1E : X →L[ℝ] X) = reflL1",
       "doc": null,
-      "line": 763
+      "line": 777
     },
     {
       "name": "ScaleSpace.mconvL1E_real",
@@ -7921,7 +7922,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_real (μ : Measure ℝ) [IsFiniteMeasure μ] : mconvL1E μ = mconvL1 μ",
       "doc": null,
-      "line": 766
+      "line": 780
     },
     {
       "name": "ScaleSpace.mconvE_real",
@@ -7930,7 +7931,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_real (μ : Measure ℝ) (f : ℝ → ℝ) : mconvE μ f = mconv μ f",
       "doc": null,
-      "line": 769
+      "line": 783
     },
     {
       "name": "ScaleSpace.dilateE_homothety_real",
@@ -7939,7 +7940,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_homothety_real {lam : ℝ} (hlam : 0 < lam) (f : ℝ → ℝ) :\n    dilateE (homothety lam hlam.ne') f = dilate lam f",
       "doc": "`dilate`'s `lam⁻¹ f(lam⁻¹ x)` is `|det A|⁻¹ f(A⁻¹ x)` at `A = lam`.",
-      "line": 772
+      "line": 786
     },
     {
       "name": "ScaleSpace.dilL1E_homothety_real",
@@ -7948,7 +7949,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_homothety_real {lam : ℝ} (hlam : 0 < lam) :\n    dilL1E (homothety lam hlam.ne') = dilL1 hlam",
       "doc": "**The matrix dilation at `E = ℝ`, `A = lam`, is the line's dilation.**",
-      "line": 780
+      "line": 794
     },
     {
       "name": "ScaleSpace.isNonnegE_real",
@@ -7957,7 +7958,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_real (f : X) : IsNonnegE f ↔ IsNonneg f",
       "doc": null,
-      "line": 787
+      "line": 801
     },
     {
       "name": "ScaleSpace.subCME",
@@ -7966,7 +7967,7 @@
       "kind": "def",
       "signature": "noncomputable def subCME : C(E, C(E, E))",
       "doc": "`a ↦ (x ↦ x - a)`, as a continuous map into `C(E, E)`.",
-      "line": 43
+      "line": 55
     },
     {
       "name": "ScaleSpace.subCME_apply",
@@ -7975,7 +7976,7 @@
       "kind": "lemma",
       "signature": "lemma subCME_apply (a x : E) : subCME a x = x - a",
       "doc": null,
-      "line": 48
+      "line": 60
     },
     {
       "name": "ScaleSpace.measurePreserving_subCME",
@@ -7984,7 +7985,7 @@
       "kind": "lemma",
       "signature": "lemma measurePreserving_subCME (a : E) :\n    MeasurePreserving (subCME a) volume volume",
       "doc": null,
-      "line": 51
+      "line": 63
     },
     {
       "name": "ScaleSpace.transL1E_eq",
@@ -7993,7 +7994,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_eq (a : E) (g : E →₁[volume] ℝ) :\n    transL1E a g = Lp.compMeasurePreserving (subCME a) (measurePreserving_subCME a) g",
       "doc": "The hand-built `transL1E` is Mathlib's composition operator.",
-      "line": 56
+      "line": 68
     },
     {
       "name": "ScaleSpace.continuous_transL1E",
@@ -8002,7 +8003,7 @@
       "kind": "theorem",
       "signature": "theorem continuous_transL1E (g : E →₁[volume] ℝ) : Continuous fun a : E => transL1E a g",
       "doc": "**Translation acts continuously on `L¹(E)`**: `y ↦ T_y g` is continuous.",
-      "line": 62
+      "line": 74
     },
     {
       "name": "ScaleSpace.bconvE",
@@ -8011,7 +8012,7 @@
       "kind": "def",
       "signature": "noncomputable def bconvE (f : E → ℝ) (g : E →₁[volume] ℝ) : E →₁[volume] ℝ",
       "doc": "`f * g = ∫ f(y) · T_y g dy`, as an `L¹(E)`-valued Bochner integral.",
-      "line": 75
+      "line": 87
     },
     {
       "name": "ScaleSpace.integrable_smul_transL1E",
@@ -8020,7 +8021,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_smul_transL1E {f : E → ℝ} (hf : Integrable f) (g : E →₁[volume] ℝ) :\n    Integrable (fun y => f y • transL1E y g)",
       "doc": null,
-      "line": 78
+      "line": 90
     },
     {
       "name": "ScaleSpace.map_bconvE",
@@ -8029,7 +8030,7 @@
       "kind": "theorem",
       "signature": "theorem map_bconvE (L : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ))\n    (hL : ∀ a g, L (transL1E a g) = transL1E a (L g))\n    {f : E → ℝ} (hf : Integrable f) (g : E →₁[volume] ℝ) :\n    L (bconvE f g) = bconvE f (L g)",
       "doc": "**The interchange identity `Φ (f * g) = f * (Φ g)`**, for any bounded operator on `L¹(E)` that\ncommutes with every translation.",
-      "line": 91
+      "line": 103
     },
     {
       "name": "ScaleSpace.setIntegralCLME",
@@ -8038,7 +8039,7 @@
       "kind": "def",
       "signature": "noncomputable def setIntegralCLME (A : Set E) : (E →₁[volume] ℝ) →L[ℝ] ℝ",
       "doc": "Integration over a fixed set, as a bounded functional on `L¹(E)`.",
-      "line": 105
+      "line": 117
     },
     {
       "name": "ScaleSpace.setIntegralCLME_apply",
@@ -8047,7 +8048,7 @@
       "kind": "lemma",
       "signature": "lemma setIntegralCLME_apply (A : Set E) (h : E →₁[volume] ℝ) :\n    setIntegralCLME A h = ∫ x in A, (h : E → ℝ) x",
       "doc": null,
-      "line": 135
+      "line": 147
     },
     {
       "name": "ScaleSpace.integrable_uncurry_pconvE",
@@ -8056,7 +8057,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_uncurry_pconvE {f : E → ℝ} (hf : Integrable f) (g : E →₁[volume] ℝ) :\n    Integrable (fun p : E × E => f p.2 * (g : E → ℝ) (p.1 - p.2)) (volume.prod volume)",
       "doc": "The two-variable integrand of the classical convolution is integrable on the product.",
-      "line": 139
+      "line": 151
     },
     {
       "name": "ScaleSpace.integrable_pconvE",
@@ -8065,7 +8066,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_pconvE {f : E → ℝ} (hf : Integrable f) (g : E →₁[volume] ℝ) :\n    Integrable (fun x => ∫ y, f y * (g : E → ℝ) (x - y))",
       "doc": "The classical convolution is integrable.",
-      "line": 171
+      "line": 183
     },
     {
       "name": "ScaleSpace.coeFn_bconvE",
@@ -8074,7 +8075,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_bconvE {f : E → ℝ} (hf : Integrable f) (g : E →₁[volume] ℝ) :\n    (bconvE f g : E → ℝ) =ᵐ[volume] fun x => ∫ y, f y * (g : E → ℝ) (x - y)",
       "doc": "**`bconvE` is the classical convolution** `x ↦ ∫ f(y) g(x - y) dy`.",
-      "line": 176
+      "line": 188
     },
     {
       "name": "ScaleSpace.integrable_transL1E",
@@ -8083,7 +8084,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_transL1E (μ : Measure E) [IsFiniteMeasure μ] (f : E →₁[volume] ℝ) :\n    Integrable (fun y => transL1E y f) μ",
       "doc": "`y ↦ T_y f` is `μ`-integrable for every finite `μ`.",
-      "line": 225
+      "line": 237
     },
     {
       "name": "ScaleSpace.bconvME",
@@ -8092,7 +8093,7 @@
       "kind": "def",
       "signature": "noncomputable def bconvME (μ : Measure E) (f : E →₁[volume] ℝ) : E →₁[volume] ℝ",
       "doc": "`∫ T_y f dμ(y)`, as an `L¹(E)`-valued Bochner integral.",
-      "line": 232
+      "line": 244
     },
     {
       "name": "ScaleSpace.bconvME_eq_mconvL1E",
@@ -8101,7 +8102,7 @@
       "kind": "theorem",
       "signature": "theorem bconvME_eq_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] (f : E →₁[volume] ℝ) :\n    bconvME μ f = mconvL1E μ f",
       "doc": "**The Bochner form of convolution by a measure**: `μ * f = ∫ T_y f dμ(y)`.",
-      "line": 236
+      "line": 248
     },
     {
       "name": "ScaleSpace.apply_mconvL1E_general",
@@ -8110,7 +8111,7 @@
       "kind": "theorem",
       "signature": "theorem apply_mconvL1E_general (Ψ : (E →₁[volume] ℝ) →L[ℝ] F) (μ : Measure E) [IsFiniteMeasure μ]\n    (f : E →₁[volume] ℝ) :\n    Ψ (mconvL1E μ f) = ∫ y, Ψ (transL1E y f) ∂μ",
       "doc": "**`Ψ (μ * f) = ∫ Ψ (T_y f) dμ(y)`**, for a bounded functional with values in any Banach\nspace.",
-      "line": 290
+      "line": 302
     },
     {
       "name": "ScaleSpace.pairTransE",
@@ -8119,7 +8120,7 @@
       "kind": "def",
       "signature": "noncomputable def pairTransE (Ψ : (E →₁[volume] ℝ) →L[ℝ] ℝ) (f : E →₁[volume] ℝ) :\n    BoundedContinuousFunction E ℝ",
       "doc": "`y ↦ Ψ (T_y f)`, as a bounded continuous function on `E`.",
-      "line": 297
+      "line": 309
     },
     {
       "name": "ScaleSpace.pairTransE_apply",
@@ -8128,7 +8129,7 @@
       "kind": "lemma",
       "signature": "lemma pairTransE_apply (Ψ : (E →₁[volume] ℝ) →L[ℝ] ℝ) (f : E →₁[volume] ℝ) (y : E) :\n    pairTransE Ψ f y = Ψ (transL1E y f)",
       "doc": null,
-      "line": 303
+      "line": 315
     },
     {
       "name": "ScaleSpace.apply_mconvL1E",
@@ -8137,7 +8138,7 @@
       "kind": "theorem",
       "signature": "theorem apply_mconvL1E (Ψ : (E →₁[volume] ℝ) →L[ℝ] ℝ) (μ : Measure E) [IsFiniteMeasure μ]\n    (f : E →₁[volume] ℝ) :\n    Ψ (mconvL1E μ f) = ∫ y, pairTransE Ψ f y ∂μ",
       "doc": "**`Ψ (μ * f) = ∫ Ψ (T_y f) dμ(y)`.**",
-      "line": 307
+      "line": 319
     },
     {
       "name": "ScaleSpace.apply_bconvE",
@@ -8146,7 +8147,7 @@
       "kind": "theorem",
       "signature": "theorem apply_bconvE (Ψ : (E →₁[volume] ℝ) →L[ℝ] ℝ) {g : E → ℝ} (hg : Integrable g)\n    (f : E →₁[volume] ℝ) :\n    Ψ (bconvE g f) = ∫ y, g y * pairTransE Ψ f y",
       "doc": "**`Ψ (g * f) = ∫ g(y) Ψ (T_y f) dy`**, the density counterpart.",
-      "line": 313
+      "line": 325
     },
     {
       "name": "ScaleSpace.eq_dirac_of_mconvL1E_eq_id",
@@ -8155,7 +8156,7 @@
       "kind": "theorem",
       "signature": "theorem eq_dirac_of_mconvL1E_eq_id {μ : Measure E} [IsProbabilityMeasure μ]\n    (h : mconvL1E μ = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)) : μ = Measure.dirac 0",
       "doc": "**The kernel of the identity is `δ₀`**: if convolution by a probability measure fixes every\nelement of `L¹(E)`, the measure is `δ₀`. Tested at the tent `k(y) = max 0 (1 - ‖y‖)`: `μ * k` is\ncontinuous, so `μ * k = k` holds everywhere, and at the origin it says `∫ k dμ = 1`; since `k < 1`\noff the origin, `μ` sits at the origin.",
-      "line": 327
+      "line": 339
     },
     {
       "name": "ScaleSpace.bconvE_real",
@@ -8164,7 +8165,7 @@
       "kind": "theorem",
       "signature": "theorem bconvE_real (f : ℝ → ℝ) (g : X) : bconvE f g = bconv f g",
       "doc": null,
-      "line": 393
+      "line": 405
     },
     {
       "name": "ScaleSpace.bconvME_real",
@@ -8173,7 +8174,7 @@
       "kind": "theorem",
       "signature": "theorem bconvME_real (μ : Measure ℝ) (f : X) : bconvME μ f = bconvM μ f",
       "doc": null,
-      "line": 396
+      "line": 408
     },
     {
       "name": "ScaleSpace.matEquiv",
@@ -8182,7 +8183,7 @@
       "kind": "def",
       "signature": "noncomputable def matEquiv (A : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det) :\n    EuclideanSpace ℝ (Fin d) ≃L[ℝ] EuclideanSpace ℝ (Fin d)",
       "doc": "The continuous linear equivalence of `ℝ^d` given by an invertible matrix, acting through\n`Matrix.toEuclideanCLM`.",
-      "line": 33
+      "line": 34
     },
     {
       "name": "ScaleSpace.matEquiv_apply",
@@ -8191,7 +8192,7 @@
       "kind": "lemma",
       "signature": "lemma matEquiv_apply (A : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det)\n    (x : EuclideanSpace ℝ (Fin d)) : matEquiv A hA x = toEuclideanCLM (𝕜 := ℝ) A x",
       "doc": null,
-      "line": 46
+      "line": 47
     },
     {
       "name": "ScaleSpace.matEquiv_symm_apply",
@@ -8200,7 +8201,7 @@
       "kind": "lemma",
       "signature": "lemma matEquiv_symm_apply (A : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det)\n    (x : EuclideanSpace ℝ (Fin d)) :\n    (matEquiv A hA).symm x = toEuclideanCLM (𝕜 := ℝ) A⁻¹ x",
       "doc": null,
-      "line": 49
+      "line": 50
     },
     {
       "name": "ScaleSpace.det_matEquiv",
@@ -8209,7 +8210,7 @@
       "kind": "lemma",
       "signature": "lemma det_matEquiv (A : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det) :\n    LinearMap.det ((matEquiv A hA : EuclideanSpace ℝ (Fin d) ≃L[ℝ] EuclideanSpace ℝ (Fin d)) :\n      EuclideanSpace ℝ (Fin d) →ₗ[ℝ] EuclideanSpace ℝ (Fin d)) = A.det",
       "doc": "The determinant of `matEquiv A` is the matrix determinant.",
-      "line": 54
+      "line": 55
     },
     {
       "name": "ScaleSpace.matEquiv_mul",
@@ -8218,7 +8219,7 @@
       "kind": "lemma",
       "signature": "lemma matEquiv_mul (A B : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det) (hB : IsUnit B.det) :\n    matEquiv (A * B) (by rw [det_mul]; exact hA.mul hB)\n      = (matEquiv B hB).trans (matEquiv A hA)",
       "doc": "`matEquiv (A B) = matEquiv A ∘ matEquiv B`.",
-      "line": 61
+      "line": 62
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_matEquiv",
@@ -8227,7 +8228,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_matEquiv (A : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det)\n    (f : EuclideanSpace ℝ (Fin d) →₁[volume] ℝ) :\n    dilL1E (matEquiv A hA) f =ᵐ[volume]\n      fun x => |A.det|⁻¹ *\n        (f : EuclideanSpace ℝ (Fin d) → ℝ) (toEuclideanCLM (𝕜 := ℝ) A⁻¹ x)",
       "doc": "**The matrix dilation** `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, with the matrix inverse and determinant.",
-      "line": 72
+      "line": 73
     },
     {
       "name": "ScaleSpace.eq_dilL1E_matEquiv_iff",
@@ -8236,7 +8237,7 @@
       "kind": "theorem",
       "signature": "theorem eq_dilL1E_matEquiv_iff (A : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det)\n    (f g : EuclideanSpace ℝ (Fin d) →₁[volume] ℝ) :\n    g = dilL1E (matEquiv A hA) f ↔ (g : EuclideanSpace ℝ (Fin d) → ℝ) =ᵐ[volume]\n      fun x => |A.det|⁻¹ *\n        (f : EuclideanSpace ℝ (Fin d) → ℝ) (toEuclideanCLM (𝕜 := ℝ) A⁻¹ x)",
       "doc": "**The relational form of the matrix dilation.**",
-      "line": 82
+      "line": 83
     },
     {
       "name": "ScaleSpace.intertwines_iff_dilL1E_matEquiv",
@@ -8245,7 +8246,7 @@
       "kind": "theorem",
       "signature": "theorem intertwines_iff_dilL1E_matEquiv (c : ℝ) (hc : c ≠ 0) (A : Matrix (Fin d) (Fin d) ℝ)\n    (hA : IsUnit A.det)\n    (Φ Ψ : (EuclideanSpace ℝ (Fin d) →₁[volume] ℝ) →L[ℝ]\n      (EuclideanSpace ℝ (Fin d) →₁[volume] ℝ)) :\n    (∀ f g : EuclideanSpace ℝ (Fin d) →₁[volume] ℝ,\n      ((g : EuclideanSpace ℝ (Fin d) → ℝ) =ᵐ[volume]\n        fun x => c * (f : EuclideanSpace ℝ (Fin d) → ℝ) (toEuclideanCLM (𝕜 := ℝ) A⁻¹ x)) →\n      ((Ψ g : EuclideanSpace ℝ (Fin d) → ℝ) =ᵐ[volume]\n        fun x => c * (Φ f : EuclideanSpace ℝ (Fin d) → ℝ) (toEuclideanCLM (𝕜 := ℝ) A⁻¹ x))) ↔\n    Ψ.comp (dilL1E (matEquiv A hA)) = (dilL1E (matEquiv A hA)).comp Φ",
       "doc": "**Paper VII's relational intertwining is the operator identity**: for `c ≠ 0`,\n\"`g = c · f(A⁻¹ ·)` a.e. implies `Ψ g = c · (Φ f)(A⁻¹ ·)` a.e.\" says `Ψ D_A = D_A Φ`.",
-      "line": 92
+      "line": 93
     },
     {
       "name": "ScaleSpace.dilL1E_matEquiv_comp",
@@ -8254,7 +8255,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_matEquiv_comp (A B : Matrix (Fin d) (Fin d) ℝ) (hA : IsUnit A.det)\n    (hB : IsUnit B.det) :\n    (dilL1E (matEquiv A hA)).comp (dilL1E (matEquiv B hB))\n      = dilL1E (matEquiv (A * B) (by rw [det_mul]; exact hA.mul hB))",
       "doc": "`D_A D_B = D_{AB}` for matrices.",
-      "line": 105
+      "line": 106
     },
     {
       "name": "ScaleSpace.abs_det_of_transpose_mul_self",
@@ -8263,7 +8264,7 @@
       "kind": "lemma",
       "signature": "lemma abs_det_of_transpose_mul_self {Q : Matrix (Fin d) (Fin d) ℝ} (hQ : Qᵀ * Q = 1) :",
       "doc": "An orthogonal matrix has `|det Q| = 1`.",
-      "line": 112
+      "line": 113
     },
     {
       "name": "ScaleSpace.isUnit_det_of_transpose_mul_self",
@@ -8272,7 +8273,7 @@
       "kind": "lemma",
       "signature": "lemma isUnit_det_of_transpose_mul_self {Q : Matrix (Fin d) (Fin d) ℝ} (hQ : Qᵀ * Q = 1) :\n    IsUnit Q.det",
       "doc": null,
-      "line": 120
+      "line": 121
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_matEquiv_orthogonal",
@@ -8281,7 +8282,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_matEquiv_orthogonal {Q : Matrix (Fin d) (Fin d) ℝ} (hQ : Qᵀ * Q = 1)\n    (f : EuclideanSpace ℝ (Fin d) →₁[volume] ℝ) :\n    dilL1E (matEquiv Q (isUnit_det_of_transpose_mul_self hQ)) f =ᵐ[volume]\n      fun x => (f : EuclideanSpace ℝ (Fin d) → ℝ) (toEuclideanCLM (𝕜 := ℝ) Q⁻¹ x)",
       "doc": "**A rotation** `R_Q f = f(Q⁻¹ ·)`, `Q` orthogonal, is the matrix dilation `D_Q`.",
-      "line": 128
+      "line": 129
     },
     {
       "name": "ScaleSpace.matEquiv_smul_one",
@@ -8290,7 +8291,7 @@
       "kind": "lemma",
       "signature": "lemma matEquiv_smul_one {lam : ℝ} (hlam : lam ≠ 0) :\n    matEquiv (lam • (1 : Matrix (Fin d) (Fin d) ℝ))\n      (by rw [det_smul, det_one, mul_one]; exact (isUnit_iff_ne_zero.mpr (pow_ne_zero _ hlam)))\n      = homothety lam hlam",
       "doc": "The scalar matrix `λ • 1` gives the homothety.",
-      "line": 136
+      "line": 137
     },
     {
       "name": "ScaleSpace.transDiffE",
@@ -8299,7 +8300,7 @@
       "kind": "def",
       "signature": "noncomputable def transDiffE (f : E →₁[volume] ℝ) (y : E) : ℝ",
       "doc": "`Θ_f(y) = ‖T_y f - f‖₁`, the modulus of continuity of translation at `f`.",
-      "line": 42
+      "line": 50
     },
     {
       "name": "ScaleSpace.continuous_transDiffE",
@@ -8308,7 +8309,7 @@
       "kind": "theorem",
       "signature": "theorem continuous_transDiffE (f : E →₁[volume] ℝ) : Continuous (transDiffE f)",
       "doc": null,
-      "line": 44
+      "line": 52
     },
     {
       "name": "ScaleSpace.transDiffE_nonneg",
@@ -8317,7 +8318,7 @@
       "kind": "theorem",
       "signature": "theorem transDiffE_nonneg (f : E →₁[volume] ℝ) (y : E) : 0 ≤ transDiffE f y",
       "doc": null,
-      "line": 48
+      "line": 56
     },
     {
       "name": "ScaleSpace.transDiffE_zero",
@@ -8326,7 +8327,7 @@
       "kind": "theorem",
       "signature": "theorem transDiffE_zero (f : E →₁[volume] ℝ) : transDiffE f 0 = 0",
       "doc": null,
-      "line": 52
+      "line": 60
     },
     {
       "name": "ScaleSpace.transDiffE_le",
@@ -8335,7 +8336,7 @@
       "kind": "theorem",
       "signature": "theorem transDiffE_le (f : E →₁[volume] ℝ) (y : E) : transDiffE f y ≤ 2 * ‖f‖",
       "doc": "`Θ_f ≤ 2‖f‖`.",
-      "line": 57
+      "line": 65
     },
     {
       "name": "ScaleSpace.integrable_transDiffE",
@@ -8344,7 +8345,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_transDiffE (μ : Measure E) [IsFiniteMeasure μ] (f : E →₁[volume] ℝ) :\n    Integrable (transDiffE f) μ",
       "doc": null,
-      "line": 61
+      "line": 69
     },
     {
       "name": "ScaleSpace.norm_mconvL1E_sub_le",
@@ -8353,7 +8354,7 @@
       "kind": "theorem",
       "signature": "theorem norm_mconvL1E_sub_le (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ‖mconvL1E μ f - f‖ ≤ ∫ y, transDiffE f y ∂μ",
       "doc": "**(★).** `‖μ * f - f‖₁ ≤ ∫ Θ_f dμ` for a probability measure `μ`.",
-      "line": 69
+      "line": 77
     },
     {
       "name": "ScaleSpace.transDiffE_mconvL1E_le",
@@ -8362,7 +8363,7 @@
       "kind": "theorem",
       "signature": "theorem transDiffE_mconvL1E_le (ν : Measure E) [IsProbabilityMeasure ν] (f : E →₁[volume] ℝ)\n    (y : E) : transDiffE (mconvL1E ν f) y ≤ transDiffE f y",
       "doc": "**The modulus of continuity decreases under convolution**: `Θ_{ν*f} ≤ Θ_f`.",
-      "line": 78
+      "line": 86
     },
     {
       "name": "ScaleSpace.norm_mconvL1E_comp_sub_le",
@@ -8371,7 +8372,7 @@
       "kind": "theorem",
       "signature": "theorem norm_mconvL1E_comp_sub_le (μ ν : Measure E) [IsProbabilityMeasure μ]\n    [IsProbabilityMeasure ν] (f : E →₁[volume] ℝ) :\n    ‖mconvL1E μ (mconvL1E ν f) - mconvL1E ν f‖ ≤ ∫ y, transDiffE f y ∂μ",
       "doc": "**(★) after an operator**, with the bound still expressed at `f`.",
-      "line": 86
+      "line": 94
     },
     {
       "name": "ScaleSpace.transDiffBCFE",
@@ -8380,7 +8381,7 @@
       "kind": "def",
       "signature": "noncomputable def transDiffBCFE (f : E →₁[volume] ℝ) : BoundedContinuousFunction E ℝ",
       "doc": "The modulus of continuity as a bounded continuous function on `E`.",
-      "line": 94
+      "line": 102
     },
     {
       "name": "ScaleSpace.transDiffBCFE_apply",
@@ -8389,7 +8390,7 @@
       "kind": "theorem",
       "signature": "theorem transDiffBCFE_apply (f : E →₁[volume] ℝ) (y : E) :\n    transDiffBCFE f y = transDiffE f y",
       "doc": null,
-      "line": 101
+      "line": 109
     },
     {
       "name": "ScaleSpace.transDiffE_real",
@@ -8398,7 +8399,7 @@
       "kind": "theorem",
       "signature": "theorem transDiffE_real (f : X) (y : ℝ) : transDiffE f y = transDiff f y",
       "doc": null,
-      "line": 104
+      "line": 112
     },
     {
       "name": "ScaleSpace.tendsto_integral_transDiffE_of_tendsto_charFun",
@@ -8407,7 +8408,7 @@
       "kind": "theorem",
       "signature": "theorem tendsto_integral_transDiffE_of_tendsto_charFun {μ : ℕ → Measure E}\n    [hμ : ∀ n, IsProbabilityMeasure (μ n)]\n    (h : ∀ ω, Tendsto (fun n => charFun (μ n) ω) atTop (𝓝 1)) (f : E →₁[volume] ℝ) :\n    Tendsto (fun n => ∫ y, transDiffE f y ∂(μ n)) atTop (𝓝 0)",
       "doc": "**Kernels whose characteristic functions tend to `1` concentrate at the origin**, measured by\nthe modulus of continuity.",
-      "line": 118
+      "line": 126
     },
     {
       "name": "ScaleSpace.tendsto_norm_mconvL1E_sub_of_tendsto_charFun",
@@ -8416,7 +8417,7 @@
       "kind": "theorem",
       "signature": "theorem tendsto_norm_mconvL1E_sub_of_tendsto_charFun {μ : ℕ → Measure E}\n    [∀ n, IsProbabilityMeasure (μ n)]\n    (h : ∀ ω, Tendsto (fun n => charFun (μ n) ω) atTop (𝓝 1)) (f : E →₁[volume] ℝ) :\n    Tendsto (fun n => ‖mconvL1E (μ n) f - f‖) atTop (𝓝 0)",
       "doc": "**Kernels whose characteristic functions tend to `1` give operators tending strongly to the\nidentity.**",
-      "line": 137
+      "line": 145
     },
     {
       "name": "ScaleSpace.integrable_char_mulE",
@@ -8425,7 +8426,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_char_mulE (ω : E) (f : E →₁[volume] ℝ) :\n    Integrable (fun x : E => Complex.exp (⟪x, ω⟫ * Complex.I) * ((f : E → ℝ) x : ℂ))",
       "doc": "The integrand of the character pairing is integrable: a unit-modulus continuous factor times\nan `L¹` function.",
-      "line": 38
+      "line": 45
     },
     {
       "name": "ScaleSpace.charCLME",
@@ -8434,7 +8435,7 @@
       "kind": "def",
       "signature": "noncomputable def charCLME (ω : E) : (E →₁[volume] ℝ) →L[ℝ] ℂ",
       "doc": "**The character pairing** `f ↦ f̂(ω) = ∫ e^{i⟨x, ω⟩} f(x) dx`, as an `ℝ`-linear bounded\nfunctional on `L¹(E)` with values in `ℂ`.",
-      "line": 49
+      "line": 56
     },
     {
       "name": "ScaleSpace.charCLME_apply",
@@ -8443,7 +8444,7 @@
       "kind": "lemma",
       "signature": "lemma charCLME_apply (ω : E) (f : E →₁[volume] ℝ) :\n    charCLME ω f = ∫ x : E, Complex.exp (⟪x, ω⟫ * Complex.I) * ((f : E → ℝ) x : ℂ)",
       "doc": null,
-      "line": 79
+      "line": 86
     },
     {
       "name": "ScaleSpace.charCLME_transL1E",
@@ -8452,7 +8453,7 @@
       "kind": "theorem",
       "signature": "theorem charCLME_transL1E (ω a : E) (f : E →₁[volume] ℝ) :\n    charCLME ω (transL1E a f) = Complex.exp (⟪a, ω⟫ * Complex.I) * charCLME ω f",
       "doc": "**The character pairing turns translation into multiplication** by `e^{i⟨a, ω⟩}`.",
-      "line": 84
+      "line": 91
     },
     {
       "name": "ScaleSpace.charCLME_mconvL1E",
@@ -8461,7 +8462,7 @@
       "kind": "theorem",
       "signature": "theorem charCLME_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] (ω : E) (f : E →₁[volume] ℝ) :\n    charCLME ω (mconvL1E μ f) = charFun μ ω * charCLME ω f",
       "doc": "**`(μ * f)^ = μ̂ f̂`**: pairing the convolution operator against a character factorises into\nthe characteristic function of the measure times the transform of the function.",
-      "line": 103
+      "line": 110
     },
     {
       "name": "ScaleSpace.lintegral_gammaMeasure",
@@ -8470,7 +8471,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_gammaMeasure {a r : ℝ} {g : ℝ → ℝ≥0∞} (hg : Measurable g) :\n    (∫⁻ u, g u ∂(gammaMeasure a r))\n      = ∫⁻ u in Ioi (0 : ℝ),\n          ENNReal.ofReal (r ^ a / Real.Gamma a * u ^ (a - 1) * Real.exp (-(r * u))) * g u",
       "doc": "Integration against the Gamma law is integration against its density on `(0,∞)`.",
-      "line": 35
+      "line": 42
     },
     {
       "name": "ScaleSpace.lintegral_gammaMeasure_rpow_mul_exp",
@@ -8479,7 +8480,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_gammaMeasure_rpow_mul_exp {a r : ℝ} (ha : 0 < a) (hr : 0 < r) {q s : ℝ}\n    (hq : 0 < a + q) (hs : 0 ≤ s) :\n    (∫⁻ u, ENNReal.ofReal (u ^ q * Real.exp (-(s * u))) ∂(gammaMeasure a r))\n      = ENNReal.ofReal\n          (r ^ a * (1 / (r + s)) ^ (a + q) * Real.Gamma (a + q) / Real.Gamma a)",
       "doc": "**The Gamma law against `u^q e^{-su}`**, the one computation both second-demand consumers'\nproofs need.",
-      "line": 58
+      "line": 65
     },
     {
       "name": "ScaleSpace.gammaMeasure_Iio_zero",
@@ -8488,7 +8489,7 @@
       "kind": "theorem",
       "signature": "theorem gammaMeasure_Iio_zero (a r : ℝ) : gammaMeasure a r (Iio (0 : ℝ)) = 0",
       "doc": "The Gamma law lives on the positive axis.",
-      "line": 100
+      "line": 107
     },
     {
       "name": "ScaleSpace.ae_pos_gammaMeasure",
@@ -8497,7 +8498,7 @@
       "kind": "theorem",
       "signature": "theorem ae_pos_gammaMeasure (a r : ℝ) : ∀ᵐ u ∂(gammaMeasure a r), 0 < u",
       "doc": null,
-      "line": 104
+      "line": 111
     },
     {
       "name": "ScaleSpace.convPow",
@@ -8542,7 +8543,7 @@
       "kind": "theorem",
       "signature": "theorem star_dotProduct_mulVec_eq_sum (A : Matrix (Fin n) (Fin n) ℝ) (x : Fin n → ℝ) :\n    star x ⬝ᵥ A *ᵥ x = ∑ j, ∑ k, x j * x k * A j k",
       "doc": "The quadratic form `x ↦ x⋆ A x` of a real matrix, written out as a double sum.",
-      "line": 45
+      "line": 53
     },
     {
       "name": "ScaleSpace.posSemidef_iff_sum",
@@ -8551,7 +8552,7 @@
       "kind": "theorem",
       "signature": "theorem posSemidef_iff_sum (A : Matrix (Fin n) (Fin n) ℝ) :\n    A.PosSemidef ↔ (∀ j k, A k j = A j k) ∧\n      ∀ x : Fin n → ℝ, 0 ≤ ∑ j, ∑ k, x j * x k * A j k",
       "doc": "A real matrix is positive semidefinite exactly when it is symmetric and its quadratic form,\nwritten as a double sum, is nonnegative.",
-      "line": 52
+      "line": 60
     },
     {
       "name": "ScaleSpace.sum_sum_mul",
@@ -8560,7 +8561,7 @@
       "kind": "theorem",
       "signature": "theorem sum_sum_mul (f g : Fin n → ℝ) : ∑ j, ∑ k, f j * g k = (∑ j, f j) * (∑ k, g k)",
       "doc": "A double sum of products is a product of sums.",
-      "line": 71
+      "line": 79
     },
     {
       "name": "ScaleSpace.sum_mul_conj_nonneg_of_posSemidef",
@@ -8569,7 +8570,7 @@
       "kind": "theorem",
       "signature": "theorem sum_mul_conj_nonneg_of_posSemidef {A : Matrix (Fin n) (Fin n) ℝ} (hA : A.PosSemidef)\n    (c : Fin n → ℂ) : 0 ≤ ∑ j, ∑ k, c j * (starRingEnd ℂ) (c k) * ((A j k : ℝ) : ℂ)",
       "doc": "**A real symmetric positive semidefinite matrix is a positive definite kernel**: the complex\ndouble sum `∑_{j,k} c_j conj(c_k) A_{jk}` is a nonnegative real.\n\nWriting `c = u + iv`, the real part is `u ⬝ A u + v ⬝ A v` and the imaginary part is a sum\nantisymmetric in `(j,k)` against a symmetric matrix, hence zero.",
-      "line": 79
+      "line": 87
     },
     {
       "name": "ScaleSpace.laplaceDensity",
@@ -8758,7 +8759,7 @@
       "kind": "theorem",
       "signature": "theorem inverse_gamma_integral {b c : ℝ} (hb : 0 < b) (hc : 0 < c) :\n    IntegrableOn (fun t : ℝ => t ^ (-1 - b) * Real.exp (-c / t)) (Ioi 0) ∧\n      ∫ t in Ioi (0 : ℝ), t ^ (-1 - b) * Real.exp (-c / t) = (1 / c) ^ b * Real.Gamma b",
       "doc": "**`∫₀^∞ t^{-1-b} e^{-c/t} dt = c^{-b} Γ(b)`** for `b, c > 0`, with integrability: the\nsubstitution `t = 1/y` in Euler's integral. Mathlib types only.",
-      "line": 51
+      "line": 59
     },
     {
       "name": "ScaleSpace.expMap_image",
@@ -8767,7 +8768,7 @@
       "kind": "theorem",
       "signature": "theorem expMap_image {c : ℝ} (hc : 0 < c) :\n    (fun v : ℝ => c * Real.exp v) '' univ = Ioi (0 : ℝ)",
       "doc": "The exponential change of variables `v ↦ c e^v`, from the line onto `(0,∞)`.",
-      "line": 79
+      "line": 87
     },
     {
       "name": "ScaleSpace.expMap_monotone",
@@ -8776,7 +8777,7 @@
       "kind": "theorem",
       "signature": "theorem expMap_monotone {c : ℝ} (hc : 0 < c) :\n    MonotoneOn (fun v : ℝ => c * Real.exp v) univ",
       "doc": null,
-      "line": 91
+      "line": 99
     },
     {
       "name": "ScaleSpace.expMap_hasDeriv",
@@ -8785,7 +8786,7 @@
       "kind": "theorem",
       "signature": "theorem expMap_hasDeriv (c v : ℝ) :\n    HasDerivAt (fun w : ℝ => c * Real.exp w) (c * Real.exp v) v",
       "doc": null,
-      "line": 96
+      "line": 104
     },
     {
       "name": "ScaleSpace.lintegral_Ioi_comp_exp",
@@ -8794,7 +8795,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_Ioi_comp_exp {c : ℝ} (hc : 0 < c) (g : ℝ → ℝ≥0∞) :\n    (∫⁻ u in Ioi (0 : ℝ), g u)\n      = ∫⁻ v, ENNReal.ofReal (c * Real.exp v) * g (c * Real.exp v)",
       "doc": "The change of variables in `ℝ≥0∞` form.\n\nIt is `lintegral_image_eq_lintegral_deriv_mul_of_monotoneOn`, which asks only for measurability\nof the domain, the derivative and monotonicity: no injectivity argument and no integrability side\ncondition.",
-      "line": 105
+      "line": 113
     },
     {
       "name": "ScaleSpace.exp_rpow",
@@ -8803,7 +8804,7 @@
       "kind": "theorem",
       "signature": "theorem exp_rpow (v y : ℝ) : (Real.exp v) ^ y = Real.exp (v * y)",
       "doc": null,
-      "line": 115
+      "line": 123
     },
     {
       "name": "ScaleSpace.lintegral_Ioi_inverseGammaKernel",
@@ -8812,7 +8813,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_Ioi_inverseGammaKernel {a : ℝ} (ha : 0 < a) :\n    (∫⁻ u in Ioi (0 : ℝ), ENNReal.ofReal (u ^ (-a - 1) * Real.exp (-(2 * u)⁻¹)))\n      = ENNReal.ofReal (2 ^ a * Real.Gamma a)",
       "doc": "**The mass of the inverse-gamma law.** `∫_0^∞ u^{-a-1}e^{-1/(2u)}\\,du = 2^a\\Gamma(a)`.\n\nTwo exponential substitutions and one reflection: `u = e^v` turns the integral into\n`∫_ℝ e^{-av}e^{-e^{-v}/2}dv`, the reflection `v \\mapsto -v` into `∫_ℝ e^{av}e^{-e^v/2}dv`, and\n`u = e^v` read backwards into the Gamma integral at rate `1/2`. Mathlib's\n`integral_rpow_mul_exp_neg_mul_Ioi` evaluates that one, and the positivity trick carries the\nvalue back into `ℝ≥0∞`.",
-      "line": 127
+      "line": 135
     },
     {
       "name": "ScaleSpace.inverseGammaDensity",
@@ -8821,7 +8822,7 @@
       "kind": "def",
       "signature": "noncomputable def inverseGammaDensity (a u : ℝ) : ℝ",
       "doc": "The mixing law of the causal Bessel family: the scaled inverse-gamma density\n`p_{T_1}(u) = u^{-a-1}e^{-1/(2u)}/(2^a\\Gamma(a))` on `(0,∞)`.",
-      "line": 201
+      "line": 209
     },
     {
       "name": "ScaleSpace.inverseGammaLaw",
@@ -8830,7 +8831,7 @@
       "kind": "def",
       "signature": "noncomputable def inverseGammaLaw (a : ℝ) : Measure ℝ",
       "doc": "The scaled inverse-gamma law of shape `a`, the causal Bessel family's delay law.",
-      "line": 206
+      "line": 214
     },
     {
       "name": "ScaleSpace.measurable_inverseGammaDensity",
@@ -8839,7 +8840,7 @@
       "kind": "theorem",
       "signature": "theorem measurable_inverseGammaDensity (a : ℝ) : Measurable (inverseGammaDensity a)",
       "doc": null,
-      "line": 209
+      "line": 217
     },
     {
       "name": "ScaleSpace.inverseGammaDensity_nonneg",
@@ -8848,7 +8849,7 @@
       "kind": "theorem",
       "signature": "theorem inverseGammaDensity_nonneg {a : ℝ} (ha : 0 < a) (u : ℝ) :\n    0 ≤ inverseGammaDensity a u",
       "doc": null,
-      "line": 214
+      "line": 222
     },
     {
       "name": "ScaleSpace.inverseGammaDensity_eq_indicator",
@@ -8857,7 +8858,7 @@
       "kind": "theorem",
       "signature": "theorem inverseGammaDensity_eq_indicator (a : ℝ) :\n    (fun u : ℝ => ENNReal.ofReal (inverseGammaDensity a u))\n      = Set.indicator (Ioi (0 : ℝ))\n          (fun u => ENNReal.ofReal (u ^ (-a - 1) * Real.exp (-(2 * u)⁻¹)\n            * (2 ^ a * Real.Gamma a)⁻¹))",
       "doc": null,
-      "line": 224
+      "line": 232
     },
     {
       "name": "ScaleSpace.inverseGammaLaw_Iio_zero",
@@ -8866,7 +8867,7 @@
       "kind": "theorem",
       "signature": "theorem inverseGammaLaw_Iio_zero (a : ℝ) : inverseGammaLaw a (Iio 0) = 0",
       "doc": "The inverse-gamma law is carried by the half-line.",
-      "line": 237
+      "line": 245
     },
     {
       "name": "ScaleSpace.isProbabilityMeasure_inverseGammaLaw",
@@ -8875,7 +8876,7 @@
       "kind": "theorem",
       "signature": "theorem isProbabilityMeasure_inverseGammaLaw {a : ℝ} (ha : 0 < a) :\n    IsProbabilityMeasure (inverseGammaLaw a)",
       "doc": "The inverse-gamma law of positive shape is a probability law.",
-      "line": 246
+      "line": 254
     },
     {
       "name": "ScaleSpace.besselK",
@@ -8884,7 +8885,7 @@
       "kind": "def",
       "signature": "noncomputable def besselK (ν z : ℝ) : ℝ",
       "doc": "**`K_ν`**, the modified Bessel function of the second kind, by its integral representation\n`K_ν(z) = ∫₀^∞ e^{-z\\cosh u}\\cosh(νu)\\,du` (DLMF 10.32.9), valid for `z > 0`.",
-      "line": 63
+      "line": 74
     },
     {
       "name": "ScaleSpace.studentDensity",
@@ -8893,7 +8894,7 @@
       "kind": "def",
       "signature": "noncomputable def studentDensity (a t x : ℝ) : ℝ",
       "doc": "The Student-t density with `2a` degrees of freedom at spatial scale `t`:\n`φ_t(x) = \\frac{\\Gamma(a+1/2)}{\\sqrt\\pi\\,\\Gamma(a)}\\,t^{-1}(1 + (x/t)^2)^{-a-1/2}`.\n\nThe scaling convention is the one that makes the degrees of freedom `2a` rather than `a`; read\nit together with the rate in the inverse-gamma law (`inverseGammaDensity`).",
-      "line": 73
+      "line": 84
     },
     {
       "name": "ScaleSpace.studentLaw",
@@ -8902,7 +8903,7 @@
       "kind": "def",
       "signature": "noncomputable def studentLaw (a t : ℝ) : Measure ℝ",
       "doc": "The Student-t law with `2a` degrees of freedom at spatial scale `t`.",
-      "line": 78
+      "line": 89
     },
     {
       "name": "ScaleSpace.lintegral_exp_mul_of_even",
@@ -8911,7 +8912,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_exp_mul_of_even {p : ℝ} {G : ℝ → ℝ} (hGm : Measurable G)\n    (hGnn : ∀ v, 0 ≤ G v) (hGeven : ∀ v, G (-v) = G v) :\n    (∫⁻ v, ENNReal.ofReal (Real.exp (p * v) * G v))\n      = 2 * ∫⁻ v in Ioi (0 : ℝ), ENNReal.ofReal (Real.cosh (p * v) * G v)",
       "doc": "**The reflection fold at a general exponential weight.** For an even nonnegative `G`,\n`∫_ℝ e^{pv}G(v)\\,dv = 2∫_0^∞ \\cosh(pv)G(v)\\,dv`.",
-      "line": 85
+      "line": 96
     },
     {
       "name": "ScaleSpace.inverseGamma_brownian_integrand",
@@ -8920,7 +8921,7 @@
       "kind": "theorem",
       "signature": "theorem inverseGamma_brownian_integrand (a x : ℝ) {u : ℝ} (hu : 0 < u) :\n    inverseGammaDensity a u * brownianDensity u x\n      = (2 ^ a * Real.Gamma a * Real.sqrt (2 * Real.pi))⁻¹\n        * u ^ (-a - 3 / 2) * Real.exp (-((1 + x ^ 2) / 2 / u))",
       "doc": "The mixture integrand of the Bessel corner, in the form the substitution wants:\n`C·u^{-a-3/2}e^{-r/u}` with `r = (1+x²)/2`.",
-      "line": 132
+      "line": 143
     },
     {
       "name": "ScaleSpace.integral_inverseGamma_brownian",
@@ -8929,7 +8930,7 @@
       "kind": "theorem",
       "signature": "theorem integral_inverseGamma_brownian {a : ℝ} (ha : 0 < a) (x : ℝ) :\n    (∫ u in Ioi (0 : ℝ), inverseGammaDensity a u * brownianDensity u x)\n      = studentDensity a 1 x",
       "doc": "**The normal variance-mixture computation.** The inverse-gamma mixture of Gaussian\ndensities is the Student-t density with `2a` degrees of freedom at scale `1`.\n\nThe substitution is `integral_comp_rpow_Ioi` at `p = -1`, which is exactly `w = 1/u`, and what\nit leaves is `Real.integral_rpow_mul_exp_neg_mul_Ioi` at shape `a + 1/2` and rate\n`(1+x²)/2`.",
-      "line": 160
+      "line": 171
     },
     {
       "name": "ScaleSpace.studentDensity_pos",
@@ -8938,7 +8939,7 @@
       "kind": "theorem",
       "signature": "theorem studentDensity_pos {a : ℝ} (ha : 0 < a) (x : ℝ) : 0 < studentDensity a 1 x",
       "doc": "The Student-t density is strictly positive. This is what makes the `ℝ≥0∞` integral finite\nwithout an integrability proof: `∫⁻` infinite would read as `0` after `toReal`.",
-      "line": 218
+      "line": 229
     },
     {
       "name": "ScaleSpace.lintegral_inverseGamma_brownian",
@@ -8947,7 +8948,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_inverseGamma_brownian {a : ℝ} (ha : 0 < a) (x : ℝ) :\n    (∫⁻ u in Ioi (0 : ℝ), ENNReal.ofReal (inverseGammaDensity a u * brownianDensity u x))\n      = ENNReal.ofReal (studentDensity a 1 x)",
       "doc": null,
-      "line": 227
+      "line": 238
     },
     {
       "name": "ScaleSpace.bridge_families_bessel",
@@ -8956,7 +8957,7 @@
       "kind": "theorem",
       "signature": "theorem bridge_families_bessel (a : ℝ) (ha : 0 < a) :\n    (inverseGammaLaw a).bind brownianLaw = studentLaw a 1",
       "doc": "**The causal Bessel family maps to the Student-t family with `2a` degrees of freedom**: the\nBrownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law at scale `1`.",
-      "line": 253
+      "line": 264
     },
     {
       "name": "ScaleSpace.lintegral_Ioi_rpow_exp_besselKernel",
@@ -8965,7 +8966,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_Ioi_rpow_exp_besselKernel {p A B : ℝ} (hA : 0 < A) (hB : 0 < B) :\n    (∫⁻ u in Ioi (0 : ℝ), ENNReal.ofReal (u ^ (p - 1) * Real.exp (-(A / u + B * u))))\n      = ENNReal.ofReal ((Real.sqrt A / Real.sqrt B) ^ p) * (2 * ∫⁻ v in Ioi (0 : ℝ),\n          ENNReal.ofReal (Real.cosh (p * v)\n            * Real.exp (-(2 * (Real.sqrt A * Real.sqrt B) * Real.cosh v))))",
       "doc": "**The Bessel–Laplace integral, in `ℝ≥0∞` and down to the defining integral of `K_p`.**\n\n`∫_0^∞ u^{p-1}e^{-A/u - Bu}\\,du = 2c^pK_p(2s)` for `A, B > 0`, every real `p`, and\n`c = \\sqrt A/\\sqrt B`, `s = \\sqrt A\\sqrt B` — here with the right-hand side left as the integral\nthat *defines* `besselK`, and with the constants written in the coordinates that keep fourth\nroots out.",
-      "line": 302
+      "line": 313
     },
     {
       "name": "ScaleSpace.lintegral_cosh_exp_eq_besselK",
@@ -8974,7 +8975,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_cosh_exp_eq_besselK (p : ℝ) {z : ℝ}\n    (hfin : (∫⁻ v in Ioi (0 : ℝ),\n      ENNReal.ofReal (Real.cosh (p * v) * Real.exp (-(z * Real.cosh v)))) ≠ ⊤) :\n    (∫⁻ v in Ioi (0 : ℝ), ENNReal.ofReal (Real.cosh (p * v) * Real.exp (-(z * Real.cosh v))))\n      = ENNReal.ofReal (besselK p z)",
       "doc": "**The cosh-integral is `K_p`**, once it is known to be finite.\n\n`besselK` is a Bochner integral and returns junk when its integrand is not integrable, so the\nidentification is stated with finiteness as a hypothesis; every consumer gets it by comparison\nwith a convergent integral.",
-      "line": 374
+      "line": 385
     },
     {
       "name": "ScaleSpace.besselK_neg",
@@ -8983,7 +8984,7 @@
       "kind": "theorem",
       "signature": "theorem besselK_neg (p z : ℝ) : besselK (-p) z = besselK p z",
       "doc": "`K_{-p} = K_p`: the defining integral is even in the order.",
-      "line": 393
+      "line": 404
     },
     {
       "name": "ScaleSpace.besselK_nonneg",
@@ -8992,7 +8993,7 @@
       "kind": "theorem",
       "signature": "theorem besselK_nonneg (p z : ℝ) : 0 ≤ besselK p z",
       "doc": null,
-      "line": 398
+      "line": 409
     },
     {
       "name": "ScaleSpace.lintegral_exp_neg_inverseGammaLaw",
@@ -9001,7 +9002,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_exp_neg_inverseGammaLaw {a ω : ℝ} (ha : 0 < a) (hω : ω ≠ 0) :\n    (∫⁻ u, ENNReal.ofReal (Real.exp (-(ω ^ 2 / 2 * u))) ∂(inverseGammaLaw a))\n      = ENNReal.ofReal (2 ^ (1 - a) / Real.Gamma a * |ω| ^ a * besselK a |ω|)",
       "doc": "**The Laplace transform of the inverse-gamma law at `\\sigma = \\omega^2/2`.**\n\nThe delay law has Laplace transform `2^{1-a}\\Gamma(a)^{-1}\\sigma^{a/2}K_a(\\sqrt{2\\sigma})`, written\nhere at `\\sigma = \\omega^2/2`, where `\\sqrt{2\\sigma} = |\\omega|`.",
-      "line": 409
+      "line": 420
     },
     {
       "name": "ScaleSpace.student_transform",
@@ -9010,7 +9011,7 @@
       "kind": "theorem",
       "signature": "theorem student_transform {a : ℝ} (ha : 0 < a) :\n    ∀ ω : ℝ, ω ≠ 0 → fourierCos (studentLaw a 1) ω\n      = 2 ^ (1 - a) / Real.Gamma a * |ω| ^ a * besselK a |ω|",
       "doc": "**The transform of the Student-t law at canonical scale.** `\\hat\\phi_1(\\omega) =\n\\frac{2^{1-a}}{\\Gamma(a)}|\\omega|^aK_a(|\\omega|)` for `\\omega \\ne 0`.\n\nAt the origin the identity is false, `|0|^a` being `0` while the transform of a probability law\nis `1`; hence the quantifier `ω ≠ 0`. The proof conditions on the delay\n(`bridge_families_bessel`, `fourierCos_bind_brownianLaw`) and evaluates the Laplace transform of\nthe inverse-gamma law (`lintegral_exp_neg_inverseGammaLaw`); no Bessel asymptotic is used,\nbecause `besselK` is *defined* by the integral that the substitution produces.",
-      "line": 505
+      "line": 516
     }
   ],
   "claims": {
@@ -9046,135 +9047,105 @@
       {
         "site_slug": "line",
         "label": "def:positive-definite",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.IsSymNegDef": [
       {
         "site_slug": "line",
         "label": "def:symmetric-negdef",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.IsSymLevyExponent": [
       {
         "site_slug": "line",
         "label": "def:levy-exponents",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.fourier_uniqueness": [
       {
         "site_slug": "line",
         "label": "prop:fourier-uniqueness",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.levy_continuity": [
       {
         "site_slug": "line",
         "label": "prop:levy-continuity",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.profile_integrability": [
       {
         "site_slug": "line",
         "label": "lem:profile-integrability",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.nonvanishing": [
       {
         "site_slug": "line",
         "label": "lem:nonvanishing",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.covariance_fourier": [
       {
         "site_slug": "line",
         "label": "lem:covariance-fourier",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.covariance_similarity": [
       {
         "site_slug": "line",
         "label": "lem:covariance-fourier",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.dilation_invariance": [
       {
         "site_slug": "line",
         "label": "lem:dilation-invariance",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.dilation_atom": [
       {
         "site_slug": "line",
         "label": "lem:dilation-atom",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.canonical_gauge_orbit": [
       {
         "site_slug": "line",
         "label": "prop:canonical-gauge",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.canonical_gauge": [
       {
         "site_slug": "line",
         "label": "prop:canonical-gauge",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.admissible_cone": [
       {
         "site_slug": "line",
         "label": "lem:admissible-cone",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.bridge_exponents": [
       {
         "site_slug": "line",
         "label": "lem:bridge-exponents",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.exists_profile_of_dilate_le": [
@@ -9184,185 +9155,10 @@
         "released": false
       }
     ],
-    "ScaleSpace.PointMeasurement": [
-      {
-        "site_slug": "ssf",
-        "label": "def:point-measurement",
-        "released": false
-      }
-    ],
-    "ScaleSpace.CovariantSpace": [
-      {
-        "site_slug": "ssf",
-        "label": "def:covariant-space",
-        "released": false
-      }
-    ],
     "ScaleSpace.LieWedge": [
       {
         "site_slug": "ssf",
         "label": "def:lie-wedge",
-        "released": false
-      }
-    ],
-    "ScaleSpace.GScaleSpace": [
-      {
-        "site_slug": "ssf",
-        "label": "def:g-scale-space",
-        "released": false
-      }
-    ],
-    "ScaleSpace.IsCovariant": [
-      {
-        "site_slug": "ssf",
-        "label": "def:infinitesimal-covariance",
-        "released": false
-      }
-    ],
-    "ScaleSpace.PsiSymbol": [
-      {
-        "site_slug": "ssf",
-        "label": "def:symbol",
-        "released": false
-      }
-    ],
-    "ScaleSpace.symbol_translation_invariant_const": [
-      {
-        "site_slug": "ssf",
-        "label": "lem:translation-invariant",
-        "released": false
-      }
-    ],
-    "ScaleSpace.NegativeDefinite": [
-      {
-        "site_slug": "ssf",
-        "label": "def:negative-definite",
-        "released": false
-      }
-    ],
-    "ScaleSpace.positive_kernel_iff_negdef": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:positivity-negdef",
-        "released": false
-      }
-    ],
-    "ScaleSpace.kernelMass_eq_one_iff_conservative": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:conservative",
-        "released": false
-      }
-    ],
-    "ScaleSpace.ScaleSpaceWedge": [
-      {
-        "site_slug": "ssf",
-        "label": "def:g-wedge",
-        "released": false
-      }
-    ],
-    "ScaleSpace.gScaleSpace_generated_by_wedge": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:generation",
-        "released": false
-      }
-    ],
-    "ScaleSpace.feller_isScaleSpaceWedge": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:affine-line",
-        "released": false
-      }
-    ],
-    "ScaleSpace.fellerSymbol_negativeDefinite": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:feller-negdef",
-        "released": false
-      }
-    ],
-    "ScaleSpace.euclidean_wedge_Riesz": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:euclidean",
-        "released": false
-      }
-    ],
-    "ScaleSpace.affine_wedge": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:affine",
-        "released": false
-      }
-    ],
-    "ScaleSpace.no_time_causal_galilean_scale_space_on_spacetime": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:galilean-nonexistence",
-        "released": false
-      }
-    ],
-    "ScaleSpace.timeCausal_temporalOrder_not_nat": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Temporal.power_law": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Temporal.causalKernel_alpha_not_nat": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.laplaceExponent_eq_temporalOrder": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.IsTimeCausal": [
-      {
-        "site_slug": "ssf",
-        "label": "def:causal",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryMeasurement.IsMemoryPointMeasurement": [
-      {
-        "site_slug": "ssf",
-        "label": "def:memory-point-measurement",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryBracket.autonomy_iff": [
-      {
-        "site_slug": "ssf",
-        "label": "lem:memory-autonomy",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryBracket.graded_dilation_iff": [
-      {
-        "site_slug": "ssf",
-        "label": "lem:graded-dilation",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryBracket.IsCovariantMemoryGenerator": [
-      {
-        "site_slug": "ssf",
-        "label": "def:covariant-memory",
         "released": false
       }
     ],
@@ -9377,111 +9173,6 @@
       {
         "site_slug": "ssf",
         "label": "lem:boost-bracket",
-        "released": false
-      }
-    ],
-    "ScaleSpace.causal_affine_RL": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:causal-affine",
-        "released": false
-      }
-    ],
-    "ScaleSpace.causal_galilean_evolution": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:causal-galilean",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Kernel.galilean_kernel_solves": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:kernel",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.SlowlyVarying": [
-      {
-        "site_slug": "ssf",
-        "label": "def:tail-index",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.HasTailIndex": [
-      {
-        "site_slug": "ssf",
-        "label": "def:tail-index",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.HasPurePowerTail": [
-      {
-        "site_slug": "ssf",
-        "label": "def:tail-index",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.igKernel_lt_mode": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:ig-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.igMode_signalling": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:ig-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.erlangKernel_lt_mode": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:erlang-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.erlang_cascade_mode": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:erlang-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.LimitKernel.lyapunovRatio_eq": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:limit-kernel-gaussian",
-        "released": false
-      }
-    ],
-    "ScaleSpace.LimitKernel.lyapunovRatio_tendsto_zero": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:limit-kernel-gaussian",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Bessel.gen": [
-      {
-        "site_slug": "ssf",
-        "label": "def:bessel-generator",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Bessel.divForm": [
-      {
-        "site_slug": "ssf",
-        "label": "def:bessel-generator",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Bessel.divForm_eq_gen": [
-      {
-        "site_slug": "ssf",
-        "label": "def:bessel-generator",
         "released": false
       }
     ],

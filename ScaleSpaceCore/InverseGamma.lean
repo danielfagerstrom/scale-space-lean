@@ -13,7 +13,8 @@ import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 # The inverse-gamma integral and the inverse-gamma law
 
 Home: none (standard analysis in Mathlib's types: an elementary integral identity and the
-inverse-gamma law it defines, with no programme vocabulary)
+inverse-gamma law it defines, with no programme vocabulary; ref: @feller2009introduction, Ch. II
+§2 (2.1), p. 47)
 
 The general identity `∫₀^∞ t^{-1-b} e^{-c/t} dt = c^{-b} Γ(b)` for `b, c > 0`, with integrability
 (`inverse_gamma_integral`); the exponential change of variables `u = c e^v` in `ℝ≥0∞` form
@@ -37,6 +38,13 @@ Moved (Q-0363, SSL-8), statements unchanged up to the namespace:
 Paper V's `lintegral_Ioi_inverseGammaKernel` and Paper VII's `integral_rpow_exp_inv`
 (`MaternKernel`) are cases of `inverse_gamma_integral`, at `c = 1/2` and `c = 1/4`; each keeps the
 proof it was written with. Everything here is proved from Mathlib alone.
+
+## References
+
+* @feller2009introduction, Ch. II §2 (2.1), p. 47: Euler's integral `Γ(t) = ∫₀^∞ x^{t-1} e^{-x} dx`
+  — `inverse_gamma_integral` is this identity read through the reciprocal substitution `t = 1/y`.
+  The inverse-gamma density and law built from it (`inverseGammaDensity`, `inverseGammaLaw`) are
+  this module's own normalisation, not separately cited.
 -/
 
 namespace ScaleSpace

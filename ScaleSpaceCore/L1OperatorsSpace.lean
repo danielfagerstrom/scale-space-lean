@@ -11,7 +11,8 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar
 convolution by a measure
 
 Home: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a
-finite-dimensional space with an additive Haar measure)
+finite-dimensional space with an additive Haar measure; ref: @larsen1971introduction, Thm. 0.1.1,
+p. 2)
 
 Q-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of
 `ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an
@@ -34,6 +35,19 @@ operator nodes against it.
   isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation
   `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).
 * `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.
+
+## References
+
+* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on
+  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,
+  stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at
+  `G = E` directly, with no generalisation needed.
+* @folland1999real, §2.6, Theorem 2.44, p. 73: for `T ∈ GL(n, ℝ)`,
+  `∫ f(x) dx = |det T| ∫ f ∘ T (x) dx` for `f ≥ 0` or `f ∈ L¹` (2.45), and
+  `m(T(E)) = |det T| m(E)` for a Lebesgue measurable `E` — the linear change of variables the
+  dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry rest on, through Mathlib's
+  `addHaar_preimage_continuousLinearEquiv`, which states it for an additive Haar measure on a
+  finite-dimensional space.
 -/
 
 namespace ScaleSpace
