@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-10",
-  "commit": "c5c57b36bd81f2739a24a6b72a3cc72cbc39f7f0",
+  "commit": "9641c7dc74db0c6617c6d39763d05c55f0deaf54",
   "repo": "https://github.com/danielfagerstrom/scale-space-lean",
   "source_dir": "ScaleSpaceCore",
   "modules": {
@@ -478,7 +478,7 @@
     },
     "L1OperatorsSpace": {
       "title": "`L¹(E)` over a finite-dimensional space: translation, reflection, linear dilation, and",
-      "doc": "convolution by a measure\n\nHome: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a\nfinite-dimensional space with an additive Haar measure; ref: @larsen1971introduction, Thm. 0.1.1,\np. 2)\n\nQ-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of\n`ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an\nadditive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both\ninstances. This is a generalization written in the trunk, not an extraction: the author decided on\n2026-10-05 (Q-0281) that the trunk writes the `d`-dimensional form first and Paper VII proves its\noperator nodes against it.\n\n## Design\n\n* The setting is `[MeasureSpace E] [IsAddHaarMeasure (volume : Measure E)]`: translation\n  invariance is what the translation and convolution operators use, and the `|det|` change of\n  variables (`addHaar_preimage_continuousLinearEquiv`) is what the dilation uses.\n* The general declarations carry the ℝ names with an `E` suffix (`transL1E`, `dilL1E`,\n  `mconvL1E`, ...), so that a consumer opening `ScaleSpace` sees no overloaded name. The ℝ\n  declarations of `L1Operators` stay as they are; `transL1E_real`, `reflL1E_real`,\n  `dilL1E_homothety_real` and `mconvL1E_real` identify the general operator at `E = ℝ` with them.\n* The dilation is indexed by `A : E ≃L[ℝ] E`:\n  `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation, an isometry of `L¹(E)`. The\n  isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation\n  `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).\n* `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,\n  stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at\n  `G = E` directly, with no generalisation needed.\n* The linear-map change of variables the dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry\n  rest on (`addHaar_preimage_continuousLinearEquiv`'s `|det A|` scaling of Haar measure) is a\n  standard real-analysis fact with no suitable held source: requested below.",
+      "doc": "convolution by a measure\n\nHome: none (standard analysis in Mathlib's types: `ScaleSpaceCore.L1Operators`'s operators over a\nfinite-dimensional space with an additive Haar measure; ref: @larsen1971introduction, Thm. 0.1.1,\np. 2)\n\nQ-0332 (SSL-5 of Paper VII's `records/formalization/SECOND-DEMAND.md`). The operators of\n`ScaleSpaceCore.L1Operators`, written over a finite-dimensional real normed space `E` carrying an\nadditive Haar measure as its `volume`, so that `EuclideanSpace ℝ (Fin d)` and `ℝ` are both\ninstances. This is a generalization written in the trunk, not an extraction: the author decided on\n2026-10-05 (Q-0281) that the trunk writes the `d`-dimensional form first and Paper VII proves its\noperator nodes against it.\n\n## Design\n\n* The setting is `[MeasureSpace E] [IsAddHaarMeasure (volume : Measure E)]`: translation\n  invariance is what the translation and convolution operators use, and the `|det|` change of\n  variables (`addHaar_preimage_continuousLinearEquiv`) is what the dilation uses.\n* The general declarations carry the ℝ names with an `E` suffix (`transL1E`, `dilL1E`,\n  `mconvL1E`, ...), so that a consumer opening `ScaleSpace` sees no overloaded name. The ℝ\n  declarations of `L1Operators` stay as they are; `transL1E_real`, `reflL1E_real`,\n  `dilL1E_homothety_real` and `mconvL1E_real` identify the general operator at `E = ℝ` with them.\n* The dilation is indexed by `A : E ≃L[ℝ] E`:\n  `D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation, an isometry of `L¹(E)`. The\n  isotropic dilation `D_λ f = λ^{-d} f(·/λ)` is `D_A` at `A = homothety λ`, and a rotation\n  `R_Q f = f(Q⁻¹ ·)` is `D_Q` at `|det Q| = 1` (`coeFn_dilL1E_of_abs_det_eq_one`).\n* `mconvE μ f x = ∫ f(x - y) dμ(y)`, packaged as `mconvL1E μ` for a finite measure `μ`.\n\n## References\n\n* @larsen1971introduction, Thm. 0.1.1 and Cor. 0.1.1, pp. 2–6: a continuous linear operator on\n  `L¹(G)` commutes with every translation iff it is convolution by a (unique) bounded measure,\n  stated for a general locally compact Abelian group — covers `mconvL1E`'s boundedness at\n  `G = E` directly, with no generalisation needed.\n* The linear-map change of variables the dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry\n  rest on (`addHaar_preimage_continuousLinearEquiv`'s `|det A|` scaling of Haar measure) is a\n  standard real-analysis fact, and no source the programme's library holds states it. It is not\n  cited here until one has been read at the page; a real-analysis text was requested for that\n  on 2026-10-10 (the librarian's acquisition queue).",
       "labels": [],
       "home": {
         "kind": "none",
@@ -720,7 +720,7 @@
     },
     "SDProfile": {
       "title": "The admissible cone on the line: `SDProfile`",
-      "doc": "Home: line:lem:profile-integrability\n\nThe data of a symmetric self-decomposable law on the line, in the form the spatial articles\nquantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on\n`(0,∞)`, with exponent\n\n`F(ω) = aω² + ∫₀^∞ (1 - cos ωx)\\,k(x)\\,dx/x`.\n\nThis is the line's analogue of `CausalAdmissible` (`CausalCone`), and the field layout is parallel\nto it: `b₀ ↦ a`, then `k`, its sign, monotonicity and normalisation, and the two integrability\nwindows. `bridge_exponents` (`BridgeExponents`) is the map from the causal cone into this one.\n\nMoved from the spatial article's export (`SpatialLine.Exponent`, `Growth`, `ProfileIntegrability`,\nand `SDProfile.exponent_zero` from `SelfDecomposable`, at `cone-v0.1`) together with what it\nneeds: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` with its quadratic\ngrowth bound, and the half of `lem:profile-integrability` that rests on Lean core\n(`profile_integrability_pair`). The half that spends the article's ledger\n(`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the\npositive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the\nsource article's blueprint labels.\n\n## Two `ℝ≥0∞`-first definitions\n\n`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no\nintegrability side condition and the elementary facts about them are unconditional; the\nreal-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it\nis `lem:quadratic-growth`.",
+      "doc": "Home: line:lem:profile-integrability, lem:quadratic-growth\n\nThe data of a symmetric self-decomposable law on the line, in the form the spatial articles\nquantify over: a Gaussian coefficient `a ≥ 0` and a nonincreasing folded profile `k ≥ 0` on\n`(0,∞)`, with exponent\n\n`F(ω) = aω² + ∫₀^∞ (1 - cos ωx)\\,k(x)\\,dx/x`.\n\nThis is the line's analogue of `CausalAdmissible` (`CausalCone`), and the field layout is parallel\nto it: `b₀ ↦ a`, then `k`, its sign, monotonicity and normalisation, and the two integrability\nwindows. `bridge_exponents` (`BridgeExponents`) is the map from the causal cone into this one.\n\nMoved from the spatial article's export (`SpatialLine.Exponent`, `Growth`, `ProfileIntegrability`,\nand `SDProfile.exponent_zero` from `SelfDecomposable`, at `cone-v0.1`) together with what it\nneeds: the folding predicate `IsFolded`, the symmetric Lévy pair `SymLevyPair` with its quadratic\ngrowth bound, and the half of `lem:profile-integrability` that rests on Lean core\n(`profile_integrability_pair`). The half that spends the article's ledger\n(`profile_integrability_mem`) stayed behind, as did `IsSelfDecomposable`, `IsSymNegDef` and the\npositive-definiteness vocabulary (the last two moved later, into `Exponent`). Docstrings name the\nsource article's blueprint labels.\n\n## Two `ℝ≥0∞`-first definitions\n\n`SymLevyPair.exponentL` and `SDProfile.exponentL` are `lintegral`s, so they need no\nintegrability side condition and the elementary facts about them are unconditional; the\nreal-valued versions are `.toReal` of those. Finiteness is not a field of either structure: it\nis `lem:quadratic-growth`.",
       "labels": [
         "lem:profile-integrability",
         "lem:quadratic-growth"
@@ -729,7 +729,8 @@
         "kind": "home",
         "article": "line",
         "labels": [
-          "lem:profile-integrability"
+          "lem:profile-integrability",
+          "lem:quadratic-growth"
         ]
       }
     },
@@ -766,14 +767,14 @@
     },
     "StudentTransform": {
       "title": "The Student-t law as a Gaussian variance mixture, and its transform",
-      "doc": "Home: none (the classical normal variance-mixture representation of the Student-t law; second-\ndemand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge`\n`prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\\lean`;\nref: DLMF 10.32.9 for `besselK`'s integral representation)\n\nThe Brownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law with `2a`\ndegrees of freedom at scale `1` (`bridge_families_bessel`), and its cosine transform is\n`2^{1-a}Γ(a)^{-1}|ω|^a K_a(|ω|)` for `ω ≠ 0` (`student_transform`), with `K_ν` the modified\nBessel function of the second kind (`besselK`).\n\nMoved (Q-0363, SSL-8) from Paper V's cone export (`cone-v0.1`, `f28c066e`), statements unchanged\nup to the namespace: `besselK` from `SpatialLine.CornerDefs`; `studentDensity` and `studentLaw`\nfrom `SpatialLine.Corners`; `lintegral_exp_mul_of_even` from `SpatialLine.FirstPassage`;\n`inverseGamma_brownian_integrand`, `integral_inverseGamma_brownian`, `studentDensity_pos`,\n`lintegral_inverseGamma_brownian` and `bridge_families_bessel` from `SpatialLine.BridgeBessel`;\n`lintegral_Ioi_rpow_exp_besselKernel`, `lintegral_cosh_exp_eq_besselK`, `besselK_neg`,\n`lintegral_exp_neg_inverseGammaLaw`, `besselK_nonneg` and `student_transform` from\n`SpatialLine.StudentTransform`. Second demand: Paper V's corner and Student modules, and Paper\nVII's `IsotropicBridge` (`prop:isotropic-bridge-student`).\n\nThis module imports neither `ScaleSpaceCore.BridgeExponents` nor anything stated in\n`CausalAdmissible`: Paper V's package at `cone-v0.1` declares names in\n`ScaleSpace.CausalAdmissible` that `ScaleSpaceCore.BridgeExponents` also declares, so a consumer\nthat imports Paper V's bridge modules can import this one beside them.\n\n## References\n\n* @dlmf2026, §10.32.9: the integral representation `K_ν(z) = ∫₀^∞ e^{-z cosh u} cosh(νu) du`\n  defining `besselK` (see \"The special function Mathlib does not have\" below).\n* A source for the classical fact itself — a normal variance mixture over the inverse-gamma law\n  is the Student-t distribution — is not yet held; requested below. `bridge_families_bessel` is\n  proved directly from Mathlib's Gaussian and gamma integrals, not read off such a source.\n\n## The special function Mathlib does not have\n\nMathlib (v4.31.0) has no modified Bessel function, so `besselK` is defined by the integral\nrepresentation `K_ν(z) = ∫₀^∞ e^{-z\\cosh u}\\cosh(νu)\\,du` (DLMF 10.32.9), valid for `z > 0`. For\n`z ≤ 0` the integral diverges and the Bochner integral is junk. Only the two properties the\ntransform reads are proved here: `besselK_neg` (even in the order) and `besselK_nonneg`.\n\n## The route\n\nThe mixture is computed at the densities: the substitution `w = 1/u` (`integral_comp_rpow_Ioi`\nat `p = -1`) turns the mixture integral into a Gamma integral, and the computed value being\nstrictly positive (`studentDensity_pos`) forces the `ℝ≥0∞` integral to be finite without an\nintegrability proof. The transform conditions on the delay (`fourierCos_bind_brownianLaw`) and\nevaluates the Laplace transform of the inverse-gamma law by the substitution `u = c e^v`, which\nlands on the defining integral of `K_a` itself, so no Bessel asymptotic is used.",
+      "doc": "Home: none (the classical normal variance-mixture representation of the Student-t law; second-\ndemand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge`\n`prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\\lean`;\nref: @steutel2004infinite, Ch. IV, Example 11.6, p. 226)\n\nThe Brownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law with `2a`\ndegrees of freedom at scale `1` (`bridge_families_bessel`), and its cosine transform is\n`2^{1-a}Γ(a)^{-1}|ω|^a K_a(|ω|)` for `ω ≠ 0` (`student_transform`), with `K_ν` the modified\nBessel function of the second kind (`besselK`).\n\nMoved (Q-0363, SSL-8) from Paper V's cone export (`cone-v0.1`, `f28c066e`), statements unchanged\nup to the namespace: `besselK` from `SpatialLine.CornerDefs`; `studentDensity` and `studentLaw`\nfrom `SpatialLine.Corners`; `lintegral_exp_mul_of_even` from `SpatialLine.FirstPassage`;\n`inverseGamma_brownian_integrand`, `integral_inverseGamma_brownian`, `studentDensity_pos`,\n`lintegral_inverseGamma_brownian` and `bridge_families_bessel` from `SpatialLine.BridgeBessel`;\n`lintegral_Ioi_rpow_exp_besselKernel`, `lintegral_cosh_exp_eq_besselK`, `besselK_neg`,\n`lintegral_exp_neg_inverseGammaLaw`, `besselK_nonneg` and `student_transform` from\n`SpatialLine.StudentTransform`. Second demand: Paper V's corner and Student modules, and Paper\nVII's `IsotropicBridge` (`prop:isotropic-bridge-student`).\n\nThis module imports neither `ScaleSpaceCore.BridgeExponents` nor anything stated in\n`CausalAdmissible`: Paper V's package at `cone-v0.1` declares names in\n`ScaleSpace.CausalAdmissible` that `ScaleSpaceCore.BridgeExponents` also declares, so a consumer\nthat imports Paper V's bridge modules can import this one beside them.\n\n## References\n\n* @steutel2004infinite, Ch. IV, Example 11.6, p. 226: a variance mixture of centred normal laws\n  has density `f(x) = π^{-1/2} ∫ e^{-x²/t} t^{-1/2} dG(t)`, and with `V = 1/T` standard gamma(`r`)\n  distributed this is the Student(`r`) density `B(r, ½)^{-1} (1 + x²)^{-(r+½)}` — the classical\n  fact `bridge_families_bessel` states, in the book's scaling (its normal component has variance\n  `t/2`, and `r` is half the degrees of freedom). The proof here is direct, from Mathlib's\n  Gaussian and gamma integrals, not read off the book.\n* @dlmf2026, §10.32.9: the integral representation `K_ν(z) = ∫₀^∞ e^{-z cosh u} cosh(νu) du`\n  defining `besselK` (see \"The special function Mathlib does not have\" below).\n\n## The special function Mathlib does not have\n\nMathlib (v4.31.0) has no modified Bessel function, so `besselK` is defined by the integral\nrepresentation `K_ν(z) = ∫₀^∞ e^{-z\\cosh u}\\cosh(νu)\\,du` (DLMF 10.32.9), valid for `z > 0`. For\n`z ≤ 0` the integral diverges and the Bochner integral is junk. Only the two properties the\ntransform reads are proved here: `besselK_neg` (even in the order) and `besselK_nonneg`.\n\n## The route\n\nThe mixture is computed at the densities: the substitution `w = 1/u` (`integral_comp_rpow_Ioi`\nat `p = -1`) turns the mixture integral into a Gamma integral, and the computed value being\nstrictly positive (`studentDensity_pos`) forces the `ℝ≥0∞` integral to be finite without an\nintegrability proof. The transform conditions on the delay (`fourierCos_bind_brownianLaw`) and\nevaluates the Laplace transform of the inverse-gamma law by the substitution `u = c e^v`, which\nlands on the defining integral of `K_a` itself, so no Bessel asymptotic is used.",
       "labels": [
         "prop:isotropic-bridge-student"
       ],
       "home": {
         "kind": "none",
         "reason": "the classical normal variance-mixture representation of the Student-t law; second- demand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge` `prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\\lean`",
-        "reference": "DLMF 10.32.9 for `besselK`'s integral representation"
+        "reference": "@steutel2004infinite, Ch. IV, Example 11.6, p. 226"
       }
     },
     "TailInverse": {
@@ -7174,7 +7175,7 @@
       "kind": "def",
       "signature": "def IsNonnegE (f : E →₁[volume] ℝ) : Prop",
       "doc": "The positive cone of `L¹(E)`.",
-      "line": 62
+      "line": 64
     },
     {
       "name": "ScaleSpace.measurePreserving_sub_constE",
@@ -7183,7 +7184,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_sub_constE (a : E) :\n    MeasurePreserving (fun x : E => x - a) volume volume",
       "doc": "`x ↦ x - a` preserves the Haar measure.",
-      "line": 67
+      "line": 69
     },
     {
       "name": "ScaleSpace.translate_congr_aeE",
@@ -7192,7 +7193,7 @@
       "kind": "theorem",
       "signature": "theorem translate_congr_aeE (a : E) {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (x - a)) =ᵐ[volume] fun x => g (x - a)",
       "doc": null,
-      "line": 71
+      "line": 73
     },
     {
       "name": "ScaleSpace.integrable_translateE",
@@ -7201,7 +7202,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_translateE {f : E → ℝ} (hf : Integrable f) (a : E) :\n    Integrable (fun x => f (x - a))",
       "doc": null,
-      "line": 75
+      "line": 77
     },
     {
       "name": "ScaleSpace.transₗE",
@@ -7210,7 +7211,7 @@
       "kind": "def",
       "signature": "noncomputable def transₗE (a : E) : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`T_a f = f(· - a)` as a linear map on `L¹(E)`.",
-      "line": 80
+      "line": 82
     },
     {
       "name": "ScaleSpace.transL1E",
@@ -7219,7 +7220,7 @@
       "kind": "def",
       "signature": "noncomputable def transL1E (a : E) : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Translation `T_a f = f(· - a)` is an isometry of `L¹(E)`.**",
-      "line": 91
+      "line": 93
     },
     {
       "name": "ScaleSpace.coeFn_transL1E",
@@ -7228,7 +7229,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_transL1E (a : E) (f : E →₁[volume] ℝ) :\n    transL1E a f =ᵐ[volume] fun x => (f : E → ℝ) (x - a)",
       "doc": null,
-      "line": 98
+      "line": 100
     },
     {
       "name": "ScaleSpace.norm_transL1E_le",
@@ -7237,7 +7238,7 @@
       "kind": "lemma",
       "signature": "lemma norm_transL1E_le (a : E) (f : E →₁[volume] ℝ) : ‖transL1E a f‖ ≤ ‖f‖",
       "doc": null,
-      "line": 102
+      "line": 104
     },
     {
       "name": "ScaleSpace.eq_transL1E_iff",
@@ -7246,7 +7247,7 @@
       "kind": "theorem",
       "signature": "theorem eq_transL1E_iff (a : E) (f g : E →₁[volume] ℝ) :\n    g = transL1E a f ↔ (g : E → ℝ) =ᵐ[volume] fun x => (f : E → ℝ) (x - a)",
       "doc": "**The relational form of translation.** `g = T_a f` in `L¹` exactly when `g = f(· - a)` a.e.\n— the bridge from a statement written on representatives to the operator.",
-      "line": 110
+      "line": 112
     },
     {
       "name": "ScaleSpace.transL1E_zero",
@@ -7255,7 +7256,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_zero : transL1E (0 : E) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": null,
-      "line": 118
+      "line": 120
     },
     {
       "name": "ScaleSpace.transL1E_comp",
@@ -7264,7 +7265,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_comp (a b : E) :\n    (transL1E a).comp (transL1E b) = transL1E (a + b)",
       "doc": "`T_a T_b = T_{a + b}`.",
-      "line": 125
+      "line": 127
     },
     {
       "name": "ScaleSpace.isNonnegE_transL1E",
@@ -7273,7 +7274,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_transL1E (a : E) {f : E →₁[volume] ℝ} (hf : IsNonnegE f) :\n    IsNonnegE (transL1E a f)",
       "doc": null,
-      "line": 135
+      "line": 137
     },
     {
       "name": "ScaleSpace.det_ne_zeroE",
@@ -7282,7 +7283,7 @@
       "kind": "theorem",
       "signature": "theorem det_ne_zeroE (A : E ≃L[ℝ] E) : LinearMap.det (A : E →ₗ[ℝ] E) ≠ 0",
       "doc": "`|det A| ≠ 0` for an invertible `A`.",
-      "line": 150
+      "line": 152
     },
     {
       "name": "ScaleSpace.dilateE",
@@ -7291,7 +7292,7 @@
       "kind": "def",
       "signature": "noncomputable def dilateE (A : E ≃L[ℝ] E) (f : E → ℝ) : E → ℝ",
       "doc": "`D_A f = |det A|⁻¹ f(A⁻¹ ·)`, the mass-preserving normalisation.",
-      "line": 154
+      "line": 156
     },
     {
       "name": "ScaleSpace.dilateE_apply",
@@ -7300,7 +7301,7 @@
       "kind": "lemma",
       "signature": "lemma dilateE_apply (A : E ≃L[ℝ] E) (f : E → ℝ) (x : E) :\n    dilateE A f x = |LinearMap.det (A : E →ₗ[ℝ] E)|⁻¹ * f (A.symm x)",
       "doc": null,
-      "line": 157
+      "line": 159
     },
     {
       "name": "ScaleSpace.homothety",
@@ -7309,7 +7310,7 @@
       "kind": "def",
       "signature": "noncomputable def homothety [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) : E ≃L[ℝ] E",
       "doc": "The homothety `x ↦ λ x`, `λ ≠ 0`, as a continuous linear equivalence.",
-      "line": 161
+      "line": 163
     },
     {
       "name": "ScaleSpace.homothety_apply",
@@ -7318,7 +7319,7 @@
       "kind": "lemma",
       "signature": "lemma homothety_apply [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) (x : E) :\n    homothety lam hlam x = lam • x",
       "doc": null,
-      "line": 164
+      "line": 166
     },
     {
       "name": "ScaleSpace.homothety_symm_apply",
@@ -7327,7 +7328,7 @@
       "kind": "lemma",
       "signature": "lemma homothety_symm_apply [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) (x : E) :\n    (homothety lam hlam).symm x = lam⁻¹ • x",
       "doc": null,
-      "line": 167
+      "line": 169
     },
     {
       "name": "ScaleSpace.det_homothety",
@@ -7336,7 +7337,7 @@
       "kind": "lemma",
       "signature": "lemma det_homothety [FiniteDimensional ℝ E] (lam : ℝ) (hlam : lam ≠ 0) :\n    LinearMap.det ((homothety lam hlam : E ≃L[ℝ] E) : E →ₗ[ℝ] E)\n      = lam ^ Module.finrank ℝ E",
       "doc": null,
-      "line": 170
+      "line": 172
     },
     {
       "name": "ScaleSpace.abs_det_neg",
@@ -7345,7 +7346,7 @@
       "kind": "lemma",
       "signature": "lemma abs_det_neg [FiniteDimensional ℝ E] :",
       "doc": "`|det (-id)| = |(-1)^d| = 1`.",
-      "line": 179
+      "line": 181
     },
     {
       "name": "ScaleSpace.det_refl",
@@ -7354,7 +7355,7 @@
       "kind": "lemma",
       "signature": "lemma det_refl :\n    LinearMap.det ((ContinuousLinearEquiv.refl ℝ E : E ≃L[ℝ] E) : E →ₗ[ℝ] E) = 1",
       "doc": null,
-      "line": 187
+      "line": 189
     },
     {
       "name": "ScaleSpace.map_symm_volumeE",
@@ -7363,7 +7364,7 @@
       "kind": "theorem",
       "signature": "theorem map_symm_volumeE (A : E ≃L[ℝ] E) :\n    Measure.map A.symm volume = ENNReal.ofReal |LinearMap.det (A : E →ₗ[ℝ] E)| • volume",
       "doc": "**The change of variables**: `A⁻¹_* vol = |det A| · vol`.",
-      "line": 200
+      "line": 202
     },
     {
       "name": "ScaleSpace.quasiMeasurePreserving_symmE",
@@ -7372,7 +7373,7 @@
       "kind": "theorem",
       "signature": "theorem quasiMeasurePreserving_symmE (A : E ≃L[ℝ] E) :\n    Measure.QuasiMeasurePreserving A.symm volume volume",
       "doc": null,
-      "line": 207
+      "line": 209
     },
     {
       "name": "ScaleSpace.lintegral_comp_symmE",
@@ -7381,7 +7382,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_comp_symmE (A : E ≃L[ℝ] E) (g : E → ℝ≥0∞) :\n    ∫⁻ x, g (A.symm x) = ENNReal.ofReal |LinearMap.det (A : E →ₗ[ℝ] E)| * ∫⁻ x, g x",
       "doc": "`∫⁻ g(A⁻¹ x) dx = |det A| ∫⁻ g`.",
-      "line": 214
+      "line": 216
     },
     {
       "name": "ScaleSpace.dilateE_congr_ae",
@@ -7390,7 +7391,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_congr_ae (A : E ≃L[ℝ] E) {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    dilateE A f =ᵐ[volume] dilateE A g",
       "doc": null,
-      "line": 221
+      "line": 223
     },
     {
       "name": "ScaleSpace.integrable_dilateE",
@@ -7399,7 +7400,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_dilateE (A : E ≃L[ℝ] E) {f : E → ℝ} (hf : Integrable f) :\n    Integrable (dilateE A f)",
       "doc": null,
-      "line": 226
+      "line": 228
     },
     {
       "name": "ScaleSpace.dilₗE",
@@ -7408,7 +7409,7 @@
       "kind": "def",
       "signature": "noncomputable def dilₗE (A : E ≃L[ℝ] E) : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`D_A` as a linear map on `L¹(E)`.",
-      "line": 237
+      "line": 239
     },
     {
       "name": "ScaleSpace.lintegral_enorm_dilateE",
@@ -7417,7 +7418,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_dilateE (A : E ≃L[ℝ] E) (f : E → ℝ) :\n    ∫⁻ x, ‖dilateE A f x‖ₑ = ∫⁻ x, ‖f x‖ₑ",
       "doc": "`∫⁻ ‖D_A f‖ = ∫⁻ ‖f‖`: the normalisation `|det A|⁻¹` cancels the Jacobian.",
-      "line": 255
+      "line": 257
     },
     {
       "name": "ScaleSpace.dilL1E",
@@ -7426,7 +7427,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1E (A : E ≃L[ℝ] E) : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**The matrix dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` is an isometry of `L¹(E)`.**",
-      "line": 268
+      "line": 270
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E",
@@ -7435,7 +7436,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    dilL1E A f =ᵐ[volume] dilateE A (f : E → ℝ)",
       "doc": null,
-      "line": 273
+      "line": 275
     },
     {
       "name": "ScaleSpace.eq_dilL1E_iff",
@@ -7444,7 +7445,7 @@
       "kind": "theorem",
       "signature": "theorem eq_dilL1E_iff (A : E ≃L[ℝ] E) (f g : E →₁[volume] ℝ) :\n    g = dilL1E A f ↔ (g : E → ℝ) =ᵐ[volume]\n      fun x => |LinearMap.det (A : E →ₗ[ℝ] E)|⁻¹ * (f : E → ℝ) (A.symm x)",
       "doc": "**The relational form of dilation.** `g = D_A f` in `L¹` exactly when\n`g = |det A|⁻¹ f(A⁻¹ ·)` a.e.",
-      "line": 279
+      "line": 281
     },
     {
       "name": "ScaleSpace.norm_dilL1E",
@@ -7453,7 +7454,7 @@
       "kind": "theorem",
       "signature": "theorem norm_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) : ‖dilL1E A f‖ = ‖f‖",
       "doc": "**`D_A` preserves the norm.**",
-      "line": 289
+      "line": 291
     },
     {
       "name": "ScaleSpace.dilL1E_refl",
@@ -7462,7 +7463,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_refl :\n    dilL1E (ContinuousLinearEquiv.refl ℝ E) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "`D_A` at the identity is the identity.",
-      "line": 298
+      "line": 300
     },
     {
       "name": "ScaleSpace.dilL1E_comp",
@@ -7471,7 +7472,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp (A B : E ≃L[ℝ] E) :\n    (dilL1E A).comp (dilL1E B) = dilL1E (B.trans A)",
       "doc": "**`D_A D_B = D_{AB}`**, with `AB = B.trans A` the composite `x ↦ A (B x)`.",
-      "line": 307
+      "line": 309
     },
     {
       "name": "ScaleSpace.dilL1E_symm_comp",
@@ -7480,7 +7481,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_symm_comp (A : E ≃L[ℝ] E) :\n    (dilL1E A.symm).comp (dilL1E A) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "**`D_A` is a bijection with inverse `D_{A⁻¹}`.**",
-      "line": 323
+      "line": 325
     },
     {
       "name": "ScaleSpace.dilL1E_comp_symm",
@@ -7489,7 +7490,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_symm (A : E ≃L[ℝ] E) :\n    (dilL1E A).comp (dilL1E A.symm) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": null,
-      "line": 327
+      "line": 329
     },
     {
       "name": "ScaleSpace.dilL1EEquiv",
@@ -7498,7 +7499,7 @@
       "kind": "def",
       "signature": "noncomputable def dilL1EEquiv (A : E ≃L[ℝ] E) :\n    (E →₁[volume] ℝ) ≃ₗᵢ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`D_A` as a linear isometry equivalence of `L¹(E)`, inverse `D_{A⁻¹}`.",
-      "line": 332
+      "line": 334
     },
     {
       "name": "ScaleSpace.dilL1EEquiv_apply",
@@ -7507,7 +7508,7 @@
       "kind": "lemma",
       "signature": "lemma dilL1EEquiv_apply (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    dilL1EEquiv A f = dilL1E A f",
       "doc": null,
-      "line": 348
+      "line": 350
     },
     {
       "name": "ScaleSpace.dilL1EEquiv_symm_apply",
@@ -7516,7 +7517,7 @@
       "kind": "lemma",
       "signature": "lemma dilL1EEquiv_symm_apply (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    (dilL1EEquiv A).symm f = dilL1E A.symm f",
       "doc": null,
-      "line": 351
+      "line": 353
     },
     {
       "name": "ScaleSpace.dilL1E_comp_transL1E",
@@ -7525,7 +7526,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_transL1E (A : E ≃L[ℝ] E) (a : E) :\n    (dilL1E A).comp (transL1E a) = (transL1E (A a)).comp (dilL1E A)",
       "doc": "**`D_A T_a = T_{Aa} D_A`.**",
-      "line": 355
+      "line": 357
     },
     {
       "name": "ScaleSpace.isNonnegE_dilL1E",
@@ -7534,7 +7535,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_dilL1E (A : E ≃L[ℝ] E) {f : E →₁[volume] ℝ} (hf : IsNonnegE f) :\n    IsNonnegE (dilL1E A f)",
       "doc": null,
-      "line": 365
+      "line": 367
     },
     {
       "name": "ScaleSpace.integral_dilL1E",
@@ -7543,7 +7544,7 @@
       "kind": "theorem",
       "signature": "theorem integral_dilL1E (A : E ≃L[ℝ] E) (f : E →₁[volume] ℝ) :\n    ∫ x, (dilL1E A f : E → ℝ) x = ∫ x, (f : E → ℝ) x",
       "doc": "`D_A` preserves the integral.",
-      "line": 373
+      "line": 375
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_of_abs_det_eq_one",
@@ -7552,7 +7553,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_of_abs_det_eq_one (Q : E ≃L[ℝ] E)\n    (hQ : |LinearMap.det (Q : E →ₗ[ℝ] E)| = 1) (f : E →₁[volume] ℝ) :\n    dilL1E Q f =ᵐ[volume] fun x => (f : E → ℝ) (Q.symm x)",
       "doc": "A rotation `R_Q f = f(Q⁻¹ ·)` is `D_Q` when `|det Q| = 1`.",
-      "line": 387
+      "line": 389
     },
     {
       "name": "ScaleSpace.coeFn_dilL1E_homothety",
@@ -7561,7 +7562,7 @@
       "kind": "theorem",
       "signature": "theorem coeFn_dilL1E_homothety {lam : ℝ} (hlam : 0 < lam) (f : E →₁[volume] ℝ) :\n    dilL1E (homothety lam hlam.ne') f =ᵐ[volume]\n      fun x => (lam ^ Module.finrank ℝ E)⁻¹ * (f : E → ℝ) (lam⁻¹ • x)",
       "doc": "**The isotropic dilation** `D_λ f = λ^{-d} f(·/λ)`, `d = finrank ℝ E`, is `D_A` at the\nhomothety `A = λ • id`.",
-      "line": 395
+      "line": 397
     },
     {
       "name": "ScaleSpace.measurePreserving_negE",
@@ -7570,7 +7571,7 @@
       "kind": "theorem",
       "signature": "theorem measurePreserving_negE : MeasurePreserving (fun x : E => -x) volume volume",
       "doc": "`x ↦ -x` preserves the Haar measure.",
-      "line": 404
+      "line": 406
     },
     {
       "name": "ScaleSpace.reflect_congr_aeE",
@@ -7579,7 +7580,7 @@
       "kind": "theorem",
       "signature": "theorem reflect_congr_aeE {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    (fun x => f (-x)) =ᵐ[volume] fun x => g (-x)",
       "doc": null,
-      "line": 410
+      "line": 412
     },
     {
       "name": "ScaleSpace.integrable_reflectE",
@@ -7588,7 +7589,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_reflectE {f : E → ℝ} (hf : Integrable f) :\n    Integrable (fun x => f (-x))",
       "doc": null,
-      "line": 414
+      "line": 416
     },
     {
       "name": "ScaleSpace.reflₗE",
@@ -7597,7 +7598,7 @@
       "kind": "def",
       "signature": "noncomputable def reflₗE : (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`R f = f(-·)` as a linear map on `L¹(E)`.",
-      "line": 419
+      "line": 421
     },
     {
       "name": "ScaleSpace.reflL1E",
@@ -7606,7 +7607,7 @@
       "kind": "def",
       "signature": "noncomputable def reflL1E : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Reflection `R f = f(-·)` is an isometry of `L¹(E)`.**",
-      "line": 430
+      "line": 432
     },
     {
       "name": "ScaleSpace.coeFn_reflL1E",
@@ -7615,7 +7616,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_reflL1E (f : E →₁[volume] ℝ) :\n    reflL1E f =ᵐ[volume] fun x => (f : E → ℝ) (-x)",
       "doc": null,
-      "line": 438
+      "line": 440
     },
     {
       "name": "ScaleSpace.reflL1E_eq_dilL1E",
@@ -7624,7 +7625,7 @@
       "kind": "theorem",
       "signature": "theorem reflL1E_eq_dilL1E :\n    (reflL1E : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) = dilL1E (ContinuousLinearEquiv.neg ℝ)",
       "doc": "Reflection is the dilation by `-id`.",
-      "line": 443
+      "line": 445
     },
     {
       "name": "ScaleSpace.mconvE",
@@ -7633,7 +7634,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvE (μ : Measure E) (f : E → ℝ) : E → ℝ",
       "doc": "`(μ * f)(x) = ∫ f(x - y) μ(dy)`.",
-      "line": 456
+      "line": 458
     },
     {
       "name": "ScaleSpace.mconvE_apply",
@@ -7642,7 +7643,7 @@
       "kind": "lemma",
       "signature": "lemma mconvE_apply (μ : Measure E) (f : E → ℝ) (x : E) :\n    mconvE μ f x = ∫ y, f (x - y) ∂μ",
       "doc": null,
-      "line": 460
+      "line": 462
     },
     {
       "name": "ScaleSpace.lintegral_lintegral_sub_eqE",
@@ -7651,7 +7652,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_lintegral_sub_eqE (μ : Measure E) [SFinite μ] {g : E → ℝ≥0∞}\n    (hg : AEMeasurable g) :\n    ∫⁻ x, (∫⁻ y, g (x - y) ∂μ) = μ univ * ∫⁻ x, g x",
       "doc": null,
-      "line": 463
+      "line": 465
     },
     {
       "name": "ScaleSpace.lintegral_enorm_mconv_leE",
@@ -7660,7 +7661,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_enorm_mconv_leE (μ : Measure E) [SFinite μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) :\n    ∫⁻ x, ‖mconvE μ f x‖ₑ ≤ μ univ * ∫⁻ x, ‖f x‖ₑ",
       "doc": null,
-      "line": 473
+      "line": 475
     },
     {
       "name": "ScaleSpace.integrable_uncurry_subE",
@@ -7669,7 +7670,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_uncurry_subE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    Integrable (Function.uncurry fun x y : E => f (x - y)) (volume.prod μ)",
       "doc": null,
-      "line": 480
+      "line": 482
     },
     {
       "name": "ScaleSpace.integrable_mconvE",
@@ -7678,7 +7679,7 @@
       "kind": "theorem",
       "signature": "theorem integrable_mconvE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) : Integrable (mconvE μ f)",
       "doc": "`μ * f` is integrable.",
-      "line": 492
+      "line": 494
     },
     {
       "name": "ScaleSpace.ae_ae_sub_of_aeE",
@@ -7687,7 +7688,7 @@
       "kind": "theorem",
       "signature": "theorem ae_ae_sub_of_aeE (μ : Measure E) [SFinite μ] {p : E → Prop} (h : ∀ᵐ u ∂volume, p u) :\n    ∀ᵐ x ∂volume, ∀ᵐ y ∂μ, p (x - y)",
       "doc": null,
-      "line": 496
+      "line": 498
     },
     {
       "name": "ScaleSpace.mconvE_congr_ae",
@@ -7696,7 +7697,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_congr_ae (μ : Measure E) [SFinite μ] {f g : E → ℝ} (h : f =ᵐ[volume] g) :\n    mconvE μ f =ᵐ[volume] mconvE μ g",
       "doc": null,
-      "line": 500
+      "line": 502
     },
     {
       "name": "ScaleSpace.mconvE_add_ae",
@@ -7705,7 +7706,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_add_ae (μ : Measure E) [IsFiniteMeasure μ] {f g : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f)\n    (hg : AEStronglyMeasurable g) (hgi : Integrable g) :\n    mconvE μ (f + g) =ᵐ[volume] mconvE μ f + mconvE μ g",
       "doc": null,
-      "line": 505
+      "line": 507
     },
     {
       "name": "ScaleSpace.mconvE_smul",
@@ -7714,7 +7715,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_smul (μ : Measure E) (c : ℝ) (f : E → ℝ) :\n    mconvE μ (c • f) = c • mconvE μ f",
       "doc": null,
-      "line": 517
+      "line": 519
     },
     {
       "name": "ScaleSpace.mconvₗE",
@@ -7723,7 +7724,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvₗE (μ : Measure E) [IsFiniteMeasure μ] :\n    (E →₁[volume] ℝ) →ₗ[ℝ] (E →₁[volume] ℝ) where",
       "doc": "`f ↦ μ * f` as a linear map on `L¹(E)`.",
-      "line": 523
+      "line": 525
     },
     {
       "name": "ScaleSpace.mconvL1E",
@@ -7732,7 +7733,7 @@
       "kind": "def",
       "signature": "noncomputable def mconvL1E (μ : Measure E) [IsFiniteMeasure μ] :\n    (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)",
       "doc": "**Convolution by a finite measure `f ↦ μ * f` is a bounded operator on `L¹(E)`**, of norm at\nmost `μ(E)`.",
-      "line": 541
+      "line": 543
     },
     {
       "name": "ScaleSpace.coeFn_mconvL1E",
@@ -7741,7 +7742,7 @@
       "kind": "lemma",
       "signature": "lemma coeFn_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] (f : E →₁[volume] ℝ) :\n    mconvL1E μ f =ᵐ[volume] mconvE μ (f : E → ℝ)",
       "doc": null,
-      "line": 549
+      "line": 551
     },
     {
       "name": "ScaleSpace.eq_mconvL1E_iff",
@@ -7750,7 +7751,7 @@
       "kind": "theorem",
       "signature": "theorem eq_mconvL1E_iff (μ : Measure E) [IsFiniteMeasure μ]\n    (Φ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    Φ = mconvL1E μ ↔ ∀ f : E →₁[volume] ℝ, (Φ f : E → ℝ) =ᵐ[volume] mconvE μ (f : E → ℝ)",
       "doc": "**The relational form of convolution.** An operator is `μ * ·` exactly when it is\n`f ↦ ∫ f(· - y) dμ(y)` a.e. on every `f`.",
-      "line": 555
+      "line": 557
     },
     {
       "name": "ScaleSpace.mconvE_comp_sub",
@@ -7759,7 +7760,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_comp_sub (μ : Measure E) (f : E → ℝ) (a : E) :\n    mconvE μ (fun x => f (x - a)) = fun x => mconvE μ f (x - a)",
       "doc": null,
-      "line": 568
+      "line": 570
     },
     {
       "name": "ScaleSpace.integral_mconvE",
@@ -7768,7 +7769,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvE (μ : Measure E) [IsFiniteMeasure μ] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    ∫ x, mconvE μ f x = (μ univ).toReal * ∫ x, f x",
       "doc": "`∫ (μ * f) = μ(E) ∫ f`.",
-      "line": 574
+      "line": 576
     },
     {
       "name": "ScaleSpace.mconvE_conv",
@@ -7777,7 +7778,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_conv (μ ν : Measure E) [IsFiniteMeasure μ] [IsFiniteMeasure ν] {f : E → ℝ}\n    (hf : AEStronglyMeasurable f) (hfi : Integrable f) :\n    mconvE ν (mconvE μ f) =ᵐ[volume] mconvE (μ ∗ ν) f",
       "doc": "`ν * (μ * f) = (μ ∗ ν) * f`, a.e.",
-      "line": 583
+      "line": 585
     },
     {
       "name": "ScaleSpace.mconvE_dirac_zero",
@@ -7786,7 +7787,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_dirac_zero (f : E → ℝ) : mconvE (Measure.dirac 0) f = f",
       "doc": null,
-      "line": 601
+      "line": 603
     },
     {
       "name": "ScaleSpace.mconvL1E_congr",
@@ -7795,7 +7796,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_congr {μ ν : Measure E} [IsFiniteMeasure μ] [IsFiniteMeasure ν] (h : μ = ν) :\n    mconvL1E μ = mconvL1E ν",
       "doc": "Equal measures give equal operators (the instance argument blocks a plain `rw`).",
-      "line": 606
+      "line": 608
     },
     {
       "name": "ScaleSpace.norm_mconvL1E_le",
@@ -7804,7 +7805,7 @@
       "kind": "theorem",
       "signature": "theorem norm_mconvL1E_le (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ‖mconvL1E μ f‖ ≤ ‖f‖",
       "doc": "**`μ * ·` is a contraction** for a probability measure.",
-      "line": 612
+      "line": 614
     },
     {
       "name": "ScaleSpace.mconvL1E_transL1E",
@@ -7813,7 +7814,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_transL1E (μ : Measure E) [IsFiniteMeasure μ] (a : E) (f : E →₁[volume] ℝ) :\n    mconvL1E μ (transL1E a f) = transL1E a (mconvL1E μ f)",
       "doc": "**`μ * ·` commutes with translation.**",
-      "line": 623
+      "line": 625
     },
     {
       "name": "ScaleSpace.isNonnegE_mconvL1E",
@@ -7822,7 +7823,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_mconvL1E (μ : Measure E) [IsFiniteMeasure μ] {f : E →₁[volume] ℝ}\n    (hf : IsNonnegE f) : IsNonnegE (mconvL1E μ f)",
       "doc": "**`μ * ·` preserves nonnegativity.**",
-      "line": 634
+      "line": 636
     },
     {
       "name": "ScaleSpace.integral_mconvL1E",
@@ -7831,7 +7832,7 @@
       "kind": "theorem",
       "signature": "theorem integral_mconvL1E (μ : Measure E) [IsProbabilityMeasure μ] (f : E →₁[volume] ℝ) :\n    ∫ x, (mconvL1E μ f : E → ℝ) x = ∫ x, (f : E → ℝ) x",
       "doc": "**`μ * ·` preserves the integral** for a probability measure, for every `f`.",
-      "line": 641
+      "line": 643
     },
     {
       "name": "ScaleSpace.mconvL1E_comp",
@@ -7840,7 +7841,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_comp (μ ν : Measure E) [IsFiniteMeasure μ] [IsFiniteMeasure ν] :\n    (mconvL1E ν).comp (mconvL1E μ) = mconvL1E (μ ∗ ν)",
       "doc": "**`(μ * ·) ∘ (ν * ·)`**: composing the operators convolves the measures.",
-      "line": 648
+      "line": 650
     },
     {
       "name": "ScaleSpace.mconvL1E_dirac_zero",
@@ -7849,7 +7850,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_dirac_zero :\n    mconvL1E (Measure.dirac (0 : E)) = ContinuousLinearMap.id ℝ (E →₁[volume] ℝ)",
       "doc": "**`δ₀ * f = f`.**",
-      "line": 657
+      "line": 659
     },
     {
       "name": "ScaleSpace.dilateE_mconvE",
@@ -7858,7 +7859,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_mconvE (A : E ≃L[ℝ] E) (μ : Measure E) {f : E → ℝ} (hf : Measurable f) :\n    dilateE A (mconvE μ f) = mconvE (μ.map A) (dilateE A f)",
       "doc": "**Transport** at the level of functions.",
-      "line": 668
+      "line": 670
     },
     {
       "name": "ScaleSpace.dilL1E_comp_mconvL1E",
@@ -7867,7 +7868,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_comp_mconvL1E (A : E ≃L[ℝ] E) (μ : Measure E) [IsFiniteMeasure μ]\n    [IsFiniteMeasure (μ.map A)] :\n    (dilL1E A).comp (mconvL1E μ) = (mconvL1E (μ.map A)).comp (dilL1E A)",
       "doc": "**Transport `D_A (μ * f) = (A_* μ) * D_A f`**, as operators.",
-      "line": 680
+      "line": 682
     },
     {
       "name": "ScaleSpace.dilL1E_conj_mconvL1E",
@@ -7876,7 +7877,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_conj_mconvL1E (A : E ≃L[ℝ] E) (μ ν : Measure E) [IsFiniteMeasure μ]\n    [IsFiniteMeasure ν] (h : μ.map A = ν) :\n    ((dilL1E A).comp (mconvL1E μ)).comp (dilL1E A.symm) = mconvL1E ν",
       "doc": "**Conjugating `μ * ·` by `D_A` gives `ν * ·` when `A_* μ = ν`.** The converse needs\nuniqueness of the representing measure, which this module does not state.",
-      "line": 702
+      "line": 704
     },
     {
       "name": "ScaleSpace.intertwines_iff_dilL1E",
@@ -7885,7 +7886,7 @@
       "kind": "theorem",
       "signature": "theorem intertwines_iff_dilL1E (c : ℝ) (hc : c ≠ 0) (A : E ≃L[ℝ] E)\n    (Φ Ψ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    (∀ f g : E →₁[volume] ℝ, ((g : E → ℝ) =ᵐ[volume] fun x => c * (f : E → ℝ) (A.symm x)) →\n      ((Ψ g : E → ℝ) =ᵐ[volume] fun x => c * (Φ f : E → ℝ) (A.symm x))) ↔\n    Ψ.comp (dilL1E A) = (dilL1E A).comp Φ",
       "doc": "**Relational intertwining is the operator identity.**",
-      "line": 716
+      "line": 718
     },
     {
       "name": "ScaleSpace.translation_iff_transL1E",
@@ -7894,7 +7895,7 @@
       "kind": "theorem",
       "signature": "theorem translation_iff_transL1E (Φ : (E →₁[volume] ℝ) →L[ℝ] (E →₁[volume] ℝ)) :\n    (∀ (a : E) (f g : E →₁[volume] ℝ), ((g : E → ℝ) =ᵐ[volume] fun x => (f : E → ℝ) (x - a)) →\n      ((Φ g : E → ℝ) =ᵐ[volume] fun x => (Φ f : E → ℝ) (x - a))) ↔\n    ∀ a : E, Φ.comp (transL1E a) = (transL1E a).comp Φ",
       "doc": "**Relational translation covariance is the operator identity.**",
-      "line": 751
+      "line": 753
     },
     {
       "name": "ScaleSpace.transL1E_real",
@@ -7903,7 +7904,7 @@
       "kind": "theorem",
       "signature": "theorem transL1E_real (a : ℝ) : transL1E a = transL1 a",
       "doc": null,
-      "line": 771
+      "line": 773
     },
     {
       "name": "ScaleSpace.reflL1E_real",
@@ -7912,7 +7913,7 @@
       "kind": "theorem",
       "signature": "theorem reflL1E_real : (reflL1E : X →L[ℝ] X) = reflL1",
       "doc": null,
-      "line": 774
+      "line": 776
     },
     {
       "name": "ScaleSpace.mconvL1E_real",
@@ -7921,7 +7922,7 @@
       "kind": "theorem",
       "signature": "theorem mconvL1E_real (μ : Measure ℝ) [IsFiniteMeasure μ] : mconvL1E μ = mconvL1 μ",
       "doc": null,
-      "line": 777
+      "line": 779
     },
     {
       "name": "ScaleSpace.mconvE_real",
@@ -7930,7 +7931,7 @@
       "kind": "theorem",
       "signature": "theorem mconvE_real (μ : Measure ℝ) (f : ℝ → ℝ) : mconvE μ f = mconv μ f",
       "doc": null,
-      "line": 780
+      "line": 782
     },
     {
       "name": "ScaleSpace.dilateE_homothety_real",
@@ -7939,7 +7940,7 @@
       "kind": "theorem",
       "signature": "theorem dilateE_homothety_real {lam : ℝ} (hlam : 0 < lam) (f : ℝ → ℝ) :\n    dilateE (homothety lam hlam.ne') f = dilate lam f",
       "doc": "`dilate`'s `lam⁻¹ f(lam⁻¹ x)` is `|det A|⁻¹ f(A⁻¹ x)` at `A = lam`.",
-      "line": 783
+      "line": 785
     },
     {
       "name": "ScaleSpace.dilL1E_homothety_real",
@@ -7948,7 +7949,7 @@
       "kind": "theorem",
       "signature": "theorem dilL1E_homothety_real {lam : ℝ} (hlam : 0 < lam) :\n    dilL1E (homothety lam hlam.ne') = dilL1 hlam",
       "doc": "**The matrix dilation at `E = ℝ`, `A = lam`, is the line's dilation.**",
-      "line": 791
+      "line": 793
     },
     {
       "name": "ScaleSpace.isNonnegE_real",
@@ -7957,7 +7958,7 @@
       "kind": "theorem",
       "signature": "theorem isNonnegE_real (f : X) : IsNonnegE f ↔ IsNonneg f",
       "doc": null,
-      "line": 798
+      "line": 800
     },
     {
       "name": "ScaleSpace.subCME",
@@ -8884,7 +8885,7 @@
       "kind": "def",
       "signature": "noncomputable def besselK (ν z : ℝ) : ℝ",
       "doc": "**`K_ν`**, the modified Bessel function of the second kind, by its integral representation\n`K_ν(z) = ∫₀^∞ e^{-z\\cosh u}\\cosh(νu)\\,du` (DLMF 10.32.9), valid for `z > 0`.",
-      "line": 71
+      "line": 74
     },
     {
       "name": "ScaleSpace.studentDensity",
@@ -8893,7 +8894,7 @@
       "kind": "def",
       "signature": "noncomputable def studentDensity (a t x : ℝ) : ℝ",
       "doc": "The Student-t density with `2a` degrees of freedom at spatial scale `t`:\n`φ_t(x) = \\frac{\\Gamma(a+1/2)}{\\sqrt\\pi\\,\\Gamma(a)}\\,t^{-1}(1 + (x/t)^2)^{-a-1/2}`.\n\nThe scaling convention is the one that makes the degrees of freedom `2a` rather than `a`; read\nit together with the rate in the inverse-gamma law (`inverseGammaDensity`).",
-      "line": 81
+      "line": 84
     },
     {
       "name": "ScaleSpace.studentLaw",
@@ -8902,7 +8903,7 @@
       "kind": "def",
       "signature": "noncomputable def studentLaw (a t : ℝ) : Measure ℝ",
       "doc": "The Student-t law with `2a` degrees of freedom at spatial scale `t`.",
-      "line": 86
+      "line": 89
     },
     {
       "name": "ScaleSpace.lintegral_exp_mul_of_even",
@@ -8911,7 +8912,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_exp_mul_of_even {p : ℝ} {G : ℝ → ℝ} (hGm : Measurable G)\n    (hGnn : ∀ v, 0 ≤ G v) (hGeven : ∀ v, G (-v) = G v) :\n    (∫⁻ v, ENNReal.ofReal (Real.exp (p * v) * G v))\n      = 2 * ∫⁻ v in Ioi (0 : ℝ), ENNReal.ofReal (Real.cosh (p * v) * G v)",
       "doc": "**The reflection fold at a general exponential weight.** For an even nonnegative `G`,\n`∫_ℝ e^{pv}G(v)\\,dv = 2∫_0^∞ \\cosh(pv)G(v)\\,dv`.",
-      "line": 93
+      "line": 96
     },
     {
       "name": "ScaleSpace.inverseGamma_brownian_integrand",
@@ -8920,7 +8921,7 @@
       "kind": "theorem",
       "signature": "theorem inverseGamma_brownian_integrand (a x : ℝ) {u : ℝ} (hu : 0 < u) :\n    inverseGammaDensity a u * brownianDensity u x\n      = (2 ^ a * Real.Gamma a * Real.sqrt (2 * Real.pi))⁻¹\n        * u ^ (-a - 3 / 2) * Real.exp (-((1 + x ^ 2) / 2 / u))",
       "doc": "The mixture integrand of the Bessel corner, in the form the substitution wants:\n`C·u^{-a-3/2}e^{-r/u}` with `r = (1+x²)/2`.",
-      "line": 140
+      "line": 143
     },
     {
       "name": "ScaleSpace.integral_inverseGamma_brownian",
@@ -8929,7 +8930,7 @@
       "kind": "theorem",
       "signature": "theorem integral_inverseGamma_brownian {a : ℝ} (ha : 0 < a) (x : ℝ) :\n    (∫ u in Ioi (0 : ℝ), inverseGammaDensity a u * brownianDensity u x)\n      = studentDensity a 1 x",
       "doc": "**The normal variance-mixture computation.** The inverse-gamma mixture of Gaussian\ndensities is the Student-t density with `2a` degrees of freedom at scale `1`.\n\nThe substitution is `integral_comp_rpow_Ioi` at `p = -1`, which is exactly `w = 1/u`, and what\nit leaves is `Real.integral_rpow_mul_exp_neg_mul_Ioi` at shape `a + 1/2` and rate\n`(1+x²)/2`.",
-      "line": 168
+      "line": 171
     },
     {
       "name": "ScaleSpace.studentDensity_pos",
@@ -8938,7 +8939,7 @@
       "kind": "theorem",
       "signature": "theorem studentDensity_pos {a : ℝ} (ha : 0 < a) (x : ℝ) : 0 < studentDensity a 1 x",
       "doc": "The Student-t density is strictly positive. This is what makes the `ℝ≥0∞` integral finite\nwithout an integrability proof: `∫⁻` infinite would read as `0` after `toReal`.",
-      "line": 226
+      "line": 229
     },
     {
       "name": "ScaleSpace.lintegral_inverseGamma_brownian",
@@ -8947,7 +8948,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_inverseGamma_brownian {a : ℝ} (ha : 0 < a) (x : ℝ) :\n    (∫⁻ u in Ioi (0 : ℝ), ENNReal.ofReal (inverseGammaDensity a u * brownianDensity u x))\n      = ENNReal.ofReal (studentDensity a 1 x)",
       "doc": null,
-      "line": 235
+      "line": 238
     },
     {
       "name": "ScaleSpace.bridge_families_bessel",
@@ -8956,7 +8957,7 @@
       "kind": "theorem",
       "signature": "theorem bridge_families_bessel (a : ℝ) (ha : 0 < a) :\n    (inverseGammaLaw a).bind brownianLaw = studentLaw a 1",
       "doc": "**The causal Bessel family maps to the Student-t family with `2a` degrees of freedom**: the\nBrownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law at scale `1`.",
-      "line": 261
+      "line": 264
     },
     {
       "name": "ScaleSpace.lintegral_Ioi_rpow_exp_besselKernel",
@@ -8965,7 +8966,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_Ioi_rpow_exp_besselKernel {p A B : ℝ} (hA : 0 < A) (hB : 0 < B) :\n    (∫⁻ u in Ioi (0 : ℝ), ENNReal.ofReal (u ^ (p - 1) * Real.exp (-(A / u + B * u))))\n      = ENNReal.ofReal ((Real.sqrt A / Real.sqrt B) ^ p) * (2 * ∫⁻ v in Ioi (0 : ℝ),\n          ENNReal.ofReal (Real.cosh (p * v)\n            * Real.exp (-(2 * (Real.sqrt A * Real.sqrt B) * Real.cosh v))))",
       "doc": "**The Bessel–Laplace integral, in `ℝ≥0∞` and down to the defining integral of `K_p`.**\n\n`∫_0^∞ u^{p-1}e^{-A/u - Bu}\\,du = 2c^pK_p(2s)` for `A, B > 0`, every real `p`, and\n`c = \\sqrt A/\\sqrt B`, `s = \\sqrt A\\sqrt B` — here with the right-hand side left as the integral\nthat *defines* `besselK`, and with the constants written in the coordinates that keep fourth\nroots out.",
-      "line": 310
+      "line": 313
     },
     {
       "name": "ScaleSpace.lintegral_cosh_exp_eq_besselK",
@@ -8974,7 +8975,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_cosh_exp_eq_besselK (p : ℝ) {z : ℝ}\n    (hfin : (∫⁻ v in Ioi (0 : ℝ),\n      ENNReal.ofReal (Real.cosh (p * v) * Real.exp (-(z * Real.cosh v)))) ≠ ⊤) :\n    (∫⁻ v in Ioi (0 : ℝ), ENNReal.ofReal (Real.cosh (p * v) * Real.exp (-(z * Real.cosh v))))\n      = ENNReal.ofReal (besselK p z)",
       "doc": "**The cosh-integral is `K_p`**, once it is known to be finite.\n\n`besselK` is a Bochner integral and returns junk when its integrand is not integrable, so the\nidentification is stated with finiteness as a hypothesis; every consumer gets it by comparison\nwith a convergent integral.",
-      "line": 382
+      "line": 385
     },
     {
       "name": "ScaleSpace.besselK_neg",
@@ -8983,7 +8984,7 @@
       "kind": "theorem",
       "signature": "theorem besselK_neg (p z : ℝ) : besselK (-p) z = besselK p z",
       "doc": "`K_{-p} = K_p`: the defining integral is even in the order.",
-      "line": 401
+      "line": 404
     },
     {
       "name": "ScaleSpace.besselK_nonneg",
@@ -8992,7 +8993,7 @@
       "kind": "theorem",
       "signature": "theorem besselK_nonneg (p z : ℝ) : 0 ≤ besselK p z",
       "doc": null,
-      "line": 406
+      "line": 409
     },
     {
       "name": "ScaleSpace.lintegral_exp_neg_inverseGammaLaw",
@@ -9001,7 +9002,7 @@
       "kind": "theorem",
       "signature": "theorem lintegral_exp_neg_inverseGammaLaw {a ω : ℝ} (ha : 0 < a) (hω : ω ≠ 0) :\n    (∫⁻ u, ENNReal.ofReal (Real.exp (-(ω ^ 2 / 2 * u))) ∂(inverseGammaLaw a))\n      = ENNReal.ofReal (2 ^ (1 - a) / Real.Gamma a * |ω| ^ a * besselK a |ω|)",
       "doc": "**The Laplace transform of the inverse-gamma law at `\\sigma = \\omega^2/2`.**\n\nThe delay law has Laplace transform `2^{1-a}\\Gamma(a)^{-1}\\sigma^{a/2}K_a(\\sqrt{2\\sigma})`, written\nhere at `\\sigma = \\omega^2/2`, where `\\sqrt{2\\sigma} = |\\omega|`.",
-      "line": 417
+      "line": 420
     },
     {
       "name": "ScaleSpace.student_transform",
@@ -9010,7 +9011,7 @@
       "kind": "theorem",
       "signature": "theorem student_transform {a : ℝ} (ha : 0 < a) :\n    ∀ ω : ℝ, ω ≠ 0 → fourierCos (studentLaw a 1) ω\n      = 2 ^ (1 - a) / Real.Gamma a * |ω| ^ a * besselK a |ω|",
       "doc": "**The transform of the Student-t law at canonical scale.** `\\hat\\phi_1(\\omega) =\n\\frac{2^{1-a}}{\\Gamma(a)}|\\omega|^aK_a(|\\omega|)` for `\\omega \\ne 0`.\n\nAt the origin the identity is false, `|0|^a` being `0` while the transform of a probability law\nis `1`; hence the quantifier `ω ≠ 0`. The proof conditions on the delay\n(`bridge_families_bessel`, `fourierCos_bind_brownianLaw`) and evaluates the Laplace transform of\nthe inverse-gamma law (`lintegral_exp_neg_inverseGammaLaw`); no Bessel asymptotic is used,\nbecause `besselK` is *defined* by the integral that the substitution produces.",
-      "line": 513
+      "line": 516
     }
   ],
   "claims": {
@@ -9046,135 +9047,105 @@
       {
         "site_slug": "line",
         "label": "def:positive-definite",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.IsSymNegDef": [
       {
         "site_slug": "line",
         "label": "def:symmetric-negdef",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.IsSymLevyExponent": [
       {
         "site_slug": "line",
         "label": "def:levy-exponents",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.fourier_uniqueness": [
       {
         "site_slug": "line",
         "label": "prop:fourier-uniqueness",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.levy_continuity": [
       {
         "site_slug": "line",
         "label": "prop:levy-continuity",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.profile_integrability": [
       {
         "site_slug": "line",
         "label": "lem:profile-integrability",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.nonvanishing": [
       {
         "site_slug": "line",
         "label": "lem:nonvanishing",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.covariance_fourier": [
       {
         "site_slug": "line",
         "label": "lem:covariance-fourier",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.covariance_similarity": [
       {
         "site_slug": "line",
         "label": "lem:covariance-fourier",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.dilation_invariance": [
       {
         "site_slug": "line",
         "label": "lem:dilation-invariance",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.dilation_atom": [
       {
         "site_slug": "line",
         "label": "lem:dilation-atom",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.canonical_gauge_orbit": [
       {
         "site_slug": "line",
         "label": "prop:canonical-gauge",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.canonical_gauge": [
       {
         "site_slug": "line",
         "label": "prop:canonical-gauge",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.admissible_cone": [
       {
         "site_slug": "line",
         "label": "lem:admissible-cone",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.bridge_exponents": [
       {
         "site_slug": "line",
         "label": "lem:bridge-exponents",
-        "released": true,
-        "version": "v0.1",
-        "doi": "10.5281/zenodo.22761632"
+        "released": false
       }
     ],
     "ScaleSpace.exists_profile_of_dilate_le": [
@@ -9184,185 +9155,10 @@
         "released": false
       }
     ],
-    "ScaleSpace.PointMeasurement": [
-      {
-        "site_slug": "ssf",
-        "label": "def:point-measurement",
-        "released": false
-      }
-    ],
-    "ScaleSpace.CovariantSpace": [
-      {
-        "site_slug": "ssf",
-        "label": "def:covariant-space",
-        "released": false
-      }
-    ],
     "ScaleSpace.LieWedge": [
       {
         "site_slug": "ssf",
         "label": "def:lie-wedge",
-        "released": false
-      }
-    ],
-    "ScaleSpace.GScaleSpace": [
-      {
-        "site_slug": "ssf",
-        "label": "def:g-scale-space",
-        "released": false
-      }
-    ],
-    "ScaleSpace.IsCovariant": [
-      {
-        "site_slug": "ssf",
-        "label": "def:infinitesimal-covariance",
-        "released": false
-      }
-    ],
-    "ScaleSpace.PsiSymbol": [
-      {
-        "site_slug": "ssf",
-        "label": "def:symbol",
-        "released": false
-      }
-    ],
-    "ScaleSpace.symbol_translation_invariant_const": [
-      {
-        "site_slug": "ssf",
-        "label": "lem:translation-invariant",
-        "released": false
-      }
-    ],
-    "ScaleSpace.NegativeDefinite": [
-      {
-        "site_slug": "ssf",
-        "label": "def:negative-definite",
-        "released": false
-      }
-    ],
-    "ScaleSpace.positive_kernel_iff_negdef": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:positivity-negdef",
-        "released": false
-      }
-    ],
-    "ScaleSpace.kernelMass_eq_one_iff_conservative": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:conservative",
-        "released": false
-      }
-    ],
-    "ScaleSpace.ScaleSpaceWedge": [
-      {
-        "site_slug": "ssf",
-        "label": "def:g-wedge",
-        "released": false
-      }
-    ],
-    "ScaleSpace.gScaleSpace_generated_by_wedge": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:generation",
-        "released": false
-      }
-    ],
-    "ScaleSpace.feller_isScaleSpaceWedge": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:affine-line",
-        "released": false
-      }
-    ],
-    "ScaleSpace.fellerSymbol_negativeDefinite": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:feller-negdef",
-        "released": false
-      }
-    ],
-    "ScaleSpace.euclidean_wedge_Riesz": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:euclidean",
-        "released": false
-      }
-    ],
-    "ScaleSpace.affine_wedge": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:affine",
-        "released": false
-      }
-    ],
-    "ScaleSpace.no_time_causal_galilean_scale_space_on_spacetime": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:galilean-nonexistence",
-        "released": false
-      }
-    ],
-    "ScaleSpace.timeCausal_temporalOrder_not_nat": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Temporal.power_law": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Temporal.causalKernel_alpha_not_nat": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.laplaceExponent_eq_temporalOrder": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:temporal-characterization",
-        "released": false
-      }
-    ],
-    "ScaleSpace.IsTimeCausal": [
-      {
-        "site_slug": "ssf",
-        "label": "def:causal",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryMeasurement.IsMemoryPointMeasurement": [
-      {
-        "site_slug": "ssf",
-        "label": "def:memory-point-measurement",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryBracket.autonomy_iff": [
-      {
-        "site_slug": "ssf",
-        "label": "lem:memory-autonomy",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryBracket.graded_dilation_iff": [
-      {
-        "site_slug": "ssf",
-        "label": "lem:graded-dilation",
-        "released": false
-      }
-    ],
-    "ScaleSpace.MemoryBracket.IsCovariantMemoryGenerator": [
-      {
-        "site_slug": "ssf",
-        "label": "def:covariant-memory",
         "released": false
       }
     ],
@@ -9377,111 +9173,6 @@
       {
         "site_slug": "ssf",
         "label": "lem:boost-bracket",
-        "released": false
-      }
-    ],
-    "ScaleSpace.causal_affine_RL": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:causal-affine",
-        "released": false
-      }
-    ],
-    "ScaleSpace.causal_galilean_evolution": [
-      {
-        "site_slug": "ssf",
-        "label": "thm:causal-galilean",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Kernel.galilean_kernel_solves": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:kernel",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.SlowlyVarying": [
-      {
-        "site_slug": "ssf",
-        "label": "def:tail-index",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.HasTailIndex": [
-      {
-        "site_slug": "ssf",
-        "label": "def:tail-index",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.HasPurePowerTail": [
-      {
-        "site_slug": "ssf",
-        "label": "def:tail-index",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.igKernel_lt_mode": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:ig-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.igMode_signalling": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:ig-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.erlangKernel_lt_mode": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:erlang-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Mode.erlang_cascade_mode": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:erlang-mode",
-        "released": false
-      }
-    ],
-    "ScaleSpace.LimitKernel.lyapunovRatio_eq": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:limit-kernel-gaussian",
-        "released": false
-      }
-    ],
-    "ScaleSpace.LimitKernel.lyapunovRatio_tendsto_zero": [
-      {
-        "site_slug": "ssf",
-        "label": "prop:limit-kernel-gaussian",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Bessel.gen": [
-      {
-        "site_slug": "ssf",
-        "label": "def:bessel-generator",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Bessel.divForm": [
-      {
-        "site_slug": "ssf",
-        "label": "def:bessel-generator",
-        "released": false
-      }
-    ],
-    "ScaleSpace.Bessel.divForm_eq_gen": [
-      {
-        "site_slug": "ssf",
-        "label": "def:bessel-generator",
         "released": false
       }
     ],

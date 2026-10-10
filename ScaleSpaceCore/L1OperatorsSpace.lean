@@ -44,7 +44,9 @@ operator nodes against it.
   `G = E` directly, with no generalisation needed.
 * The linear-map change of variables the dilation `D_A f = |det A|⁻¹ f(A⁻¹ ·)` and its isometry
   rest on (`addHaar_preimage_continuousLinearEquiv`'s `|det A|` scaling of Haar measure) is a
-  standard real-analysis fact with no suitable held source: requested below.
+  standard real-analysis fact, and no source the programme's library holds states it. It is not
+  cited here until one has been read at the page; a real-analysis text was requested for that
+  on 2026-10-10 (the librarian's acquisition queue).
 -/
 
 namespace ScaleSpace

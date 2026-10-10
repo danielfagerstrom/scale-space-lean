@@ -12,7 +12,7 @@ import ScaleSpaceCore.BrownianDensity
 Home: none (the classical normal variance-mixture representation of the Student-t law; second-
 demand consumers — Paper V's corner and Student modules, Paper VII's `IsotropicBridge`
 `prop:isotropic-bridge-student` — do not yet tag this shared declaration with `\lean`;
-ref: DLMF 10.32.9 for `besselK`'s integral representation)
+ref: @steutel2004infinite, Ch. IV, Example 11.6, p. 226)
 
 The Brownian mixture over the inverse-gamma delay law of shape `a` is the Student-t law with `2a`
 degrees of freedom at scale `1` (`bridge_families_bessel`), and its cosine transform is
@@ -36,11 +36,14 @@ that imports Paper V's bridge modules can import this one beside them.
 
 ## References
 
+* @steutel2004infinite, Ch. IV, Example 11.6, p. 226: a variance mixture of centred normal laws
+  has density `f(x) = π^{-1/2} ∫ e^{-x²/t} t^{-1/2} dG(t)`, and with `V = 1/T` standard gamma(`r`)
+  distributed this is the Student(`r`) density `B(r, ½)^{-1} (1 + x²)^{-(r+½)}` — the classical
+  fact `bridge_families_bessel` states, in the book's scaling (its normal component has variance
+  `t/2`, and `r` is half the degrees of freedom). The proof here is direct, from Mathlib's
+  Gaussian and gamma integrals, not read off the book.
 * @dlmf2026, §10.32.9: the integral representation `K_ν(z) = ∫₀^∞ e^{-z cosh u} cosh(νu) du`
   defining `besselK` (see "The special function Mathlib does not have" below).
-* A source for the classical fact itself — a normal variance mixture over the inverse-gamma law
-  is the Student-t distribution — is not yet held; requested below. `bridge_families_bessel` is
-  proved directly from Mathlib's Gaussian and gamma integrals, not read off such a source.
 
 ## The special function Mathlib does not have
 

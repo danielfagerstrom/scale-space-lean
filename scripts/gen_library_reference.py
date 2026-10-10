@@ -762,7 +762,6 @@ def build_blueprint_index():
     # no statement text and no title (Q-0391, task 3). Attributed to the member as a whole, never
     # guessed into a submodule (see DEV_REPOS): a submodule attribution only ever comes from that
     # submodule's own release export, above.
-    article_releases = load_article_releases()
     for member_slug, repo_name in DEV_REPOS.items():
         repo_dir = dev_dir() / repo_name
         if not repo_dir.exists():
@@ -773,11 +772,11 @@ def build_blueprint_index():
             if key in seen:
                 continue
             seen.add(key)
-            info = article_releases.get(member_slug, {})
-            claim = {"site_slug": member_slug, "label": tagged["label"], "released": bool(info.get("released"))}
-            if info.get("released"):
-                claim["version"] = info.get("version")
-                claim["doi"] = info.get("doi")
+            # Unreleased whatever the article's own state: the tag is in the development head,
+            # and a release that exists was cut before it (Paper V's v0.1 tags `SpatialLine.*`
+            # where its development blueprint now tags `ScaleSpace.*`). Marking it by the
+            # article's release printed fifteen of them as published in v0.1 (2026-10-10).
+            claim = {"site_slug": member_slug, "label": tagged["label"], "released": False}
             claims.setdefault(tagged["name"], []).append(claim)
     return claims
 
@@ -796,6 +795,12 @@ def main():
     # Not merely ignored afterwards: skipped, so a run in CI does not emit four warnings
     # about repositories it was never going to find.
     claims = {} if check_source else build_blueprint_index()
+    # Only this library's declarations. An article may declare its own names under
+    # `ScaleSpace.` (SSF's Lean does, and Paper V's extension lemmas on the library's types),
+    # and a tag of one of those is that article's business, not a claim on anything here: 40
+    # of the 62 keys were such names (2026-10-10).
+    declared = {e["name"] for e in entries}
+    claims = {name: cs for name, cs in claims.items() if name in declared}
     article_releases = {} if check_source else load_article_releases()
     data_path = OUT_DIR / "data.json"
     generated = os.environ.get("GEN_LIBRARY_REFERENCE_DATE")
